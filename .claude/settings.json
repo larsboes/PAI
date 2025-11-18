@@ -1,10 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
-    "MCP_API_KEY": "REDACTED",
-    "DISABLE_INTERLEAVED_THINKING": "true",
-    "DA": "Kai",
-    "PAI_DIR": "$HOME/.claude"
+    "DA": "PAI",
+    "PAI_DIR": "$HOME/.claude",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000"
   },
   "permissions": {
     "allow": [
@@ -36,7 +35,7 @@
       "Bash(diskutil coreStorage)",
       "Bash(diskutil cs)",
       "Bash(diskutil disableJournal)",
-      "Bash(diskutil resetFusion)",       
+      "Bash(diskutil resetFusion)",
       "Bash(diskutil disableOwnership)",
       "Bash(diskutil apfs deleteContainer)",
       "Bash(diskutil apfs eraseVolume)",
@@ -63,7 +62,17 @@
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [],
   "hooks": {
-    "PreToolUse": [],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PreToolUse"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "*",
@@ -71,6 +80,10 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/capture-tool-output.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PostToolUse"
           }
         ]
       }
@@ -81,17 +94,24 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/capture-session-summary.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SessionEnd"
           }
         ]
       }
     ],
-    "Notification": [],
     "UserPromptSubmit": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/update-tab-titles.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type UserPromptSubmit"
           }
         ]
       }
@@ -106,6 +126,10 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/initialize-pai-session.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SessionStart"
           }
         ]
       }
@@ -116,6 +140,10 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/stop-hook.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type Stop"
           }
         ]
       }
@@ -126,6 +154,10 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/subagent-stop-hook.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SubagentStop"
           }
         ]
       }
@@ -137,6 +169,10 @@
           {
             "type": "command",
             "command": "${PAI_DIR}/hooks/context-compression-hook.ts"
+          },
+          {
+            "type": "command",
+            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PreCompact"
           }
         ]
       }
@@ -146,7 +182,9 @@
     "type": "command",
     "command": "bash ${PAI_DIR}/statusline-command.sh"
   },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754071370324
-  }
+  "enabledPlugins": {
+    "browser-automation@browser-tools": true
+  },
+  "alwaysThinkingEnabled": true,
+  "max_tokens": 4096
 }
