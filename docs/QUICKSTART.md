@@ -150,14 +150,10 @@ Follow the guide in `.claude/skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
 
 ### Customize Your Setup
 
-**Stack Preferences** - Edit what you prefer:
-- `.claude/skills/CORE/stack-preferences.md` - TypeScript vs Python, etc.
-
-**Agent Personalities** - Customize agent voices:
-- `.claude/skills/CORE/agent-personalities.md`
-
 **Hooks** - Add custom automation:
 - `.claude/hooks/` - Event-driven scripts
+
+See `.claude/skills/CORE/SKILL.md` for complete configuration options.
 
 ---
 
@@ -224,9 +220,9 @@ cd ~/.claude/skills/
 
 Skills auto-activate based on their description triggers.
 
-### Customize Agent Voices
+### Explore CORE Documentation
 
-Edit `.claude/skills/CORE/agent-personalities.md` with your preferred ElevenLabs voice IDs.
+See `.claude/skills/CORE/` for complete system documentation and configuration guides.
 
 ---
 
