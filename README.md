@@ -37,6 +37,40 @@ PAI (Personal AI Infrastructure) is a template for building your own AI-powered 
 
 ---
 
+## 🔄 **PAI vs Kai: What You Get**
+
+**PAI (this repository) provides:**
+- ✅ Skills/agents/hooks architecture
+- ✅ CORE documentation and routing
+- ✅ History system (UOCS) for automatic documentation
+- ✅ Example skills (research, fabric, etc.)
+- ✅ Voice server skeleton
+- ⚙️ **Requires:** API key configuration per skill
+
+**Kai (Daniel's private system) adds:**
+- 🔒 Personal data, contacts, and history
+- 🔒 Additional private skills and workflows
+- 🔒 Customized agent personalities and voices
+- 🔒 Production integrations and automations
+
+**Think of it this way:** PAI is the scaffolding. You build your own "Kai" on top of it.
+
+**After setup, PAI should:**
+- ✅ Execute hooks without errors
+- ✅ Load CORE context at session start
+- ✅ Route skills correctly
+- ✅ Capture session history
+- ✅ Launch agents successfully
+
+**Not working?** Run the health check:
+```bash
+bun ~/.claude/hooks/self-test.ts
+```
+
+See `PAI_CONTRACT.md` for complete details on what's guaranteed vs what needs configuration.
+
+---
+
 ## 🚀 **Quick Start**
 
 ### 1. Install Prerequisites

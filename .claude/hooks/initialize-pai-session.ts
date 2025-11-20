@@ -22,8 +22,8 @@
  */
 
 import { existsSync, statSync } from 'fs';
-import { homedir } from 'os';
 import { join } from 'path';
+import { PAI_DIR } from './lib/pai-paths';
 
 async function sendNotification(title: string, message: string, priority: string = 'normal') {
   try {
@@ -54,8 +54,7 @@ async function sendNotification(title: string, message: string, priority: string
 }
 
 async function testStopHook() {
-  const paiDir = process.env.PAI_DIR || join(homedir(), '.claude');
-  const stopHookPath = join(paiDir, 'hooks/stop-hook.ts');
+  const stopHookPath = join(PAI_DIR, 'hooks/stop-hook.ts');
 
   console.error('\n🔍 Testing stop-hook configuration...');
 

@@ -27,7 +27,7 @@
 
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { homedir } from 'os';
+import { PAI_DIR, SKILLS_DIR } from './lib/pai-paths';
 
 async function main() {
   try {
@@ -42,9 +42,8 @@ async function main() {
       process.exit(0);
     }
 
-    // Get PAI directory from environment or use default
-    const paiDir = process.env.PAI_DIR || join(homedir(), '.claude');
-    const coreSkillPath = join(paiDir, 'skills/CORE/SKILL.md');
+    // Get CORE skill path using PAI paths library
+    const coreSkillPath = join(SKILLS_DIR, 'CORE/SKILL.md');
 
     // Verify CORE skill file exists
     if (!existsSync(coreSkillPath)) {

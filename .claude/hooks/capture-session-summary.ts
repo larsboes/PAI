@@ -9,14 +9,13 @@
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
+import { PAI_DIR, HISTORY_DIR } from './lib/pai-paths';
 
 interface SessionData {
   conversation_id: string;
   timestamp: string;
   [key: string]: any;
 }
-
-const HISTORY_DIR = join(process.env.HOME!, '.claude', 'history');
 
 async function main() {
   try {
