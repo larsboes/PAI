@@ -148,6 +148,7 @@ claude-code
 
 Explore example skills in `.claude/skills/`:
 
+- **`brightdata/`** - Four-tier progressive web scraping with automatic fallback (WebFetch → cURL → Playwright → Bright Data MCP)
 - **`fabric/`** - Integration with Fabric pattern system (242+ AI patterns)
 - **`research/`** - Multi-source research workflows
 - **`create-skill/`** - Templates for creating new skills
