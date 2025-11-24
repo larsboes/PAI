@@ -17,21 +17,48 @@ The system automatically tries each tier in order, only escalating when the prev
 
 ## Setup Requirements
 
-### 1. Bright Data API Key
+### 1. Install Bright Data MCP Server
 
-To use Tier 4 (Bright Data MCP), you need a Bright Data account and API key:
+To use Tier 4 (Bright Data MCP), you need to install the Bright Data MCP server and configure your API key.
 
-1. **Create Account**: Sign up at [https://brightdata.com](https://brightdata.com)
-2. **Get API Key**:
-   - Navigate to your account settings
-   - Go to the API section
-   - Generate a new API key
-   - Full documentation: [Bright Data API Documentation](https://docs.brightdata.com/api-reference/web-scraper/introduction)
+**Step 1: Get Bright Data API Key**
 
-3. **Configure MCP**:
-   - Add the Bright Data MCP to your Claude Code configuration
-   - Provide your API key when configuring the MCP server
-   - The MCP handles authentication automatically
+1. Create account at [https://brightdata.com](https://brightdata.com)
+2. Navigate to your account settings
+3. Go to the API section
+4. Generate a new API key
+5. Copy the API token (you'll need it for configuration)
+
+Full documentation: [Bright Data API Documentation](https://docs.brightdata.com/api-reference/web-scraper/introduction)
+
+**Step 2: Configure MCP Server**
+
+Add the Bright Data MCP server to your Claude Code MCP configuration file (`.claude/.mcp.json` or `~/.claude/.mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "brightdata": {
+      "command": "bunx",
+      "args": [
+        "-y",
+        "@brightdata/mcp"
+      ],
+      "env": {
+        "API_TOKEN": "your_bright_data_api_token_here"
+      }
+    }
+  }
+}
+```
+
+**Step 3: Restart Claude Code**
+
+After adding the MCP server configuration, restart Claude Code to load the Bright Data MCP server.
+
+**Verify Installation:**
+
+Once Claude Code restarts, the `mcp__Brightdata__scrape_as_markdown` tool will be available. You can verify by asking Claude Code to list available MCP tools.
 
 ### 2. Browser Automation (Optional)
 
