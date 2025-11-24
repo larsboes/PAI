@@ -26,6 +26,8 @@
 
 ## 🎯 **What is PAI?**
 
+**Philosophy:** Bringing AI to everyone. Democratizing personal AI infrastructure so anyone can build their own intelligent operating system.
+
 PAI (Personal AI Infrastructure) is a template for building your own AI-powered operating system using Claude Code.
 
 **Core Primitives:**
@@ -33,7 +35,7 @@ PAI (Personal AI Infrastructure) is a template for building your own AI-powered 
 - **Agents** - Specialized AI personalities for different tasks (engineer, researcher, designer, etc.)
 - **Hooks** - Event-driven automation that captures work, provides voice feedback, and manages state
 
-**Philosophy:** Start clean, small, and simple. Build the scaffolding that makes AI reliable.
+**Approach:** Start clean, small, and simple. Build the scaffolding that makes AI reliable.
 
 ---
 
