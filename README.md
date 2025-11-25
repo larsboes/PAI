@@ -24,11 +24,21 @@
 
 ---
 
+<div align="center">
+
+## *"This project exists so that the best AI in the world is not only used by a few, but can be used by everyone."*
+
+</div>
+
+The most powerful AI capabilities shouldn't be locked behind corporate walls or reserved for those with engineering teams. PAI is infrastructure that puts world-class AI orchestration in the hands of individuals—developers, creators, professionals, and anyone who wants to build their own intelligent operating system.
+
+We believe the future of AI is personal. Not one-size-fits-all chatbots, but customized systems that understand your work, your preferences, and your goals. PAI provides the scaffolding to make that vision real.
+
+---
+
 ## 🎯 **What is PAI?**
 
-**Philosophy:** Bringing AI to everyone. Democratizing personal AI infrastructure so anyone can build their own intelligent operating system.
-
-PAI (Personal AI Infrastructure) is a template for building your own AI-powered operating system using Claude Code.
+PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system using Claude Code.
 
 **Core Primitives:**
 - **Skills** - Self-contained AI capabilities with routing, workflows, and documentation
