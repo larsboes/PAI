@@ -44,7 +44,23 @@ nano .claude/.env  # or use your preferred editor
 # Optional: Add other API keys for specific skills
 ```
 
-### 3. Install to Your System
+### 3. Configure PAI_DIR
+
+Edit `.claude/settings.json` and set `PAI_DIR` to your actual path:
+
+```json
+"env": {
+  "PAI_DIR": "/Users/yourname/.claude",  // <- Change this!
+  ...
+}
+```
+
+**Examples:**
+- macOS: `"/Users/john/.claude"`
+- Linux: `"/home/john/.claude"`
+- Custom location: `"/opt/pai"` (if you want PAI elsewhere)
+
+### 4. Install to Your System
 
 **Option A: Copy (recommended for beginners)**
 ```bash
@@ -56,6 +72,19 @@ cp -r .claude ~/.claude
 ```bash
 # Symlink for live updates
 ln -s $(pwd)/.claude ~/.claude
+```
+
+### 5. Add PAI_DIR to Shell (Optional but Recommended)
+
+Add to your `~/.zshrc` or `~/.bashrc`:
+```bash
+export PAI_DIR="$HOME/.claude"
+```
+
+Or copy the provided aliases:
+```bash
+cat .claude/zshrc-aliases >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ---
