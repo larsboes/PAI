@@ -18,23 +18,55 @@ This skill activates when the user requests research or information gathering:
 
 ## How to Execute
 
-**Execute the `/conduct-research` slash command**, which handles the complete workflow:
+### Step 1: Decompose the Research Question
 
-1. Decomposing research questions into 3-10 sub-questions
-2. Launching up to 10 parallel research agents (perplexity, claude, gemini)
-3. Collecting results in 15-30 seconds
-4. Synthesizing findings with confidence levels
-5. Formatting comprehensive report with source attribution
+Break the user's query into 3-10 specific sub-questions that cover different aspects:
+- Core facts and definitions
+- Recent developments
+- Expert opinions
+- Contrarian viewpoints
+- Practical applications
+
+### Step 2: Launch Parallel Research Agents
+
+Use the Task tool to launch multiple researcher agents **in parallel** (single message with multiple Task calls):
+
+```
+Task: perplexity-researcher - "Research question 1"
+Task: claude-researcher - "Research question 2"
+Task: gemini-researcher - "Research question 3"
+...
+```
+
+### Step 3: Synthesize Results
+
+Collect all agent responses and create a comprehensive report:
+- Merge overlapping findings
+- Note areas of consensus and disagreement
+- Include confidence levels
+- Cite sources from each agent
 
 ## Available Research Agents
 
-- All agents with "researcher" in their name in the agents directory.
+Check `~/.claude/agents/` for agents with "researcher" in their name:
+- `perplexity-researcher` - Web search specialist
+- `claude-researcher` - Deep analysis
+- `gemini-researcher` - Multi-perspective research
 
 ## Speed Benefits
 
 - ❌ **Old approach**: Sequential searches → 5-10 minutes
 - ✅ **New approach**: 10 parallel agents → Under 1 minute
 
-## Full Workflow Reference
+## Example Usage
 
-For complete step-by-step instructions: `read ${PAI_DIR}/commands/conduct-research.md`
+```
+User: "Research the current state of AI agents in 2025"
+
+AI: [Launches 5 parallel Task calls]
+- Task: perplexity-researcher - "What are the leading AI agent frameworks in 2025?"
+- Task: claude-researcher - "How do autonomous AI agents handle multi-step tasks?"
+- Task: gemini-researcher - "What are the main limitations of current AI agents?"
+- Task: perplexity-researcher - "Recent breakthroughs in AI agent architectures"
+- Task: claude-researcher - "Enterprise adoption of AI agents - current trends"
+```
