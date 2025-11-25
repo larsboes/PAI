@@ -30,9 +30,9 @@
 
 </div>
 
-The most powerful AI capabilities shouldn't be locked behind corporate walls or reserved for those with engineering teams. PAI is infrastructure that puts world-class AI orchestration in the hands of individuals—developers, creators, professionals, and anyone who wants to build their own intelligent operating system.
+Right now the most powerful AI setups are being built inside companies with massive engineering teams. That's backwards. These tools should be available to individuals—to you—so you can build your own AI system that actually knows how you work.
 
-We believe the future of AI is personal. Not one-size-fits-all chatbots, but customized systems that understand your work, your preferences, and your goals. PAI provides the scaffolding to make that vision real.
+That's what PAI is. It's the scaffolding for building a personal AI that gets better over time because it's *yours*. Not some generic chatbot. Your system, your skills, your workflows.
 
 ---
 
