@@ -270,19 +270,36 @@ fabric "your text here" -p [pattern]
 
 ## 🔄 Updating Patterns
 
-The Fabric repository is included in this skill at `${PAI_DIR}/skills/fabric/fabric-repo/`.
+The Fabric repository is included as a snapshot in `~/.claude/skills/fabric/fabric-repo/`.
 
-**To update patterns:**
+**To update to latest patterns:**
 
 ```bash
-cd ${PAI_DIR}/skills/fabric/fabric-repo
-git pull origin main
+# Clone fresh Fabric repo
+cd /tmp
+git clone --depth 1 https://github.com/danielmiessler/fabric.git
+
+# Copy new patterns to PAI
+rm -rf ~/.claude/skills/fabric/fabric-repo
+cp -r fabric ~/.claude/skills/fabric/fabric-repo
+
+# Cleanup
+rm -rf /tmp/fabric
+```
+
+**Or install Fabric separately and use local patterns:**
+
+```bash
+# If you have Fabric installed locally
+go install github.com/danielmiessler/fabric@latest
+fabric --updatepatterns
+# Patterns will be in ~/.config/fabric/patterns/
 ```
 
 **To see all available patterns:**
 
 ```bash
-ls ${PAI_DIR}/skills/fabric/fabric-repo/data/patterns/
+ls ~/.claude/skills/fabric/fabric-repo/data/patterns/
 # OR from your local Fabric install:
 ls ~/.config/fabric/patterns/
 ```
@@ -359,10 +376,10 @@ cat wisdom.txt | fabric -p create_5_sentence_summary
 
 ## 📖 Supplementary Resources
 
-**Full Pattern List:** `ls ${PAI_DIR}/skills/fabric/fabric-repo/data/patterns/`
-**Fabric Repo:** `${PAI_DIR}/skills/fabric/fabric-repo/`
+**Full Pattern List:** `ls ~/.claude/skills/fabric/fabric-repo/data/patterns/`
+**Fabric Repo:** `~/.claude/skills/fabric/fabric-repo/`
 **Fabric Documentation:** https://github.com/danielmiessler/fabric
-**Pattern Templates:** See `${PAI_DIR}/skills/fabric/fabric-repo/data/patterns/official_pattern_template/`
+**Pattern Templates:** See `~/.claude/skills/fabric/fabric-repo/data/patterns/official_pattern_template/`
 
 ## 🔑 Key Insight
 
