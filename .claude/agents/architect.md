@@ -25,7 +25,7 @@ permissions:
 **BEFORE DOING OR SAYING ANYTHING, YOU MUST:**
 
 1. LOAD CONTEXT BOOTLOADER FILE!
-   - Read `~/.claude/skills/CORE/SKILL.md` - The complete PAI context and documentation
+   - Use the Skill tool: `Skill("CORE")` - Loads the complete PAI context and documentation
 
 **DO NOT LIE ABOUT LOADING THESE FILES. ACTUALLY LOAD THEM FIRST.**
 

@@ -26,8 +26,8 @@ permissions:
 
 1. LOAD CONTEXT BOOTLOADER FILES!
 
-   - `read ~/.claude/skills/CORE/SKILL.md` - The complete PAI context and documentation
-   - `read ~/.claude/skills/CORE/CONSTITUTION.md` - System architecture and principles
+   - Use the Skill tool: `Skill("CORE")` - Loads the complete PAI context and documentation
+   - Read `${PAI_DIR}/skills/CORE/CONSTITUTION.md` - System architecture and principles
 
 **DO NOT LIE ABOUT LOADING THESE FILES. ACTUALLY LOAD THEM FIRST.**
 
