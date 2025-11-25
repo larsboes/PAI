@@ -42,7 +42,7 @@ Replace `your_api_key_here` with your actual API key from Step 2.
 ## Step 4: Install the Voice Server
 
 ```bash
-cd ${PAI_DIR}/voice-server
+cd ~/.claude/voice-server
 ./install.sh
 ```
 
@@ -100,7 +100,7 @@ Get visual status in your macOS menu bar:
 brew install --cask swiftbar
 
 # Install the menu bar indicator
-cd ${PAI_DIR}/voice-server/menubar
+cd ~/.claude/voice-server/menubar
 ./install-menubar.sh
 ```
 
@@ -139,7 +139,7 @@ tail -f ~/.claude/voice-server/logs/voice-server.log
 Kill any existing process and restart:
 ```bash
 lsof -ti:8888 | xargs kill -9
-cd ${PAI_DIR}/voice-server && ./restart.sh
+cd ~/.claude/voice-server && ./restart.sh
 ```
 
 ### "Invalid API key"

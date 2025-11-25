@@ -172,20 +172,15 @@ cat ~/.claude/settings.json | grep SessionStart
 read ~/.claude/skills/CORE/SKILL.md
 ```
 
-### Hooks Fail with "$HOME/.claude/..." Error
+### Hooks Not Running
 
-If you see errors like:
+Hooks require Bun to be installed and in your PATH. Verify:
+```bash
+which bun
+# Should show path like /Users/yourname/.bun/bin/bun
 ```
-/bin/sh: $HOME/.claude/hooks/capture-all-events.ts: No such file or directory
-```
 
-**Solution:** PAI_DIR environment variable isn't being expanded. The hooks default to `~/.claude` automatically, so you don't need PAI_DIR at all.
-
-If you previously set PAI_DIR and are having issues:
-1. Remove `PAI_DIR` from `~/.claude/settings.json` env section
-2. OR set it to an absolute path: `"PAI_DIR": "/Users/yourname/.claude"`
-
-The hooks will automatically use `~/.claude` if PAI_DIR isn't set.
+If Bun isn't found, reinstall it and restart your terminal.
 
 ### Voice Server Not Working
 
