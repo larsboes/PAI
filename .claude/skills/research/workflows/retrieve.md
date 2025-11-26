@@ -399,7 +399,7 @@ mcp__Apify__apify-slash-rag-web-browser({
 
 ## 📁 Scratchpad → History Pattern
 
-**Working Directory (Scratchpad):** `~/.claude/scratchpad/YYYY-MM-DD-HHMMSS_retrieve-[site-or-topic]/`
+**Working Directory (Scratchpad):** `${PAI_DIR}/scratchpad/YYYY-MM-DD-HHMMSS_retrieve-[site-or-topic]/`
 
 **Process:**
 
@@ -411,7 +411,7 @@ mcp__Apify__apify-slash-rag-web-browser({
    - Draft extracted data and transformations
 
 2. **History (Permanent Archive):**
-   - Move to `~/.claude/history/research/YYYY-MM-DD_[description]/` when complete
+   - Move to `${PAI_DIR}/history/research/YYYY-MM-DD_[description]/` when complete
    - Include: `README.md`, final extracted content, metadata
    - Archive for future reference and reuse
 
@@ -424,7 +424,7 @@ mcp__Apify__apify-slash-rag-web-browser({
 
 **Scratchpad (temporary workspace):**
 ```
-~/.claude/scratchpad/2025-10-26-143022_retrieve-react19-docs/
+${PAI_DIR}/scratchpad/2025-10-26-143022_retrieve-react19-docs/
 ├── raw-content/
 │   ├── page1.md (Layer 2 output)
 │   ├── page2.md (Layer 2 output)
@@ -438,7 +438,7 @@ mcp__Apify__apify-slash-rag-web-browser({
 
 **History (permanent archive):**
 ```
-~/.claude/history/research/2025-10-26_react19-documentation/
+${PAI_DIR}/history/research/2025-10-26_react19-documentation/
 ├── README.md (retrieval documentation)
 ├── content.md (final extracted content)
 ├── metadata.json (sources, layers used, timestamps)

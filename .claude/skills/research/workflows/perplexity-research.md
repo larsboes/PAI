@@ -64,7 +64,7 @@ if (!originalQuestion) {
 const apiKey = process.env.PERPLEXITY_API_KEY;
 if (!apiKey) {
   console.error('❌ PERPLEXITY_API_KEY not found');
-  console.error('Please add PERPLEXITY_API_KEY to your ~/.claude/.env file');
+  console.error('Please add PERPLEXITY_API_KEY to your ${PAI_DIR}/.env file');
   process.exit(1);
 }
 

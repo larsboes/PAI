@@ -224,7 +224,7 @@ NOTE: Mermaid = structured diagram types (flowchart, sequence, state, etc.) + Ex
 
 ### Step 0: Read Required Files (MANDATORY)
 1. **Read workflow:** `workflows/workflow.md` (editorial) OR `workflows/technical-diagrams.md` (technical)
-2. **Read aesthetic:** `~/.claude/skills/CORE/aesthetic.md`
+2. **Read aesthetic:** `${PAI_DIR}/skills/CORE/aesthetic.md`
 
 ### Step 1: Run 24-Item Story Explanation on Content (MANDATORY)
 **You MUST use the story-explanation skill with 24-item length. Do NOT skip this step. Do NOT derive concepts yourself without the 24-item story explanation.**
@@ -245,7 +245,7 @@ Follow the remaining steps in `workflows/workflow.md` exactly.
 
 ### Aesthetic Source (REQUIRED READING)
 
-**Always read first:** `~/.claude/skills/CORE/aesthetic.md`
+**Always read first:** `${PAI_DIR}/skills/CORE/aesthetic.md`
 
 This defines the Anthropic editorial style:
 - Flat solid colors (NO gradients)
@@ -323,7 +323,7 @@ This defines the Anthropic editorial style:
 
 ## Environment Setup
 
-The CLI automatically loads API keys from `~/.claude/.env`. Required keys:
+The CLI automatically loads API keys from `${PAI_DIR}/.env`. Required keys:
 - `REPLICATE_API_TOKEN` - For Flux and Nano Banana models
 - `OPENAI_API_KEY` - For GPT-image-1 model
 - `GOOGLE_API_KEY` - For Nano Banana Pro (Gemini 3 Pro)
@@ -336,7 +336,7 @@ The CLI automatically loads API keys from `~/.claude/.env`. Required keys:
 **nano-banana-pro** (Gemini 3 Pro)
 
 ```bash
-bun run ~/.claude/skills/art/tools/generate-ulart-image.ts \
+bun run ${PAI_DIR}/skills/art/tools/generate-ulart-image.ts \
   --model nano-banana-pro \
   --prompt "[PROMPT]" \
   --size 2K \

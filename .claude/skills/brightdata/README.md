@@ -33,7 +33,7 @@ Full documentation: [Bright Data API Documentation](https://docs.brightdata.com/
 
 **Step 2: Configure MCP Server**
 
-Add the Bright Data MCP server to your Claude Code MCP configuration file (`.claude/.mcp.json` or `~/.claude/.mcp.json`):
+Add the Bright Data MCP server to your Claude Code MCP configuration file (`.claude/.mcp.json` or `${PAI_DIR}/.mcp.json`):
 
 ```json
 {

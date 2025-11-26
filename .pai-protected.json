@@ -51,14 +51,14 @@
   "kai_to_pai_workflow": {
     "description": "How to safely sync Kai improvements to PAI",
     "steps": [
-      "1. Make changes in Kai (~/.claude/)",
+      "1. Make changes in Kai (${PAI_DIR}/)",
       "2. Test thoroughly in Kai environment",
       "3. Identify which changes should go to public PAI",
-      "4. Copy changes to PAI repo (~/Projects/PAI/.claude/)",
+      "4. Copy changes to PAI repo (${PAI_REPO}/)",
       "5. SKIP protected files (they stay PAI-specific)",
       "6. Sanitize any personal data or API keys",
-      "7. Run: bun ~/Projects/PAI/.claude/hooks/self-test.ts",
-      "8. Run: bun ~/Projects/PAI/.claude/hooks/validate-protected.ts",
+      "7. Run: bun ${PAI_REPO}/.claude/hooks/self-test.ts",
+      "8. Run: bun ${PAI_REPO}/.claude/hooks/validate-protected.ts",
       "9. If validation passes, commit to PAI",
       "10. If validation fails, check which protected files changed"
     ]

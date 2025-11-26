@@ -58,7 +58,7 @@ Major architectural improvements addressing GitHub issues #112, #113, #95, and #
 
 - `.claude/hooks/self-test.ts` - PAI health check system
   - Tests 12 core guarantees
-  - Command: `bun ~/.claude/hooks/self-test.ts`
+  - Command: `bun ${PAI_DIR}/hooks/self-test.ts`
   - Validates: directories, CORE skill, settings, agents, hooks
   - Clear pass/fail reporting
 
@@ -190,7 +190,7 @@ All systems tested and verified:
 
 ### For Daniel (Kai → PAI Workflow):
 
-1. **Make changes in Kai** (`~/.claude/`)
+1. **Make changes in Kai** (`${PAI_DIR}/`)
 2. **Test in Kai** thoroughly
 3. **Identify what to share** (generic improvements)
 4. **Copy to PAI repo** (specific files/skills only)

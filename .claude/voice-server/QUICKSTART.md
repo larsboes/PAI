@@ -42,7 +42,7 @@ Replace `your_api_key_here` with your actual API key from Step 2.
 ## Step 4: Install the Voice Server
 
 ```bash
-cd ~/.claude/voice-server
+cd ${PAI_DIR}/voice-server
 ./install.sh
 ```
 
@@ -100,7 +100,7 @@ Get visual status in your macOS menu bar:
 brew install --cask swiftbar
 
 # Install the menu bar indicator
-cd ~/.claude/voice-server/menubar
+cd ${PAI_DIR}/voice-server/menubar
 ./install-menubar.sh
 ```
 
@@ -131,7 +131,7 @@ Expected output:
 
 **Check 3:** Look at server logs:
 ```bash
-tail -f ~/.claude/voice-server/logs/voice-server.log
+tail -f ${PAI_DIR}/voice-server/logs/voice-server.log
 ```
 
 ### "Port 8888 already in use"
@@ -139,7 +139,7 @@ tail -f ~/.claude/voice-server/logs/voice-server.log
 Kill any existing process and restart:
 ```bash
 lsof -ti:8888 | xargs kill -9
-cd ~/.claude/voice-server && ./restart.sh
+cd ${PAI_DIR}/voice-server && ./restart.sh
 ```
 
 ### "Invalid API key"
@@ -214,7 +214,7 @@ curl -X POST http://localhost:8888/notify \
 ## Need Help?
 
 1. Check the [README](README.md) for detailed troubleshooting
-2. Review server logs: `tail -f ~/.claude/voice-server/logs/voice-server.log`
+2. Review server logs: `tail -f ${PAI_DIR}/voice-server/logs/voice-server.log`
 3. Test the health endpoint: `curl http://localhost:8888/health`
 
 ---

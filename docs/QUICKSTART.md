@@ -133,7 +133,7 @@ The CORE skill loads at session start via the `SessionStart` hook.
 ### Where Everything Lives
 
 ```
-~/.claude/
+${PAI_DIR}/
 ├── skills/
 │   └── CORE/              # Main PAI documentation
 │       ├── CONSTITUTION.md    # System philosophy & architecture
@@ -153,24 +153,24 @@ The CORE skill loads at session start via the `SessionStart` hook.
 
 1. **Read CONSTITUTION.md** - Understand PAI philosophy
    ```
-   read ~/.claude/skills/CORE/CONSTITUTION.md
+   read ${PAI_DIR}/skills/CORE/CONSTITUTION.md
    ```
 
 2. **Explore Skills** - See what's available
    ```
-   ls ~/.claude/skills/
+   ls ${PAI_DIR}/skills/
    ```
 
 3. **Try Voice Feedback** - Start the voice server (optional)
    ```
-   ~/.claude/voice-server/start.sh
+   ${PAI_DIR}/voice-server/start.sh
    ```
 
 ### Create Your First Skill
 
 ```bash
 # Use the create-skill skill
-cd ~/.claude/skills/
+cd ${PAI_DIR}/skills/
 mkdir my-first-skill
 # See create-skill/ for templates
 ```
@@ -193,12 +193,12 @@ See `.claude/skills/CORE/SKILL.md` for complete configuration options.
 **Check hook configuration:**
 ```bash
 # Verify SessionStart hook exists
-cat ~/.claude/settings.json | grep SessionStart
+cat ${PAI_DIR}/settings.json | grep SessionStart
 ```
 
 **Manually load CORE skill:**
 ```
-read ~/.claude/skills/CORE/SKILL.md
+read ${PAI_DIR}/skills/CORE/SKILL.md
 ```
 
 ### Hooks Not Running
@@ -215,20 +215,20 @@ If Bun isn't found, reinstall it and restart your terminal.
 
 ```bash
 # Check voice server status
-~/.claude/voice-server/status.sh
+${PAI_DIR}/voice-server/status.sh
 
 # Restart if needed
-~/.claude/voice-server/restart.sh
+${PAI_DIR}/voice-server/restart.sh
 
 # Check logs
-tail ~/.claude/voice-server/logs/voice-server.log
+tail ${PAI_DIR}/voice-server/logs/voice-server.log
 ```
 
 ### API Keys Not Working
 
 ```bash
 # Verify .env file exists
-ls -la ~/.claude/.env
+ls -la ${PAI_DIR}/.env
 
 # Check format (no spaces around =)
 # Correct: ANTHROPIC_API_KEY=sk-ant-...
@@ -246,14 +246,14 @@ cd ~/Personal_AI_Infrastructure  # or wherever you cloned
 git pull origin main
 
 # Copy updates to your system
-cp -r .claude/* ~/.claude/
+cp -r .claude/* ${PAI_DIR}/
 ```
 
 ### Add New Skills
 
 ```bash
 # Clone or create in skills directory
-cd ~/.claude/skills/
+cd ${PAI_DIR}/skills/
 # Add your skill folder
 ```
 

@@ -76,7 +76,7 @@ PAI (Personal AI Infrastructure) is an open-source template for building your ow
 
 **Not working?** Run the health check:
 ```bash
-bun ~/.claude/hooks/self-test.ts
+bun ${PAI_DIR}/hooks/self-test.ts
 ```
 
 See `PAI_CONTRACT.md` for complete details on what's guaranteed vs what needs configuration.
@@ -221,6 +221,33 @@ See `SECURITY.md` for complete security protocols.
 - **GitHub Issues:** [Report bugs or request features](https://github.com/danielmiessler/Personal_AI_Infrastructure/issues)
 - **Discussions:** [Ask questions and share ideas](https://github.com/danielmiessler/Personal_AI_Infrastructure/discussions)
 - **Video:** [Watch PAI Overview](https://youtu.be/iKwRWwabkEc)
+
+---
+
+## 📝 **Changelog**
+
+### Recent Updates
+
+**2025-11-25** - Path Standardization (Issue #122)
+- Replaced all hardcoded `~/.claude/` paths with `${PAI_DIR}/` for location-agnostic installation
+- Updated 50+ files across skills, hooks, and documentation
+- Removed deprecated CLAUDE.md files (content consolidated into SKILL.md)
+
+**2025-11-20** - Major Architecture Improvements
+- Implemented PAI_DIR hook wrapper system with centralized path resolution
+- Added PAI_CONTRACT.md defining core guarantees
+- Added self-test system for validation (`bun ${PAI_DIR}/hooks/self-test.ts`)
+- Added protection mechanisms for PAI-specific content
+- See `CHANGELOG-2025-11-20.md` for full details
+
+**Earlier Updates**
+- Added comprehensive research skill with 10 workflows
+- Added BrightData four-tier progressive web scraping
+- Added art and story-explanation skills
+- Fixed ElevenLabs model deprecation
+- Added prompt injection security guidance
+
+For detailed changelogs, see the `CHANGELOG-*.md` files in the repository root.
 
 ---
 

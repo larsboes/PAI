@@ -137,7 +137,7 @@ Some docs describe:
 Run this command to verify PAI is working:
 
 ```bash
-bun ~/.claude/hooks/self-test.ts
+bun ${PAI_DIR}/hooks/self-test.ts
 ```
 
 Expected output:

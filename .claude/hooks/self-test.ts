@@ -3,7 +3,7 @@
  * PAI Self-Test - Health Check System
  *
  * Validates that PAI core guarantees are working correctly.
- * Run: bun ~/.claude/hooks/self-test.ts
+ * Run: bun ${PAI_DIR}/hooks/self-test.ts
  *
  * Tests:
  * 1. PAI_DIR resolves correctly

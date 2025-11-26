@@ -7,7 +7,7 @@
 ## 🎯 The Challenge
 
 You have two systems:
-- **Kai** (`~/.claude/`) - Your private system with personal data, API keys, custom workflows
+- **Kai** (`${PAI_DIR}/`) - Your private system with personal data, API keys, custom workflows
 - **PAI** (`~/Projects/PAI/`) - Public template that must stay sanitized
 
 When you improve Kai, you want to share those improvements with PAI **without** exposing private data.
@@ -42,7 +42,7 @@ Automatically runs validation before every commit.
 ## 📋 Safe Sync Workflow
 
 ### Step 1: Make Changes in Kai
-Work in your private Kai system (`~/.claude/`):
+Work in your private Kai system (`${PAI_DIR}/`):
 ```bash
 cd ~/.claude
 # Make improvements, add features, test thoroughly
@@ -59,10 +59,10 @@ Ask yourself:
 ### Step 3: Copy to PAI Repo
 ```bash
 # Example: Copying a new skill
-cp -r ~/.claude/skills/new-skill ~/Projects/PAI/.claude/skills/
+cp -r ${PAI_DIR}/skills/new-skill ~/Projects/PAI/.claude/skills/
 
 # Example: Updating a hook
-cp ~/.claude/hooks/some-hook.ts ~/Projects/PAI/.claude/hooks/
+cp ${PAI_DIR}/hooks/some-hook.ts ~/Projects/PAI/.claude/hooks/
 ```
 
 **IMPORTANT:** Do NOT use `cp -r ~/.claude ~/Projects/PAI/` (don't bulk copy everything)
@@ -154,7 +154,7 @@ git push origin main
 ### Mistake 1: Bulk Copying Everything
 ```bash
 # ❌ DON'T DO THIS
-cp -r ~/.claude/* ~/Projects/PAI/.claude/
+cp -r ${PAI_DIR}/* ~/Projects/PAI/.claude/
 ```
 
 **Problem:** Overwrites protected files, copies personal data
@@ -174,7 +174,7 @@ ELEVENLABS_API_KEY=a1b2c3d4e5f6
 ### Mistake 3: Overwriting Protected Files
 ```bash
 # ❌ Copied Kai's README to PAI
-cp ~/.claude/../README.md ~/Projects/PAI/README.md
+cp ${PAI_DIR}/../README.md ~/Projects/PAI/README.md
 ```
 
 **Problem:** PAI's README explains public template, Kai's README is private
@@ -292,7 +292,7 @@ Complete example of adding a new skill from Kai to PAI:
 
 ```bash
 # 1. Copy skill from Kai to PAI
-cp -r ~/.claude/skills/my-new-skill ~/Projects/PAI/.claude/skills/
+cp -r ${PAI_DIR}/skills/my-new-skill ~/Projects/PAI/.claude/skills/
 
 # 2. Sanitize the skill's SKILL.md
 cd ~/Projects/PAI/.claude/skills/my-new-skill

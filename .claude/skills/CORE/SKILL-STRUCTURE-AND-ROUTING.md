@@ -725,7 +725,7 @@ CORE/
 ├── history-system.md
 ├── hook-system.md
 ├── TESTING.md
-├── VOICE.md               # Reference pointer to ~/.claude/voice-server/
+├── VOICE.md               # Reference pointer to ${PAI_DIR}/voice-server/
 ├── ... (all other docs at CORE root)
 └── workflows/
     └── ... (flat or nested as needed)
@@ -1579,7 +1579,7 @@ Personal AI Infrastructure core context skill - loads at every session start.
 **Domain:** Kai identity, contacts, preferences, security, architecture
 **Key Capabilities:**
 - Daniel's complete context (contacts, preferences, voice IDs)
-- Repository safety protocols (private ~/.claude/ vs public ~/Projects/PAI/)
+- Repository safety protocols (private ${PAI_DIR}/ vs public ~/Projects/PAI/)
 - Response format standards (structured emoji format with voice)
 - Architectural references (Skills/Commands/Agents/MCPs framework)
 - Extended security procedures (prompt injection defense, sanitization)
@@ -1769,7 +1769,7 @@ Daniel's personal context and knowledge management.
 - **Life Logs** - Limitless.ai pendant recording retrieval, transcript extraction, blog post creation from ideas
 - **Learning Capture** - 6-element narrative framework (Problem → Assumption → Reality → Journey → Solution → Takeaway)
   - Automatic capture from conversation context
-  - Permanent storage in `~/.claude/history/learnings/YYYY-MM/`
+  - Permanent storage in `${PAI_DIR}/history/learnings/YYYY-MM/`
   - Searchable, cross-referenced, UFC-integrated knowledge base
 
 **When to use:** Life philosophy discussions, "get life log", "capture this learning"
