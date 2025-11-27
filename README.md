@@ -112,10 +112,16 @@ cp .claude/.env.example .claude/.env
 ### 3. Copy to Your System
 
 ```bash
-# Copy .claude directory to your home directory
-cp -r .claude ~/.claude
+# Backup existing Claude config (if any)
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup.$(date +%Y%m%d_%H%M%S)
 
-# Or symlink if you prefer
+# Copy PAI's .claude directory to your home
+cp -r .claude ~/.claude
+```
+
+**Alternative: Symlink** (keeps PAI updatable via git pull)
+```bash
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup.$(date +%Y%m%d_%H%M%S)
 ln -s $(pwd)/.claude ~/.claude
 ```
 
@@ -123,7 +129,7 @@ ln -s $(pwd)/.claude ~/.claude
 
 ```bash
 # PAI loads automatically via the CORE skill
-claude-code
+claude
 ```
 
 **That's it!** The CORE skill loads at session start and provides all PAI functionality.
