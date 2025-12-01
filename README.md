@@ -166,6 +166,7 @@ claude
 
 Explore example skills in `.claude/skills/`:
 
+- **`observability/`** - Real-time agent monitoring dashboard with WebSocket streaming, live pulse charts, and event timelines
 - **`brightdata/`** - Four-tier progressive web scraping with automatic fallback (WebFetch → cURL → Playwright → Bright Data MCP)
 - **`fabric/`** - Integration with Fabric pattern system (242+ AI patterns)
 - **`research/`** - Multi-source research workflows
@@ -233,6 +234,14 @@ See `SECURITY.md` for complete security protocols.
 ## 📝 **Changelog**
 
 ### Recent Updates
+
+**2025-12-01** - Observability Dashboard Skill
+- Added complete agent monitoring dashboard at `.claude/skills/observability/`
+- Real-time WebSocket streaming of agent activity
+- Live pulse charts, event timelines, and agent swim lanes
+- Multiple theme support (Tokyo Night, Nord, etc.)
+- Security obfuscation for sensitive data in displays
+- Run with: `~/.claude/skills/observability/manage.sh start`
 
 **2025-11-25** - Path Standardization (Issue #122)
 - Replaced all hardcoded `~/.claude/` paths with `${PAI_DIR}/` for location-agnostic installation
