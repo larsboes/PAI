@@ -25,6 +25,12 @@
 
 <br/>
 
+[![PAI Overview Video](https://img.youtube.com/vi/iKwRWwabkEc/maxresdefault.jpg)](https://youtu.be/iKwRWwabkEc)
+
+**[Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc)** | **[Read the blog post](https://danielmiessler.com/blog/personal-ais-will-mediate-everything)**
+
+<br/>
+
 ---
 
 <br/>
@@ -40,6 +46,10 @@ Right now the most powerful AI setups are being built inside companies with mass
 That's all good, but I think the purpose of technology is to serve humans—not the other way around. These new AI frameworks should be available to everyone, including people not in technology, so that regular people can use it to help them flourish.
 
 That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
+
+**Related reading:**
+- [Personal AIs Will Mediate Everything](https://danielmiessler.com/blog/personal-ais-will-mediate-everything) — The vision behind PAI
+- [Personal AI Assistants Will Soon Be Our Interfaces to the World](https://danielmiessler.com/blog/personal-ai-assistants-will-soon-interfaces-world) — Why this matters
 
 <br/>
 
@@ -138,36 +148,22 @@ claude
 
 All documentation lives in the CORE skill (`.claude/skills/CORE/`):
 
-<details open>
-<summary><strong>📖 Essential Reading</strong></summary>
-
 | Document | Description |
 |----------|-------------|
 | [**CONSTITUTION.md**](.claude/skills/CORE/CONSTITUTION.md) | System philosophy, architecture, operating principles |
+| [**SkillSystem.md**](.claude/skills/CORE/SkillSystem.md) | **How to create your own skills** — the canonical skill structure guide |
 | [**SKILL.md**](.claude/skills/CORE/SKILL.md) | Main PAI skill with identity, preferences, quick reference |
-| [**SKILL-STRUCTURE-AND-ROUTING.md**](.claude/skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md) | How to create your own skills |
-
-</details>
-
-<details>
-<summary><strong>🔧 System Guides</strong></summary>
-
-| Document | Description |
-|----------|-------------|
 | [hook-system.md](.claude/skills/CORE/hook-system.md) | Event-driven automation |
-| [history-system.md](.claude/skills/CORE/history-system.md) | Automatic work documentation |
-| [voice-server/README.md](.claude/voice-server/README.md) | Text-to-speech feedback |
-
-</details>
+| [history-system.md](.claude/skills/CORE/history-system.md) | Automatic work documentation (UOCS) |
 
 <details>
-<summary><strong>📋 Reference</strong></summary>
+<summary><strong>Additional Reference</strong></summary>
 
 | Document | Description |
 |----------|-------------|
-| [prosody-guide.md](.claude/skills/CORE/prosody-guide.md) | Voice emotion system |
 | [prompting.md](.claude/skills/CORE/prompting.md) | Prompt engineering patterns |
-| [terminal-tabs.md](.claude/skills/CORE/terminal-tabs.md) | Terminal management |
+| [aesthetic.md](.claude/skills/CORE/aesthetic.md) | Visual design system |
+| [voice-server/README.md](.claude/voice-server/README.md) | Text-to-speech feedback |
 
 </details>
 
@@ -304,28 +300,16 @@ Everything is captured, nothing is lost. Session work, tool outputs, and agent r
 
 <br/>
 
-## 🔐 Security
-
-> [!CAUTION]
-> This is a **PUBLIC** template repository with sanitized examples.
-
-**DO NOT commit:**
-- ❌ API keys or secrets
-- ❌ Personal email addresses
-- ❌ Private repository references
-- ❌ Any sensitive personal data
-
-See [`SECURITY.md`](SECURITY.md) for complete security protocols.
-
-<br/>
-
 ## 💬 Community
+
+Kai and I work hard to address issues and PRs throughout the week — we try not to get too far behind!
 
 | Channel | Link |
 |---------|------|
 | 🐛 **Issues** | [Report bugs or request features](https://github.com/danielmiessler/Personal_AI_Infrastructure/issues) |
 | 💬 **Discussions** | [Ask questions and share ideas](https://github.com/danielmiessler/Personal_AI_Infrastructure/discussions) |
-| 🎥 **Video** | [Watch PAI Overview](https://youtu.be/iKwRWwabkEc) |
+| 🎥 **Video** | [Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc) |
+| 📝 **Blog** | [Personal AIs Will Mediate Everything](https://danielmiessler.com/blog/personal-ais-will-mediate-everything) |
 
 <br/>
 
