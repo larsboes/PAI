@@ -259,27 +259,54 @@ Each skill demonstrates the skills-as-containers pattern with routing, workflows
 
 ## 🏗️ Architecture
 
-PAI is built on three foundational principles:
+PAI is built on 12 foundational principles:
 
-```mermaid
-graph TB
-    subgraph Principle1["1️⃣ Command Line First"]
-        CLI["Build deterministic CLI tools"]
-        CLI --> WRAP["Wrap with AI orchestration"]
-    end
+<table>
+<tr>
+<td width="50%" valign="top">
 
-    subgraph Principle2["2️⃣ Skills as Containers"]
-        SKILL["Package domain expertise"]
-        SKILL --> ROUTE["Natural language routing"]
-    end
+**π Scaffolding > Model**<br/>
+The infrastructure matters more than any single model
 
-    subgraph Principle3["3️⃣ Progressive Disclosure"]
-        T1["Tier 1: System prompt"]
-        T2["Tier 2: SKILL.md"]
-        T3["Tier 3: Reference files"]
-        T1 --> T2 --> T3
-    end
-```
+**π ENG / SRE**<br/>
+Treat AI systems like production engineering
+
+**π As Deterministic as Possible**<br/>
+Reduce randomness, increase reliability
+
+**π Code Before Prompts**<br/>
+Write code first, wrap with prompts second
+
+**π UNIX Philosophy**<br/>
+Small, composable tools that do one thing well
+
+**π CLI as Interface**<br/>
+Command line is the primary interaction layer
+
+</td>
+<td width="50%" valign="top">
+
+**π Goal → Code → CLI → Prompts → Agent**<br/>
+The implementation hierarchy
+
+**π Spec / Test / Evals First**<br/>
+Define success before building
+
+**π Meta / Self Updates**<br/>
+The system improves itself
+
+**π Custom Skill Management**<br/>
+3-tier architecture, routing, workflows, tools
+
+**π History**<br/>
+Automatic documentation of all work
+
+**π Custom Agent Personalities / Voices**<br/>
+Specialized agents for different tasks
+
+</td>
+</tr>
+</table>
 
 Complete architecture: [`.claude/skills/CORE/CONSTITUTION.md`](.claude/skills/CORE/CONSTITUTION.md)
 
