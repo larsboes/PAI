@@ -29,15 +29,17 @@
 
 <br/>
 
-*"This project exists so that the best AI in the world is not only used by a few, but can be used by everyone."*
+## This project exists so that the best AI in the world is not only used by a few, but can be used by everyone.
 
 </div>
 
 <br/>
 
-Right now the most powerful AI setups are being built inside companies with massive engineering teams. That's backwards. These tools should be available to individuals—to you—so you can build your own AI system that actually knows how you work.
+Right now the most powerful AI setups are being built inside companies with massive engineering teams, and for the purpose of increasing efficiency and profits.
 
-That's what PAI is. It's the scaffolding for building a personal AI that gets better over time because it's *yours*. Not some generic chatbot. **Your system, your skills, your workflows.**
+That's all good, but I think the purpose of technology is to serve humans—not the other way around. These new AI frameworks should be available to everyone, including people not in technology, so that regular people can use it to help them flourish.
+
+That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
 
 <br/>
 
