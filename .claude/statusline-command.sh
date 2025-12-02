@@ -1,4 +1,28 @@
 #!/bin/bash
+#
+# PAI Statusline - Customizable status display for Claude Code
+#
+# CUSTOMIZATION:
+#   - This script sources ${PAI_DIR}/.env for API keys and configuration
+#   - Set PAI_SIMPLE_COLORS=1 in settings.json env for basic ANSI colors
+#     (fixes display issues on some terminals)
+#   - To add features requiring API keys (e.g., quotes), add keys to .env
+#   - Comment out any printf lines you don't want displayed
+#
+# LINES DISPLAYED:
+#   1. Greeting: DA name, model, directory, capabilities count
+#   2. MCPs: Active MCP servers with names
+#   3. Tokens: Daily usage and cost (requires ccusage)
+#
+# ENVIRONMENT VARIABLES (set in settings.json env section):
+#   DA            - Your assistant's name (default: "Assistant")
+#   DA_COLOR      - Name color: purple|blue|green|cyan|yellow|red|orange
+#   PAI_SIMPLE_COLORS - Set to "1" to use basic terminal colors
+#
+
+# Source .env for API keys and custom configuration
+claude_env="${PAI_DIR:-$HOME/.claude}/.env"
+[ -f "$claude_env" ] && source "$claude_env"
 
 # Read JSON input from stdin
 input=$(cat)
