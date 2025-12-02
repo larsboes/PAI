@@ -178,7 +178,39 @@ MCP_DAEMON="$BRIGHT_BLUE"
 MCP_STRIPE="$LINE2_ACCENT"
 MCP_DEFAULT="$LINE2_PRIMARY"
 
-RESET='\033[0m'
+# Reset includes explicit background clear for terminal compatibility
+RESET='\033[0m\033[49m'
+
+# Simple colors mode - set PAI_SIMPLE_COLORS=1 if you have terminal display issues
+if [ "${PAI_SIMPLE_COLORS:-0}" = "1" ]; then
+    # Use basic ANSI colors instead of 24-bit RGB for terminal compatibility
+    BRIGHT_PURPLE='\033[35m'
+    BRIGHT_BLUE='\033[34m'
+    DARK_BLUE='\033[34m'
+    BRIGHT_GREEN='\033[32m'
+    DARK_GREEN='\033[32m'
+    BRIGHT_ORANGE='\033[33m'
+    BRIGHT_RED='\033[31m'
+    BRIGHT_CYAN='\033[36m'
+    BRIGHT_MAGENTA='\033[35m'
+    BRIGHT_YELLOW='\033[33m'
+    # Override derived colors
+    DA_DISPLAY_COLOR='\033[35m'
+    LINE1_PRIMARY='\033[35m'
+    LINE1_ACCENT='\033[35m'
+    MODEL_PURPLE='\033[35m'
+    LINE2_PRIMARY='\033[34m'
+    LINE2_ACCENT='\033[34m'
+    LINE3_PRIMARY='\033[32m'
+    LINE3_ACCENT='\033[32m'
+    COST_COLOR='\033[32m'
+    TOKENS_COLOR='\033[37m'
+    SEPARATOR_COLOR='\033[37m'
+    DIR_COLOR='\033[36m'
+    MCP_DAEMON='\033[34m'
+    MCP_STRIPE='\033[34m'
+    MCP_DEFAULT='\033[34m'
+fi
 
 # Format MCP names efficiently
 mcp_names_formatted=""
