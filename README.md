@@ -43,7 +43,7 @@ That's what PAI is. It's the scaffolding for building a personal AI that gets be
 
 ## What is PAI?
 
-PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system using Claude Code.
+PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system. It's currently built on [Claude Code](https://claude.ai/code), but designed to be platform-independent — the architecture, skills, and workflows are structured so future migrations to other AI platforms are straightforward.
 
 ```mermaid
 graph LR
@@ -105,48 +105,6 @@ Big updates! PAI is now fully **platform-agnostic** — your AI identity, your s
 
 <br/>
 
-## PAI vs Kai
-
-<table>
-<tr>
-<th width="50%">✅ PAI (this repository)</th>
-<th width="50%">🔒 Kai (Daniel's private system)</th>
-</tr>
-<tr>
-<td>
-
-Skills/agents/hooks architecture<br/>
-CORE documentation and routing<br/>
-History system (UOCS)<br/>
-Example skills (research, fabric, etc.)<br/>
-Voice server skeleton<br/>
-<br/>
-⚙️ **Requires:** API key configuration
-
-</td>
-<td>
-
-Personal data, contacts, history<br/>
-Additional private skills<br/>
-Custom agent personalities<br/>
-Production integrations<br/>
-Automations and workflows
-
-</td>
-</tr>
-</table>
-
-> [!NOTE]
-> **PAI is the scaffolding. You build your own "Kai" on top of it.**
-
-**After setup, PAI should:** Execute hooks without errors · Load CORE context at session start · Route skills correctly · Capture session history · Launch agents successfully
-
-```bash
-# Not working? Run the health check:
-bun ${PAI_DIR}/hooks/self-test.ts
-```
-
-<br/>
 
 ## 🚀 Quick Start
 
