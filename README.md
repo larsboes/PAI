@@ -47,46 +47,18 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 
 PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system. It's currently built on [Claude Code](https://claude.ai/code), but designed to be platform-independent — the architecture, skills, and workflows are structured so future migrations to other AI platforms are straightforward.
 
-```mermaid
-graph LR
-    subgraph PAI["🧠 PAI"]
-        direction TB
-        CORE["CORE<br/>Identity & Config"]
-        SKILLS["Skills<br/>Capabilities"]
-        AGENTS["Agents<br/>Personalities"]
-        HOOKS["Hooks<br/>Automation"]
-    end
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/pai-architecture.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/pai-architecture.png">
+  <img alt="PAI Architecture Overview" src="docs/images/pai-architecture.png" width="800">
+</picture>
 
-    USER["👤 You"] --> PAI
-    PAI --> OUTPUT["✨ Your AI System"]
-
-    CORE --> SKILLS
-    SKILLS --> AGENTS
-    AGENTS --> HOOKS
-```
-
-<table>
-<tr>
-<td width="33%" valign="top">
-
-### 🎯 Skills
-Self-contained AI capabilities with routing, workflows, and documentation
-
-</td>
-<td width="33%" valign="top">
-
-### 🤖 Agents
-Specialized AI personalities for different tasks (engineer, researcher, designer)
-
-</td>
-<td width="33%" valign="top">
-
-### ⚡ Hooks
-Event-driven automation that captures work and manages state
-
-</td>
-</tr>
-</table>
+| Component | Description |
+|-----------|-------------|
+| **Skills** | Self-contained AI capabilities with routing, workflows, and documentation |
+| **Agents** | Specialized AI personalities for different tasks (engineer, researcher, designer) |
+| **Hooks** | Event-driven automation that captures work and manages state |
+| **History** | Automatic documentation system (UOCS) that captures everything |
 
 > [!TIP]
 > **Start clean, small, and simple.** Build the scaffolding that makes AI reliable.
@@ -269,6 +241,53 @@ Specialized agents for different tasks
 </table>
 
 Complete architecture: [`.claude/skills/CORE/CONSTITUTION.md`](.claude/skills/CORE/CONSTITUTION.md)
+
+### Core Systems
+
+<details open>
+<summary><strong>Skills Architecture</strong> — 3-tier progressive disclosure</summary>
+
+<br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/skills-architecture.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/skills-architecture.png">
+  <img alt="Skills Architecture" src="docs/images/skills-architecture.png" width="800">
+</picture>
+
+Skills are self-contained containers with SKILL.md as the entry point. Workflows handle multi-step operations, tools provide CLI scripts, and docs contain reference material — all progressively loaded only when needed.
+
+</details>
+
+<details>
+<summary><strong>Hook System</strong> — Event-driven automation</summary>
+
+<br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/hook-system.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/hook-system.png">
+  <img alt="Hook System" src="docs/images/hook-system.png" width="800">
+</picture>
+
+Hooks capture everything automatically — before tool execution, after tool execution, and on user feedback. Scripts like `capture-all-events.ts` and `capture-session-summary.ts` run invisibly to build context.
+
+</details>
+
+<details>
+<summary><strong>History System</strong> — Automatic documentation (UOCS)</summary>
+
+<br/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/history-system.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/history-system.png">
+  <img alt="History System" src="docs/images/history-system.png" width="800">
+</picture>
+
+Everything is captured, nothing is lost. Session work, tool outputs, and agent results flow into the history system, producing markdown files, JSONL logs, and timestamped entries organized by date.
+
+</details>
 
 <br/>
 
