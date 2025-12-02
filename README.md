@@ -12,6 +12,7 @@
 
 <br/>
 
+![Version](https://img.shields.io/badge/version-0.9.0-blue)
 ![Static Badge](https://img.shields.io/badge/mission-upgrade_humans_using_AI-8B5CF6)
 ![GitHub last commit](https://img.shields.io/github/last-commit/danielmiessler/Personal_AI_Infrastructure)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -233,34 +234,54 @@ See `SECURITY.md` for complete security protocols.
 
 ## 📝 **Changelog**
 
-### Recent Updates
+### v0.9.0 (2025-12-01) - Platform Agnostic Release
 
-**2025-12-01** - Observability Dashboard Skill
-- Added complete agent monitoring dashboard at `.claude/skills/observability/`
-- Real-time WebSocket streaming of agent activity
-- Live pulse charts, event timelines, and agent swim lanes
-- Multiple theme support (Tokyo Night, Nord, etc.)
-- Security obfuscation for sensitive data in displays
-- Run with: `~/.claude/skills/observability/manage.sh start`
+This release focuses on making PAI fully portable and fork-friendly. Your AI, your identity, your system.
 
-**2025-11-25** - Path Standardization (Issue #122)
-- Replaced all hardcoded `~/.claude/` paths with `${PAI_DIR}/` for location-agnostic installation
-- Updated 50+ files across skills, hooks, and documentation
-- Removed deprecated CLAUDE.md files (content consolidated into SKILL.md)
+**Observability Dashboard**
+- Complete real-time agent monitoring at `.claude/Observability/`
+- WebSocket streaming of all agent activity
+- Live pulse charts, event timelines, and swim lanes
+- Multiple themes (Tokyo Night, Nord, Catppuccin, etc.)
+- Security obfuscation for sensitive data
+- Run with: `~/.claude/Observability/manage.sh start`
 
-**2025-11-20** - Major Architecture Improvements
-- Implemented PAI_DIR hook wrapper system with centralized path resolution
-- Added PAI_CONTRACT.md defining core guarantees
-- Added self-test system for validation (`bun ${PAI_DIR}/hooks/self-test.ts`)
-- Added protection mechanisms for PAI-specific content
-- See `CHANGELOG-2025-11-20.md` for full details
+**Genericized Agent Identity**
+- All agent references now use `process.env.DA || 'main'`
+- No more hardcoded names - your DA name flows through the entire system
+- Observability dashboard shows your configured identity
+- Color system supports any DA name with intelligent defaults
 
-**Earlier Updates**
-- Added comprehensive research skill with 10 workflows
-- Added BrightData four-tier progressive web scraping
-- Added art and story-explanation skills
-- Fixed ElevenLabs model deprecation
-- Added prompt injection security guidance
+**Platform-Agnostic Configuration**
+- Added `_envDocs` to settings.json explaining all environment variables
+- Clear separation: `settings.json` for identity/paths, `.env` for API keys
+- `DA` (Digital Assistant name) - your AI's identity
+- `PAI_DIR` - root directory for all configuration
+- `TIME_ZONE` - configurable timezone for timestamps
+
+**Statusline Enhancements**
+- Terminal color compatibility mode for different terminal emulators
+- Dynamic CC version display
+- Cleaner greeting format
+
+**Skill System Improvements**
+- Canonical TitleCase file naming throughout
+- Standardized skill-workflow-notification script for dashboard detection
+- All paths use `${PAI_DIR}/` for location-agnostic installation
+
+### Previous Releases
+
+**v0.7.0** - Research & Documentation
+- Comprehensive research skill with 10 workflows
+- Path standardization (${PAI_DIR}/)
+- PAI_CONTRACT.md defining core guarantees
+- Self-test validation system
+
+**v0.6.0 and earlier**
+- BrightData four-tier progressive web scraping
+- Art and story-explanation skills
+- Voice server with ElevenLabs integration
+- Hook system architecture
 
 For detailed changelogs, see the `CHANGELOG-*.md` files in the repository root.
 
