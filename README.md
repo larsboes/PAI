@@ -50,6 +50,18 @@ PAI (Personal AI Infrastructure) is an open-source template for building your ow
 
 ---
 
+## 🆕 **What's New in v0.9.0**
+
+Big updates! PAI is now fully **platform-agnostic** - your AI identity, your system.
+
+- **Observability Dashboard** - Real-time agent monitoring with live charts
+- **Genericized Identity** - Configure your DA name, it flows everywhere
+- **Better Configuration** - Clear docs for all environment variables
+
+👉 **[See full changelog below](#-changelog)**
+
+---
+
 ## 🔄 **PAI vs Kai: What You Get**
 
 **PAI (this repository) provides:**
