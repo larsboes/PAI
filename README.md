@@ -27,7 +27,7 @@
 
 [![PAI Overview Video](https://img.youtube.com/vi/iKwRWwabkEc/maxresdefault.jpg)](https://youtu.be/iKwRWwabkEc)
 
-**[Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc)** | **[Read the blog post](https://danielmiessler.com/blog/personal-ais-will-mediate-everything)**
+**[Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
 
 <br/>
 
@@ -48,8 +48,8 @@ That's all good, but I think the purpose of technology is to serve humans—not 
 That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
 
 **Related reading:**
-- [Personal AIs Will Mediate Everything](https://danielmiessler.com/blog/personal-ais-will-mediate-everything) — The vision behind PAI
-- [Personal AI Assistants Will Soon Be Our Interfaces to the World](https://danielmiessler.com/blog/personal-ai-assistants-will-soon-interfaces-world) — Why this matters
+- [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) — The vision behind PAI (full book)
+- [AI's Predictable Path: 7 Components](https://danielmiessler.com/blog/ai-predictable-path-7-components-2024) — Visual walkthrough of where AI is heading
 
 <br/>
 
@@ -309,7 +309,7 @@ Kai and I work hard to address issues and PRs throughout the week — we try not
 | 🐛 **Issues** | [Report bugs or request features](https://github.com/danielmiessler/Personal_AI_Infrastructure/issues) |
 | 💬 **Discussions** | [Ask questions and share ideas](https://github.com/danielmiessler/Personal_AI_Infrastructure/discussions) |
 | 🎥 **Video** | [Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc) |
-| 📝 **Blog** | [Personal AIs Will Mediate Everything](https://danielmiessler.com/blog/personal-ais-will-mediate-everything) |
+| 📝 **Blog** | [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) |
 
 <br/>
 
