@@ -52,9 +52,9 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system. It's currently built on [Claude Code](https://claude.ai/code), but designed to be platform-independent — the architecture, skills, and workflows are structured so future migrations to other AI platforms are straightforward.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/skills-architecture.png">
-  <source media="(prefers-color-scheme: light)" srcset="docs/images/skills-architecture.png">
-  <img alt="PAI Skills Architecture" src="docs/images/skills-architecture.png" width="800">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/pai-overview.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/pai-overview.png">
+  <img alt="PAI Architecture Overview" src="docs/images/pai-overview.png" width="800">
 </picture>
 
 | Component | Description |
@@ -88,19 +88,30 @@ Big updates! PAI is now fully **platform-agnostic** — your AI identity, your s
 
 ### 1. Clone PAI
 
+**macOS / Linux:**
 ```bash
-git clone https://github.com/danielmiessler/Personal_AI_Infrastructure.git
-cd Personal_AI_Infrastructure
+git clone https://github.com/danielmiessler/PAI.git ~/.claude
+```
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\.claude
 ```
 
 ### 2. Run the Setup Wizard
 
+**macOS / Linux:**
 ```bash
-.claude/tools/setup/bootstrap.sh
+~/.claude/.claude/tools/setup/bootstrap.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+& "$env:USERPROFILE\.claude\.claude\tools\setup\bootstrap.ps1"
 ```
 
 The bootstrap script will:
-- Check your shell (recommends zsh or bash)
+- Check your environment (zsh/bash/PowerShell)
 - Install Bun if needed (PAI's package manager)
 - Check for Claude Code
 - Launch the interactive setup wizard
@@ -110,23 +121,34 @@ The setup wizard will:
 - Configure your name and email
 - Name your AI assistant (default: "Kai")
 - Choose a color theme
-- Set up voice server (macOS)
-- Add environment variables to your shell
+- Set up voice server (macOS only)
+- Add environment variables to your shell profile
 
 ### 3. Add Your API Keys
 
+**macOS / Linux:**
 ```bash
-# Copy environment template
 cp ~/.claude/.env.example ~/.claude/.env
-
-# Edit with your API keys
 nano ~/.claude/.env
+```
+
+**Windows (PowerShell):**
+```powershell
+Copy-Item "$env:USERPROFILE\.claude\.env.example" "$env:USERPROFILE\.claude\.env"
+notepad "$env:USERPROFILE\.claude\.env"
 ```
 
 ### 4. Start Claude Code
 
+**macOS / Linux:**
 ```bash
 source ~/.zshrc  # Load PAI environment
+claude
+```
+
+**Windows (PowerShell):**
+```powershell
+# Restart PowerShell to load environment, then:
 claude
 ```
 
