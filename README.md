@@ -183,13 +183,8 @@ claude
 
 <br/>
 
-The setup wizard will configure your name, email, AI assistant name, and environment variables.
-
 > [!TIP]
-> **Non-interactive setup** for automation:
-> ```bash
-> bun run setup.ts --pai-dir ~/.claude --name "Your Name" --email you@example.com --force
-> ```
+> The setup wizard will configure your name, email, AI assistant name, and environment variables to customize to your environment.
 
 📚 For detailed setup, see [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 
@@ -204,16 +199,16 @@ All documentation lives in the CORE skill (`.claude/skills/CORE/`):
 | [**CONSTITUTION.md**](.claude/skills/CORE/CONSTITUTION.md) | System philosophy, architecture, operating principles |
 | [**SkillSystem.md**](.claude/skills/CORE/SkillSystem.md) | **How to create your own skills** — the canonical skill structure guide |
 | [**SKILL.md**](.claude/skills/CORE/SKILL.md) | Main PAI skill with identity, preferences, quick reference |
-| [hook-system.md](.claude/skills/CORE/hook-system.md) | Event-driven automation |
-| [history-system.md](.claude/skills/CORE/history-system.md) | Automatic work documentation (UOCS) |
+| [HookSystem.md](.claude/skills/CORE/HookSystem.md) | Event-driven automation |
+| [HistorySystem.md](.claude/skills/CORE/HistorySystem.md) | Automatic work documentation (UOCS) |
 
 <details>
 <summary><strong>Additional Reference</strong></summary>
 
 | Document | Description |
 |----------|-------------|
-| [prompting.md](.claude/skills/CORE/prompting.md) | Prompt engineering patterns |
-| [aesthetic.md](.claude/skills/CORE/aesthetic.md) | Visual design system |
+| [Prompting.md](.claude/skills/CORE/Prompting.md) | Prompt engineering patterns |
+| [Aesthetic.md](.claude/skills/CORE/Aesthetic.md) | Visual design system |
 | [voice-server/README.md](.claude/voice-server/README.md) | Text-to-speech feedback |
 
 </details>
@@ -226,11 +221,11 @@ Explore example skills in `.claude/skills/`:
 
 | Skill | Description |
 |-------|-------------|
-| **observability/** | Real-time agent monitoring dashboard with WebSocket streaming |
-| **brightdata/** | Four-tier progressive web scraping with automatic fallback |
-| **fabric/** | **Native Fabric patterns** — 248 patterns run directly in Claude's context (no CLI needed) |
-| **research/** | Multi-source research workflows |
-| **create-skill/** | Templates for creating new skills |
+| **Observability/** | Real-time agent monitoring dashboard with WebSocket streaming |
+| **BrightData/** | Four-tier progressive web scraping with automatic fallback |
+| **Fabric/** | **Native Fabric patterns** — 248 patterns run directly in Claude's context (no CLI needed) |
+| **Research/** | Multi-source research workflows |
+| **Createskill/** | Templates for creating new skills |
 
 Each skill demonstrates the skills-as-containers pattern with routing, workflows, and self-contained documentation.
 
@@ -245,7 +240,7 @@ The Fabric skill now executes patterns **natively** within Claude Code — no CL
 
 ```bash
 # Update patterns from upstream
-.claude/skills/fabric/tools/update-patterns.sh
+.claude/skills/Fabric/tools/update-patterns.sh
 ```
 
 Only use `fabric` CLI for YouTube transcripts (`-y`) or pattern updates (`-U`).
