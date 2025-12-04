@@ -57,6 +57,12 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 
 PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system. It's currently built on [Claude Code](https://claude.ai/code), but designed to be platform-independent — the architecture, skills, and workflows are structured so future migrations to other AI platforms are straightforward.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/pai-infrastructure.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/pai-infrastructure.png">
+  <img alt="PAI Infrastructure Architecture" src="docs/images/pai-infrastructure.png" width="800">
+</picture>
+
 | Component | Description |
 |-----------|-------------|
 | **Skills** | Self-contained AI capabilities with routing, workflows, and documentation |
