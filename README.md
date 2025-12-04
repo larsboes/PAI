@@ -33,6 +33,12 @@
 
 # The best AI in the world should be available to everyone
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/pai-overview.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/pai-overview.png">
+  <img alt="PAI Architecture Overview" src="docs/images/pai-overview.png" width="800">
+</picture>
+
 </div>
 
 Right now the most powerful AI setups are being built inside companies for efficiency and profits.
@@ -50,12 +56,6 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 ## What is PAI?
 
 PAI (Personal AI Infrastructure) is an open-source template for building your own AI-powered operating system. It's currently built on [Claude Code](https://claude.ai/code), but designed to be platform-independent — the architecture, skills, and workflows are structured so future migrations to other AI platforms are straightforward.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/pai-overview.png">
-  <source media="(prefers-color-scheme: light)" srcset="docs/images/pai-overview.png">
-  <img alt="PAI Architecture Overview" src="docs/images/pai-overview.png" width="800">
-</picture>
 
 | Component | Description |
 |-----------|-------------|
@@ -86,71 +86,98 @@ Big updates! PAI is now fully **platform-agnostic** — your AI identity, your s
 
 ## 🚀 Quick Start
 
-### 1. Clone PAI
+Choose your platform:
 
-**macOS / Linux:**
+<details>
+<summary><strong>🍎 macOS</strong></summary>
+
+<br/>
+
+**1. Clone PAI**
 ```bash
 git clone https://github.com/danielmiessler/PAI.git ~/.claude
 ```
 
-**Windows (PowerShell):**
-```powershell
-git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\.claude
-```
-
-### 2. Run the Setup Wizard
-
-**macOS / Linux:**
+**2. Run the Setup Wizard**
 ```bash
 ~/.claude/.claude/tools/setup/bootstrap.sh
 ```
 
-**Windows (PowerShell):**
-```powershell
-& "$env:USERPROFILE\.claude\.claude\tools\setup\bootstrap.ps1"
-```
-
-The bootstrap script will:
-- Check your environment (zsh/bash/PowerShell)
-- Install Bun if needed (PAI's package manager)
-- Check for Claude Code
-- Launch the interactive setup wizard
-
-The setup wizard will:
-- Ask where to install PAI (default: `~/.claude`)
-- Configure your name and email
-- Name your AI assistant (default: "Kai")
-- Choose a color theme
-- Set up voice server (macOS only)
-- Add environment variables to your shell profile
-
-### 3. Add Your API Keys
-
-**macOS / Linux:**
+**3. Add Your API Keys**
 ```bash
 cp ~/.claude/.env.example ~/.claude/.env
 nano ~/.claude/.env
 ```
 
-**Windows (PowerShell):**
-```powershell
-Copy-Item "$env:USERPROFILE\.claude\.env.example" "$env:USERPROFILE\.claude\.env"
-notepad "$env:USERPROFILE\.claude\.env"
-```
-
-### 4. Start Claude Code
-
-**macOS / Linux:**
+**4. Start Claude Code**
 ```bash
 source ~/.zshrc  # Load PAI environment
 claude
 ```
 
-**Windows (PowerShell):**
+</details>
+
+<details>
+<summary><strong>🐧 Linux</strong></summary>
+
+<br/>
+
+**1. Clone PAI**
+```bash
+git clone https://github.com/danielmiessler/PAI.git ~/.claude
+```
+
+**2. Run the Setup Wizard**
+```bash
+~/.claude/.claude/tools/setup/bootstrap.sh
+```
+
+**3. Add Your API Keys**
+```bash
+cp ~/.claude/.env.example ~/.claude/.env
+nano ~/.claude/.env
+```
+
+**4. Start Claude Code**
+```bash
+source ~/.bashrc  # Load PAI environment
+claude
+```
+
+</details>
+
+<details>
+<summary><strong>🪟 Windows</strong></summary>
+
+<br/>
+
+**1. Clone PAI** (PowerShell)
+```powershell
+git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\.claude
+```
+
+**2. Run the Setup Wizard**
+```powershell
+& "$env:USERPROFILE\.claude\.claude\tools\setup\bootstrap.ps1"
+```
+
+**3. Add Your API Keys**
+```powershell
+Copy-Item "$env:USERPROFILE\.claude\.env.example" "$env:USERPROFILE\.claude\.env"
+notepad "$env:USERPROFILE\.claude\.env"
+```
+
+**4. Start Claude Code**
 ```powershell
 # Restart PowerShell to load environment, then:
 claude
 ```
+
+</details>
+
+<br/>
+
+The setup wizard will configure your name, email, AI assistant name, and environment variables.
 
 > [!TIP]
 > **Non-interactive setup** for automation:

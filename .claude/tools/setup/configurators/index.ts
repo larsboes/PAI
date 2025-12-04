@@ -10,6 +10,7 @@ import { Transaction, writeAtomic } from '../core/transaction';
 import { plistTemplate } from '../templates/plist';
 import { profileTemplate } from '../templates/profile';
 import { shellTemplate, SHELL_MARKER_START, SHELL_MARKER_END } from '../templates/shell';
+import { powershellTemplate, PS_MARKER_START, PS_MARKER_END } from '../templates/powershell';
 
 export interface SetupConfig {
   paiDir: string;
@@ -108,16 +109,45 @@ export async function writePlist(config: SetupConfig, transaction: Transaction):
 }
 
 /**
- * Update shell profile (.zshrc or .bashrc)
+ * Update shell profile (.zshrc, .bashrc, or PowerShell profile)
  */
 export async function updateShellProfile(config: SetupConfig, transaction: Transaction): Promise<string | null> {
   if (!config.updateShellProfile) {
     return null;
   }
 
-  const shell = process.env.SHELL || '';
-  const isZsh = shell.includes('zsh');
-  const profilePath = join(homedir(), isZsh ? '.zshrc' : '.bashrc');
+  const isWindows = process.platform === 'win32';
+  let profilePath: string;
+  let template: string;
+  let markerStart: string;
+  let markerEnd: string;
+
+  if (isWindows) {
+    // PowerShell profile location
+    const documentsPath = join(
+      process.env.USERPROFILE || homedir(),
+      'Documents',
+      'PowerShell'
+    );
+
+    // Create PowerShell directory if needed
+    if (!existsSync(documentsPath)) {
+      mkdirSync(documentsPath, { recursive: true });
+    }
+
+    profilePath = join(documentsPath, 'Microsoft.PowerShell_profile.ps1');
+    template = powershellTemplate;
+    markerStart = PS_MARKER_START;
+    markerEnd = PS_MARKER_END;
+  } else {
+    // Unix: .zshrc or .bashrc
+    const shell = process.env.SHELL || '';
+    const isZsh = shell.includes('zsh');
+    profilePath = join(homedir(), isZsh ? '.zshrc' : '.bashrc');
+    template = shellTemplate;
+    markerStart = SHELL_MARKER_START;
+    markerEnd = SHELL_MARKER_END;
+  }
 
   await transaction.backup(profilePath);
 
@@ -128,12 +158,12 @@ export async function updateShellProfile(config: SetupConfig, transaction: Trans
   }
 
   // Check if PAI config already exists
-  if (content.includes(SHELL_MARKER_START)) {
+  if (content.includes(markerStart)) {
     // Remove existing PAI config block
-    const startIdx = content.indexOf(SHELL_MARKER_START);
-    const endIdx = content.indexOf(SHELL_MARKER_END);
+    const startIdx = content.indexOf(markerStart);
+    const endIdx = content.indexOf(markerEnd);
     if (startIdx !== -1 && endIdx !== -1) {
-      content = content.slice(0, startIdx) + content.slice(endIdx + SHELL_MARKER_END.length);
+      content = content.slice(0, startIdx) + content.slice(endIdx + markerEnd.length);
     }
   }
 
@@ -142,7 +172,7 @@ export async function updateShellProfile(config: SetupConfig, transaction: Trans
     ...config,
     createdAt: new Date().toISOString().split('T')[0],
   };
-  const shellConfig = Mustache.render(shellTemplate, data);
+  const shellConfig = Mustache.render(template, data);
   content = content.trimEnd() + '\n' + shellConfig;
 
   await writeAtomic(profilePath, content);

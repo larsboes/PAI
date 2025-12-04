@@ -8,13 +8,18 @@ import { dirname } from 'path';
 
 /**
  * Expand ~ to home directory
+ * Uses USERPROFILE on Windows, HOME on Unix
  */
 export function expandPath(path: string): string {
+  const home = process.platform === 'win32'
+    ? (process.env.USERPROFILE || homedir())
+    : homedir();
+
   if (path.startsWith('~/')) {
-    return path.replace('~', homedir());
+    return path.replace('~', home);
   }
   if (path === '~') {
-    return homedir();
+    return home;
   }
   return path;
 }
