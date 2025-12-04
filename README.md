@@ -92,53 +92,55 @@ Big updates! PAI is now fully **platform-agnostic** — your AI identity, your s
 
 ## 🚀 Quick Start
 
-### 1. Install Prerequisites
-
-```bash
-# Install Bun (PAI's package manager)
-curl -fsSL https://bun.sh/install | bash
-
-# Install Claude Code — https://code.claude.com
-```
-
-### 2. Clone and Configure
+### 1. Clone PAI
 
 ```bash
 git clone https://github.com/danielmiessler/Personal_AI_Infrastructure.git
 cd Personal_AI_Infrastructure
-
-# Copy environment template and add your API keys
-cp .claude/.env.example .claude/.env
 ```
 
-### 3. Copy to Your System
+### 2. Run the Setup Wizard
 
 ```bash
-# Backup existing config (if any)
-[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup.$(date +%Y%m%d_%H%M%S)
-
-# Copy PAI to your home directory
-cp -r .claude ~/.claude
+.claude/tools/setup/bootstrap.sh
 ```
 
-<details>
-<summary><strong>Alternative: Symlink</strong> (keeps PAI updatable via git pull)</summary>
+The bootstrap script will:
+- Check your shell (recommends zsh or bash)
+- Install Bun if needed (PAI's package manager)
+- Check for Claude Code
+- Launch the interactive setup wizard
+
+The setup wizard will:
+- Ask where to install PAI (default: `~/.claude`)
+- Configure your name and email
+- Name your AI assistant (default: "Kai")
+- Choose a color theme
+- Set up voice server (macOS)
+- Add environment variables to your shell
+
+### 3. Add Your API Keys
 
 ```bash
-[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup.$(date +%Y%m%d_%H%M%S)
-ln -s $(pwd)/.claude ~/.claude
-```
+# Copy environment template
+cp ~/.claude/.env.example ~/.claude/.env
 
-</details>
+# Edit with your API keys
+nano ~/.claude/.env
+```
 
 ### 4. Start Claude Code
 
 ```bash
+source ~/.zshrc  # Load PAI environment
 claude
 ```
 
-> [!IMPORTANT]
-> The CORE skill loads automatically at session start and provides all PAI functionality.
+> [!TIP]
+> **Non-interactive setup** for automation:
+> ```bash
+> bun run setup.ts --pai-dir ~/.claude --name "Your Name" --email you@example.com --force
+> ```
 
 📚 For detailed setup, see [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 
