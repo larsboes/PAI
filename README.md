@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-0.9.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-0.9.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Powered-8B5CF6?style=for-the-badge)](https://claude.ai/code)
 
@@ -386,6 +386,26 @@ Kai and I work hard to address issues and PRs throughout the week — we try not
 <br/>
 
 ## 📝 Updates
+
+<details open>
+<summary><strong>v0.9.1 (2025-12-04) — Setup Script Fix</strong></summary>
+
+<br/>
+
+**PAI_DIR Auto-Configuration**
+- `setup.sh` now automatically configures `PAI_DIR` in `settings.json` with your actual home directory path
+- No more manual editing of `/Users/YOURNAME/.claude` placeholder
+- Clear error messaging if hooks fail due to misconfigured paths
+
+**Improved Documentation**
+- Added `_setupNote` in `settings.json` explaining the fix
+- Updated `_envDocs` with troubleshooting guidance
+- QUICKSTART.md troubleshooting section for PAI_DIR issues
+
+**Bug Fix**
+- Fixes #110 — Hook failures caused by unexpanded PAI_DIR placeholder
+
+</details>
 
 <details>
 <summary><strong>v0.9.0 (2025-12-01) — Platform Agnostic Release</strong></summary>

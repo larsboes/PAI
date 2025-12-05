@@ -283,6 +283,32 @@ If Bun isn't found, reinstall it and restart your terminal.
 </details>
 
 <details>
+<summary><strong>Hook Errors Mentioning "YOURNAME"</strong></summary>
+
+If you see errors like `No such file or directory: /Users/YOURNAME/.claude/...`, the `PAI_DIR` variable wasn't configured correctly.
+
+**Fix: Re-run the setup script**
+```bash
+bash ~/.claude/.claude/setup.sh
+```
+
+This automatically configures `PAI_DIR` with your actual home directory path.
+
+**Manual fix (if setup script doesn't work):**
+```bash
+# Edit settings.json
+nano ~/.claude/settings.json
+
+# Find this line:
+"PAI_DIR": "/Users/YOURNAME/.claude"
+
+# Replace with your actual path:
+"PAI_DIR": "/Users/youractualusername/.claude"
+```
+
+</details>
+
+<details>
 <summary><strong>Voice Server Not Working (macOS only)</strong></summary>
 
 ```bash
