@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from 'fs';
 
 // Voice mappings for different agent types
+// Note: These are placeholder ElevenLabs voice IDs - configure your own in voices.json
 const AGENT_VOICE_IDS: Record<string, string> = {
   researcher: 'AXdMgz6evoL7OPd7eU12',
   pentester: 'hmMWXCj9K7N5mCPcRkfC',
@@ -10,7 +11,7 @@ const AGENT_VOICE_IDS: Record<string, string> = {
   designer: 'ZF6FPAbjXT4488VcRRnw',
   architect: 'muZKMsIDGYtIkjjiUS82',
   writer: 'gfRt6Z3Z8aTbpLfexQ7N',
-  kai: 'jqcCZkN6Knx8BJ5TBdYR',
+  main: 'jqcCZkN6Knx8BJ5TBdYR',
   default: 'jqcCZkN6Knx8BJ5TBdYR'
 };
 
