@@ -101,21 +101,28 @@ Choose your platform:
 
 **1. Clone PAI**
 ```bash
-git clone https://github.com/danielmiessler/PAI.git ~/.claude
+git clone https://github.com/danielmiessler/PAI.git ~/PAI
 ```
 
-**2. Run the Setup Wizard**
+**2. Create Symlink**
 ```bash
-~/.claude/.claude/tools/setup/bootstrap.sh
+# Remove existing ~/.claude if present (backup first if needed)
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup
+ln -s ~/PAI/.claude ~/.claude
 ```
 
-**3. Add Your API Keys**
+**3. Run the Setup Wizard**
+```bash
+~/.claude/tools/setup/bootstrap.sh
+```
+
+**4. Add Your API Keys**
 ```bash
 cp ~/.claude/.env.example ~/.claude/.env
 nano ~/.claude/.env
 ```
 
-**4. Start Claude Code**
+**5. Start Claude Code**
 ```bash
 source ~/.zshrc  # Load PAI environment
 claude
@@ -130,21 +137,28 @@ claude
 
 **1. Clone PAI**
 ```bash
-git clone https://github.com/danielmiessler/PAI.git ~/.claude
+git clone https://github.com/danielmiessler/PAI.git ~/PAI
 ```
 
-**2. Run the Setup Wizard**
+**2. Create Symlink**
 ```bash
-~/.claude/.claude/tools/setup/bootstrap.sh
+# Remove existing ~/.claude if present (backup first if needed)
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup
+ln -s ~/PAI/.claude ~/.claude
 ```
 
-**3. Add Your API Keys**
+**3. Run the Setup Wizard**
+```bash
+~/.claude/tools/setup/bootstrap.sh
+```
+
+**4. Add Your API Keys**
 ```bash
 cp ~/.claude/.env.example ~/.claude/.env
 nano ~/.claude/.env
 ```
 
-**4. Start Claude Code**
+**5. Start Claude Code**
 ```bash
 source ~/.bashrc  # Load PAI environment
 claude
@@ -159,21 +173,28 @@ claude
 
 **1. Clone PAI** (PowerShell)
 ```powershell
-git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\.claude
+git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\PAI
 ```
 
-**2. Run the Setup Wizard**
+**2. Create Symlink** (Run PowerShell as Administrator)
 ```powershell
-& "$env:USERPROFILE\.claude\.claude\tools\setup\bootstrap.ps1"
+# Remove existing .claude if present (backup first if needed)
+if (Test-Path "$env:USERPROFILE\.claude") { Rename-Item "$env:USERPROFILE\.claude" "$env:USERPROFILE\.claude.backup" }
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude" -Target "$env:USERPROFILE\PAI\.claude"
 ```
 
-**3. Add Your API Keys**
+**3. Run the Setup Wizard**
+```powershell
+& "$env:USERPROFILE\.claude\tools\setup\bootstrap.ps1"
+```
+
+**4. Add Your API Keys**
 ```powershell
 Copy-Item "$env:USERPROFILE\.claude\.env.example" "$env:USERPROFILE\.claude\.env"
 notepad "$env:USERPROFILE\.claude\.env"
 ```
 
-**4. Start Claude Code**
+**5. Start Claude Code**
 ```powershell
 # Restart PowerShell to load environment, then:
 claude

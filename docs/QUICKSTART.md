@@ -14,13 +14,26 @@ Choose your platform:
 ### 1. Clone PAI
 
 ```bash
-git clone https://github.com/danielmiessler/PAI.git ~/.claude
+git clone https://github.com/danielmiessler/PAI.git ~/PAI
 ```
 
-### 2. Run the Setup Wizard
+### 2. Create Symlink
 
 ```bash
-~/.claude/.claude/tools/setup/bootstrap.sh
+# Remove existing ~/.claude if present (backup first if needed)
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup
+ln -s ~/PAI/.claude ~/.claude
+```
+
+This symlink approach lets you:
+- Pull updates with `cd ~/PAI && git pull`
+- Keep your customizations in `~/.claude` (via the symlink)
+- Have Claude Code find skills at `~/.claude/skills/` correctly
+
+### 3. Run the Setup Wizard
+
+```bash
+~/.claude/tools/setup/bootstrap.sh
 ```
 
 The bootstrap script handles everything:
@@ -29,7 +42,7 @@ The bootstrap script handles everything:
 - **Claude Code check** — Reminds you to install Claude Code if missing
 - **Setup wizard** — Launches the interactive configuration
 
-### 3. Add Your API Keys
+### 4. Add Your API Keys
 
 ```bash
 # Copy environment template
@@ -42,7 +55,7 @@ nano ~/.claude/.env
 # Optional: ELEVENLABS_API_KEY for voice
 ```
 
-### 4. Reload Your Shell
+### 5. Reload Your Shell
 
 ```bash
 source ~/.zshrc
@@ -56,13 +69,26 @@ source ~/.zshrc
 ### 1. Clone PAI
 
 ```bash
-git clone https://github.com/danielmiessler/PAI.git ~/.claude
+git clone https://github.com/danielmiessler/PAI.git ~/PAI
 ```
 
-### 2. Run the Setup Wizard
+### 2. Create Symlink
 
 ```bash
-~/.claude/.claude/tools/setup/bootstrap.sh
+# Remove existing ~/.claude if present (backup first if needed)
+[ -d ~/.claude ] && mv ~/.claude ~/.claude.backup
+ln -s ~/PAI/.claude ~/.claude
+```
+
+This symlink approach lets you:
+- Pull updates with `cd ~/PAI && git pull`
+- Keep your customizations in `~/.claude` (via the symlink)
+- Have Claude Code find skills at `~/.claude/skills/` correctly
+
+### 3. Run the Setup Wizard
+
+```bash
+~/.claude/tools/setup/bootstrap.sh
 ```
 
 The bootstrap script handles everything:
@@ -71,7 +97,7 @@ The bootstrap script handles everything:
 - **Claude Code check** — Reminds you to install Claude Code if missing
 - **Setup wizard** — Launches the interactive configuration
 
-### 3. Add Your API Keys
+### 4. Add Your API Keys
 
 ```bash
 # Copy environment template
@@ -84,7 +110,7 @@ nano ~/.claude/.env
 # Optional: ELEVENLABS_API_KEY for voice
 ```
 
-### 4. Reload Your Shell
+### 5. Reload Your Shell
 
 ```bash
 source ~/.bashrc  # or ~/.zshrc if using zsh
@@ -98,13 +124,26 @@ source ~/.bashrc  # or ~/.zshrc if using zsh
 ### 1. Clone PAI
 
 ```powershell
-git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\.claude
+git clone https://github.com/danielmiessler/PAI.git $env:USERPROFILE\PAI
 ```
 
-### 2. Run the Setup Wizard
+### 2. Create Symlink (Run PowerShell as Administrator)
 
 ```powershell
-& "$env:USERPROFILE\.claude\.claude\tools\setup\bootstrap.ps1"
+# Remove existing .claude if present (backup first if needed)
+if (Test-Path "$env:USERPROFILE\.claude") { Rename-Item "$env:USERPROFILE\.claude" "$env:USERPROFILE\.claude.backup" }
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude" -Target "$env:USERPROFILE\PAI\.claude"
+```
+
+This symlink approach lets you:
+- Pull updates with `cd ~/PAI; git pull`
+- Keep your customizations in `~/.claude` (via the symlink)
+- Have Claude Code find skills at `~/.claude/skills/` correctly
+
+### 3. Run the Setup Wizard
+
+```powershell
+& "$env:USERPROFILE\.claude\tools\setup\bootstrap.ps1"
 ```
 
 The bootstrap script handles everything:
@@ -112,7 +151,7 @@ The bootstrap script handles everything:
 - **Claude Code check** — Reminds you to install Claude Code if missing
 - **Setup wizard** — Launches the interactive configuration
 
-### 3. Add Your API Keys
+### 4. Add Your API Keys
 
 ```powershell
 # Copy environment template
@@ -125,7 +164,7 @@ notepad "$env:USERPROFILE\.claude\.env"
 # Optional: ELEVENLABS_API_KEY for voice
 ```
 
-### 4. Reload Your Shell
+### 5. Reload Your Shell
 
 Close and reopen PowerShell, or run:
 
@@ -157,7 +196,7 @@ For automation or scripting:
 
 **macOS/Linux:**
 ```bash
-cd ~/.claude/.claude/tools/setup
+cd ~/.claude/tools/setup
 bun run setup.ts \
   --pai-dir ~/.claude \
   --name "Your Name" \
@@ -168,7 +207,7 @@ bun run setup.ts \
 
 **Windows:**
 ```powershell
-cd "$env:USERPROFILE\.claude\.claude\tools\setup"
+cd "$env:USERPROFILE\.claude\tools\setup"
 bun run setup.ts `
   --pai-dir "$env:USERPROFILE\.claude" `
   --name "Your Name" `
@@ -289,7 +328,7 @@ If you see errors like `No such file or directory: __HOME__/.claude/...`, the `P
 
 **Fix: Re-run the setup script**
 ```bash
-bash ~/.claude/.claude/setup.sh
+bash ~/.claude/setup.sh
 ```
 
 This automatically configures `PAI_DIR` with your actual home directory path.

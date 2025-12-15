@@ -1,6 +1,6 @@
 # Universal Output Capture System (UOCS) - History System Documentation
 
-**Location:** `${PAI_DIR}/history/`
+**Location:** `${PAI_DIR}/History/`
 **Purpose:** Automated documentation of ALL work performed by PAI and specialized agents
 **Status:** ✅ FULLY OPERATIONAL
 
@@ -16,45 +16,34 @@ The Universal Output Capture System (UOCS) is PAI's automatic memory - capturing
 
 ## Quick Reference
 
-### Canonical Documentation
-
-**Primary Source:** `${PAI_DIR}/history/CLAUDE.md` (584 lines)
-- Complete system specification
-- Directory structure and purpose
-- File naming conventions
-- Metadata schema
-- Hook integration details
-- Custom slash commands
-- Usage patterns and examples
-
-**This file (CORE skill reference):** High-level overview and routing to canonical docs
+This file is the **complete reference** for the history system. All specifications, conventions, and usage patterns are documented below.
 
 ---
 
 ## Directory Structure
 
 ```
-${PAI_DIR}/history/
-├── sessions/YYYY-MM/          # Session summaries (SessionEnd hook)
-├── learnings/YYYY-MM/         # Problem-solving narratives (Stop hook + manual)
-├── research/YYYY-MM/          # Investigation reports (Researcher agents)
-├── decisions/YYYY-MM/         # Architectural decisions (Architect agent)
-├── execution/
-│   ├── features/YYYY-MM/      # Feature implementations (Engineer/Designer)
-│   ├── bugs/YYYY-MM/          # Bug fixes (Engineer)
-│   └── refactors/YYYY-MM/     # Code improvements (Engineer)
-└── raw-outputs/YYYY-MM/       # JSONL logs (PostToolUse hook)
+${PAI_DIR}/History/
+├── Sessions/YYYY-MM/          # Session summaries (SessionEnd hook)
+├── Learnings/YYYY-MM/         # Problem-solving narratives (Stop hook + manual)
+├── Research/YYYY-MM/          # Investigation reports (Researcher agents)
+├── Decisions/YYYY-MM/         # Architectural decisions (Architect agent)
+├── Execution/
+│   ├── Features/YYYY-MM/      # Feature implementations (Engineer/Designer)
+│   ├── Bugs/YYYY-MM/          # Bug fixes (Engineer)
+│   └── Refactors/YYYY-MM/     # Code improvements (Engineer)
+└── Raw-Outputs/YYYY-MM/       # JSONL logs (PostToolUse hook)
 ```
 
 **Quick Decision Guide:**
-- "What happened this session?" → `sessions/`
-- "What did we learn?" → `learnings/`
-- "What features were built?" → `execution/features/`
-- "What broke and when?" → `execution/bugs/`
-- "What was improved?" → `execution/refactors/`
-- "Why this approach?" → `decisions/`
-- "What did we investigate?" → `research/`
-- "Raw execution logs?" → `raw-outputs/`
+- "What happened this session?" → `Sessions/`
+- "What did we learn?" → `Learnings/`
+- "What features were built?" → `Execution/Features/`
+- "What broke and when?" → `Execution/Bugs/`
+- "What was improved?" → `Execution/Refactors/`
+- "Why this approach?" → `Decisions/`
+- "What did we investigate?" → `Research/`
+- "Raw execution logs?" → `Raw-Outputs/`
 
 ---
 
@@ -95,7 +84,7 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 ### 1. PostToolUse Hook
 **Triggers:** Every tool execution (Bash, Edit, Write, Read, Task, etc.)
 **Implementation:** `${PAI_DIR}/hooks/capture-all-events.ts --event-type PostToolUse`
-**Output:** Daily JSONL logs in `raw-outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl`
+**Output:** Daily JSONL logs in `Raw-Outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl`
 **Purpose:** Raw execution data for forensics and analytics
 
 **Key Feature:** Completely generic - captures ENTIRE payload automatically
@@ -105,7 +94,7 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 ### 2. Stop Hook
 **Triggers:** Main agent (PAI) task completion
 **Implementation:** `${PAI_DIR}/hooks/stop-hook.ts`
-**Output:** Auto-captured files in `learnings/` or `sessions/` based on content
+**Output:** Auto-captured files in `Learnings/` or `Sessions/` based on content
 **Purpose:** Lightweight capture of work summaries and learning moments
 
 **How it works:**
@@ -121,12 +110,12 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 **Purpose:** Organized work documentation by agent type
 
 **Categorization Logic:**
-- Architect → `decisions/` (DECISION)
-- Engineer/Principal-Engineer → `execution/features|bugs|refactors/`
-- Designer → `execution/features/` (FEATURE)
-- Researchers (all types) → `research/` (RESEARCH)
-- Pentester → `research/` (RESEARCH)
-- Intern → `research/` (mixed - defaults to RESEARCH)
+- Architect → `Decisions/` (DECISION)
+- Engineer/Principal-Engineer → `Execution/Features|Bugs|Refactors/`
+- Designer → `Execution/Features/` (FEATURE)
+- Researchers (all types) → `Research/` (RESEARCH)
+- Pentester → `Research/` (RESEARCH)
+- Intern → `Research/` (mixed - defaults to RESEARCH)
 
 **⚠️ Upgrade Note (v2.0.42):**
 New fields available in SubagentStop hooks:
@@ -140,7 +129,7 @@ New fields available in SubagentStop hooks:
 ### 4. SessionEnd Hook
 **Triggers:** Session exit (when you quit Claude Code)
 **Implementation:** `${PAI_DIR}/hooks/capture-session-summary.ts`
-**Output:** Session summary in `sessions/YYYY-MM/`
+**Output:** Session summary in `Sessions/YYYY-MM/`
 **Purpose:** High-level session documentation
 
 ### 5. SessionStart Hook
@@ -177,7 +166,7 @@ New fields available in SubagentStop hooks:
 ## Integration with Spec-Kit
 
 **Spec-Kit** (`.specify/`) = PLAN (what to do)
-**UOCS** (`history/`) = REALITY (what was done)
+**UOCS** (`History/`) = REALITY (what was done)
 
 ### Bidirectional Traceability
 
@@ -186,16 +175,16 @@ New fields available in SubagentStop hooks:
 .specify/specs/001-auth/tasks.md
 └─ T005 [US1] Implement login endpoint
 
-history/execution/features/2025-10/
+History/Execution/Features/2025-10/
 └─ 2025-10-13-140000_myapp_FEATURE_T005_login-endpoint.md
 ```
 
 **From Bug to Feature:**
 ```
-history/execution/features/2025-10/
+History/Execution/Features/2025-10/
 └─ 2025-10-13-140000_myapp_FEATURE_T1.2_user-model.md
     ↓ (bug introduced here)
-history/execution/bugs/2025-10/
+History/Execution/Bugs/2025-10/
 └─ 2025-10-13-153000_myapp_BUG_T1.2_unique-constraint.md
     (metadata: bug_introduced_by: T1.2)
 ```
@@ -270,7 +259,7 @@ keywords:
 /trace-feature T1
 
 # What decisions were made about this?
-ls ${PAI_DIR}/history/decisions/*/[project]_*
+ls ${PAI_DIR}/History/Decisions/*/[project]_*
 
 # What did we learn about this domain?
 /search-history [domain-term]
@@ -297,13 +286,13 @@ ls ${PAI_DIR}/history/decisions/*/[project]_*
 
 ```bash
 # What did we accomplish this week?
-ls -lt ${PAI_DIR}/history/sessions/2025-10/ | head -7
+ls -lt ${PAI_DIR}/History/Sessions/2025-10/ | head -7
 
 # All decisions made this month
-ls ${PAI_DIR}/history/decisions/2025-10/
+ls ${PAI_DIR}/History/Decisions/2025-10/
 
 # Learnings from this quarter
-ls ${PAI_DIR}/history/learnings/2025-{10,11,12}/
+ls ${PAI_DIR}/History/Learnings/2025-{10,11,12}/
 ```
 
 ---
@@ -312,28 +301,28 @@ ls ${PAI_DIR}/history/learnings/2025-{10,11,12}/
 
 ### Find all features for project
 ```bash
-find ${PAI_DIR}/history/execution/features -name "*_dashboard_*"
+find ${PAI_DIR}/History/Execution/Features -name "*_dashboard_*"
 ```
 
 ### Find bugs introduced in specific task
 ```bash
-rg "bug_introduced_by: T1.2" ${PAI_DIR}/history/execution/bugs/
+rg "bug_introduced_by: T1.2" ${PAI_DIR}/History/Execution/Bugs/
 ```
 
 ### Find all work from specific date
 ```bash
-find ${PAI_DIR}/history -name "2025-10-13-*"
+find ${PAI_DIR}/History -name "2025-10-13-*"
 ```
 
 ### Analyze tool usage patterns
 ```bash
-cat ${PAI_DIR}/history/raw-outputs/2025-10/*.jsonl | \
+cat ${PAI_DIR}/History/Raw-Outputs/2025-10/*.jsonl | \
   jq -r '.tool' | sort | uniq -c | sort -rn
 ```
 
 ### Extract all architectural decisions
 ```bash
-find ${PAI_DIR}/history/decisions -name "*.md" | \
+find ${PAI_DIR}/History/Decisions -name "*.md" | \
   xargs grep -l "Alternatives considered"
 ```
 
@@ -389,14 +378,6 @@ find ${PAI_DIR}/history/decisions -name "*.md" | \
 
 ---
 
-## Complete Documentation
-
-**This file:** High-level reference and routing guide
-**Canonical Source:** `${PAI_DIR}/history/CLAUDE.md` - Complete specification (584 lines)
-**Implementation Log:** `${PAI_DIR}/history/IMPLEMENTATION-COMPLETE.md` - Build history
-
----
-
 ## Routing Triggers
 
 **Load this documentation when the user says:**
@@ -406,9 +387,7 @@ find ${PAI_DIR}/history/decisions -name "*.md" | \
 - "how to search history" or "find past work"
 - "SubagentStop hook" or "capture hooks"
 - "learning capture" or "session summaries"
-- Questions about file organization in history/
-
-**For detailed information, always refer to:** `${PAI_DIR}/history/CLAUDE.md`
+- Questions about file organization in History/
 
 ---
 
