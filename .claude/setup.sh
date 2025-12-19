@@ -545,7 +545,63 @@ else
 fi
 
 # ============================================
-# Step 8: Claude Code Integration
+# Step 7.5: Fabric Setup (Optional)
+# ============================================
+
+print_header "Step 7.5: Fabric Setup (Optional)"
+
+echo "Fabric is an AI prompting framework with 248+ patterns for various tasks."
+echo "PAI includes native Fabric pattern execution, but the CLI is needed to:"
+echo "  • Download and update patterns from upstream"
+echo "  • Extract YouTube video transcripts"
+echo ""
+
+if ask_yes_no "Would you like to install Fabric?" "n"; then
+    print_step "Installing Fabric..."
+
+    # Install Fabric using official installer
+    curl -sSL https://raw.githubusercontent.com/danielmiessler/fabric/main/install.sh | bash
+
+    # Add fabric to PATH for this session
+    export PATH="$HOME/.local/bin:$PATH"
+
+    # Source shell config to ensure fabric is available
+    if [ -f "$HOME/.bashrc" ]; then
+        source "$HOME/.bashrc" 2>/dev/null || true
+    fi
+    if [ -f "$HOME/.zshrc" ]; then
+        source "$HOME/.zshrc" 2>/dev/null || true
+    fi
+
+    print_success "Fabric installed!"
+
+    # Download patterns from upstream
+    if command_exists fabric; then
+        print_step "Downloading Fabric patterns from upstream..."
+        fabric -U
+        print_success "Patterns downloaded to ~/.config/fabric/patterns"
+
+        # Sync patterns to PAI's local directory
+        if [ -f "$PAI_DIR/.claude/skills/Fabric/tools/update-patterns.sh" ]; then
+            print_step "Syncing patterns to PAI..."
+            cd "$PAI_DIR/.claude/skills/Fabric/tools"
+            bash ./update-patterns.sh
+            print_success "Patterns synced to PAI!"
+        else
+            print_warning "Pattern sync script not found. Patterns available in ~/.config/fabric/patterns"
+        fi
+    else
+        print_warning "Fabric installation may require a shell restart."
+        print_info "After restarting your terminal, run: fabric -U"
+        print_info "Then sync patterns: $PAI_DIR/.claude/skills/Fabric/tools/update-patterns.sh"
+    fi
+else
+    print_info "Skipping Fabric setup. You can install it later with:"
+    echo "  curl -sSL https://raw.githubusercontent.com/danielmiessler/fabric/main/install.sh | bash"
+fi
+
+# ============================================
+# Step 8: AI Assistant Integration
 # ============================================
 
 print_header "Step 8: AI Assistant Integration"

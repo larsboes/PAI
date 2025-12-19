@@ -265,8 +265,12 @@ done
 # LINE 1 - Greeting with CC version
 printf "👋 ${DA_DISPLAY_COLOR}\"${DA_NAME} here, ready to go...\"${RESET} ${MODEL_PURPLE}Running CC ${cc_version}${RESET}${LINE1_PRIMARY} with ${MODEL_PURPLE}🧠 ${model_name}${RESET}${LINE1_PRIMARY} in ${DIR_COLOR}📁 ${dir_name}${RESET}\n"
 
-# LINE 2 - BLUE theme with MCP names
-printf "${LINE2_PRIMARY}🔌 MCPs${RESET}${LINE2_PRIMARY}${SEPARATOR_COLOR}: ${RESET}${mcp_names_formatted}${RESET}\n"
+# LINE 2 - BLUE theme with MCP names and Fabric patterns
+if [ "$fabric_count" -gt 0 ]; then
+    printf "${LINE2_PRIMARY}🔌 MCPs${RESET}${LINE2_PRIMARY}${SEPARATOR_COLOR}: ${RESET}${mcp_names_formatted}${LINE2_PRIMARY}  📚 Fabric Patterns${RESET}${LINE2_PRIMARY}${SEPARATOR_COLOR}: ${RESET}${LINE2_ACCENT}${fabric_count}${RESET}\n"
+else
+    printf "${LINE2_PRIMARY}🔌 MCPs${RESET}${LINE2_PRIMARY}${SEPARATOR_COLOR}: ${RESET}${mcp_names_formatted}${RESET}\n"
+fi
 
 # LINE 3 - GREEN theme with tokens and cost (show cached or N/A)
 # If we have cached data but it's empty, still show N/A
