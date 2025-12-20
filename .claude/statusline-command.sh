@@ -56,14 +56,34 @@ if [ -d "$claude_dir/Commands" ]; then
     commands_count=$(ls -1 "$claude_dir/Commands/"*.md 2>/dev/null | wc -l | tr -d ' ')
 fi
 
-# Count MCPs from settings.json (single parse)
+# Count MCPs from both settings.json and .mcp.json
 mcp_names_raw=""
+mcps_count=0
+
+# Check settings.json for .mcpServers (legacy)
 if [ -f "$claude_dir/settings.json" ]; then
     mcp_data=$(jq -r '.mcpServers | keys | join(" "), length' "$claude_dir/settings.json" 2>/dev/null)
-    mcp_names_raw=$(echo "$mcp_data" | head -1)
-    mcps_count=$(echo "$mcp_data" | tail -1)
-else
-    mcps_count="0"
+    if [ -n "$mcp_data" ] && [ "$mcp_data" != "null" ]; then
+        mcp_names_raw=$(echo "$mcp_data" | head -1)
+        mcps_count=$(echo "$mcp_data" | tail -1)
+    fi
+fi
+
+# Check .mcp.json (current Claude Code default)
+if [ -f "$claude_dir/.mcp.json" ]; then
+    mcp_json_data=$(jq -r '.mcpServers | keys | join(" "), length' "$claude_dir/.mcp.json" 2>/dev/null)
+    if [ -n "$mcp_json_data" ] && [ "$mcp_json_data" != "null" ]; then
+        mcp_json_names=$(echo "$mcp_json_data" | head -1)
+        mcp_json_count=$(echo "$mcp_json_data" | tail -1)
+
+        # Combine with settings.json results
+        if [ -n "$mcp_names_raw" ]; then
+            mcp_names_raw="$mcp_names_raw $mcp_json_names"
+        else
+            mcp_names_raw="$mcp_json_names"
+        fi
+        mcps_count=$((mcps_count + mcp_json_count))
+    fi
 fi
 
 # Count Services (optimized - count .md files directly)
