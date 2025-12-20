@@ -8,7 +8,7 @@
  * 
  * ## Usage
  * ```bash
- * bun ${PAI_DIR}/commands/perform-perplexity-research.md "your complex research question here"
+ * bun ${PAI_DIR}/Commands/perform-perplexity-research.md "your complex research question here"
  * ```
  *
  * ## Features
@@ -56,7 +56,7 @@ const originalQuestion = process.argv.slice(2).join(' ');
 
 if (!originalQuestion) {
   console.error('❌ Please provide a research question');
-  console.error('Usage: bun ${PAI_DIR}/commands/perform-perplexity-research.md "your question here"');
+  console.error('Usage: bun ${PAI_DIR}/Commands/perform-perplexity-research.md "your question here"');
   process.exit(1);
 }
 

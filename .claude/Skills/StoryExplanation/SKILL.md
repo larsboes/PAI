@@ -9,7 +9,7 @@ description: Create compelling story-format summaries using UltraThink to find t
 
 **Before starting any task with this skill, load complete PAI context:**
 
-`read ${PAI_DIR}/skills/CORE/SKILL.md`
+`read ${PAI_DIR}/Skills/CORE/SKILL.md`
 
 ## Core Philosophy
 
@@ -118,7 +118,7 @@ User request → Analyze intent:
    - Example: `${PAI_DIR}/scratchpad/2025-10-26-143000_story-explanation-agi-timeline/`
 
 2. **History (Permanent Archive - Optional):**
-   - Move to `${PAI_DIR}/history/research/YYYY-MM/YYYY-MM-DD-HHMMSS_AGENT-[agent]_RESEARCH_[slug].md` **ONLY IF:**
+   - Move to `${PAI_DIR}/History/research/YYYY-MM/YYYY-MM-DD-HHMMSS_AGENT-[agent]_RESEARCH_[slug].md` **ONLY IF:**
      - The analysis provides valuable reusable insights about narrative framing
      - The content analysis reveals patterns applicable to future work
      - The framing exploration demonstrates particularly effective techniques
@@ -142,7 +142,7 @@ ${PAI_DIR}/scratchpad/2025-10-26-143000_story-explanation-agi-timeline/
 └── final-story-explanation.md         # Final output
 
 # Only if exceptional:
-${PAI_DIR}/history/research/2025-10/2025-10-26-143000_AGENT-default_RESEARCH_agi-timeline-narrative-framing-analysis.md
+${PAI_DIR}/History/research/2025-10/2025-10-26-143000_AGENT-default_RESEARCH_agi-timeline-narrative-framing-analysis.md
 ```
 
 **Guidelines:**

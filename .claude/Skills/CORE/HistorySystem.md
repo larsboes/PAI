@@ -83,7 +83,7 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 
 ### 1. PostToolUse Hook
 **Triggers:** Every tool execution (Bash, Edit, Write, Read, Task, etc.)
-**Implementation:** `${PAI_DIR}/hooks/capture-all-events.ts --event-type PostToolUse`
+**Implementation:** `${PAI_DIR}/Hooks/capture-all-events.ts --event-type PostToolUse`
 **Output:** Daily JSONL logs in `Raw-Outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl`
 **Purpose:** Raw execution data for forensics and analytics
 
@@ -93,7 +93,7 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 
 ### 2. Stop Hook
 **Triggers:** Main agent (PAI) task completion
-**Implementation:** `${PAI_DIR}/hooks/stop-hook.ts`
+**Implementation:** `${PAI_DIR}/Hooks/stop-hook.ts`
 **Output:** Auto-captured files in `Learnings/` or `Sessions/` based on content
 **Purpose:** Lightweight capture of work summaries and learning moments
 
@@ -105,7 +105,7 @@ YYYY-MM-DD-HHMMSS_[PROJECT]_[TYPE]_[HIERARCHY]_[DESCRIPTION].md
 
 ### 3. SubagentStop Hook
 **Triggers:** Specialized agent task completion
-**Implementation:** `${PAI_DIR}/hooks/subagent-stop-hook.ts`
+**Implementation:** `${PAI_DIR}/Hooks/subagent-stop-hook.ts`
 **Output:** Categorized documents in appropriate directories
 **Purpose:** Organized work documentation by agent type
 
@@ -128,13 +128,13 @@ New fields available in SubagentStop hooks:
 
 ### 4. SessionEnd Hook
 **Triggers:** Session exit (when you quit Claude Code)
-**Implementation:** `${PAI_DIR}/hooks/capture-session-summary.ts`
+**Implementation:** `${PAI_DIR}/Hooks/capture-session-summary.ts`
 **Output:** Session summary in `Sessions/YYYY-MM/`
 **Purpose:** High-level session documentation
 
 ### 5. SessionStart Hook
 **Triggers:** Session initialization (when you start Claude Code)
-**Implementation:** `${PAI_DIR}/hooks/initialize-kai-session.ts`
+**Implementation:** `${PAI_DIR}/Hooks/initialize-kai-session.ts`
 **Purpose:** Load core context and prepare session environment
 
 ---

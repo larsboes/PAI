@@ -9,7 +9,7 @@
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_DIR}/skills/CORE/SkillSystem.md
+${PAI_DIR}/Skills/CORE/SkillSystem.md
 ```
 
 ---
@@ -17,7 +17,7 @@ ${PAI_DIR}/skills/CORE/SkillSystem.md
 ## Step 2: Read the Current Skill
 
 ```bash
-${PAI_DIR}/skills/[SkillName]/SKILL.md
+${PAI_DIR}/Skills/[SkillName]/SKILL.md
 ```
 
 Understand the current:
@@ -46,12 +46,12 @@ What needs to change?
 
 2. **Create the workflow file:**
 ```bash
-touch ${PAI_DIR}/skills/[SkillName]/workflows/[WorkflowName].md
+touch ${PAI_DIR}/Skills/[SkillName]/workflows/[WorkflowName].md
 ```
 
 Example:
 ```bash
-touch ${PAI_DIR}/skills/Daemon/workflows/UpdatePublicRepo.md
+touch ${PAI_DIR}/Skills/Daemon/workflows/UpdatePublicRepo.md
 ```
 
 3. **Add entry to `## Workflow Routing` section in SKILL.md:**
@@ -77,13 +77,13 @@ description: [What it does]. USE WHEN [updated intent triggers using OR]. [Capab
 
 1. **Create TitleCase tool file:**
 ```bash
-touch ${PAI_DIR}/skills/[SkillName]/tools/ToolName.ts
-touch ${PAI_DIR}/skills/[SkillName]/tools/ToolName.help.md
+touch ${PAI_DIR}/Skills/[SkillName]/tools/ToolName.ts
+touch ${PAI_DIR}/Skills/[SkillName]/tools/ToolName.help.md
 ```
 
 2. **Ensure tools/ directory exists:**
 ```bash
-mkdir -p ${PAI_DIR}/skills/[SkillName]/tools
+mkdir -p ${PAI_DIR}/Skills/[SkillName]/tools
 ```
 
 ---
@@ -93,8 +93,8 @@ mkdir -p ${PAI_DIR}/skills/[SkillName]/tools
 After making changes, verify naming:
 
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/workflows/
-ls ${PAI_DIR}/skills/[SkillName]/tools/
+ls ${PAI_DIR}/Skills/[SkillName]/workflows/
+ls ${PAI_DIR}/Skills/[SkillName]/tools/
 ```
 
 All files must use TitleCase:

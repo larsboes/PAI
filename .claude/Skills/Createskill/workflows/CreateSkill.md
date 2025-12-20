@@ -6,8 +6,8 @@ Create a new skill following the canonical structure with proper TitleCase namin
 
 **REQUIRED FIRST:**
 
-1. Read the skill system documentation: `${PAI_DIR}/skills/CORE/SkillSystem.md`
-2. Read the canonical example: `${PAI_DIR}/skills/Blogging/SKILL.md`
+1. Read the skill system documentation: `${PAI_DIR}/Skills/CORE/SkillSystem.md`
+2. Read the canonical example: `${PAI_DIR}/Skills/Blogging/SKILL.md`
 
 ## Step 2: Understand the Request
 
@@ -35,14 +35,14 @@ Ask the user:
 ## Step 4: Create the Skill Directory
 
 ```bash
-mkdir -p ${PAI_DIR}/skills/[SkillName]/workflows
-mkdir -p ${PAI_DIR}/skills/[SkillName]/tools
+mkdir -p ${PAI_DIR}/Skills/[SkillName]/workflows
+mkdir -p ${PAI_DIR}/Skills/[SkillName]/tools
 ```
 
 **Example:**
 ```bash
-mkdir -p ${PAI_DIR}/skills/Daemon/workflows
-mkdir -p ${PAI_DIR}/skills/Daemon/tools
+mkdir -p ${PAI_DIR}/Skills/Daemon/workflows
+mkdir -p ${PAI_DIR}/Skills/Daemon/tools
 ```
 
 ## Step 5: Create SKILL.md
@@ -99,24 +99,24 @@ User: "[Different request]"
 For each workflow in the routing section:
 
 ```bash
-touch ${PAI_DIR}/skills/[SkillName]/workflows/[WorkflowName].md
+touch ${PAI_DIR}/Skills/[SkillName]/workflows/[WorkflowName].md
 ```
 
 **Examples (TitleCase):**
 ```bash
-touch ${PAI_DIR}/skills/Daemon/workflows/UpdateDaemonInfo.md
-touch ${PAI_DIR}/skills/Daemon/workflows/UpdatePublicRepo.md
-touch ${PAI_DIR}/skills/Blogging/workflows/Create.md
-touch ${PAI_DIR}/skills/Blogging/workflows/Publish.md
+touch ${PAI_DIR}/Skills/Daemon/workflows/UpdateDaemonInfo.md
+touch ${PAI_DIR}/Skills/Daemon/workflows/UpdatePublicRepo.md
+touch ${PAI_DIR}/Skills/Blogging/workflows/Create.md
+touch ${PAI_DIR}/Skills/Blogging/workflows/Publish.md
 ```
 
 ## Step 7: Verify TitleCase
 
 Run this check:
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/
-ls ${PAI_DIR}/skills/[SkillName]/workflows/
-ls ${PAI_DIR}/skills/[SkillName]/tools/
+ls ${PAI_DIR}/Skills/[SkillName]/
+ls ${PAI_DIR}/Skills/[SkillName]/workflows/
+ls ${PAI_DIR}/Skills/[SkillName]/tools/
 ```
 
 Verify ALL files use TitleCase:

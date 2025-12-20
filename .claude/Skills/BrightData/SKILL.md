@@ -14,7 +14,7 @@ description: |
 
 **When user requests scraping/fetching URL content:**
 Examples: "scrape this URL", "fetch this page", "get content from [URL]", "pull content from this site", "retrieve [URL]", "can't access this site", "this site is blocking me", "use Bright Data to fetch"
-→ **READ:** ${PAI_DIR}/skills/brightdata/workflows/four-tier-scrape.md
+→ **READ:** ${PAI_DIR}/Skills/brightdata/workflows/four-tier-scrape.md
 → **EXECUTE:** Four-tier progressive scraping workflow (WebFetch → Curl → Browser Automation → Bright Data MCP)
 
 ---
@@ -149,7 +149,7 @@ Skill Response:
 ---
 
 **Related Documentation:**
-- `${PAI_DIR}/skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md` - Canonical structure guide
-- `${PAI_DIR}/skills/CORE/CONSTITUTION.md` - Overall Kai philosophy
+- `${PAI_DIR}/Skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md` - Canonical structure guide
+- `${PAI_DIR}/Skills/CORE/CONSTITUTION.md` - Overall Kai philosophy
 
 **Last Updated:** 2025-11-23

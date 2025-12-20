@@ -9,9 +9,9 @@ MANDATORY skill creation framework for ALL skill creation requests.
 
 ## Authoritative Source
 
-**Before creating ANY skill, READ:** `${PAI_DIR}/skills/CORE/SkillSystem.md`
+**Before creating ANY skill, READ:** `${PAI_DIR}/Skills/CORE/SkillSystem.md`
 
-**Canonical example to follow:** `${PAI_DIR}/skills/Blogging/SKILL.md`
+**Canonical example to follow:** `${PAI_DIR}/Skills/Blogging/SKILL.md`
 
 ## TitleCase Naming Convention
 

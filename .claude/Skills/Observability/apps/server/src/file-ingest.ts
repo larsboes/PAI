@@ -43,7 +43,7 @@ function getTodayEventsFile(): string {
   const month = String(pstDate.getMonth() + 1).padStart(2, '0');
   const day = String(pstDate.getDate()).padStart(2, '0');
 
-  const monthDir = join(paiDir, 'history', 'raw-outputs', `${year}-${month}`);
+  const monthDir = join(paiDir, 'History', 'raw-outputs', `${year}-${month}`);
   return join(monthDir, `${year}-${month}-${day}_all-events.jsonl`);
 }
 

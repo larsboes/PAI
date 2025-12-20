@@ -14,7 +14,7 @@ import { startFileIngestion, getRecentEvents, getFilterOptions } from './file-in
 // Store WebSocket clients
 const wsClients = new Set<any>();
 
-// Start file-based ingestion (reads from ~/.claude/history/raw-outputs/)
+// Start file-based ingestion (reads from ~/.claude/History/raw-outputs/)
 // Pass a callback to broadcast new events to connected WebSocket clients
 startFileIngestion((events) => {
   // Broadcast each event to all connected WebSocket clients

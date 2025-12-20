@@ -87,8 +87,8 @@ See `${PAI_DIR}/voice-server/README.md` for complete voice list.
 
 ## 🔗 Related Documentation
 
-- **Prosody Guide:** `${PAI_DIR}/skills/CORE/prosody-guide.md` (voice parameter tuning)
-- **Agent Template:** `${PAI_DIR}/skills/CORE/prosody-agent-template.md` (creating agent voices)
+- **Prosody Guide:** `${PAI_DIR}/Skills/CORE/prosody-guide.md` (voice parameter tuning)
+- **Agent Template:** `${PAI_DIR}/Skills/CORE/prosody-agent-template.md` (creating agent voices)
 
 ---
 

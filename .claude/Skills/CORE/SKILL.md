@@ -110,14 +110,14 @@ COMPLETED: [12 words max - drives voice output - REQUIRED]
 
 **Operating Principles:**
 - Date Awareness: Always use today's actual date from system (not training cutoff)
-- Constitutional Principles: See ${PAI_DIR}/skills/CORE/CONSTITUTION.md
+- Constitutional Principles: See ${PAI_DIR}/Skills/CORE/CONSTITUTION.md
 - Command Line First, Deterministic Code First, Prompts Wrap Code
 
 ---
 
 ## Documentation Index & Route Triggers
 
-**All documentation files are in `${PAI_DIR}/skills/CORE/` (flat structure).**
+**All documentation files are in `${PAI_DIR}/Skills/CORE/` (flat structure).**
 
 **Core Architecture & Philosophy:**
 - `CONSTITUTION.md` - System architecture and philosophy | PRIMARY REFERENCE
@@ -155,8 +155,8 @@ description: [What it does]. USE WHEN [intent triggers using OR]. [Capabilities]
 ## File Organization (Always Active)
 
 - **Scratchpad** (`${PAI_DIR}/scratchpad/`) - Temporary files only. Delete when done.
-- **History** (`${PAI_DIR}/history/`) - Permanent valuable outputs.
-- **Backups** (`${PAI_DIR}/history/backups/`) - All backups go here, NEVER inside skill directories.
+- **History** (`${PAI_DIR}/History/`) - Permanent valuable outputs.
+- **Backups** (`${PAI_DIR}/History/backups/`) - All backups go here, NEVER inside skill directories.
 
 **Rules:**
 - Save valuable work to history, not scratchpad
@@ -260,19 +260,19 @@ You have EXPLICIT PERMISSION to say "I don't know" or "I'm not confident" when:
 
 **CRITICAL: When the user asks about ANYTHING done in the past, CHECK THE HISTORY SYSTEM FIRST.**
 
-The history system at `${PAI_DIR}/history/` contains ALL past work - sessions, learnings, research, decisions.
+The history system at `${PAI_DIR}/History/` contains ALL past work - sessions, learnings, research, decisions.
 
 ### How to Search History
 
 ```bash
 # Quick keyword search across all history
-rg -i "keyword" ${PAI_DIR}/history/
+rg -i "keyword" ${PAI_DIR}/History/
 
 # Search sessions specifically
-rg -i "keyword" ${PAI_DIR}/history/sessions/
+rg -i "keyword" ${PAI_DIR}/History/sessions/
 
 # List recent files
-ls -lt ${PAI_DIR}/history/sessions/2025-11/ | head -20
+ls -lt ${PAI_DIR}/History/sessions/2025-11/ | head -20
 ```
 
 ### Directory Quick Reference

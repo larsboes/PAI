@@ -9,7 +9,7 @@
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_DIR}/skills/CORE/SkillSystem.md
+${PAI_DIR}/Skills/CORE/SkillSystem.md
 ```
 
 ---
@@ -17,7 +17,7 @@ ${PAI_DIR}/skills/CORE/SkillSystem.md
 ## Step 2: Read the Target Skill
 
 ```bash
-${PAI_DIR}/skills/[SkillName]/SKILL.md
+${PAI_DIR}/Skills/[SkillName]/SKILL.md
 ```
 
 ---
@@ -26,7 +26,7 @@ ${PAI_DIR}/skills/[SkillName]/SKILL.md
 
 ### Skill Directory
 ```bash
-ls ${PAI_DIR}/skills/ | grep -i [skillname]
+ls ${PAI_DIR}/Skills/ | grep -i [skillname]
 ```
 
 Verify TitleCase:
@@ -35,7 +35,7 @@ Verify TitleCase:
 
 ### Workflow Files
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/workflows/
+ls ${PAI_DIR}/Skills/[SkillName]/workflows/
 ```
 
 Verify TitleCase:
@@ -44,7 +44,7 @@ Verify TitleCase:
 
 ### Tool Files
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/tools/
+ls ${PAI_DIR}/Skills/[SkillName]/tools/
 ```
 
 Verify TitleCase:
@@ -117,7 +117,7 @@ User: "[Request]"
 ## Step 6: Check Workflow Files
 
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/workflows/
+ls ${PAI_DIR}/Skills/[SkillName]/workflows/
 ```
 
 Verify:
@@ -131,7 +131,7 @@ Verify:
 ## Step 7: Check Structure
 
 ```bash
-ls -la ${PAI_DIR}/skills/[SkillName]/
+ls -la ${PAI_DIR}/Skills/[SkillName]/
 ```
 
 Verify:

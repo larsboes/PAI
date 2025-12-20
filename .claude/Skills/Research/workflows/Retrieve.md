@@ -6,7 +6,7 @@ Intelligent multi-layer content retrieval system for DIFFICULT content retrieval
 
 **Before starting any task with this skill, load complete PAI context:**
 
-`Skill("CORE")` or `read ${PAI_DIR}/skills/CORE/SKILL.md`
+`Skill("CORE")` or `read ${PAI_DIR}/Skills/CORE/SKILL.md`
 
 This provides access to:
 - Stack preferences and tool configurations
@@ -411,7 +411,7 @@ mcp__Apify__apify-slash-rag-web-browser({
    - Draft extracted data and transformations
 
 2. **History (Permanent Archive):**
-   - Move to `${PAI_DIR}/history/research/YYYY-MM-DD_[description]/` when complete
+   - Move to `${PAI_DIR}/History/research/YYYY-MM-DD_[description]/` when complete
    - Include: `README.md`, final extracted content, metadata
    - Archive for future reference and reuse
 
@@ -438,7 +438,7 @@ ${PAI_DIR}/scratchpad/2025-10-26-143022_retrieve-react19-docs/
 
 **History (permanent archive):**
 ```
-${PAI_DIR}/history/research/2025-10-26_react19-documentation/
+${PAI_DIR}/History/research/2025-10-26_react19-documentation/
 ├── README.md (retrieval documentation)
 ├── content.md (final extracted content)
 ├── metadata.json (sources, layers used, timestamps)

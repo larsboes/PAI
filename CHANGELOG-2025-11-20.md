@@ -58,7 +58,7 @@ Major architectural improvements addressing GitHub issues #112, #113, #95, and #
 
 - `.claude/Hooks/self-test.ts` - PAI health check system
   - Tests 12 core guarantees
-  - Command: `bun ${PAI_DIR}/hooks/self-test.ts`
+  - Command: `bun ${PAI_DIR}/Hooks/self-test.ts`
   - Validates: directories, CORE skill, settings, agents, hooks
   - Clear pass/fail reporting
 
@@ -94,7 +94,7 @@ Major architectural improvements addressing GitHub issues #112, #113, #95, and #
 
 - `.claude/Hooks/pre-commit.template` - Git pre-commit hook
   - Automatically runs validation before commits
-  - Installation: `cp .claude/Hooks/pre-commit.template .git/hooks/pre-commit`
+  - Installation: `cp .claude/Hooks/pre-commit.template .git/Hooks/pre-commit`
   - Prevents accidents
 
 - `PAI_SYNC_GUIDE.md` - Complete workflow documentation
@@ -180,8 +180,8 @@ All systems tested and verified:
 
 3. **Install pre-commit hook (optional but recommended):**
    ```bash
-   cp .claude/Hooks/pre-commit.template .git/hooks/pre-commit
-   chmod +x .git/hooks/pre-commit
+   cp .claude/Hooks/pre-commit.template .git/Hooks/pre-commit
+   chmod +x .git/Hooks/pre-commit
    ```
 
 4. **Read new documentation:**

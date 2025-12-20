@@ -9,7 +9,7 @@
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_DIR}/skills/CORE/SkillSystem.md
+${PAI_DIR}/Skills/CORE/SkillSystem.md
 ```
 
 This defines exactly what "canonicalize" means.
@@ -19,7 +19,7 @@ This defines exactly what "canonicalize" means.
 ## Step 2: Read the Current Skill
 
 ```bash
-${PAI_DIR}/skills/[skill-name]/SKILL.md
+${PAI_DIR}/Skills/[skill-name]/SKILL.md
 ```
 
 Identify what's wrong:
@@ -36,10 +36,10 @@ Identify what's wrong:
 ## Step 3: Backup
 
 ```bash
-cp -r ${PAI_DIR}/skills/[skill-name]/ ${PAI_DIR}/history/backups/[skill-name]-backup-$(date +%Y%m%d)/
+cp -r ${PAI_DIR}/Skills/[skill-name]/ ${PAI_DIR}/History/backups/[skill-name]-backup-$(date +%Y%m%d)/
 ```
 
-**Note:** Backups go to `${PAI_DIR}/history/backups/`, NEVER inside skill directories.
+**Note:** Backups go to `${PAI_DIR}/History/backups/`, NEVER inside skill directories.
 
 ---
 
@@ -74,7 +74,7 @@ cp -r ${PAI_DIR}/skills/[skill-name]/ ${PAI_DIR}/history/backups/[skill-name]-ba
 **Rename files if needed:**
 ```bash
 # Example: rename workflow files
-cd ${PAI_DIR}/skills/[SkillName]/workflows/
+cd ${PAI_DIR}/Skills/[SkillName]/workflows/
 mv create.md Create.md
 mv update-info.md UpdateInfo.md
 mv sync_repo.md SyncRepo.md
@@ -160,7 +160,7 @@ If the markdown body already had routing information in a different format, cons
 
 List workflow files:
 ```bash
-ls ${PAI_DIR}/skills/[SkillName]/workflows/
+ls ${PAI_DIR}/Skills/[SkillName]/workflows/
 ```
 
 For EACH file:

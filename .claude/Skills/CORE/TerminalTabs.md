@@ -60,7 +60,7 @@ printf '\033]30;Title Here\007'
 
 The terminal tab functionality is implemented in:
 ```
-${PAI_DIR}/hooks/stop-hook.ts
+${PAI_DIR}/Hooks/stop-hook.ts
 ```
 
 ### Key Functions
@@ -75,13 +75,13 @@ If tab titles aren't updating:
 
 1. **Check hook is executable:**
    ```bash
-   ls -la ${PAI_DIR}/hooks/stop-hook.ts
+   ls -la ${PAI_DIR}/Hooks/stop-hook.ts
    # Should show: -rwxr-xr-x
    ```
 
 2. **Verify Claude Code settings:**
    - Ensure stop-hook is configured in your Claude Code settings
-   - Path should be: `${PAI_DIR}/hooks/stop-hook.ts`
+   - Path should be: `${PAI_DIR}/Hooks/stop-hook.ts`
 
 3. **Test manually:**
    ```bash
@@ -96,7 +96,7 @@ If tab titles aren't updating:
 
 ## Customization
 
-To modify the tab title behavior, edit `${PAI_DIR}/hooks/stop-hook.ts`:
+To modify the tab title behavior, edit `${PAI_DIR}/Hooks/stop-hook.ts`:
 
 - Change word count (currently 4 words)
 - Modify verb tense (currently past tense)

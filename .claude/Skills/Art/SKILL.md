@@ -42,7 +42,7 @@ Complete visual content system using the **PAI Visual Aesthetic**.
 - Neon orange (warmth) + cyan (tech) accents
 - Subtle glows on key elements
 
-**Full aesthetic documentation:** `${PAI_DIR}/skills/CORE/aesthetic.md`
+**Full aesthetic documentation:** `${PAI_DIR}/Skills/CORE/aesthetic.md`
 
 **This is the SINGLE SOURCE OF TRUTH for all visual styling.**
 
@@ -74,7 +74,7 @@ Complete visual content system using the **PAI Visual Aesthetic**.
 **Default model:** nano-banana-pro (Gemini 3 Pro)
 
 ```bash
-bun run ${PAI_DIR}/skills/art/tools/generate-ulart-image.ts \
+bun run ${PAI_DIR}/Skills/art/tools/generate-ulart-image.ts \
   --model nano-banana-pro \
   --prompt "[PROMPT]" \
   --size 2K \
@@ -120,4 +120,4 @@ What does user need?
 
 ---
 
-**For complete visual styling rules, ALWAYS read:** `${PAI_DIR}/skills/CORE/aesthetic.md`
+**For complete visual styling rules, ALWAYS read:** `${PAI_DIR}/Skills/CORE/aesthetic.md`

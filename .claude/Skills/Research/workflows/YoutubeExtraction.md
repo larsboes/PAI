@@ -6,7 +6,7 @@ Extract content from YouTube videos using Fabric CLI. Automatically downloads, t
 
 **Before starting any task with this skill, load complete PAI context:**
 
-`Skill("CORE")` or `read ${PAI_DIR}/skills/CORE/SKILL.md`
+`Skill("CORE")` or `read ${PAI_DIR}/Skills/CORE/SKILL.md`
 
 This provides access to:
 - Stack preferences and tool configurations

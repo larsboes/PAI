@@ -457,7 +457,7 @@ Level 4: Workflow Invocation (Which specific procedure?)
 Execution
 ```
 
-**For complete routing guide, see:** `${PAI_DIR}/skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
+**For complete routing guide, see:** `${PAI_DIR}/Skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
 
 ---
 
@@ -475,7 +475,7 @@ Execution
 
 **Example Structure:**
 ```
-${PAI_DIR}/skills/blogging/
+${PAI_DIR}/Skills/blogging/
 ├── SKILL.md                    # Core skill + routing
 ├── workflows/
 │   ├── write.md               # Write blog workflow
@@ -532,7 +532,7 @@ User says: "write a blog", "create a post", "write an article"
 
 **Agent Configuration:**
 ```
-${PAI_DIR}/agents/engineer.md
+${PAI_DIR}/Agents/engineer.md
 
 Frontmatter:
 - voice_id: [ElevenLabs voice ID]
@@ -687,7 +687,7 @@ evals run --use-case newsletter-summary \
 
 AI should orchestrate deterministic tools, not replace them with ad-hoc prompting.
 
-**For complete CLI-First guide, see:** `${PAI_DIR}/skills/CORE/cli-first-architecture.md`
+**For complete CLI-First guide, see:** `${PAI_DIR}/Skills/CORE/cli-first-architecture.md`
 
 ### CLI-First for API Calls
 
@@ -788,7 +788,7 @@ llcli search "consulting" | grep -i "quorum"
 **Before (Bash Script):**
 ```bash
 # In skill prompt:
-${PAI_DIR}/skills/skill-name/scripts/fetch-data.sh today "" 20
+${PAI_DIR}/Skills/skill-name/scripts/fetch-data.sh today "" 20
 ```
 
 **After (CLI Tool):**
@@ -798,7 +798,7 @@ ${PAI_DIR}/bin/toolname/toolname.ts today --limit 20
 ```
 
 **Key Differences:**
-1. **Location:** `/bin/` not `/skills/.../scripts/`
+1. **Location:** `/bin/` not `/Skills/.../scripts/`
 2. **Language:** TypeScript not Bash
 3. **Documentation:** --help not comments
 4. **Validation:** Type-checked not string parsing
@@ -895,7 +895,7 @@ Traditional MCP-only architectures have fatal flaws for production use:
 
 **Tier 2: System MCPs - Execution Phase**
 
-**Location:** `${PAI_DIR}/skills/system-mcp/`
+**Location:** `${PAI_DIR}/Skills/system-mcp/`
 
 **When to Use:**
 - ✅ API will be called >10 times
@@ -972,7 +972,7 @@ Kai uses mandatory structured output format that integrates with voice server fo
    🎯 COMPLETED: Blog post published and verified live on production
    ```
 
-2. **Stop hook fires** (`${PAI_DIR}/hooks/stop-hook.ts`)
+2. **Stop hook fires** (`${PAI_DIR}/Hooks/stop-hook.ts`)
    - Reads transcript after response
    - Extracts COMPLETED line text
    - Determines entity (Kai vs specific agent)
@@ -1025,13 +1025,13 @@ Kai uses mandatory structured output format that integrates with voice server fo
 
 **THE PERMANENT KNOWLEDGE BASE**
 
-**Location:** `${PAI_DIR}/history/`
+**Location:** `${PAI_DIR}/History/`
 
 **Purpose:** Capture ALL valuable work for future reference, learning, and analysis.
 
 **Directory Structure:**
 ```
-${PAI_DIR}/history/
+${PAI_DIR}/History/
 ├── raw-outputs/              # Raw event logs (JSONL)
 │   └── YYYY-MM/
 │       └── YYYY-MM-DD_all-events.jsonl
@@ -1088,7 +1088,7 @@ ${PAI_DIR}/history/
 - Random one-off requests
 - Delete when done
 
-**History** (`${PAI_DIR}/history/`):
+**History** (`${PAI_DIR}/History/`):
 - PERMANENT valuable outputs
 - Research findings
 - Learnings and insights
@@ -1101,7 +1101,7 @@ ${PAI_DIR}/history/
 
 **EVENT-DRIVEN AUTOMATION**
 
-**Location:** `${PAI_DIR}/hooks/`
+**Location:** `${PAI_DIR}/Hooks/`
 
 **Purpose:** Automatically capture events, trigger actions, and integrate systems without explicit calls.
 
@@ -1128,7 +1128,7 @@ ${PAI_DIR}/history/
    - Can inject context
    - Can modify prompts
 
-**Reference:** `${PAI_DIR}/skills/CORE/hook-system.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/hook-system.md`
 
 ### 4. Agent System
 
@@ -1174,8 +1174,8 @@ Kai → [10 Interns update files] → Spotcheck Intern (verifies all 10)
 ```
 
 **Reference:**
-- `${PAI_DIR}/skills/CORE/delegation-patterns.md`
-- `${PAI_DIR}/skills/CORE/agent-protocols.md`
+- `${PAI_DIR}/Skills/CORE/delegation-patterns.md`
+- `${PAI_DIR}/Skills/CORE/agent-protocols.md`
 
 ### 5. MCP Profile Management
 
@@ -1208,7 +1208,7 @@ ${PAI_DIR}/MCPs/swap-mcp chrome-enabled
 # MUST restart Claude Code to apply!
 ```
 
-**Reference:** `${PAI_DIR}/skills/CORE/mcp-strategy.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/mcp-strategy.md`
 
 ---
 
@@ -1295,7 +1295,7 @@ description: |
 
 ## 🎯 Load Full CORE Context
 
-read ${PAI_DIR}/skills/CORE/SKILL.md
+read ${PAI_DIR}/Skills/CORE/SKILL.md
 
 ## When to Activate This Skill
 
@@ -1317,7 +1317,7 @@ read ${PAI_DIR}/skills/CORE/SKILL.md
 4. Reference files for deep dives
 5. Assets/examples for templates
 
-**Reference:** `${PAI_DIR}/skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
 
 ### Adding Workflows
 
@@ -1383,7 +1383,7 @@ voice_id: [ElevenLabs voice ID]
 [Use standard COMPLETED format]
 ```
 
-**Reference:** `${PAI_DIR}/skills/CORE/agent-protocols.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/agent-protocols.md`
 
 ---
 
@@ -1432,7 +1432,7 @@ voice_id: [ElevenLabs voice ID]
 
 **Never skip quality gates.** If testing reveals issues, fix them before completion.
 
-**Reference:** `${PAI_DIR}/skills/CORE/TESTING.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/TESTING.md`
 
 ---
 

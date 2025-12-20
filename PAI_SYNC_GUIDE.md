@@ -34,7 +34,7 @@ Checks for:
 - ❌ References to private Kai data
 - ❌ Secrets or credentials
 
-### 3. **Pre-Commit Hook** (`.git/hooks/pre-commit`)
+### 3. **Pre-Commit Hook** (`.git/Hooks/pre-commit`)
 Automatically runs validation before every commit.
 
 ---
@@ -59,10 +59,10 @@ Ask yourself:
 ### Step 3: Copy to PAI Repo
 ```bash
 # Example: Copying a new skill
-cp -r ${PAI_DIR}/skills/new-skill ~/Projects/PAI/.claude/Skills/
+cp -r ${PAI_DIR}/Skills/new-skill ~/Projects/PAI/.claude/Skills/
 
 # Example: Updating a hook
-cp ${PAI_DIR}/hooks/some-hook.ts ~/Projects/PAI/.claude/Hooks/
+cp ${PAI_DIR}/Hooks/some-hook.ts ~/Projects/PAI/.claude/Hooks/
 ```
 
 **IMPORTANT:** Do NOT use `cp -r ~/.claude ~/Projects/PAI/` (don't bulk copy everything)
@@ -200,8 +200,8 @@ The pre-commit hook is NOT installed by default (to avoid interfering with other
 To install:
 ```bash
 cd ~/Projects/PAI
-cp .claude/Hooks/pre-commit.template .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
+cp .claude/Hooks/pre-commit.template .git/Hooks/pre-commit
+chmod +x .git/Hooks/pre-commit
 ```
 
 Now validation runs automatically before every commit.
@@ -292,7 +292,7 @@ Complete example of adding a new skill from Kai to PAI:
 
 ```bash
 # 1. Copy skill from Kai to PAI
-cp -r ${PAI_DIR}/skills/my-new-skill ~/Projects/PAI/.claude/Skills/
+cp -r ${PAI_DIR}/Skills/my-new-skill ~/Projects/PAI/.claude/Skills/
 
 # 2. Sanitize the skill's SKILL.md
 cd ~/Projects/PAI/.claude/Skills/my-new-skill
