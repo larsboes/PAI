@@ -9,13 +9,19 @@ description: PAI (Personal AI Infrastructure) - Your AI system core. AUTO-LOADS 
 
 ## Workflow Routing
 
-**When executing a workflow, call the notification script via Bash:**
+**When executing a workflow, do BOTH of these:**
 
-```bash
-${PAI_DIR}/tools/skill-workflow-notification WorkflowName CORE
-```
+1. **Call the notification script** (for observability tracking):
+   ```bash
+   ~/.claude/Tools/SkillWorkflowNotification WORKFLOWNAME SKILLNAME
+   ```
 
-This emits the notification AND enables dashboards to detect workflow activations.
+2. **Output the text notification** (for user visibility):
+   ```
+   Running the **WorkflowName** workflow from the **SKILLNAME** skill...
+   ```
+
+This ensures workflows appear in the observability dashboard AND the user sees the announcement.
 
 | Action | Trigger | Behavior |
 |--------|---------|----------|

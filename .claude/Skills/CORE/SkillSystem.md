@@ -59,11 +59,19 @@ description: [What it does]. USE WHEN [intent triggers using OR]. [Additional ca
 
 ## Workflow Routing
 
-**When executing a workflow, call the notification script via Bash:**
+**When executing a workflow, do BOTH of these:**
 
-```bash
-${PAI_DIR}/tools/skill-workflow-notification WorkflowName SkillName
-```
+1. **Call the notification script** (for observability tracking):
+   ```bash
+   ~/.claude/Tools/SkillWorkflowNotification WORKFLOWNAME SKILLNAME
+   ```
+
+2. **Output the text notification** (for user visibility):
+   ```
+   Running the **WorkflowName** workflow from the **SKILLNAME** skill...
+   ```
+
+This ensures workflows appear in the observability dashboard AND the user sees the announcement.
 
 | Workflow | Trigger | File |
 |----------|---------|------|

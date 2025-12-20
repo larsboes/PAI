@@ -457,7 +457,7 @@ Level 4: Workflow Invocation (Which specific procedure?)
 Execution
 ```
 
-**For complete routing guide, see:** `${PAI_DIR}/Skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
+**For complete routing guide, see:** `${PAI_DIR}/Skills/CORE/SkillSystem.md`
 
 ---
 
@@ -1317,7 +1317,7 @@ read ${PAI_DIR}/Skills/CORE/SKILL.md
 4. Reference files for deep dives
 5. Assets/examples for templates
 
-**Reference:** `${PAI_DIR}/Skills/CORE/SKILL-STRUCTURE-AND-ROUTING.md`
+**Reference:** `${PAI_DIR}/Skills/CORE/SkillSystem.md`
 
 ### Adding Workflows
 
@@ -1486,7 +1486,7 @@ voice_id: [ElevenLabs voice ID]
 ## Related Documentation
 
 **For implementation details, see:**
-- Skill structure patterns: `SKILL-STRUCTURE-AND-ROUTING.md`
+- Skill structure patterns: `SkillSystem.md`
 - CLI-First detailed guide: `cli-first-architecture.md`
 - MCP strategy full details: `mcp-strategy.md`
 - Testing comprehensive guide: `TESTING.md`
