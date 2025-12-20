@@ -11,16 +11,16 @@ Real-time monitoring of PAI multi-agent activity with WebSocket streaming.
 
 ```bash
 # Start server and dashboard
-~/.claude/skills/observability/manage.sh start
+~/.claude/Skills/observability/manage.sh start
 
 # Stop everything
-~/.claude/skills/observability/manage.sh stop
+~/.claude/Skills/observability/manage.sh stop
 
 # Restart both
-~/.claude/skills/observability/manage.sh restart
+~/.claude/Skills/observability/manage.sh restart
 
 # Check status
-~/.claude/skills/observability/manage.sh status
+~/.claude/Skills/observability/manage.sh status
 ```
 
 ## Access Points
@@ -98,14 +98,14 @@ User: "is observability running?"
 
 ### Server
 ```bash
-cd ~/.claude/skills/observability/apps/server
+cd ~/.claude/Skills/observability/apps/server
 bun install
 bun run dev
 ```
 
 ### Client
 ```bash
-cd ~/.claude/skills/observability/apps/client
+cd ~/.claude/Skills/observability/apps/client
 bun install
 bun run dev
 ```
@@ -130,7 +130,7 @@ bun run dev
 ## Files
 
 ```
-~/.claude/skills/observability/
+~/.claude/Skills/observability/
 ├── SKILL.md                          # This file
 ├── manage.sh                         # Control script
 ├── apps/
@@ -157,4 +157,4 @@ bun run dev
 For the observability dashboard to receive events, configure your PAI hooks to log to:
 `~/.claude/history/raw-outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl`
 
-The `capture-all-events.ts` hook in `~/.claude/hooks/` handles this automatically.
+The `capture-all-events.ts` hook in `~/.claude/Hooks/` handles this automatically.

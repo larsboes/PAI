@@ -4,12 +4,14 @@
     "description": "Platform-agnostic environment variables used throughout the Personal AI system",
     "DA": "Digital Assistant name - your AI's identity (e.g., 'Kai', 'PAI', 'Nova'). Used in statusline, hooks, and agent identification.",
     "PAI_DIR": "Root directory for all PAI configuration. The setup.sh script updates this automatically. If hooks fail with 'No such file or directory', update this to your actual path (e.g., /Users/john/.claude).",
+    "PAI_SIMPLE_COLORS": "Set to '1' to use basic ANSI colors in statusline instead of 24-bit RGB. Enable if you see garbled colors or display issues in your terminal. Default: 0 (use full color).",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "Maximum tokens for Claude responses. Higher values allow longer outputs but cost more."
   },
   "_setupNote": "IMPORTANT: Run 'bash .claude/setup.sh' to automatically configure PAI_DIR. If you see hook errors mentioning '__HOME__', the setup script was not run or you need to manually change PAI_DIR below to your actual home directory path (e.g., /Users/john/.claude on macOS or /home/john/.claude on Linux).",
   "env": {
     "PAI_DIR": "__HOME__/.claude",
     "DA": "PAI",
+    "PAI_SIMPLE_COLORS": "0",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "64000"
   },
   "permissions": {
@@ -74,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/security-validator.ts"
+            "command": "${PAI_DIR}/Hooks/security-validator.ts"
           }
         ]
       },
@@ -83,7 +85,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PreToolUse"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type PreToolUse"
           }
         ]
       }
@@ -94,11 +96,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PostToolUse"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type PostToolUse"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/update-tab-on-action.ts"
+            "command": "${PAI_DIR}/Hooks/update-tab-on-action.ts"
           }
         ]
       }
@@ -108,11 +110,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-session-summary.ts"
+            "command": "${PAI_DIR}/Hooks/capture-session-summary.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SessionEnd"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type SessionEnd"
           }
         ]
       }
@@ -122,11 +124,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/update-tab-titles.ts"
+            "command": "${PAI_DIR}/Hooks/update-tab-titles.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type UserPromptSubmit"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type UserPromptSubmit"
           }
         ]
       }
@@ -136,15 +138,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/load-core-context.ts"
+            "command": "${PAI_DIR}/Hooks/load-core-context.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/initialize-session.ts"
+            "command": "${PAI_DIR}/Hooks/initialize-session.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SessionStart"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type SessionStart"
           }
         ]
       }
@@ -154,11 +156,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/stop-hook.ts"
+            "command": "${PAI_DIR}/Hooks/stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type Stop"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type Stop"
           }
         ]
       }
@@ -168,11 +170,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/subagent-stop-hook.ts"
+            "command": "${PAI_DIR}/Hooks/subagent-stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type SubagentStop"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type SubagentStop"
           }
         ]
       }
@@ -183,11 +185,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/context-compression-hook.ts"
+            "command": "${PAI_DIR}/Hooks/context-compression-hook.ts"
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/hooks/capture-all-events.ts --event-type PreCompact"
+            "command": "${PAI_DIR}/Hooks/capture-all-events.ts --event-type PreCompact"
           }
         ]
       }

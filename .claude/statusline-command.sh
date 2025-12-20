@@ -52,8 +52,8 @@ fobs_count=0
 fabric_count=0
 
 # Count commands (optimized - direct ls instead of find)
-if [ -d "$claude_dir/commands" ]; then
-    commands_count=$(ls -1 "$claude_dir/commands/"*.md 2>/dev/null | wc -l | tr -d ' ')
+if [ -d "$claude_dir/Commands" ]; then
+    commands_count=$(ls -1 "$claude_dir/Commands/"*.md 2>/dev/null | wc -l | tr -d ' ')
 fi
 
 # Count MCPs from settings.json (single parse)

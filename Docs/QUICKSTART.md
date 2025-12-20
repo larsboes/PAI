@@ -28,12 +28,12 @@ ln -s ~/PAI/.claude ~/.claude
 This symlink approach lets you:
 - Pull updates with `cd ~/PAI && git pull`
 - Keep your customizations in `~/.claude` (via the symlink)
-- Have Claude Code find skills at `~/.claude/skills/` correctly
+- Have Claude Code find skills at `~/.claude/Skills/` correctly
 
 ### 3. Run the Setup Wizard
 
 ```bash
-~/.claude/tools/setup/bootstrap.sh
+~/.claude/Tools/setup/bootstrap.sh
 ```
 
 The bootstrap script handles everything:
@@ -83,12 +83,12 @@ ln -s ~/PAI/.claude ~/.claude
 This symlink approach lets you:
 - Pull updates with `cd ~/PAI && git pull`
 - Keep your customizations in `~/.claude` (via the symlink)
-- Have Claude Code find skills at `~/.claude/skills/` correctly
+- Have Claude Code find skills at `~/.claude/Skills/` correctly
 
 ### 3. Run the Setup Wizard
 
 ```bash
-~/.claude/tools/setup/bootstrap.sh
+~/.claude/Tools/setup/bootstrap.sh
 ```
 
 The bootstrap script handles everything:
@@ -138,7 +138,7 @@ New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude" -Target "$env:U
 This symlink approach lets you:
 - Pull updates with `cd ~/PAI; git pull`
 - Keep your customizations in `~/.claude` (via the symlink)
-- Have Claude Code find skills at `~/.claude/skills/` correctly
+- Have Claude Code find skills at `~/.claude/Skills/` correctly
 
 ### 3. Run the Setup Wizard
 
@@ -196,7 +196,7 @@ For automation or scripting:
 
 **macOS/Linux:**
 ```bash
-cd ~/.claude/tools/setup
+cd ~/.claude/Tools/setup
 bun run setup.ts \
   --pai-dir ~/.claude \
   --name "Your Name" \
@@ -251,7 +251,7 @@ PAI loads automatically via the `SessionStart` hook.
 
 ### The Three Primitives
 
-**1. Skills** (`.claude/skills/`)
+**1. Skills** (`.claude/Skills/`)
 - Self-contained AI capabilities
 - Auto-activate based on your request
 - Package routing, workflows, and documentation
@@ -261,7 +261,7 @@ PAI loads automatically via the `SessionStart` hook.
 - Engineer, researcher, designer, pentester, etc.
 - Each has unique voice and capabilities
 
-**3. Hooks** (`.claude/hooks/`)
+**3. Hooks** (`.claude/Hooks/`)
 - Event-driven automation
 - Capture work, provide voice feedback, manage state
 - Run automatically on session start/stop, tool use, etc.
@@ -295,7 +295,7 @@ cat ~/.claude/settings.json | grep SessionStart
 
 **Manually load CORE skill:**
 ```
-read ~/.claude/skills/CORE/SKILL.md
+read ~/.claude/Skills/CORE/SKILL.md
 ```
 
 </details>
@@ -383,7 +383,7 @@ ls -la ~/.claude/.env
 ## Next Steps
 
 1. **Read CONSTITUTION.md** — Understand PAI philosophy
-2. **Explore Skills** — See what's available in `~/.claude/skills/`
+2. **Explore Skills** — See what's available in `~/.claude/Skills/`
 3. **Try Voice Feedback** — Start the voice server (macOS)
 4. **Create Your First Skill** — Follow the skill structure guide
 
@@ -391,7 +391,7 @@ ls -la ~/.claude/.env
 
 ## Resources
 
-- **Full Documentation:** `~/.claude/skills/CORE/`
+- **Full Documentation:** `~/.claude/Skills/CORE/`
 - **Video Overview:** [PAI Video](https://youtu.be/iKwRWwabkEc)
 - **GitHub Issues:** [Report Problems](https://github.com/danielmiessler/PAI/issues)
 - **Discussions:** [Ask Questions](https://github.com/danielmiessler/PAI/discussions)

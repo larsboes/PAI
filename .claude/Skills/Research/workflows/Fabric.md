@@ -20,13 +20,13 @@ This provides access to:
 
 ```bash
 # Check if Fabric repo exists
-if [ ! -d "$HOME/.claude/skills/fabric/fabric-repo" ]; then
+if [ ! -d "$HOME/.claude/Skills/fabric/fabric-repo" ]; then
   echo "Fabric repository not found. Cloning..."
-  cd "$HOME/.claude/skills/fabric"
+  cd "$HOME/.claude/Skills/fabric"
   git clone https://github.com/danielmiessler/fabric.git fabric-repo
   echo "Fabric repository cloned successfully."
 else
-  echo "Fabric repository found at $HOME/.claude/skills/fabric/fabric-repo"
+  echo "Fabric repository found at $HOME/.claude/Skills/fabric/fabric-repo"
 fi
 ```
 

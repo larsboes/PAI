@@ -20,13 +20,13 @@ import { join, resolve, dirname } from 'path';
 
 // For self-test, always use the repo we're testing (not system PAI_DIR)
 // This allows testing the PAI repo independently of installed Kai system
-// Use cwd() since the user runs this from the PAI repo root: cd ~/Projects/PAI && bun .claude/hooks/self-test.ts
+// Use cwd() since the user runs this from the PAI repo root: cd ~/Projects/PAI && bun .claude/Hooks/self-test.ts
 const REPO_ROOT = process.cwd();
 const PAI_DIR = join(REPO_ROOT, '.claude');
-const HOOKS_DIR = join(PAI_DIR, 'hooks');
-const SKILLS_DIR = join(PAI_DIR, 'skills');
-const AGENTS_DIR = join(PAI_DIR, 'agents');
-const HISTORY_DIR = join(PAI_DIR, 'history');
+const HOOKS_DIR = join(PAI_DIR, 'Hooks');
+const SKILLS_DIR = join(PAI_DIR, 'Skills');
+const AGENTS_DIR = join(PAI_DIR, 'Agents');
+const HISTORY_DIR = join(PAI_DIR, 'History');
 
 interface TestResult {
   name: string;

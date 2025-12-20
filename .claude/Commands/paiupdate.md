@@ -53,12 +53,12 @@ For each file category:
 - Identify keys the user has customized (especially `env.DA`, custom env vars)
 - Plan a smart merge that adds new keys while preserving user values
 
-**Skills (`.claude/skills/`)**:
+**Skills (`.claude/Skills/`)**:
 - New skills in upstream → Available to add
 - Modified skills → Compare if user has customized
 - User's custom skills → Never touch these
 
-**Hooks (`.claude/hooks/`)**:
+**Hooks (`.claude/Hooks/`)**:
 - Critical: hooks often contain custom logic
 - Check if user has modified vs. upstream version
 - Identify breaking changes
@@ -67,7 +67,7 @@ For each file category:
 - New agents available
 - Modified agents (usually safe to update)
 
-**Commands (`.claude/commands/`)**:
+**Commands (`.claude/Commands/`)**:
 - Don't overwrite user's custom commands
 - Offer new commands from upstream
 
@@ -130,8 +130,8 @@ For approved changes:
    ```bash
    timestamp=$(date +%Y%m%d_%H%M%S)
    mkdir -p .claude/pai_backups
-   cp -r .claude/skills .claude/pai_backups/skills_$timestamp
-   cp -r .claude/hooks .claude/pai_backups/hooks_$timestamp
+   cp -r .claude/Skills .claude/pai_backups/skills_$timestamp
+   cp -r .claude/Hooks .claude/pai_backups/hooks_$timestamp
    cp .claude/settings.json .claude/pai_backups/settings_$timestamp.json
    ```
 

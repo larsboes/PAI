@@ -582,9 +582,9 @@ if ask_yes_no "Would you like to install Fabric?" "n"; then
         print_success "Patterns downloaded to ~/.config/fabric/patterns"
 
         # Sync patterns to PAI's local directory
-        if [ -f "$PAI_DIR/.claude/skills/Fabric/tools/update-patterns.sh" ]; then
+        if [ -f "$PAI_DIR/.claude/Skills/Fabric/tools/update-patterns.sh" ]; then
             print_step "Syncing patterns to PAI..."
-            cd "$PAI_DIR/.claude/skills/Fabric/tools"
+            cd "$PAI_DIR/.claude/Skills/Fabric/tools"
             bash ./update-patterns.sh
             print_success "Patterns synced to PAI!"
         else
@@ -593,7 +593,7 @@ if ask_yes_no "Would you like to install Fabric?" "n"; then
     else
         print_warning "Fabric installation may require a shell restart."
         print_info "After restarting your terminal, run: fabric -U"
-        print_info "Then sync patterns: $PAI_DIR/.claude/skills/Fabric/tools/update-patterns.sh"
+        print_info "Then sync patterns: $PAI_DIR/.claude/Skills/Fabric/tools/update-patterns.sh"
     fi
 else
     print_info "Skipping Fabric setup. You can install it later with:"
@@ -748,9 +748,9 @@ echo "   • 'Research the latest AI developments'"
 echo "   • 'What skills do you have?'"
 echo ""
 echo "3. ${CYAN}Customize PAI for you:${NC}"
-echo "   • Edit: $PAI_DIR/skills/PAI/SKILL.md"
+echo "   • Edit: $PAI_DIR/Skills/PAI/SKILL.md"
 echo "   • Add API keys: $PAI_DIR/.env"
-echo "   • Read the docs: $PAI_DIR/docs/QUICKSTART.md"
+echo "   • Read the docs: $PAI_DIR/Docs/QUICKSTART.md"
 echo ""
 
 print_header "Quick Reference"
@@ -760,13 +760,13 @@ echo ""
 echo "  ${CYAN}cd \$PAI_DIR${NC}                    # Go to PAI directory"
 echo "  ${CYAN}cd \$PAI_DIR && git pull${NC}       # Update PAI to latest version"
 echo "  ${CYAN}open -e \$PAI_DIR/.env${NC}         # Edit API keys"
-echo "  ${CYAN}ls \$PAI_DIR/skills${NC}            # See available skills"
+echo "  ${CYAN}ls \$PAI_DIR/Skills${NC}            # See available skills"
 echo "  ${CYAN}source ~/.zshrc${NC}                # Reload environment"
 echo ""
 
 print_header "Resources"
 
-echo "  📖 Documentation: $PAI_DIR/docs/"
+echo "  📖 Documentation: $PAI_DIR/Docs/"
 echo "  🌐 GitHub: https://github.com/danielmiessler/Personal_AI_Infrastructure"
 echo "  📝 Blog: https://danielmiessler.com/blog/personal-ai-infrastructure"
 echo "  🎬 Video: https://youtu.be/iKwRWwabkEc"
@@ -786,7 +786,7 @@ echo ""
 
 # Optional: Open documentation
 if ask_yes_no "Would you like to open the getting started guide?" "y"; then
-    open "$PAI_DIR/docs/QUICKSTART.md" 2>/dev/null || cat "$PAI_DIR/docs/QUICKSTART.md"
+    open "$PAI_DIR/Docs/QUICKSTART.md" 2>/dev/null || cat "$PAI_DIR/Docs/QUICKSTART.md"
 fi
 
 echo ""

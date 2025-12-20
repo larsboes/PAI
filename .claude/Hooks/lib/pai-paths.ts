@@ -25,11 +25,11 @@ export const PAI_DIR = process.env.PAI_DIR
 /**
  * Common PAI directories
  */
-export const HOOKS_DIR = join(PAI_DIR, 'hooks');
-export const SKILLS_DIR = join(PAI_DIR, 'skills');
-export const AGENTS_DIR = join(PAI_DIR, 'agents');
-export const HISTORY_DIR = join(PAI_DIR, 'history');
-export const COMMANDS_DIR = join(PAI_DIR, 'commands');
+export const HOOKS_DIR = join(PAI_DIR, 'Hooks');
+export const SKILLS_DIR = join(PAI_DIR, 'Skills');
+export const AGENTS_DIR = join(PAI_DIR, 'Agents');
+export const HISTORY_DIR = join(PAI_DIR, 'History');
+export const COMMANDS_DIR = join(PAI_DIR, 'Commands');
 
 /**
  * Validate PAI directory structure on first import

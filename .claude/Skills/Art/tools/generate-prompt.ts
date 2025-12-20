@@ -69,7 +69,7 @@ interface PromptOutput {
 
 const ART_AESTHETIC_PATH = resolve(
   process.env.HOME!,
-  ".claude/skills/CORE/art-aesthetic.md"
+  ".claude/Skills/CORE/art-aesthetic.md"
 );
 
 const COLOR_HEX_MAP: Record<TokyoNightColor, string> = {

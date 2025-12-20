@@ -6,7 +6,7 @@
  * Runs as part of the pre-commit hook to prevent broken documentation.
  *
  * Usage:
- *   bun run .claude/hooks/validate-docs.ts
+ *   bun run .claude/Hooks/validate-docs.ts
  *
  * Exit codes:
  *   0 - All links valid
@@ -137,7 +137,7 @@ function checkDocIssues(baseDir: string): string[] {
   const issues: string[] = [];
 
   // Check if SKILL.md exists for each skill
-  const skillDirs = globSync('.claude/skills/*/', {
+  const skillDirs = globSync('.claude/Skills/*/', {
     cwd: baseDir,
   });
 

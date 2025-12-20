@@ -113,7 +113,7 @@ ln -s ~/PAI/.claude ~/.claude
 
 **3. Run the Setup Wizard**
 ```bash
-~/.claude/tools/setup/bootstrap.sh
+~/.claude/Tools/setup/bootstrap.sh
 ```
 
 **4. Add Your API Keys**
@@ -149,7 +149,7 @@ ln -s ~/PAI/.claude ~/.claude
 
 **3. Run the Setup Wizard**
 ```bash
-~/.claude/tools/setup/bootstrap.sh
+~/.claude/Tools/setup/bootstrap.sh
 ```
 
 **4. Add Your API Keys**
@@ -213,23 +213,23 @@ claude
 
 ## 📚 Documentation
 
-All documentation lives in the CORE skill (`.claude/skills/CORE/`):
+All documentation lives in the CORE skill (`.claude/Skills/CORE/`):
 
 | Document | Description |
 |----------|-------------|
-| [**CONSTITUTION.md**](.claude/skills/CORE/CONSTITUTION.md) | System philosophy, architecture, operating principles |
-| [**SkillSystem.md**](.claude/skills/CORE/SkillSystem.md) | **How to create your own skills** — the canonical skill structure guide |
-| [**SKILL.md**](.claude/skills/CORE/SKILL.md) | Main PAI skill with identity, preferences, quick reference |
-| [HookSystem.md](.claude/skills/CORE/HookSystem.md) | Event-driven automation |
-| [HistorySystem.md](.claude/skills/CORE/HistorySystem.md) | Automatic work documentation (UOCS) |
+| [**CONSTITUTION.md**](.claude/Skills/CORE/CONSTITUTION.md) | System philosophy, architecture, operating principles |
+| [**SkillSystem.md**](.claude/Skills/CORE/SkillSystem.md) | **How to create your own skills** — the canonical skill structure guide |
+| [**SKILL.md**](.claude/Skills/CORE/SKILL.md) | Main PAI skill with identity, preferences, quick reference |
+| [HookSystem.md](.claude/Skills/CORE/HookSystem.md) | Event-driven automation |
+| [HistorySystem.md](.claude/Skills/CORE/HistorySystem.md) | Automatic work documentation (UOCS) |
 
 <details>
 <summary><strong>Additional Reference</strong></summary>
 
 | Document | Description |
 |----------|-------------|
-| [Prompting.md](.claude/skills/CORE/Prompting.md) | Prompt engineering patterns |
-| [Aesthetic.md](.claude/skills/CORE/Aesthetic.md) | Visual design system |
+| [Prompting.md](.claude/Skills/CORE/Prompting.md) | Prompt engineering patterns |
+| [Aesthetic.md](.claude/Skills/CORE/Aesthetic.md) | Visual design system |
 | [voice-server/README.md](.claude/voice-server/README.md) | Text-to-speech feedback |
 
 </details>
@@ -238,7 +238,7 @@ All documentation lives in the CORE skill (`.claude/skills/CORE/`):
 
 ## 🎨 Examples
 
-Explore example skills in `.claude/skills/`:
+Explore example skills in `.claude/Skills/`:
 
 | Skill | Description |
 |-------|-------------|
@@ -261,7 +261,7 @@ The Fabric skill now executes patterns **natively** within Claude Code — no CL
 
 ```bash
 # Update patterns from upstream
-.claude/skills/Fabric/tools/update-patterns.sh
+.claude/Skills/Fabric/tools/update-patterns.sh
 ```
 
 Only use `fabric` CLI for YouTube transcripts (`-y`) or pattern updates (`-U`).
@@ -272,7 +272,7 @@ Only use `fabric` CLI for YouTube transcripts (`-y`) or pattern updates (`-U`).
 
 PAI is built on 13 foundational principles that define how to build reliable AI infrastructure.
 
-Complete architecture documentation: [`.claude/skills/CORE/Architecture.md`](.claude/skills/CORE/Architecture.md)
+Complete architecture documentation: [`.claude/Skills/CORE/Architecture.md`](.claude/Skills/CORE/Architecture.md)
 
 ---
 

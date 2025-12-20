@@ -6,8 +6,8 @@
  * Run before committing changes to PAI repository.
  *
  * Usage:
- *   bun ~/Projects/PAI/.claude/hooks/validate-protected.ts
- *   bun ~/Projects/PAI/.claude/hooks/validate-protected.ts --staged  (check only staged files)
+ *   bun ~/Projects/PAI/.claude/Hooks/validate-protected.ts
+ *   bun ~/Projects/PAI/.claude/Hooks/validate-protected.ts --staged  (check only staged files)
  */
 
 import { readFileSync, existsSync } from 'fs';
