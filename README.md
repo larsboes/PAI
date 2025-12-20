@@ -455,7 +455,7 @@ Kai and I work hard to address issues and PRs throughout the week — we try not
 This release focuses on making PAI fully portable and fork-friendly. Your AI, your identity, your system.
 
 **Observability Dashboard**
-- Complete real-time agent monitoring at `.claude/Observability/`
+- Complete real-time agent monitoring at `.claude/Skills/Observability/`
 - WebSocket streaming of all agent activity
 - Live pulse charts, event timelines, and swim lanes
 - Multiple themes (Tokyo Night, Nord, Catppuccin, etc.)
