@@ -102,6 +102,8 @@ ask_input() {
     fi
 
     read -r response
+    # Trim leading/trailing whitespace
+    response=$(echo "$response" | xargs)
     echo "${response:-$default}"
 }
 
