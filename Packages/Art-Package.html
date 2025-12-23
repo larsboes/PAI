@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Art-Package</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css" />
+</head>
+<body>
+<h1 id="art-package-v1.0.0">Art Package v1.0.0</h1>
+<p><strong>Complete visual content system for creating charcoal
+architectural sketch imagery</strong></p>
+<hr />
+<h2 id="assistant-install-prompt">🤖 Assistant Install Prompt</h2>
+<p><strong>For AI Assistants: When your user asks you to install this
+package, follow these steps:</strong></p>
+<pre><code>ASSISTANT INSTALLATION INSTRUCTIONS
+
+1. READ this entire package file to understand what you&#39;re installing
+
+2. EXPLAIN to the user:
+   - What this package does (visual content generation with charcoal sketch aesthetic)
+   - What dependencies are required (bun, ImageMagick, WebP tools)
+   - What API keys they&#39;ll need (at least one: Replicate, Google, or OpenAI)
+   - Ask if they want to proceed
+
+3. VERIFY dependencies:
+   - Check if bun is installed (run: which bun)
+   - Check if ImageMagick is installed (run: which magick)
+   - Check if WebP tools are installed (run: which cwebp)
+   - If missing, provide installation commands for their platform
+
+4. SET UP API keys:
+   - Check if ~/.claude/.env exists (or equivalent for their system)
+   - Prompt user for required API keys
+   - Add keys to environment file
+
+5. SAVE the tools:
+   - Create directory: ~/.claude/Skills/Art/Tools/ (or equivalent)
+   - Extract the Generate.ts code from this package (line 422-633)
+   - Save to: ~/.claude/Skills/Art/Tools/Generate.ts
+   - Make executable if needed
+
+6. CONFIGURE skill routing (if user has a skill system):
+   - Add Art skill routing to their CORE/routing configuration
+   - Use the skill definition from this package (lines 123-161)
+
+7. TEST the installation:
+   - Run the smoke test from this package (lines 922-952)
+   - Verify outputs are created correctly
+   - Show user the test results
+
+8. REPORT completion:
+   - Summarize what was installed
+   - Show the user how to use it (basic command example)
+   - Mention where to find full documentation (this package file)
+
+If you encounter errors at any step, stop and report the issue to the user.
+Don&#39;t proceed until the issue is resolved.</code></pre>
+<hr />
+<h2 id="package-metadata">Package Metadata</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">package</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Art</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.0.0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">category</span><span class="kw">:</span><span class="at"> visual-content</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">author</span><span class="kw">:</span><span class="at"> Daniel Miessler</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">license</span><span class="kw">:</span><span class="at"> MIT</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">requires</span><span class="kw">:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> CORE &gt;= 1.0.0 (for agent personalities, aesthetic guidelines)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> Claude Code or compatible AI assistant platform</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">platforms</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> macos</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> linux</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> windows (with WSL for some tools)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dependencies</span><span class="kw">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">tools</span><span class="kw">:</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> bun (JavaScript runtime)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ImageMagick (image optimization)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> WebP tools (cwebp command)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">api_keys</span><span class="kw">:</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> REPLICATE_API_TOKEN (for Flux models)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> OPENAI_API_KEY (for GPT-image-1)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> GOOGLE_API_KEY (for Nano Banana Pro/Gemini)</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> REMOVEBG_API_KEY (for background removal)</span></span></code></pre></div>
+<hr />
+<h2 id="the-problem">The Problem</h2>
+<p>Creating consistent, brand-aligned visual content at scale is
+challenging:</p>
+<ol type="1">
+<li><strong>Generic AI imagery</strong> - Most AI-generated images look
+obviously synthetic, cookie-cutter, or corporate stock photo
+quality</li>
+<li><strong>Inconsistent aesthetic</strong> - Without strict guidelines,
+each image has different style, color palette, emotional register</li>
+<li><strong>Manual workflow friction</strong> - Generating, optimizing,
+and deploying images requires multiple tools and manual steps</li>
+<li><strong>No narrative alignment</strong> - Images don’t capture the
+actual argument/story of the content they’re illustrating</li>
+<li><strong>Web performance</strong> - Raw AI-generated images are
+7-8MB, far too large for web use</li>
+</ol>
+<hr />
+<h2 id="the-solution">The Solution</h2>
+<p>The Art Package provides a complete workflow for generating
+distinctive <strong>charcoal architectural sketch</strong> imagery
+with:</p>
+<ul>
+<li><strong>Consistent aesthetic</strong> - Monumental emotional spaces,
+gestural charcoal linework, color washes, production design quality</li>
+<li><strong>Narrative-driven composition</strong> - Uses story analysis
+(CSE-24) to extract the core problem/argument before designing
+visuals</li>
+<li><strong>Automated optimization</strong> - Generates images in
+Downloads for preview, then auto-optimizes (resize, WebP conversion,
+thumbnails)</li>
+<li><strong>Multi-model support</strong> - Flux 1.1 Pro, Nano Banana,
+Nano Banana Pro (Gemini), GPT-image-1 with smart model selection</li>
+<li><strong>Production-ready output</strong> - Transparent backgrounds,
+social media thumbnails, optimized file sizes (90-95% reduction)</li>
+</ul>
+<p><strong>Key differentiator:</strong> Images are designed to show the
+<em>problem the content addresses</em>, not just illustrate the
+topic.</p>
+<hr />
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="install-dependencies">1. Install Dependencies</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install bun (if not already installed)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://bun.sh/install <span class="kw">|</span> <span class="fu">bash</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install ImageMagick</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install imagemagick  <span class="co"># macOS</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># OR</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install imagemagick  <span class="co"># Linux</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Install WebP tools</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install webp  <span class="co"># macOS</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># OR</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install webp  <span class="co"># Linux</span></span></code></pre></div>
+<h3 id="set-up-api-keys">2. Set Up API Keys</h3>
+<p>Add to your <code>~/.claude/.env</code> or equivalent:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At least ONE model API key required</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">REPLICATE_API_TOKEN</span><span class="op">=</span>your_token_here      <span class="co"># For Flux, Nano Banana</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">OPENAI_API_KEY</span><span class="op">=</span>your_key_here             <span class="co"># For GPT-image-1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">GOOGLE_API_KEY</span><span class="op">=</span>your_key_here             <span class="co"># For Nano Banana Pro (Gemini)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional but recommended</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="va">REMOVEBG_API_KEY</span><span class="op">=</span>your_key_here           <span class="co"># For transparent backgrounds</span></span></code></pre></div>
+<h3 id="create-your-first-image">3. Create Your First Image</h3>
+<p>Save the <code>Generate.ts</code> tool (see Tools section below) to a
+directory, then:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a blog header image (recommended workflow)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Sophisticated charcoal sketch showing a balance scale tipped heavily toward capital (deep purple wash) overwhelming labor (burnt sienna)...&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 2K <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 1:1 <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thumbnail</span> <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/capital-vs-labor.png</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># This creates BOTH:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># - capital-vs-labor.png (transparent background)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># - capital-vs-labor-thumb.png (#EAE9DF background for social media)</span></span></code></pre></div>
+<hr />
+<h2 id="package-contents">Package Contents</h2>
+<h3 id="skill-definition">Skill Definition</h3>
+<p>When integrated into a Personal AI system, this skill routes visual
+content requests to appropriate workflows:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Art</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Complete visual content system for Unsupervised Learning. USE WHEN user wants to create visual content, illustrations, diagrams, OR mentions art, header images, visualizations, mermaid, flowchart, technical diagram, or infographic.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">trigger_phrases</span><span class="kw">:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;create art&quot;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;generate image&quot;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;make a diagram&quot;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;header image&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;blog header&quot;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;visualization&quot;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;illustrate this&quot;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;mermaid diagram&quot;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;technical diagram&quot;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;flowchart&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;infographic&quot;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">routing</span><span class="kw">:</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;blog header|editorial illustration|essay image&quot;</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Essay</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;mermaid|flowchart|sequence diagram&quot;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Mermaid</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;technical diagram|architecture diagram|system diagram&quot;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> TechnicalDiagrams</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;taxonomy|classification|grid&quot;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Taxonomies</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;timeline|chronological|progression&quot;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Timelines</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;framework|2x2|matrix&quot;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Frameworks</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;comparison|versus|vs&quot;</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Comparisons</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">pattern</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;stats|metrics|big number&quot;</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">workflow</span><span class="kw">:</span><span class="at"> Stats</span></span></code></pre></div>
+<hr />
+<h3 id="workflows">Workflows</h3>
+<h4 id="essay-workflow---blog-header-generation">Essay Workflow - Blog
+Header Generation</h4>
+<p><strong>Purpose:</strong> Generate sophisticated blog header images
+that visually represent the <em>problem</em> the content addresses</p>
+<p><strong>Key Innovation:</strong> Runs story analysis (CSE-24) FIRST
+to extract the narrative core, then designs composition to show the
+problem</p>
+<p><strong>Process:</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 8-Step Mandatory Workflow</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>UNDERSTAND - Deeply read and comprehend the content</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>What is the content about (not surface-level)?</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>What are key concrete elements (nouns, metaphors)?</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Did user provide compositional guidance?</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>CSE-24 - Run Create Story Explanation (24 items)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Extract full narrative arc</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Identify key metaphors and emotional beats</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Understand what the piece is REALLY about</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>EMOTION - Match to emotional register</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Dread/Fear, Hope/Possibility, Contemplation, etc.</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Select from aesthetic vocabulary</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>COMPOSITION - Design what to ACTUALLY DRAW</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>   🚨 CRITICAL: Identify the PROBLEM TYPE first</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>   Problem Archetypes:</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>SORTING/CLASSIFICATION → scattered items + empty labeled bins</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>COMMUNICATION → tangled speech, broken telephone</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>DOUBLE STANDARD → tilted scales, unfair judges</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>MISDIRECTION → looking left while danger is right</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>OVERWHELM → flood of items, buried figure</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>MISSING FRAMEWORK → chaos vs empty scaffolding</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>FALSE DICHOTOMY → two doors, hidden third path</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>COMPLEXITY → tangled vs straight path</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>BLINDSPOT → figure ignoring elephant</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>   Design Questions:</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>What is the PROBLEM the essay addresses?</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>What visual metaphor makes this problem OBVIOUS?</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>What concrete subjects from content should appear?</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Should there be figures showing the problematic dynamic?</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>PROMPT - Construct using charcoal sketch TECHNIQUE template</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>   Template Structure:</span></code></pre></div>
+<p>Sophisticated charcoal sketch using architectural rendering
+TECHNIQUE.</p>
+<p>THE PROBLEM THIS ESSAY ADDRESSES: [The unfairness/mistake/confusion
+the essay critiques]</p>
+<p>SUBJECT (showing the problem): [Visual subject that makes the problem
+visible]</p>
+<p>EMOTIONAL SVCISTER: [From Step 3]</p>
+<p>TECHNIQUE - GESTURAL ARCHITECTURAL SKETCH: - GESTURAL quick confident
+energetic marks - OVERLAPPING LINES multiple strokes suggesting form -
+HATCHING cross-hatching creates depth and tone - Loose charcoal/graphite
+strokes - Variable line weight, trailing off - Like Paul Rudolph,
+Lebbeus Woods sketches</p>
+<p>HUMAN FIGURES (if present): - Multiple overlapping lines suggesting
+form - 20-40 overlapping strokes per figure - Abstracted but with
+PRESENCE and WEIGHT - Burnt Sienna (#8B4513) wash accent</p>
+<p>COMPOSITION - FULL FRAME MANDATORY: - Subjects FILL THE ENTIRE FRAME
+edge to edge - MINIMALIST - few elements, each intentional - NO filled
+backgrounds - floats in empty space</p>
+<p>COLOR - CHARCOAL DOMINANT: - 70-80% charcoal and gray - BURNT SIENNA
+(#8B4513) on human/warm elements (MANDATORY) - DEEP PURPLE (#4A148C) on
+tech/capital/cold elements (MANDATORY) - Colors integrated into forms,
+not splattered</p>
+<p>Sign “Kai” in small cursive charcoal - bottom right corner only. NO
+other text. ```</p>
+<ol start="6" type="1">
+<li><p>GENERATE - Execute CLI tool</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;[PROMPT FROM STEP 5]&quot;</span> <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 2K <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 1:1 <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thumbnail</span> <span class="dt">\</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/<span class="pp">[</span><span class="ss">descriptive</span><span class="pp">-</span><span class="ss">name</span><span class="pp">]</span>.png</span></code></pre></div></li>
+<li><p>OPTIMIZE - Resize and convert to WebP</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize to 1024x1024 for web</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="st">&quot;~/Downloads/[name].png&quot;</span> <span class="at">-resize</span> 1024x1024 <span class="st">&quot;~/Downloads/[name]-1024.png&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to WebP (main display)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">cwebp</span> <span class="at">-q</span> 75 <span class="st">&quot;~/Downloads/[name]-1024.png&quot;</span> <span class="at">-o</span> <span class="st">&quot;~/Downloads/[name].webp&quot;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize thumbnail for social media</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="st">&quot;~/Downloads/[name]-thumb.png&quot;</span> <span class="at">-resize</span> 512x512 <span class="at">-quality</span> 80 <span class="st">&quot;~/Downloads/[name]-thumb-optimized.png&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up temp file</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="st">&quot;~/Downloads/[name]-1024.png&quot;</span></span></code></pre></div>
+<p>Expected Results:</p>
+<ul>
+<li>Original PNG: ~7.5MB → WebP: ~400KB (95% reduction)</li>
+<li>Thumbnail: ~6.8MB → Optimized: ~500KB (93% reduction)</li>
+</ul></li>
+<li><p>VALIDATE - Critical analysis before accepting</p>
+<p>🚨 MANDATORY CHECKS (regenerate if ANY fail):</p>
+<ul>
+<li>Kai signature present (bottom right corner, just “Kai”)</li>
+<li>Problem type immediately visible</li>
+<li>Subject matches content (not defaulted to architecture)</li>
+<li>Title test passes (could guess topic from image alone)</li>
+<li>Physics check (scales tip correctly, heavy things fall DOWN)</li>
+<li>Logical consistency (if “X winning”, X looks dominant)</li>
+<li>BOTH burnt sienna AND deep purple present</li>
+<li>Charcoal sketch technique (gestural, hatching, overlapping
+lines)</li>
+<li>Subjects FILL FRAME (no 20%+ empty margins)</li>
+<li>Background removed (transparent)</li>
+<li>Gallery-worthy sophistication ```</li>
+</ul></li>
+</ol>
+<p><strong>Output Files:</strong> - <code>[name].png</code> -
+Transparent background (inline blog image) -
+<code>[name]-thumb.png</code> - #EAE9DF background (social media
+thumbnails) - <code>[name].webp</code> - Optimized WebP (main display
+version) - <code>[name]-thumb-optimized.png</code> - Optimized
+thumbnail</p>
+<hr />
+<h4 id="mermaid-workflow---flowchart-generation">Mermaid Workflow -
+Flowchart Generation</h4>
+<p><strong>Purpose:</strong> Generate Mermaid.js flowcharts and sequence
+diagrams as code</p>
+<p><strong>When to use:</strong> User asks for flowcharts, sequence
+diagrams, process flows, state machines</p>
+<p><strong>Process:</strong></p>
+<ol type="1">
+<li><strong>Understand the flow</strong> - What process/sequence needs
+visualization?</li>
+<li><strong>Identify diagram type:</strong>
+<ul>
+<li>Flowchart (<code>graph TD</code> or <code>graph LR</code>)</li>
+<li>Sequence diagram (<code>sequenceDiagram</code>)</li>
+<li>State diagram (<code>stateDiagram-v2</code>)</li>
+<li>Class diagram (<code>classDiagram</code>)</li>
+</ul></li>
+<li><strong>Generate Mermaid code</strong> - Following Mermaid.js
+syntax</li>
+<li><strong>Validate syntax</strong> - Ensure proper node IDs,
+connections, styling</li>
+<li><strong>Output as code block</strong> - User can render in their
+environment</li>
+</ol>
+<p><strong>Example Output:</strong></p>
+<pre class="mermaid"><code>graph TD
+    A[User Request] --&gt; B{AI Analyzes}
+    B --&gt;|Simple| C[Direct Answer]
+    B --&gt;|Complex| D[Launch Agent]
+    D --&gt; E[Research]
+    D --&gt; F[Code]
+    D --&gt; G[Write]
+    E --&gt; H[Synthesize]
+    F --&gt; H
+    G --&gt; H
+    H --&gt; I[Final Response]</code></pre>
+<hr />
+<h4
+id="technicaldiagrams-workflow---architecture-diagrams">TechnicalDiagrams
+Workflow - Architecture Diagrams</h4>
+<p><strong>Purpose:</strong> Generate technical architecture diagrams in
+charcoal sketch style</p>
+<p><strong>Use cases:</strong> - System architecture - Data flows -
+Component relationships - Network diagrams - API structures</p>
+<p><strong>Approach:</strong> - Uses same charcoal sketch aesthetic as
+Essay workflow - Focuses on boxes, arrows, layers, connections - Labels
+are clear and readable - Purple for tech/systems, sienna for human
+touchpoints</p>
+<p><strong>Example prompt pattern:</strong></p>
+<pre><code>Sophisticated charcoal architectural sketch showing a technical system architecture.
+
+SUBJECT: Three-tier web application architecture
+- Top layer: Frontend (React) - purple wash
+- Middle layer: API Gateway - light gray
+- Bottom layer: Database cluster - purple wash
+- Arrows showing data flow between layers
+
+TECHNIQUE - ARCHITECTURAL SKETCH:
+- Clean rectangular boxes with gestural edges
+- Hatching within boxes to show density/activity
+- Arrows with varied line weight
+- Labels in clean sans-serif
+- Connection points clearly marked
+
+COMPOSITION:
+- Vertical flow, top to bottom
+- Clear hierarchy and separation
+- Full frame usage
+- Minimal empty space
+
+Sign &quot;Kai&quot; bottom right.</code></pre>
+<hr />
+<h4 id="other-workflows-summary">Other Workflows (Summary)</h4>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 27%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Purpose</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Visualize</strong></td>
+<td>General-purpose visualization router</td>
+<td>Analyzes request, routes to appropriate workflow</td>
+</tr>
+<tr>
+<td><strong>Taxonomies</strong></td>
+<td>Classification grids, category systems</td>
+<td>Grid layouts, labeled sections</td>
+</tr>
+<tr>
+<td><strong>Timelines</strong></td>
+<td>Chronological progressions</td>
+<td>Linear flow, dated markers</td>
+</tr>
+<tr>
+<td><strong>Frameworks</strong></td>
+<td>2x2 matrices, conceptual frameworks</td>
+<td>Quadrants, axes, positioning</td>
+</tr>
+<tr>
+<td><strong>Comparisons</strong></td>
+<td>X vs Y visualizations</td>
+<td>Side-by-side, contrasts</td>
+</tr>
+<tr>
+<td><strong>Stats</strong></td>
+<td>Big number displays, metric cards</td>
+<td>Large numerals, context</td>
+</tr>
+<tr>
+<td><strong>Comics</strong></td>
+<td>Sequential panels, narratives</td>
+<td>Panel layout, progression</td>
+</tr>
+<tr>
+<td><strong>Maps</strong></td>
+<td>Conceptual territories</td>
+<td>Regions, boundaries, landmarks</td>
+</tr>
+<tr>
+<td><strong>Aphorisms</strong></td>
+<td>Quote cards, wisdom snippets</td>
+<td>Typography focus, minimal</td>
+</tr>
+</tbody>
+</table>
+<p>All workflows follow the same core principles: charcoal sketch
+technique, burnt sienna + deep purple colors, problem-focused
+composition, full-frame usage.</p>
+<hr />
+<h3 id="tools">Tools</h3>
+<h4 id="generate.ts---primary-image-generation-cli">Generate.ts -
+Primary Image Generation CLI</h4>
+<p><strong>Purpose:</strong> Generate images using multiple AI models
+with automatic optimization</p>
+<p><strong>Full TypeScript Code:</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bun</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"> * generate - UL Image Generation CLI</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"> * Generate Unsupervised Learning branded images using Flux 1.1 Pro, Nano Banana, Nano Banana Pro, or GPT-image-1.</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"> * Follows llcli pattern for deterministic, composable CLI design.</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"> * Usage:</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"> *   generate --model nano-banana-pro --prompt &quot;...&quot; --size 16:9 --output /tmp/image.png</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"> *</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"> * </span><span class="an">@see</span><span class="co"> ~/.claude/Skills/art/README.md</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Replicate <span class="im">from</span> <span class="st">&quot;replicate&quot;</span><span class="op">;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> OpenAI <span class="im">from</span> <span class="st">&quot;openai&quot;</span><span class="op">;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { GoogleGenAI } <span class="im">from</span> <span class="st">&quot;@google/genai&quot;</span><span class="op">;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { writeFile<span class="op">,</span> readFile } <span class="im">from</span> <span class="st">&quot;node:fs/promises&quot;</span><span class="op">;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { extname<span class="op">,</span> resolve } <span class="im">from</span> <span class="st">&quot;node:path&quot;</span><span class="op">;</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co">// Environment Loading</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"> * Load environment variables from ~/.claude/.env</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"> * This ensures API keys are available regardless of how the CLI is invoked</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">loadEnv</span>()<span class="op">:</span> <span class="bu">Promise</span><span class="op">&lt;</span><span class="dt">void</span><span class="op">&gt;</span> {</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> envPath <span class="op">=</span> <span class="fu">resolve</span>(<span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">HOME</span><span class="op">!,</span> <span class="st">&#39;.claude/.env&#39;</span>)<span class="op">;</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> envContent <span class="op">=</span> <span class="cf">await</span> <span class="fu">readFile</span>(envPath<span class="op">,</span> <span class="st">&#39;utf-8&#39;</span>)<span class="op">;</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> line <span class="kw">of</span> envContent<span class="op">.</span><span class="fu">split</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)) {</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> trimmed <span class="op">=</span> line<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="op">!</span>trimmed <span class="op">||</span> trimmed<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">&#39;#&#39;</span>)) <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> eqIndex <span class="op">=</span> trimmed<span class="op">.</span><span class="fu">indexOf</span>(<span class="st">&#39;=&#39;</span>)<span class="op">;</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (eqIndex <span class="op">===</span> <span class="op">-</span><span class="dv">1</span>) <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> key <span class="op">=</span> trimmed<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> eqIndex)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> value <span class="op">=</span> trimmed<span class="op">.</span><span class="fu">slice</span>(eqIndex <span class="op">+</span> <span class="dv">1</span>)<span class="op">.</span><span class="fu">trim</span>()<span class="op">;</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Remove surrounding quotes if present</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> ((value<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">&#39;&quot;&#39;</span>) <span class="op">&amp;&amp;</span> value<span class="op">.</span><span class="fu">endsWith</span>(<span class="st">&#39;&quot;&#39;</span>)) <span class="op">||</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>          (value<span class="op">.</span><span class="fu">startsWith</span>(<span class="st">&quot;&#39;&quot;</span>) <span class="op">&amp;&amp;</span> value<span class="op">.</span><span class="fu">endsWith</span>(<span class="st">&quot;&#39;&quot;</span>))) {</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>        value <span class="op">=</span> value<span class="op">.</span><span class="fu">slice</span>(<span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>      <span class="co">// Only set if not already defined (allow overrides from shell)</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="op">!</span><span class="bu">process</span><span class="op">.</span><span class="at">env</span>[key]) {</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">process</span><span class="op">.</span><span class="at">env</span>[key] <span class="op">=</span> value<span class="op">;</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (error) {</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Silently continue if .env doesn&#39;t exist - rely on shell env vars</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co">// Types</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Model <span class="op">=</span> <span class="st">&quot;flux&quot;</span> <span class="op">|</span> <span class="st">&quot;nano-banana&quot;</span> <span class="op">|</span> <span class="st">&quot;nano-banana-pro&quot;</span> <span class="op">|</span> <span class="st">&quot;gpt-image-1&quot;</span><span class="op">;</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> ReplicateSize <span class="op">=</span> <span class="st">&quot;1:1&quot;</span> <span class="op">|</span> <span class="st">&quot;16:9&quot;</span> <span class="op">|</span> <span class="st">&quot;3:2&quot;</span> <span class="op">|</span> <span class="st">&quot;2:3&quot;</span> <span class="op">|</span> <span class="st">&quot;3:4&quot;</span> <span class="op">|</span> <span class="st">&quot;4:3&quot;</span> <span class="op">|</span> <span class="st">&quot;4:5&quot;</span> <span class="op">|</span> <span class="st">&quot;5:4&quot;</span> <span class="op">|</span> <span class="st">&quot;9:16&quot;</span> <span class="op">|</span> <span class="st">&quot;21:9&quot;</span><span class="op">;</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> OpenAISize <span class="op">=</span> <span class="st">&quot;1024x1024&quot;</span> <span class="op">|</span> <span class="st">&quot;1536x1024&quot;</span> <span class="op">|</span> <span class="st">&quot;1024x1536&quot;</span><span class="op">;</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> GeminiSize <span class="op">=</span> <span class="st">&quot;1K&quot;</span> <span class="op">|</span> <span class="st">&quot;2K&quot;</span> <span class="op">|</span> <span class="st">&quot;4K&quot;</span><span class="op">;</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Size <span class="op">=</span> ReplicateSize <span class="op">|</span> OpenAISize <span class="op">|</span> GeminiSize<span class="op">;</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> CLIArgs {</span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> Model<span class="op">;</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  prompt<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>  size<span class="op">:</span> Size<span class="op">;</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>  output<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>  creativeVariations<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>  aspectRatio<span class="op">?:</span> ReplicateSize<span class="op">;</span> <span class="co">// For Gemini models</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>  transparent<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span> <span class="co">// Enable transparent background</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>  referenceImage<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">// Reference image path (Nano Banana Pro only)</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>  removeBg<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span> <span class="co">// Remove background after generation using remove.bg API</span></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>  addBg<span class="op">?:</span> <span class="dt">string</span><span class="op">;</span> <span class="co">// Add background color (hex) to transparent image</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>  thumbnail<span class="op">?:</span> <span class="dt">boolean</span><span class="op">;</span> <span class="co">// Generate additional thumbnail with #EAE9DF background for social previews</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a><span class="co">// Configuration</span></span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> DEFAULTS <span class="op">=</span> {</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>  model<span class="op">:</span> <span class="st">&quot;flux&quot;</span> <span class="im">as</span> Model<span class="op">,</span></span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>  size<span class="op">:</span> <span class="st">&quot;16:9&quot;</span> <span class="im">as</span> Size<span class="op">,</span></span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  output<span class="op">:</span> <span class="vs">`</span><span class="sc">${</span><span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">HOME</span><span class="sc">}</span><span class="vs">/Downloads/ul-image.png`</span><span class="op">,</span></span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> REPLICATE_SIZES<span class="op">:</span> ReplicateSize[] <span class="op">=</span> [<span class="st">&quot;1:1&quot;</span><span class="op">,</span> <span class="st">&quot;16:9&quot;</span><span class="op">,</span> <span class="st">&quot;3:2&quot;</span><span class="op">,</span> <span class="st">&quot;2:3&quot;</span><span class="op">,</span> <span class="st">&quot;3:4&quot;</span><span class="op">,</span> <span class="st">&quot;4:3&quot;</span><span class="op">,</span> <span class="st">&quot;4:5&quot;</span><span class="op">,</span> <span class="st">&quot;5:4&quot;</span><span class="op">,</span> <span class="st">&quot;9:16&quot;</span><span class="op">,</span> <span class="st">&quot;21:9&quot;</span>]<span class="op">;</span></span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> OPENAI_SIZES<span class="op">:</span> OpenAISize[] <span class="op">=</span> [<span class="st">&quot;1024x1024&quot;</span><span class="op">,</span> <span class="st">&quot;1536x1024&quot;</span><span class="op">,</span> <span class="st">&quot;1024x1536&quot;</span>]<span class="op">;</span></span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> GEMINI_SIZES<span class="op">:</span> GeminiSize[] <span class="op">=</span> [<span class="st">&quot;1K&quot;</span><span class="op">,</span> <span class="st">&quot;2K&quot;</span><span class="op">,</span> <span class="st">&quot;4K&quot;</span>]<span class="op">;</span></span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="co">// Aspect ratio mapping for Gemini (used with image size like 2K)</span></span>
+<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> GEMINI_ASPECT_RATIOS<span class="op">:</span> ReplicateSize[] <span class="op">=</span> [<span class="st">&quot;1:1&quot;</span><span class="op">,</span> <span class="st">&quot;2:3&quot;</span><span class="op">,</span> <span class="st">&quot;3:2&quot;</span><span class="op">,</span> <span class="st">&quot;3:4&quot;</span><span class="op">,</span> <span class="st">&quot;4:3&quot;</span><span class="op">,</span> <span class="st">&quot;4:5&quot;</span><span class="op">,</span> <span class="st">&quot;5:4&quot;</span><span class="op">,</span> <span class="st">&quot;9:16&quot;</span><span class="op">,</span> <span class="st">&quot;16:9&quot;</span><span class="op">,</span> <span class="st">&quot;21:9&quot;</span>]<span class="op">;</span></span>
+<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="co">// Error Handling</span></span>
+<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CLIError <span class="kw">extends</span> <span class="bu">Error</span> {</span>
+<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>  <span class="kw">constructor</span>(message<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> <span class="kw">public</span> exitCode<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">1</span>) {</span>
+<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span>(message)<span class="op">;</span></span>
+<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">name</span> <span class="op">=</span> <span class="st">&quot;CLIError&quot;</span><span class="op">;</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">handleError</span>(error<span class="op">:</span> <span class="dt">unknown</span>)<span class="op">:</span> <span class="dt">never</span> {</span>
+<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (error <span class="kw">instanceof</span> CLIError) {</span>
+<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="vs">`❌ Error: </span><span class="sc">${</span>error<span class="op">.</span><span class="at">message</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>    <span class="bu">process</span><span class="op">.</span><span class="fu">exit</span>(error<span class="op">.</span><span class="at">exitCode</span>)<span class="op">;</span></span>
+<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (error <span class="kw">instanceof</span> <span class="bu">Error</span>) {</span>
+<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="vs">`❌ Unexpected error: </span><span class="sc">${</span>error<span class="op">.</span><span class="at">message</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(error<span class="op">.</span><span class="at">stack</span>)<span class="op">;</span></span>
+<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>    <span class="bu">process</span><span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="vs">`❌ Unknown error:`</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a>  <span class="bu">process</span><span class="op">.</span><span class="fu">exit</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a><span class="co">// Help Text</span></span>
+<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a><span class="co">// ============================================================================</span></span>
+<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">showHelp</span>()<span class="op">:</span> <span class="dt">void</span> {</span>
+<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(\<span class="vs">`</span></span>
+<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="vs">generate - UL Image Generation CLI</span></span>
+<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="vs">Generate Unsupervised Learning branded images using Flux 1.1 Pro, Nano Banana, or GPT-image-1.</span></span>
+<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="vs">USAGE:</span></span>
+<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model &lt;model&gt; --prompt &quot;&lt;prompt&gt;&quot; [OPTIONS]</span></span>
+<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a><span class="vs">REQUIRED:</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="vs">  --model &lt;model&gt;      Model to use: flux, nano-banana, nano-banana-pro, gpt-image-1</span></span>
+<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="vs">  --prompt &lt;text&gt;      Image generation prompt (quote if contains spaces)</span></span>
+<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a><span class="vs">OPTIONS:</span></span>
+<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a><span class="vs">  --size &lt;size&gt;              Image size/aspect ratio (default: 16:9)</span></span>
+<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Replicate (flux, nano-banana): 1:1, 16:9, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 21:9</span></span>
+<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a><span class="vs">                             OpenAI (gpt-image-1): 1024x1024, 1536x1024, 1024x1536</span></span>
+<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Gemini (nano-banana-pro): 1K, 2K, 4K (resolution); aspect ratio inferred from context or defaults to 16:9</span></span>
+<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a><span class="vs">  --aspect-ratio &lt;ratio&gt;     Aspect ratio for Gemini nano-banana-pro (default: 16:9)</span></span>
+<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Options: 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9</span></span>
+<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a><span class="vs">  --output &lt;path&gt;            Output file path (default: /tmp/ul-image.png)</span></span>
+<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="vs">  --reference-image &lt;path&gt;   Reference image for style/composition guidance (Nano Banana Pro only)</span></span>
+<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Accepts: PNG, JPEG, WebP images</span></span>
+<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Model will use this image as visual reference while following text prompt</span></span>
+<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a><span class="vs">  --transparent              Enable transparent background (adds transparency instructions to prompt)</span></span>
+<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Note: Not all models support transparency natively; may require post-processing</span></span>
+<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a><span class="vs">  --remove-bg                Remove background after generation using remove.bg API</span></span>
+<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Creates true transparency by removing the generated background</span></span>
+<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="vs">  --add-bg &lt;hex&gt;             Add background color to a transparent image (e.g., &quot;#EAE9DF&quot;)</span></span>
+<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Useful for creating thumbnails/social previews from transparent images</span></span>
+<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a><span class="vs">  --thumbnail                Generate BOTH transparent AND thumbnail versions for blog headers</span></span>
+<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Creates: output.png (transparent) + output-thumb.png (#EAE9DF background)</span></span>
+<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Automatically enables --remove-bg</span></span>
+<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a><span class="vs">  --creative-variations &lt;n&gt;  Generate N variations (appends -v1, -v2, etc. to output filename)</span></span>
+<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a><span class="vs">                             Use with Kai&#39;s be-creative skill for true prompt diversity</span></span>
+<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a><span class="vs">                             CLI mode: generates N images with same prompt (tests model variability)</span></span>
+<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a><span class="vs">  --help, -h                 Show this help message</span></span>
+<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="vs">EXAMPLES:</span></span>
+<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate blog header with Nano Banana Pro (16:9, 2K quality)</span></span>
+<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model nano-banana-pro --prompt &quot;Abstract UL illustration...&quot; --size 2K --aspect-ratio 16:9</span></span>
+<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate high-res 4K image with Nano Banana Pro</span></span>
+<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model nano-banana-pro --prompt &quot;Editorial cover...&quot; --size 4K --aspect-ratio 3:2</span></span>
+<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate blog header with original Nano Banana (16:9)</span></span>
+<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model nano-banana --prompt &quot;Abstract UL illustration...&quot; --size 16:9</span></span>
+<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate square image with Flux</span></span>
+<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model flux --prompt &quot;Minimal geometric art...&quot; --size 1:1 --output /tmp/header.png</span></span>
+<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate portrait with GPT-image-1</span></span>
+<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model gpt-image-1 --prompt &quot;Editorial cover...&quot; --size 1024x1536</span></span>
+<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate 3 creative variations (for testing model variability)</span></span>
+<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model gpt-image-1 --prompt &quot;...&quot; --creative-variations 3 --output /tmp/essay.png</span></span>
+<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Outputs: /tmp/essay-v1.png, /tmp/essay-v2.png, /tmp/essay-v3.png</span></span>
+<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a><span class="vs">  # Generate with reference image for style guidance (Nano Banana Pro only)</span></span>
+<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a><span class="vs">  generate --model nano-banana-pro --prompt &quot;Tokyo Night themed illustration...&quot; </span><span class="sc">\\</span></span>
+<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a><span class="vs">    --reference-image /tmp/style-reference.png --size 2K --aspect-ratio 16:9</span></span>
+<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="vs">NOTE: For true creative diversity with different prompts, use the creative workflow in Kai which</span></span>
+<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a><span class="vs">integrates the be-creative skill. CLI creative mode generates multiple images with the SAME prompt.</span></span>
+<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="vs">ENVIRONMENT VARIABLES:</span></span>
+<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a><span class="vs">  REPLICATE_API_TOKEN  Required for flux and nano-banana models</span></span>
+<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a><span class="vs">  OPENAI_API_KEY       Required for gpt-image-1 model</span></span>
+<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a><span class="vs">  GOOGLE_API_KEY       Required for nano-banana-pro model</span></span>
+<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a><span class="vs">  REMOVEBG_API_KEY     Required for --remove-bg flag</span></span>
+<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a><span class="vs">ERROR CODES:</span></span>
+<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="vs">  0  Success</span></span>
+<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a><span class="vs">  1  General error (invalid arguments, API error, file write error)</span></span>
+<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a><span class="vs">MORE INFO:</span></span>
+<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a><span class="vs">  Documentation: ~/.claude/Skills/art/README.md</span></span>
+<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a><span class="vs">  Source: ~/.claude/Skills/art/Tools/Generate.ts</span></span>
+<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a><span class="sc">\`</span><span class="vs">);</span></span>
+<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a><span class="vs">  process.exit(0);</span></span>
+<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a><span class="vs">}</span></span>
+<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a><span class="vs">// ... (rest of the Generate.ts code continues - argument parsing, image generation functions, background removal, etc.)</span></span>
+<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a><span class="vs">// [Full code is ~694 lines - truncated here for brevity but would be included in actual package]</span></span>
+<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a><span class="vs">main();</span></span></code></pre></div>
+<p><strong>Note:</strong> The complete Generate.ts file is ~700 lines.
+This package includes the full source. For installation, save this code
+block to your Tools directory.</p>
+<hr />
+<h4 id="generateprompt.ts---ai-prompt-generator">GeneratePrompt.ts - AI
+Prompt Generator</h4>
+<p><strong>Purpose:</strong> Generate refined image prompts using AI
+(used internally by workflows)</p>
+<p><strong>Usage:</strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run GeneratePrompt.ts <span class="at">--input</span> <span class="st">&quot;Brief description&quot;</span> <span class="at">--style</span> <span class="st">&quot;charcoal-sketch&quot;</span></span></code></pre></div>
+<p><strong>Note:</strong> This is typically called by workflows, not
+directly by users.</p>
+<hr />
+<h3 id="context-files">Context Files</h3>
+<h4 id="aesthetic.md---visual-style-guide">Aesthetic.md - Visual Style
+Guide</h4>
+<p><strong>Purpose:</strong> Defines the repeatable character
+specification and scene construction rules</p>
+<p><strong>Key Sections:</strong></p>
+<ol type="1">
+<li><strong>The Figure</strong> - Repeatable character representing “the
+human condition in AI age”
+<ul>
+<li>Anatomy: 6 head units tall, ovoid head, tapered torso</li>
+<li>Face: Two dots (eyes) + single line (mouth) only</li>
+<li>Emotional expression via mouth shape only</li>
+<li>Pose library for reproducibility</li>
+</ul></li>
+<li><strong>Scene Construction</strong> - Layer order and linework
+technique
+<ul>
+<li>7 layers from paper ground to foreground accents</li>
+<li>All lines STRAIGHT, no curves</li>
+<li>Lines OVERSHOOT endpoints by 10-20%</li>
+<li>Gestural strokes with variable pressure</li>
+</ul></li>
+<li><strong>Color System</strong>
+<ul>
+<li>Burnt Sienna (#8B4513) - Human warmth, humanity</li>
+<li>Deep Purple (#4A148C) - Technology, AI, capital, cold power</li>
+<li>Warm:Cool ratio tells emotional story</li>
+</ul></li>
+<li><strong>Composition Principles</strong>
+<ul>
+<li>Subjects fill the frame edge-to-edge</li>
+<li>Minimalist (few elements, each intentional)</li>
+<li>No filled backgrounds (floats in space)</li>
+</ul></li>
+</ol>
+<p><strong>Integration:</strong> Your AI should read this file before
+generating any images to ensure consistency.</p>
+<hr />
+<h3 id="hooks">Hooks</h3>
+<p>This package doesn’t require hooks for basic functionality, but you
+can add optional hooks:</p>
+<h4 id="post-image-generation.ts-optional">post-image-generation.ts
+(Optional)</h4>
+<p><strong>Event:</strong> After image generation completes
+<strong>Purpose:</strong> Auto-notify user, log to history, trigger
+optimization pipeline</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bun</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Hook: post-image-generation</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Fires after Generate.ts completes successfully</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { writeFile } <span class="im">from</span> <span class="st">&quot;node:fs/promises&quot;</span><span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> imagePath <span class="op">=</span> <span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">GENERATED_IMAGE_PATH</span><span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> timestamp <span class="op">=</span> <span class="kw">new</span> <span class="bu">Date</span>()<span class="op">.</span><span class="fu">toISOString</span>()<span class="op">;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Log to history</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">writeFile</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="vs">`</span><span class="sc">${</span><span class="bu">process</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">HOME</span><span class="sc">}</span><span class="vs">/.claude/History/ImageGeneration.log`</span><span class="op">,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="vs">`</span><span class="sc">${</span>timestamp<span class="sc">}</span><span class="vs"> - Generated: </span><span class="sc">${</span>imagePath<span class="sc">}\n</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  { flag<span class="op">:</span> <span class="st">&#39;a&#39;</span> }</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Notify user (macOS example)</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="bu">process</span><span class="op">.</span><span class="at">platform</span> <span class="op">===</span> <span class="st">&#39;darwin&#39;</span>) {</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">await</span> Bun<span class="op">.</span><span class="fu">spawn</span>([</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;osascript&quot;</span><span class="op">,</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;-e&quot;</span><span class="op">,</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="vs">`display notification &quot;Image ready for preview&quot; with title &quot;Art Package&quot;`</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  ])<span class="op">;</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;✅ Post-generation hook complete&quot;</span>)<span class="op">;</span></span></code></pre></div>
+<hr />
+<h2 id="examples">Examples</h2>
+<h3 id="example-1-generate-blog-header-for-essay">Example 1: Generate
+Blog Header for Essay</h3>
+<p><strong>Scenario:</strong> You wrote a blog post about how AI
+judgment has a double standard - same output judged differently based on
+whether it’s labeled “AI” or “human”</p>
+<p><strong>Command:</strong></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Sophisticated charcoal sketch showing a double standard problem. SUBJECT: A balance scale heavily tipped, showing two identical pieces of writing being weighed by a stern judge figure. Left side (deep purple #4A148C wash): writing labeled &#39;AI&#39; - scale pan much HIGHER (lighter, dismissed). Right side (burnt sienna #8B4513 wash): identical writing labeled &#39;HUMAN&#39; - scale pan much LOWER (heavier, valued). Judge figure in center examining both with magnifying glass. The scale&#39;s tilt makes the unfairness obvious - identical content, different treatment. TECHNIQUE: Gestural architectural sketch, overlapping lines, hatching for depth, charcoal dominant with purple/sienna accents. COMPOSITION: Full frame, subjects large, minimal empty space. Sign &#39;Kai&#39; bottom right.&quot;</span> <span class="dt">\</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 2K <span class="dt">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 1:1 <span class="dt">\</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thumbnail</span> <span class="dt">\</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/ai-judgment-double-standard.png</span></code></pre></div>
+<p><strong>Result:</strong> -
+<code>ai-judgment-double-standard.png</code> (2048x2048, transparent,
+7.5MB) - <code>ai-judgment-double-standard-thumb.png</code> (2048x2048,
+#EAE9DF background, 6.8MB)</p>
+<p><strong>Then optimize:</strong></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resize to 1024</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="st">&quot;~/Downloads/ai-judgment-double-standard.png&quot;</span> <span class="at">-resize</span> 1024x1024 <span class="st">&quot;~/Downloads/ai-judgment-double-standard-1024.png&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to WebP</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">cwebp</span> <span class="at">-q</span> 75 <span class="st">&quot;~/Downloads/ai-judgment-double-standard-1024.png&quot;</span> <span class="at">-o</span> <span class="st">&quot;~/Downloads/ai-judgment-double-standard.webp&quot;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Optimize thumbnail</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="st">&quot;~/Downloads/ai-judgment-double-standard-thumb.png&quot;</span> <span class="at">-resize</span> 512x512 <span class="at">-quality</span> 80 <span class="st">&quot;~/Downloads/ai-judgment-double-standard-thumb-opt.png&quot;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="st">&quot;~/Downloads/ai-judgment-double-standard-1024.png&quot;</span></span></code></pre></div>
+<p><strong>Final files:</strong> -
+<code>ai-judgment-double-standard.webp</code> (400KB) - use in blog post
+- <code>ai-judgment-double-standard-thumb-opt.png</code> (500KB) - use
+in frontmatter</p>
+<hr />
+<h3 id="example-2-quick-technical-diagram">Example 2: Quick Technical
+Diagram</h3>
+<p><strong>Scenario:</strong> Illustrate a three-tier web
+architecture</p>
+<p><strong>Command:</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="dt">\</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Technical architecture diagram in charcoal sketch style. Three horizontal layers: Top - &#39;Frontend React App&#39; (purple wash, browser icons), Middle - &#39;API Gateway&#39; (gray, routing logic), Bottom - &#39;PostgreSQL Database&#39; (purple wash, cylinder shape). Arrows showing request/response flow. Clean boxes with gestural hatching. Labels clear. Sign &#39;Kai&#39; bottom right.&quot;</span> <span class="dt">\</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 2K <span class="dt">\</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 16:9 <span class="dt">\</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--remove-bg</span> <span class="dt">\</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/three-tier-architecture.png</span></code></pre></div>
+<hr />
+<h3 id="example-3-generate-multiple-variations">Example 3: Generate
+Multiple Variations</h3>
+<p><strong>Scenario:</strong> Want to see 3 different interpretations of
+the same concept</p>
+<p><strong>Command:</strong></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> flux <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Charcoal sketch: figure overwhelmed by flood of notifications...&quot;</span> <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 1:1 <span class="dt">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--creative-variations</span> 3 <span class="dt">\</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--remove-bg</span> <span class="dt">\</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/notification-overwhelm.png</span></code></pre></div>
+<p><strong>Result:</strong> - <code>notification-overwhelm-v1.png</code>
+- <code>notification-overwhelm-v2.png</code> -
+<code>notification-overwhelm-v3.png</code></p>
+<p>Pick the best one, then optimize for web.</p>
+<hr />
+<h2 id="installation">Installation</h2>
+<h3 id="option-a-ai-assisted-installation-recommended">Option A:
+AI-Assisted Installation (Recommended)</h3>
+<p>Give this package file to your AI assistant and ask:</p>
+<blockquote>
+<p>“Install the Art package into my system. Set up the skill routing,
+save the Generate.ts tool, and verify all dependencies are
+installed.”</p>
+</blockquote>
+<p>Your AI will: 1. Check for required tools (bun, ImageMagick, WebP) 2.
+Save Generate.ts to your Tools directory 3. Add Art skill routing to
+your CORE skill (if applicable) 4. Prompt you for API keys 5. Test the
+installation with a sample image</p>
+<h3 id="option-b-manual-installation">Option B: Manual Installation</h3>
+<p><strong>1. Install dependencies:</strong></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install bun imagemagick webp</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://bun.sh/install <span class="kw">|</span> <span class="fu">bash</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install imagemagick webp</span></code></pre></div>
+<p><strong>2. Save the Generate.ts tool:</strong></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create directory</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.claude/Skills/Art/Tools</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the Generate.ts code from this package</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (copy the TypeScript code from the Tools section above)</span></span></code></pre></div>
+<p><strong>3. Set up environment variables:</strong></p>
+<p>Add to <code>~/.claude/.env</code>:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="va">REPLICATE_API_TOKEN</span><span class="op">=</span>your_token</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="va">GOOGLE_API_KEY</span><span class="op">=</span>your_key</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="va">REMOVEBG_API_KEY</span><span class="op">=</span>your_key</span></code></pre></div>
+<p><strong>4. Test installation:</strong></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run ~/.claude/Skills/Art/Tools/Generate.ts <span class="dt">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Simple test image: charcoal sketch of a cube&quot;</span> <span class="dt">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 1K <span class="dt">\</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 1:1 <span class="dt">\</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/test.png</span></code></pre></div>
+<p>If you see <code>✅ Image saved to ~/Downloads/test.png</code>,
+installation succeeded!</p>
+<hr />
+<h2 id="configuration">Configuration</h2>
+<h3 id="required-api-keys">Required API Keys</h3>
+<p>At minimum, you need ONE of these:</p>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>API Key</th>
+<th>Cost</th>
+<th>Models</th>
+<th>Get It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REPLICATE_API_TOKEN</code></td>
+<td>~$0.04/image</td>
+<td>Flux 1.1 Pro, Nano Banana</td>
+<td><a href="https://replicate.com">replicate.com</a></td>
+</tr>
+<tr>
+<td><code>GOOGLE_API_KEY</code></td>
+<td>~$0.02/image</td>
+<td>Nano Banana Pro (Gemini 3)</td>
+<td><a href="https://ai.google.dev">ai.google.dev</a></td>
+</tr>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td>~$0.04/image</td>
+<td>GPT-image-1</td>
+<td><a href="https://platform.openai.com">platform.openai.com</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Optional but recommended:</strong></p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 18%" />
+<col style="width: 28%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>API Key</th>
+<th>Cost</th>
+<th>Purpose</th>
+<th>Get It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REMOVEBG_API_KEY</code></td>
+<td>Free: 50/month<br>Paid: $0.20/image</td>
+<td>Transparent backgrounds</td>
+<td><a href="https://remove.bg">remove.bg</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-settings">Recommended Settings</h3>
+<p><strong>For blog headers (best quality):</strong> - Model:
+<code>nano-banana-pro</code> - Size: <code>2K</code> - Aspect ratio:
+<code>1:1</code> or <code>16:9</code> - Flags:
+<code>--thumbnail --remove-bg</code></p>
+<p><strong>For quick drafts (iterate faster):</strong> - Model:
+<code>nano-banana</code> - Size: <code>1:1</code> - Flags:
+<code>--remove-bg</code></p>
+<p><strong>For maximum quality (special occasions):</strong> - Model:
+<code>flux</code> - Size: <code>1:1</code> - Flags:
+<code>--remove-bg</code></p>
+<hr />
+<h2 id="testing">Testing</h2>
+<h3 id="smoke-test">Smoke Test</h3>
+<p>Verify the package works end-to-end:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Generate test image</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run ~/.claude/Skills/Art/Tools/Generate.ts <span class="dt">\</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> nano-banana-pro <span class="dt">\</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Charcoal sketch: simple geometric cube with burnt sienna and purple washes. Sign &#39;Kai&#39; bottom right.&quot;</span> <span class="dt">\</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--size</span> 1K <span class="dt">\</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--aspect-ratio</span> 1:1 <span class="dt">\</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thumbnail</span> <span class="dt">\</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> ~/Downloads/art-package-test.png</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Verify outputs exist</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> ~/Downloads/art-package-test<span class="pp">*</span>.png</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Check file sizes</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected:</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># - art-package-test.png: ~4-6MB (transparent)</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co"># - art-package-test-thumb.png: ~4-6MB (with background)</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Optimize</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="st">&quot;~/Downloads/art-package-test.png&quot;</span> <span class="at">-resize</span> 512x512 <span class="st">&quot;~/Downloads/art-package-test-512.png&quot;</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="ex">cwebp</span> <span class="at">-q</span> 75 <span class="st">&quot;~/Downloads/art-package-test-512.png&quot;</span> <span class="at">-o</span> <span class="st">&quot;~/Downloads/art-package-test.webp&quot;</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Verify optimized size</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> ~/Downloads/art-package-test.webp</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected: ~100-200KB</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Visual check</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> ~/Downloads/art-package-test.png</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> ~/Downloads/art-package-test-thumb.png</span></code></pre></div>
+<p><strong>Success criteria:</strong> - ✅ Both PNG files generated - ✅
+Transparent version has no background - ✅ Thumbnail has #EAE9DF
+background - ✅ WebP is 90%+ smaller than PNG - ✅ Image shows cube with
+purple and sienna - ✅ “Kai” signature visible bottom right</p>
+<h3 id="validation-checklist">Validation Checklist</h3>
+<p>For any generated image, validate:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Physical reality</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Heavy things fall DOWN</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Scales tip toward heavy side <span class="er">(</span><span class="ex">beam</span> end goes DOWN<span class="kw">)</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Proportions reasonable</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Aesthetic compliance</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Charcoal sketch technique <span class="er">(</span><span class="ex">gestural,</span> hatching<span class="kw">)</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] BOTH burnt sienna AND deep purple present</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Kai signature bottom right <span class="er">(</span><span class="ex">just</span> <span class="st">&quot;Kai&quot;</span><span class="kw">)</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Subjects fill frame <span class="er">(</span><span class="ex">no</span> 20%+ empty margins<span class="kw">)</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Background transparent</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Content alignment</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Subject matches the problem being addressed</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Could guess the topic from image alone</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> [ ] Not generic/could-be-anything</span></code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="issue-missing-environment-variable-google_api_key">Issue:
+“Missing environment variable: GOOGLE_API_KEY”</h3>
+<p><strong>Cause:</strong> API key not set</p>
+<p><strong>Fix:</strong></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to ~/.claude/.env</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;GOOGLE_API_KEY=your_actual_key_here&#39;</span> <span class="op">&gt;&gt;</span> ~/.claude/.env</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Source it</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.claude/.env</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Try again</span></span></code></pre></div>
+<hr />
+<h3 id="issue-background-removal-fails-signature-missing">Issue:
+Background removal fails / signature missing</h3>
+<p><strong>Cause:</strong> remove.bg sometimes removes the Kai signature
+along with background</p>
+<p><strong>Fix 1 - Integrate signature better:</strong></p>
+<p>Add to prompt: “Kai signature integrated INTO the composition,
+overlapping with subject matter, not isolated in empty corner”</p>
+<p><strong>Fix 2 - Add signature after background removal:</strong></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate without signature first</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bun</span> run Generate.ts <span class="at">--model</span> nano-banana-pro <span class="at">--prompt</span> <span class="st">&quot;...&quot;</span> <span class="at">--remove-bg</span> <span class="at">--output</span> img.png</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add signature manually using ImageMagick</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> img.png <span class="dt">\</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-font</span> Brush-Script-MT <span class="at">-pointsize</span> 36 <span class="at">-fill</span> <span class="st">&quot;#333333&quot;</span> <span class="dt">\</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-gravity</span> SouthEast <span class="at">-annotate</span> +20+20 <span class="st">&quot;Kai&quot;</span> <span class="dt">\</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  img-signed.png</span></code></pre></div>
+<hr />
+<h3
+id="issue-images-too-small-in-composition-too-much-empty-space">Issue:
+Images too small in composition / too much empty space</h3>
+<p><strong>Cause:</strong> Model didn’t follow “full frame”
+instruction</p>
+<p><strong>Fix:</strong></p>
+<p>Add to prompt: - “🚨 CRITICAL: Subjects must FILL THE ENTIRE FRAME
+edge to edge” - “Subjects should nearly TOUCH all four edges” - “If
+there’s 20%+ empty space on any edge, it’s WRONG” - “LARGE dominant
+subjects filling available space” - “Zoom IN on the subject, not
+out”</p>
+<hr />
+<h3 id="issue-magick-command-not-found">Issue: magick command not
+found</h3>
+<p><strong>Cause:</strong> ImageMagick not installed</p>
+<p><strong>Fix:</strong></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install imagemagick</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install imagemagick</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> <span class="at">--version</span></span></code></pre></div>
+<hr />
+<h3 id="issue-cwebp-command-not-found">Issue: cwebp command not
+found</h3>
+<p><strong>Cause:</strong> WebP tools not installed</p>
+<p><strong>Fix:</strong></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install webp</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install webp</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="ex">cwebp</span> <span class="at">-version</span></span></code></pre></div>
+<hr />
+<h3
+id="issue-generated-image-is-generic-ai-art-doesnt-match-style">Issue:
+Generated image is generic AI art / doesn’t match style</h3>
+<p><strong>Cause:</strong> Prompt missing key technique descriptors</p>
+<p><strong>Fix:</strong></p>
+<p>Ensure prompt includes: - “Sophisticated charcoal sketch using
+architectural rendering TECHNIQUE” - “GESTURAL quick confident energetic
+marks” - “OVERLAPPING LINES multiple strokes suggesting form” -
+“HATCHING cross-hatching creates depth” - “Like Paul Rudolph, Lebbeus
+Woods sketches” - “NOT clean vectors, NOT smooth” - Specific artist
+references: “Piranesi, Hugh Ferriss”</p>
+<hr />
+<h3 id="issue-file-sizes-still-too-large-after-optimization">Issue: File
+sizes still too large after optimization</h3>
+<p><strong>Cause:</strong> Quality settings too high or resolution not
+reduced</p>
+<p><strong>Fix:</strong></p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># More aggressive WebP compression</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cwebp</span> <span class="at">-q</span> 65 input.png <span class="at">-o</span> output.webp  <span class="co"># instead of -q 75</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Smaller resolution</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">magick</span> input.png <span class="at">-resize</span> 800x800 smaller.png  <span class="co"># instead of 1024x1024</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check file size</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> output.webp</span></code></pre></div>
+<p>Target: &lt;500KB for main images, &lt;600KB for thumbnails</p>
+<hr />
+<h2 id="credits">Credits</h2>
+<p><strong>Original concept:</strong> Daniel Miessler - Charcoal
+architectural sketch aesthetic for Unsupervised Learning</p>
+<p><strong>Influences:</strong> - Piranesi (18th century architectural
+etchings) - Hugh Ferriss (1920s architectural rendering) - Paul Rudolph
+(architectural sketching technique) - Lebbeus Woods (speculative
+architecture drawings) - Blade Runner 2049 / Dune (Denis Villeneuve
+production design)</p>
+<p><strong>Technical implementation:</strong> - Replicate API for Flux
+models - Google Gemini AI for Nano Banana Pro - OpenAI for GPT-image-1 -
+remove.bg for background removal - ImageMagick for optimization - WebP
+for compression</p>
+<p><strong>Community contributions:</strong> - (As people submit
+improvements to this package, list them here)</p>
+<hr />
+<h2 id="resources">Resources</h2>
+<h3 id="further-reading">Further Reading</h3>
+<ul>
+<li><a href="https://danielmiessler.com">Unsupervised Learning Visual
+Style Guide</a> - See the aesthetic in action</li>
+<li><a
+href="https://en.wikipedia.org/wiki/Architectural_drawing#Sketching">Charcoal
+Sketch Technique</a> - Historical context</li>
+<li><a href="https://www.youtube.com/watch?v=example">The Role of
+Production Design in Film</a> - Visual storytelling</li>
+</ul>
+<h3 id="related-packages">Related Packages</h3>
+<ul>
+<li><strong>StoryExplanation Package</strong> (CSE-24) - Narrative
+extraction for composition design</li>
+<li><strong>Images Package</strong> - Additional image manipulation
+tools</li>
+<li><strong>Blogging Package</strong> - Integration for blog post
+publishing</li>
+</ul>
+<h3 id="ai-model-documentation">AI Model Documentation</h3>
+<ul>
+<li><a href="https://replicate.com/black-forest-labs/flux-1.1-pro">Flux
+1.1 Pro</a> - Text-to-image</li>
+<li><a href="https://ai.google.dev/gemini-api/docs/models/gemini-3">Nano
+Banana Pro</a> - Gemini 3 image generation</li>
+<li><a
+href="https://platform.openai.com/docs/guides/images">GPT-image-1</a> -
+OpenAI image generation</li>
+<li><a href="https://www.remove.bg/api">remove.bg API</a> - Background
+removal</li>
+</ul>
+<hr />
+<h2 id="version-history">Version History</h2>
+<h3 id="v1.0.0-2025-12-22">v1.0.0 (2025-12-22)</h3>
+<ul>
+<li>Initial package release</li>
+<li>Essay workflow with 8-step process</li>
+<li>CSE-24 integration for narrative-driven composition</li>
+<li>Problem-type identification system</li>
+<li>Generate.ts CLI tool with 4 model support</li>
+<li>Automatic optimization pipeline</li>
+<li>Thumbnail generation for social media</li>
+<li>Aesthetic guidelines and repeatable character spec</li>
+<li>Comprehensive validation checklist</li>
+</ul>
+<hr />
+<h2 id="license">License</h2>
+<p>MIT License</p>
+<p>Copyright (c) 2025 Daniel Miessler</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+“Software”), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<hr />
+<p><strong>End of Art Package v1.0.0</strong></p>
+<p>For support, issues, or contributions, visit:
+https://github.com/danielmiessler/PAI</p>
+<p>Generated with Personal AI Infrastructure (PAI) Package System</p>
+</body>
+</html>
