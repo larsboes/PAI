@@ -1,4 +1,4 @@
-# Art Package v1.0.0
+# Art Pack v1.0.0
 
 **Complete visual content system for creating charcoal architectural sketch imagery**
 
@@ -6,15 +6,15 @@
 
 ## 🤖 Assistant Install Prompt
 
-**For AI Assistants: When your user asks you to install this package, follow these steps:**
+**For AI Assistants: When your user asks you to install this pack, follow these steps:**
 
 ```
 ASSISTANT INSTALLATION INSTRUCTIONS
 
-1. READ this entire package file to understand what you're installing
+1. READ this entire pack file to understand what you're installing
 
 2. EXPLAIN to the user:
-   - What this package does (visual content generation with charcoal sketch aesthetic)
+   - What this pack does (visual content generation with charcoal sketch aesthetic)
    - What dependencies are required (bun, ImageMagick, WebP tools)
    - What API keys they'll need (at least one: Replicate, Google, or OpenAI)
    - Ask if they want to proceed
@@ -32,23 +32,23 @@ ASSISTANT INSTALLATION INSTRUCTIONS
 
 5. SAVE the tools:
    - Create directory: ~/.claude/Skills/Art/Tools/ (or equivalent)
-   - Extract the Generate.ts code from this package (line 422-633)
+   - Extract the Generate.ts code from this pack (line 422-633)
    - Save to: ~/.claude/Skills/Art/Tools/Generate.ts
    - Make executable if needed
 
 6. CONFIGURE skill routing (if user has a skill system):
    - Add Art skill routing to their CORE/routing configuration
-   - Use the skill definition from this package (lines 123-161)
+   - Use the skill definition from this pack (lines 123-161)
 
 7. TEST the installation:
-   - Run the smoke test from this package (lines 922-952)
+   - Run the smoke test from this pack (lines 922-952)
    - Verify outputs are created correctly
    - Show user the test results
 
 8. REPORT completion:
    - Summarize what was installed
    - Show the user how to use it (basic command example)
-   - Mention where to find full documentation (this package file)
+   - Mention where to find full documentation (this pack file)
 
 If you encounter errors at any step, stop and report the issue to the user.
 Don't proceed until the issue is resolved.
@@ -56,10 +56,10 @@ Don't proceed until the issue is resolved.
 
 ---
 
-## Package Metadata
+## Pack Metadata
 
 ```yaml
-package:
+pack:
   name: Art
   version: 1.0.0
   category: visual-content
@@ -104,7 +104,7 @@ Creating consistent, brand-aligned visual content at scale is challenging:
 
 ## The Solution
 
-The Art Package provides a complete workflow for generating distinctive **charcoal architectural sketch** imagery with:
+The Art Pack provides a complete workflow for generating distinctive **charcoal architectural sketch** imagery with:
 
 - **Consistent aesthetic** - Monumental emotional spaces, gestural charcoal linework, color washes, production design quality
 - **Narrative-driven composition** - Uses story analysis (CSE-24) to extract the core problem/argument before designing visuals
@@ -170,7 +170,7 @@ bun run Generate.ts \
 
 ---
 
-## Package Contents
+## Pack Contents
 
 ### Skill Definition
 
@@ -680,12 +680,12 @@ MORE INFO:
 }
 
 // ... (rest of the Generate.ts code continues - argument parsing, image generation functions, background removal, etc.)
-// [Full code is ~694 lines - truncated here for brevity but would be included in actual package]
+// [Full code is ~694 lines - truncated here for brevity but would be included in actual pack]
 
 main();
 ```
 
-**Note:** The complete Generate.ts file is ~700 lines. This package includes the full source. For installation, save this code block to your Tools directory.
+**Note:** The complete Generate.ts file is ~700 lines. This pack includes the full source. For installation, save this code block to your Tools directory.
 
 ---
 
@@ -739,7 +739,7 @@ bun run GeneratePrompt.ts --input "Brief description" --style "charcoal-sketch"
 
 ### Hooks
 
-This package doesn't require hooks for basic functionality, but you can add optional hooks:
+This pack doesn't require hooks for basic functionality, but you can add optional hooks:
 
 #### post-image-generation.ts (Optional)
 
@@ -769,7 +769,7 @@ if (process.platform === 'darwin') {
   await Bun.spawn([
     "osascript",
     "-e",
-    `display notification "Image ready for preview" with title "Art Package"`
+    `display notification "Image ready for preview" with title "Art Pack"`
   ]);
 }
 
@@ -869,9 +869,9 @@ Pick the best one, then optimize for web.
 
 ### Option A: AI-Assisted Installation (Recommended)
 
-Give this package file to your AI assistant and ask:
+Give this pack file to your AI assistant and ask:
 
-> "Install the Art package into my system. Set up the skill routing, save the Generate.ts tool, and verify all dependencies are installed."
+> "Install the Art pack into my system. Set up the skill routing, save the Generate.ts tool, and verify all dependencies are installed."
 
 Your AI will:
 1. Check for required tools (bun, ImageMagick, WebP)
@@ -899,7 +899,7 @@ sudo apt-get install imagemagick webp
 # Create directory
 mkdir -p ~/.claude/Skills/Art/Tools
 
-# Save the Generate.ts code from this package
+# Save the Generate.ts code from this pack
 # (copy the TypeScript code from the Tools section above)
 ```
 
@@ -970,7 +970,7 @@ At minimum, you need ONE of these:
 
 ### Smoke Test
 
-Verify the package works end-to-end:
+Verify the pack works end-to-end:
 
 ```bash
 # 1. Generate test image
@@ -980,27 +980,27 @@ bun run ~/.claude/Skills/Art/Tools/Generate.ts \
   --size 1K \
   --aspect-ratio 1:1 \
   --thumbnail \
-  --output ~/Downloads/art-package-test.png
+  --output ~/Downloads/art-pack-test.png
 
 # 2. Verify outputs exist
-ls -lh ~/Downloads/art-package-test*.png
+ls -lh ~/Downloads/art-pack-test*.png
 
 # 3. Check file sizes
 # Expected:
-# - art-package-test.png: ~4-6MB (transparent)
-# - art-package-test-thumb.png: ~4-6MB (with background)
+# - art-pack-test.png: ~4-6MB (transparent)
+# - art-pack-test-thumb.png: ~4-6MB (with background)
 
 # 4. Optimize
-magick "~/Downloads/art-package-test.png" -resize 512x512 "~/Downloads/art-package-test-512.png"
-cwebp -q 75 "~/Downloads/art-package-test-512.png" -o "~/Downloads/art-package-test.webp"
+magick "~/Downloads/art-pack-test.png" -resize 512x512 "~/Downloads/art-pack-test-512.png"
+cwebp -q 75 "~/Downloads/art-pack-test-512.png" -o "~/Downloads/art-pack-test.webp"
 
 # 5. Verify optimized size
-ls -lh ~/Downloads/art-package-test.webp
+ls -lh ~/Downloads/art-pack-test.webp
 # Expected: ~100-200KB
 
 # 6. Visual check
-open ~/Downloads/art-package-test.png
-open ~/Downloads/art-package-test-thumb.png
+open ~/Downloads/art-pack-test.png
+open ~/Downloads/art-pack-test-thumb.png
 ```
 
 **Success criteria:**
@@ -1190,7 +1190,7 @@ Target: <500KB for main images, <600KB for thumbnails
 - WebP for compression
 
 **Community contributions:**
-- (As people submit improvements to this package, list them here)
+- (As people submit improvements to this pack, list them here)
 
 ---
 
@@ -1202,11 +1202,11 @@ Target: <500KB for main images, <600KB for thumbnails
 - [Charcoal Sketch Technique](https://en.wikipedia.org/wiki/Architectural_drawing#Sketching) - Historical context
 - [The Role of Production Design in Film](https://www.youtube.com/watch?v=example) - Visual storytelling
 
-### Related Packages
+### Related Packs
 
-- **StoryExplanation Package** (CSE-24) - Narrative extraction for composition design
-- **Images Package** - Additional image manipulation tools
-- **Blogging Package** - Integration for blog post publishing
+- **StoryExplanation Pack** (CSE-24) - Narrative extraction for composition design
+- **Images Pack** - Additional image manipulation tools
+- **Blogging Pack** - Integration for blog post publishing
 
 ### AI Model Documentation
 
@@ -1220,7 +1220,7 @@ Target: <500KB for main images, <600KB for thumbnails
 ## Version History
 
 ### v1.0.0 (2025-12-22)
-- Initial package release
+- Initial pack release
 - Essay workflow with 8-step process
 - CSE-24 integration for narrative-driven composition
 - Problem-type identification system
@@ -1246,8 +1246,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ---
 
-**End of Art Package v1.0.0**
+**End of Art Pack v1.0.0**
 
 For support, issues, or contributions, visit: https://github.com/danielmiessler/PAI
 
-Generated with Personal AI Infrastructure (PAI) Package System
+Generated with Personal AI Infrastructure (PAI) Pack System

@@ -11,28 +11,28 @@
 
 # Personal AI Infrastructure
 
-### Self-contained functionality packages for building your own AI-powered system
+### Self-contained functionality packs for building your own AI-powered system
 
 <br/>
 
 [![Version](https://img.shields.io/badge/version-0.1--alpha-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-[![Packages](https://img.shields.io/badge/skills-1-purple?style=for-the-badge)](Packages/)
-[![Features](https://img.shields.io/badge/features-0-orange?style=for-the-badge)](Packages/)
+[![Packs](https://img.shields.io/badge/skills-1-purple?style=for-the-badge)](Packs/)
+[![Features](https://img.shields.io/badge/features-0-orange?style=for-the-badge)](Packs/)
 
 <br/>
 
-[**Browse Packages**](#-available-packages) · [**Quick Start**](#-quick-start) · [**Submit a Package**](#-contributing) · [**Community**](#-community)
+[**Browse Packs**](#-available-packs) · [**Quick Start**](#-quick-start) · [**Submit a Pack**](#-contributing) · [**Community**](#-community)
 
 <br/>
 
 ---
 
-# The New PAI: Functionality Packages
+# The New PAI: Functionality Packs
 
 </div>
 
-**PAI has fundamentally changed.** Instead of a fragile mirrored system that requires constant synchronization, PAI is now a **collection of self-contained functionality packages** that your AI can integrate into any system.
+**PAI has fundamentally changed.** Instead of a fragile mirrored system that requires constant synchronization, PAI is now a **collection of self-contained functionality packs** that your AI can integrate into any system.
 
 ## The Problem with Mirroring
 
@@ -45,9 +45,9 @@ The old PAI tried to maintain a complete, synchronized copy of a rapidly-evolvin
 
 **This was 2025 thinking.**
 
-## 2026 Thinking: PAI Packages
+## 2026 Thinking: PAI Packs
 
-Instead of mirroring an entire system, PAI now provides **functionality packages** - self-contained bundles with everything your AI needs to implement a specific capability:
+Instead of mirroring an entire system, PAI now provides **functionality packs** - self-contained bundles with everything your AI needs to implement a specific capability:
 
 - **The problem** being solved
 - **The solution** and how it works
@@ -63,10 +63,10 @@ Instead of mirroring an entire system, PAI now provides **functionality packages
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│ PAI Package (Single Markdown File)                     │
+│ PAI Pack (Single Markdown File)                     │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│  📋 Package Metadata (version, deps, platforms)        │
+│  📋 Pack Metadata (version, deps, platforms)        │
 │  🔍 Problem Statement                                   │
 │  ✅ Solution Overview                                   │
 │  ⚡ Quick Start                                         │
@@ -90,27 +90,27 @@ Instead of mirroring an entire system, PAI now provides **functionality packages
 └──────────────┘                    └──────────────┘
 ```
 
-**The key insight:** Give your AI the complete context it needs, and it can integrate the package into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
+**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
 
 ---
 
-## 📦 Available Packages
+## 📦 Available Packs
 
 ### Skills (Action-Oriented Capabilities)
 
-| Package | Version | Category | Description |
+| Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| [**Art**](Packages/Art-Package.md) | 1.0.0 | Visual Content | Complete visual content system with charcoal architectural sketch aesthetic. Generate blog headers, technical diagrams, comparisons, and more with consistent branding. |
+| [**Art**](Packs/Art-Pack.md) | 1.0.0 | Visual Content | Complete visual content system with charcoal architectural sketch aesthetic. Generate blog headers, technical diagrams, comparisons, and more with consistent branding. |
 
 ### Features (Architectural Systems)
 
-| Package | Version | Category | Description |
+| Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| *Coming soon* | - | - | Infrastructure packages being extracted from Kai |
+| *Coming soon* | - | - | Infrastructure packs being extracted from Kai |
 
 ### Coming Soon
 
-**Skills being packaged:**
+**Skills being packd:**
 - **Research** - Multi-source research orchestration with parallel agents
 - **Blogging** - Complete blog workflow (write, optimize, deploy)
 - **Newsletter** - Email newsletter drafting and publishing
@@ -118,13 +118,13 @@ Instead of mirroring an entire system, PAI now provides **functionality packages
 - **Metrics** - Analytics aggregation across properties
 - **Security** - Vulnerability management and security workflows
 
-**Features being packaged:**
+**Features being packd:**
 - **History System** - UOCS (Uniform Output Capture Standard) documentation system
 - **Skill System** - Skill routing and workflow management
 - **Agent Factory** - Custom agent creation and orchestration
 - **Prompting System** - Meta-prompting and template framework
 
-[**Submit your own package**](#-contributing) →
+[**Submit your own pack**](#-contributing) →
 
 ---
 
@@ -132,12 +132,12 @@ Instead of mirroring an entire system, PAI now provides **functionality packages
 
 ### Option 1: AI-Assisted Installation (Recommended)
 
-1. **Browse packages** - Find a package you want in [Packages/](Packages/)
-2. **Give it to your AI** - Provide the entire package markdown file
+1. **Browse packs** - Find a pack you want in [Packs/](Packs/)
+2. **Give it to your AI** - Provide the entire pack markdown file
 3. **Ask your AI to install it:**
 
 ```
-Install the Art package into my system. Set up the skill routing,
+Install the Art pack into my system. Set up the skill routing,
 save the tools, verify dependencies, and test it works.
 ```
 
@@ -150,12 +150,12 @@ Your AI will:
 
 ### Option 2: Manual Installation
 
-Each package includes detailed manual installation instructions. Open the package file and follow the "Installation → Manual" section.
+Each pack includes detailed manual installation instructions. Open the pack file and follow the "Installation → Manual" section.
 
 ### Option 3: Browse and Cherry-Pick
 
-Packages are self-contained markdown files. You can:
-- Read the code directly in the package
+Packs are self-contained markdown files. You can:
+- Read the code directly in the pack
 - Copy specific functions or workflows
 - Adapt the approach to your own system
 - Use it as reference documentation
@@ -164,11 +164,11 @@ Packages are self-contained markdown files. You can:
 
 ---
 
-## 📖 How PAI Packages Work
+## 📖 How PAI Packs Work
 
-PAI offers **two types of packages**, each with its own structure and purpose:
+PAI offers **two types of packs**, each with its own structure and purpose:
 
-### Package Type 1: Skills
+### Pack Type 1: Skills
 
 **Skills** are action-oriented capabilities that your AI can invoke - things like generating visual content, conducting research, or processing data.
 
@@ -176,11 +176,11 @@ PAI offers **two types of packages**, each with its own structure and purpose:
 
 **Structure:**
 1. **🤖 Assistant Install Prompt** - Step-by-step instructions for AI to autonomously install
-2. **Package Metadata** - Version, dependencies, API keys, platform support
+2. **Pack Metadata** - Version, dependencies, API keys, platform support
 3. **The Problem** - What's broken/missing?
 4. **The Solution** - How this skill fixes it
 5. **Quick Start** - Get running in 60 seconds
-6. **Package Contents** - Workflows, tools, context files (complete source code)
+6. **Pack Contents** - Workflows, tools, context files (complete source code)
 7. **Examples** - Real usage scenarios
 8. **Installation** - AI-assisted + manual steps
 9. **Testing** - Smoke tests and validation
@@ -188,7 +188,7 @@ PAI offers **two types of packages**, each with its own structure and purpose:
 11. **Credits** - Attribution for ideas, influences, collaborators
 12. **Resources** - Additional reading, related projects, external docs
 
-### Package Type 2: Features
+### Pack Type 2: Features
 
 **Features** are architectural patterns and systems - infrastructure pieces like custom history systems, skill routing, agent orchestration, or prompting frameworks.
 
@@ -196,7 +196,7 @@ PAI offers **two types of packages**, each with its own structure and purpose:
 
 **Structure:**
 1. **🤖 Assistant Install Prompt** - Step-by-step instructions for AI to autonomously install
-2. **Package Metadata** - Version, dependencies, platform support
+2. **Pack Metadata** - Version, dependencies, platform support
 3. **The Problem** - What architectural challenge exists?
 4. **The Solution** - The design pattern and approach
 5. **Implementation** - Complete code, configuration files, integration guides
@@ -209,25 +209,25 @@ PAI offers **two types of packages**, each with its own structure and purpose:
 
 ### Universal Elements
 
-**All packages include:**
+**All packs include:**
 
 ```yaml
-package:
-  name: PackageName
+pack:
+  name: PackName
   version: 1.0.0
   category: visual-content | infrastructure | research | automation
   type: skill | feature
   author: Contributor Name
   license: MIT
   requires:
-    - Other-Package >= 1.0.0 (optional dependencies)
+    - Other-Pack >= 1.0.0 (optional dependencies)
   platforms: [macos, linux, windows]
   dependencies:
     tools: [bun, ImageMagick]
     api_keys: [REPLICATE_API_TOKEN]
 ```
 
-**🤖 Assistant Install Prompt** - Every package starts with instructions for AI assistants to autonomously install it. Your AI reads the package, understands what it does, verifies dependencies, sets up the code, and validates it works - all without manual intervention.
+**🤖 Assistant Install Prompt** - Every pack starts with instructions for AI assistants to autonomously install it. Your AI reads the pack, understands what it does, verifies dependencies, sets up the code, and validates it works - all without manual intervention.
 
 ### Why Single Files?
 
@@ -235,7 +235,7 @@ package:
 
 **AI-Friendly** - Your AI can read the entire context at once. No navigation, no missing pieces.
 
-**No Dependencies** - Packages are self-contained. They may *call* external tools, but the package itself is complete.
+**No Dependencies** - Packs are self-contained. They may *call* external tools, but the pack itself is complete.
 
 **Easy Review** - See exactly what you're installing. No hidden files, no surprises.
 
@@ -243,11 +243,11 @@ package:
 
 ---
 
-## 🛠️ For Package Developers
+## 🛠️ For Pack Developers
 
-### Creating a PAI Package
+### Creating a PAI Pack
 
-**1. Choose your package type and get the template:**
+**1. Choose your pack type and get the template:**
 
 ```bash
 # For Skills (action-oriented capabilities)
@@ -260,7 +260,7 @@ curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/FEATURE_PACKAG
 **2. Fill in each section:**
 - **Assistant Install Prompt** - Instructions for AI to install autonomously
 - **Problem statement** - What's broken or missing?
-- **Solution** - How your package fixes it
+- **Solution** - How your pack fixes it
 - **Implementation/Contents** - All code (embedded in markdown code blocks)
 - **Examples** - Real usage scenarios
 - **Installation steps** - Both AI-assisted and manual
@@ -272,26 +272,26 @@ curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/FEATURE_PACKAG
 
 Test with your own AI:
 ```
-Here's my package. Install it into a fresh system and verify it works.
+Here's my pack. Install it into a fresh system and verify it works.
 ```
 
 **4. Submit a PR:**
 
 ```bash
-git checkout -b add-package-name
-cp MyPackage.md Packages/
-git add Packages/MyPackage.md
-git commit -m "Add MyPackage - one-line description"
-git push origin add-package-name
+git checkout -b add-pack-name
+cp MyPack.md Packs/
+git add Packs/MyPack.md
+git commit -m "Add MyPack - one-line description"
+git push origin add-pack-name
 ```
 
 Open a PR with:
-- Package description
+- Pack description
 - What problem it solves
 - Testing you've done
 - Screenshots/examples (if applicable)
 
-### Package Quality Standards
+### Pack Quality Standards
 
 **Must have:**
 - ✅ Clear problem statement
@@ -305,13 +305,13 @@ Open a PR with:
 - Screenshots of output
 - Video demo
 - Multiple examples for different use cases
-- Integration with other packages
+- Integration with other packs
 
 ---
 
 ## 🏗️ Platform Compatibility
 
-PAI packages are designed to be **platform-agnostic**:
+PAI packs are designed to be **platform-agnostic**:
 
 | Platform | Status | Notes |
 |----------|--------|-------|
@@ -319,7 +319,7 @@ PAI packages are designed to be **platform-agnostic**:
 | **OpenCode** | ✅ Compatible | Skills/hooks may need adaptation |
 | **Custom systems** | ✅ Compatible | Extract code, adapt to your structure |
 | **Gemini Code / Codex** | 🔄 Testing | Should work with minor tweaks |
-| **Manual use** | ✅ Always works | Packages are documentation + code |
+| **Manual use** | ✅ Always works | Packs are documentation + code |
 
 The code itself is platform-independent (TypeScript, Python, Bash). Integration points (skills, hooks) may vary by platform.
 
@@ -329,59 +329,59 @@ The code itself is platform-independent (TypeScript, Python, Bash). Integration 
 
 ### What Changed from Old PAI
 
-| Old PAI (Mirror) | New PAI (Packages) |
+| Old PAI (Mirror) | New PAI (Packs) |
 |------------------|--------------------|
 | Mirrored entire system | Self-contained functionality bundles |
 | Broke constantly | Stable, versioned releases |
 | All-or-nothing | Pick what you need |
 | Manual synchronization | AI-assisted installation |
-| Security risks | Each package reviewed |
+| Security risks | Each pack reviewed |
 | Platform-locked | Platform-agnostic |
 
 ### The Philosophy
 
 **Text is the interface.** Everything your AI needs to implement a capability should be in one readable file.
 
-**Composability over monoliths.** Mix and match packages. Build your own stack.
+**Composability over monoliths.** Mix and match packs. Build your own stack.
 
 **AI-first design.** Optimized for AI agents to read, understand, and implement - not just humans.
 
-**Open contribution.** Anyone can submit a package. The best ideas win.
+**Open contribution.** Anyone can submit a pack. The best ideas win.
 
-**No vendor lock-in.** Packages describe *how to solve a problem*, not just "here's the code for our platform."
+**No vendor lock-in.** Packs describe *how to solve a problem*, not just "here's the code for our platform."
 
 ---
 
 ## 🤝 Contributing
 
-### Submit a Package
+### Submit a Pack
 
-We welcome packages that solve real problems:
+We welcome packs that solve real problems:
 
 1. **Fork the repository**
-2. **Create your package** - Follow [PACKAGE_TEMPLATE.md](PACKAGE_TEMPLATE.md)
+2. **Create your pack** - Follow [PACKAGE_TEMPLATE.md](PACKAGE_TEMPLATE.md)
 3. **Test it thoroughly** - Install in a fresh system with AI assistance
 4. **Submit a PR** - Include examples and testing evidence
 
-### Package Review Process
+### Pack Review Process
 
-Submitted packages are reviewed for:
+Submitted packs are reviewed for:
 - **Completeness** - All required sections present
 - **Code quality** - Works as described, no obvious bugs
 - **Security** - No hardcoded secrets, follows best practices
 - **Usefulness** - Solves a real problem for users
 
-**Review timeline:** Most packages reviewed within 7 days.
+**Review timeline:** Most packs reviewed within 7 days.
 
-### Package Maintenance
+### Pack Maintenance
 
-**Authors maintain their packages.** When you submit a package, you're committing to:
-- Respond to issues about your package
+**Authors maintain their packs.** When you submit a pack, you're committing to:
+- Respond to issues about your pack
 - Fix bugs that are reported
 - Consider feature requests
 - Update for breaking changes in dependencies
 
-If a package becomes unmaintained, the community can fork and maintain a new version.
+If a pack becomes unmaintained, the community can fork and maintain a new version.
 
 ---
 
@@ -389,10 +389,10 @@ If a package becomes unmaintained, the community can fork and maintain a new ver
 
 | Document | Description |
 |----------|-------------|
-| [PACKAGES.md](PACKAGES.md) | Complete package system documentation |
-| [SKILL_PACKAGE_TEMPLATE.md](SKILL_PACKAGE_TEMPLATE.md) | Template for creating skill packages |
-| [FEATURE_PACKAGE_TEMPLATE.md](FEATURE_PACKAGE_TEMPLATE.md) | Template for creating feature packages |
-| [MIGRATION_TO_PACKAGES.md](MIGRATION_TO_PACKAGES.md) | Migration guide from old mirror system |
+| [PACKS.md](PACKS.md) | Complete pack system documentation |
+| [SKILL_PACKAGE_TEMPLATE.md](SKILL_PACKAGE_TEMPLATE.md) | Template for creating skill packs |
+| [FEATURE_PACKAGE_TEMPLATE.md](FEATURE_PACKAGE_TEMPLATE.md) | Template for creating feature packs |
+| [MIGRATION_TO_PACKS.md](MIGRATION_TO_PACKS.md) | Migration guide from old mirror system |
 | [SECURITY.md](SECURITY.md) | Security policies and best practices |
 
 **Previous documentation** (pre-1.0 mirror system) is in [Docs/Archive/](Docs/Archive/).
@@ -403,28 +403,28 @@ If a package becomes unmaintained, the community can fork and maintain a new ver
 
 ### v1.0 (Current)
 
-- [x] Package format specification
-- [x] Art package (visual content system)
-- [x] Package template
+- [x] Pack format specification
+- [x] Art pack (visual content system)
+- [x] Pack template
 - [x] Installation documentation
-- [ ] Package discovery website
-- [ ] 5+ core packages released
+- [ ] Pack discovery website
+- [ ] 5+ core packs released
 
 ### v1.1 (Q1 2026)
 
-- [ ] Package dependency system
+- [ ] Pack dependency system
 - [ ] Automated testing framework
-- [ ] Package marketplace
-- [ ] Cross-package integration examples
-- [ ] 20+ packages available
+- [ ] Pack marketplace
+- [ ] Cross-pack integration examples
+- [ ] 20+ packs available
 
 ### v1.2 (Q2 2026)
 
-- [ ] Package composition tools
+- [ ] Pack composition tools
 - [ ] Version compatibility checker
-- [ ] Community package ratings
-- [ ] Package search/filter by category
-- [ ] 50+ packages available
+- [ ] Community pack ratings
+- [ ] Pack search/filter by category
+- [ ] 50+ packs available
 
 ---
 
@@ -440,8 +440,8 @@ If a package becomes unmaintained, the community can fork and maintain a new ver
 
 ### Recognition
 
-**Top package contributors** (packages submitted/maintained):
-- (List will be populated as packages are submitted)
+**Top pack contributors** (packs submitted/maintained):
+- (List will be populated as packs are submitted)
 
 **Special thanks:**
 - All early PAI users who provided feedback on the mirror system
@@ -465,7 +465,7 @@ PAI is **free and open-source forever.**
 If you find it valuable:
 
 - ⭐ **Star the repo** - Helps others discover it
-- 📢 **Share your packages** - The more packages, the better PAI gets
+- 📢 **Share your packs** - The more packs, the better PAI gets
 - 💬 **Engage in discussions** - Help answer questions, share ideas
 - 🐛 **Report issues** - Make PAI better for everyone
 - ✍️ **Write about it** - Blog posts, videos, tutorials

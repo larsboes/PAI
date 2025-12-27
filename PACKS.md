@@ -1,6 +1,6 @@
-# PAI Package System Documentation
+# PAI Pack System Documentation
 
-**Complete guide to creating, using, and contributing PAI packages**
+**Complete guide to creating, using, and contributing PAI packs**
 
 Version: 1.0.0
 Last updated: 2025-12-22
@@ -9,11 +9,11 @@ Last updated: 2025-12-22
 
 ## Table of Contents
 
-1. [What Are PAI Packages?](#what-are-pai-packages)
-2. [Package Format Specification](#package-format-specification)
-3. [Creating a Package](#creating-a-package)
-4. [Installing Packages](#installing-packages)
-5. [Package Lifecycle](#package-lifecycle)
+1. [What Are PAI Packs?](#what-are-pai-packs)
+2. [Pack Format Specification](#pack-format-specification)
+3. [Creating a Pack](#creating-a-pack)
+4. [Installing Packs](#installing-packs)
+5. [Pack Lifecycle](#pack-lifecycle)
 6. [Quality Standards](#quality-standards)
 7. [Security Guidelines](#security-guidelines)
 8. [Contribution Process](#contribution-process)
@@ -21,9 +21,9 @@ Last updated: 2025-12-22
 
 ---
 
-## What Are PAI Packages?
+## What Are PAI Packs?
 
-PAI Packages are **self-contained functionality bundles** that contain everything your AI needs to implement a specific capability in your personal AI system.
+PAI Packs are **self-contained functionality bundles** that contain everything your AI needs to implement a specific capability in your personal AI system.
 
 ### The Core Concept
 
@@ -34,19 +34,19 @@ Traditional approach:
 ❌ Prone to breaking changes
 ❌ All-or-nothing integration
 
-PAI Package approach:
+PAI Pack approach:
 "Here's a complete solution with full context for your AI to integrate"
-✅ AI reads the package and adapts it to YOUR system
+✅ AI reads the pack and adapts it to YOUR system
 ✅ Self-contained with all dependencies documented
 ✅ Pick only what you need
 ```
 
-### What's in a Package?
+### What's in a Pack?
 
-Every PAI package contains:
+Every PAI pack contains:
 
 1. **Problem Statement** - What's broken or missing?
-2. **Solution Overview** - How this package addresses it
+2. **Solution Overview** - How this pack addresses it
 3. **Complete Source Code** - All tools, scripts, CLIs embedded in the markdown
 4. **Workflows** - Step-by-step processes and decision trees
 5. **Context Files** - Guidelines, specifications, aesthetic rules
@@ -64,53 +64,53 @@ Every PAI package contains:
 
 **Human-Readable** - Open in any text editor, searchable, transparent
 
-**Self-Contained** - No external dependencies for the package itself (though it may call external tools)
+**Self-Contained** - No external dependencies for the pack itself (though it may call external tools)
 
 **Easy Review** - See exactly what you're installing before you install it
 
 ---
 
-## Package Format Specification
+## Pack Format Specification
 
 ### File Naming Convention
 
 ```
-PackageName-Package.md
+PackName-Pack.md
 ```
 
 Examples:
-- `Art-Package.md`
-- `Research-Package.md`
-- `OSINT-Package.md`
+- `Art-Pack.md`
+- `Research-Pack.md`
+- `OSINT-Pack.md`
 
 **Rules:**
-- Title Case for package name
-- Always ends with `-Package.md`
+- Title Case for pack name
+- Always ends with `-Pack.md`
 - No spaces (use hyphens)
 - Descriptive, not generic
 
-### Package Structure
+### Pack Structure
 
 ```markdown
-# PackageName Package vX.Y.Z
+# PackName Pack vX.Y.Z
 
 **One-line description**
 
 ---
 
-## Package Metadata
+## Pack Metadata
 
 \```yaml
-package:
-  name: PackageName
+pack:
+  name: PackName
   version: X.Y.Z (semantic versioning)
   category: visual-content | automation | research | security | etc
   author: Your Name
   license: MIT (or other open source license)
 
   requires:
-    - CORE >= 1.0.0 (optional dependency on other packages)
-    - OtherPackage >= 2.0.0
+    - CORE >= 1.0.0 (optional dependency on other packs)
+    - OtherPack >= 2.0.0
 
   platforms:
     - macos
@@ -131,7 +131,7 @@ package:
 
 ## The Problem
 
-[2-4 paragraphs describing the problem this package solves]
+[2-4 paragraphs describing the problem this pack solves]
 
 What's broken? What's inefficient? What gap exists?
 
@@ -139,7 +139,7 @@ What's broken? What's inefficient? What gap exists?
 
 ## The Solution
 
-[2-4 paragraphs describing how this package addresses the problem]
+[2-4 paragraphs describing how this pack addresses the problem]
 
 What's the approach? What makes it better? What's the key insight?
 
@@ -167,7 +167,7 @@ What's the approach? What makes it better? What's the key insight?
 
 ---
 
-## Package Contents
+## Pack Contents
 
 ### Skill Definition (if applicable)
 
@@ -264,9 +264,9 @@ routing:
 
 ### Option A: AI-Assisted Installation (Recommended)
 
-Give this package to your AI and ask:
+Give this pack to your AI and ask:
 
-> "Install the PackageName package into my system. Verify dependencies, save the tools, and test it works."
+> "Install the PackName pack into my system. Verify dependencies, save the tools, and test it works."
 
 Your AI will:
 1. [Step 1]
@@ -382,10 +382,10 @@ For production use, verify:
 - [Link 1] - [Description]
 - [Link 2] - [Description]
 
-### Related Packages
+### Related Packs
 
-- **PackageName** - [How it relates]
-- **AnotherPackage** - [How it relates]
+- **PackName** - [How it relates]
+- **AnotherPack** - [How it relates]
 
 ### External Documentation
 
@@ -407,22 +407,22 @@ For production use, verify:
 
 ## License
 
-[License text - typically MIT for PAI packages]
+[License text - typically MIT for PAI packs]
 
 ---
 
-**End of PackageName Package vX.Y.Z**
+**End of PackName Pack vX.Y.Z**
 
 For support, issues, or contributions, visit: [Repository URL]
 ```
 
 ---
 
-## Creating a Package
+## Creating a Pack
 
 ### Step 1: Identify a Problem
 
-Good packages solve real problems:
+Good packs solve real problems:
 
 - ✅ "I kept manually doing X, so I automated it"
 - ✅ "I needed Y capability and built a workflow"
@@ -433,7 +433,7 @@ Good packages solve real problems:
 **Ask yourself:**
 1. Does this solve a real problem I've experienced?
 2. Would others benefit from this solution?
-3. Is this self-contained enough to be a package?
+3. Is this self-contained enough to be a pack?
 
 ### Step 2: Extract the Functionality
 
@@ -451,7 +451,7 @@ If building from scratch:
 3. **Build incrementally** - Start simple, add features
 4. **Test thoroughly** - On fresh systems if possible
 
-### Step 3: Write the Package
+### Step 3: Write the Pack
 
 Use the template above. Fill in every section:
 
@@ -464,8 +464,8 @@ Use the template above. Fill in every section:
 
 Before submitting:
 
-1. Give the package to YOUR AI
-2. Ask it to install the package
+1. Give the pack to YOUR AI
+2. Ask it to install the pack
 3. See if it works without your help
 4. Fix any issues the AI encounters
 5. Repeat until installation is smooth
@@ -476,24 +476,24 @@ See [Contribution Process](#contribution-process) below.
 
 ---
 
-## Installing Packages
+## Installing Packs
 
 ### Method 1: AI-Assisted (Recommended)
 
 **For Claude Code users:**
 
-1. Open the package markdown file
+1. Open the pack markdown file
 2. Copy the entire content
 3. Paste into Claude Code and say:
 
 ```
-Install this package into my system. Verify all dependencies,
+Install this pack into my system. Verify all dependencies,
 save the tools to appropriate directories, set up any routing
 or hooks needed, and test that it works.
 ```
 
 Claude will:
-- Parse the package
+- Parse the pack
 - Check for required tools/APIs
 - Create necessary directories
 - Save code to appropriate locations
@@ -502,13 +502,13 @@ Claude will:
 
 **For other AI platforms:**
 
-The process is similar - give your AI the package and ask it to install. The AI should be able to read the package format and adapt it to your system structure.
+The process is similar - give your AI the pack and ask it to install. The AI should be able to read the pack format and adapt it to your system structure.
 
 ### Method 2: Manual Installation
 
 If you prefer manual control or don't have AI assistance:
 
-1. **Read the package** - Understand what it does
+1. **Read the pack** - Understand what it does
 2. **Check dependencies** - Install required tools
 3. **Set up environment** - Configure API keys, env vars
 4. **Save the code** - Copy tools to your directories
@@ -520,7 +520,7 @@ If you prefer manual control or don't have AI assistance:
 ```
 ~/.your-ai-system/
 ├── Skills/
-│   └── PackageName/
+│   └── PackName/
 │       ├── Tools/
 │       │   ├── tool1.ts
 │       │   └── tool2.ts
@@ -533,22 +533,22 @@ If you prefer manual control or don't have AI assistance:
 
 ### Method 3: Cherry-Pick
 
-You don't have to install the whole package:
+You don't have to install the whole pack:
 
 - **Copy just the code** you need
 - **Adapt the workflow** to your process
 - **Use as reference** documentation
 - **Extract the concept** and implement differently
 
-**Packages are not prescriptive. They're building blocks.**
+**Packs are not prescriptive. They're building blocks.**
 
 ---
 
-## Package Lifecycle
+## Pack Lifecycle
 
 ### Versioning
 
-PAI packages use [Semantic Versioning](https://semver.org/):
+PAI packs use [Semantic Versioning](https://semver.org/):
 
 ```
 MAJOR.MINOR.PATCH
@@ -577,15 +577,15 @@ MAJOR.MINOR.PATCH
 
 ### Maintenance
 
-**Package authors are responsible for:**
+**Pack authors are responsible for:**
 
-- Responding to issues about their package
+- Responding to issues about their pack
 - Fixing reported bugs
 - Considering feature requests
 - Updating for dependency changes
-- Marking package as deprecated if abandoned
+- Marking pack as deprecated if abandoned
 
-**If a package becomes unmaintained:**
+**If a pack becomes unmaintained:**
 
 - Community can fork and maintain separately
 - Can be marked as "community maintained"
@@ -593,12 +593,12 @@ MAJOR.MINOR.PATCH
 
 ### Deprecation
 
-If a package becomes obsolete:
+If a pack becomes obsolete:
 
 1. Mark it as `[DEPRECATED]` in the README
 2. Explain why (replaced by X, no longer relevant, etc.)
 3. Provide migration path if applicable
-4. Keep the package available for reference
+4. Keep the pack available for reference
 
 ---
 
@@ -617,7 +617,7 @@ If a package becomes obsolete:
 
 ### Should Have (Strongly Recommended)
 
-- Screenshots of output (for visual packages)
+- Screenshots of output (for visual packs)
 - Video demo or walkthrough
 - Multiple examples for different use cases
 - Integration notes for popular platforms
@@ -630,11 +630,11 @@ If a package becomes obsolete:
 - Comparison with alternatives
 - Advanced usage patterns
 - Customization options
-- Related packages integration
+- Related packs integration
 
 ### Code Quality
 
-**All code in packages must:**
+**All code in packs must:**
 
 - Work as described (test it!)
 - Follow reasonable conventions for the language
@@ -658,7 +658,7 @@ If a package becomes obsolete:
 
 ### API Keys and Secrets
 
-**NEVER include in packages:**
+**NEVER include in packs:**
 
 - ❌ Actual API keys
 - ❌ Passwords or tokens
@@ -714,12 +714,12 @@ cd PAI
 ### 2. Create a Branch
 
 ```bash
-git checkout -b add-package-yourpackagename
+git checkout -b add-pack-yourpackname
 ```
 
-### 3. Create Your Package
+### 3. Create Your Pack
 
-Save your package to `Packages/YourPackage-Package.md`
+Save your pack to `Packs/YourPack-Pack.md`
 
 ### 4. Test Thoroughly
 
@@ -731,19 +731,19 @@ Save your package to `Packages/YourPackage-Package.md`
 ### 5. Submit a Pull Request
 
 ```bash
-git add Packages/YourPackage-Package.md
-git commit -m "Add YourPackage - one-line description"
-git push origin add-package-yourpackagename
+git add Packs/YourPack-Pack.md
+git commit -m "Add YourPack - one-line description"
+git push origin add-pack-yourpackname
 ```
 
 Then open a PR on GitHub with:
 
-**Title:** `Add [PackageName] Package - [One-line description]`
+**Title:** `Add [PackName] Pack - [One-line description]`
 
 **Description:**
 
 ```markdown
-## Package: [PackageName]
+## Pack: [PackName]
 
 ### What It Does
 [Brief description]
@@ -761,7 +761,7 @@ Then open a PR on GitHub with:
 [If applicable]
 
 ### Checklist
-- [ ] Package follows format specification
+- [ ] Pack follows format specification
 - [ ] All code is complete and tested
 - [ ] No hardcoded secrets
 - [ ] Real examples included
@@ -787,24 +787,24 @@ Maintainers will review for:
 
 Once approved:
 - PR is merged
-- Package appears in catalog
+- Pack appears in catalog
 - You're listed as a contributor
-- You maintain the package going forward
+- You maintain the pack going forward
 
 ---
 
 ## FAQs
 
-### Can I submit a package that uses paid APIs?
+### Can I submit a pack that uses paid APIs?
 
-**Yes!** Many useful packages require paid services (AI models, specialized APIs, etc.).
+**Yes!** Many useful packs require paid services (AI models, specialized APIs, etc.).
 
 Just ensure:
 - Clearly document the cost (approximate pricing)
 - Provide free alternatives if they exist
 - Make it clear it's not free to run
 
-### My package depends on another package. Is that OK?
+### My pack depends on another pack. Is that OK?
 
 **Yes!** Specify dependencies in the metadata:
 
@@ -814,16 +814,16 @@ requires:
   - Research >= 2.1.0
 ```
 
-### Can I update my package after it's submitted?
+### Can I update my pack after it's submitted?
 
-**Absolutely!** Package authors maintain their packages:
+**Absolutely!** Pack authors maintain their packs:
 
 1. Make changes
 2. Update version number
 3. Add to version history
 4. Submit PR
 
-### What if someone else submits a package similar to mine?
+### What if someone else submits a pack similar to mine?
 
 **That's fine!** Competition is healthy:
 
@@ -833,7 +833,7 @@ requires:
 
 Users can choose what works best for them.
 
-### Can I sell premium versions of my package?
+### Can I sell premium versions of my pack?
 
 **Yes**, but the version in PAI must be:
 - Functional and useful on its own
@@ -848,7 +848,7 @@ You can offer:
 
 Just be transparent about what's free vs paid.
 
-### What if my package breaks due to a dependency update?
+### What if my pack breaks due to a dependency update?
 
 **You're responsible for maintaining it:**
 
@@ -856,11 +856,11 @@ Just be transparent about what's free vs paid.
 2. Or pin to older version and document limitation
 3. Or mark as deprecated and provide migration path
 
-This is part of being a package maintainer.
+This is part of being a pack maintainer.
 
-### Can I submit packages for non-Claude platforms?
+### Can I submit packs for non-Claude platforms?
 
-**Absolutely!** PAI packages should work across platforms:
+**Absolutely!** PAI packs should work across platforms:
 
 - OpenCode
 - Custom AI systems
@@ -872,13 +872,13 @@ Just note any platform-specific quirks in the documentation.
 
 ---
 
-## Package Submission Checklist
+## Pack Submission Checklist
 
 Before submitting, verify:
 
 ### Format
 
-- [ ] File named `PackageName-Package.md`
+- [ ] File named `PackName-Pack.md`
 - [ ] Metadata section complete
 - [ ] All required sections present
 - [ ] Follows template structure
@@ -921,11 +921,11 @@ Before submitting, verify:
 
 ### Templates
 
-- [PACKAGE_TEMPLATE.md](PACKAGE_TEMPLATE.md) - Start here for new packages
+- [PACKAGE_TEMPLATE.md](PACKAGE_TEMPLATE.md) - Start here for new packs
 
 ### Examples
 
-- [Art-Package.md](Packages/Art-Package.md) - Complete visual content system (good reference)
+- [Art-Pack.md](Packs/Art-Pack.md) - Complete visual content system (good reference)
 
 ### Documentation
 
