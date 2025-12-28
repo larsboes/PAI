@@ -9,7 +9,7 @@ Each pack is a single flat markdown file with YAML frontmatter and structured se
 ```yaml
 ---
 # name: (24 words max) Human-readable pack name
-name: History System (UOCS)
+name: History System
 
 # pack-id: (format) {author}-{pack-name}-{variant}-v{version}
 pack-id: danielmiessler-history-system-core-v1.0.0
@@ -36,7 +36,7 @@ platform: claude-code
 dependencies: []
 
 # keywords: (24 tags max) Searchable tags for discovery
-keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation, UOCS]
+keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation]
 ---
 ```
 
@@ -47,7 +47,7 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
 Every pack file MUST include these sections in order. Below is the History System pack as reference:
 
 ```markdown
-# History System (UOCS)
+# History System
 
 > Automatic documentation system that captures all AI agent work through hooks with zero manual effort
 
@@ -72,7 +72,7 @@ You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
 **What is a Pack?** See: [Pack System](../README.md#pack-system)
 
-This pack adds automatic memory to your AI system. The Universal Output Capture System (UOCS) automatically documents every feature you build, bug you fix, decision you make, and lesson you learn - all through hooks that run silently in the background.
+This pack adds automatic memory to your AI system. The History System automatically documents every feature you build, bug you fix, decision you make, and lesson you learn - all through hooks that run silently in the background.
 
 **Core principle:** Work normally, documentation handles itself.
 
@@ -133,7 +133,7 @@ Don't include code here - that goes in Installation. Focus on helping the reader
 understand the approach conceptually before diving into implementation.
 -->
 
-The Universal Output Capture System (UOCS) solves this through **automatic, hook-based documentation**. Instead of requiring manual effort, it captures work as a byproduct of doing the work.
+The History System solves this through **automatic, hook-based documentation**. Instead of requiring manual effort, it captures work as a byproduct of doing the work.
 
 **Architecture:**
 
