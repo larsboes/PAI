@@ -2,6 +2,8 @@
 
 Each pack is a single flat markdown file with YAML frontmatter and structured sections.
 
+**CRITICAL:** Packs must be COMPLETE. See the Pack Completeness Requirements in SKILL.md.
+
 ---
 
 ## Frontmatter (Metadata)
@@ -21,13 +23,13 @@ version: 1.0.0
 author: danielmiessler
 
 # description: (128 words max) One-line description
-description: Automatic documentation system that captures all AI agent work through hooks with zero manual effort
+description: Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically
 
 # type: (single) concept | skill | hook | plugin | agent | mcp | workflow | template | other
 type: feature
 
 # purpose-type: (multi) security | productivity | research | development | automation | integration | creativity | analysis | other
-purpose-type: [productivity, automation]
+purpose-type: [productivity, automation, development]
 
 # platform: (single) agnostic | claude-code | opencode | cursor | custom
 platform: claude-code
@@ -36,20 +38,20 @@ platform: claude-code
 dependencies: []
 
 # keywords: (24 tags max) Searchable tags for discovery
-keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation]
+keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation, context, recovery, debugging]
 ---
 ```
 
 ---
 
-## Required Sections (with Example)
+## Required Sections (with Complete Example)
 
-Every pack file MUST include these sections in order. Below is the Kai History System pack as reference:
+Every pack file MUST include these sections in order. Below is the Kai History System pack as the reference implementation demonstrating COMPLETE pack structure.
 
 ```markdown
 # Kai History System
 
-> Automatic documentation system that captures all AI agent work through hooks with zero manual effort
+> Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically with zero manual effort
 
 ## Installation Prompt
 <!--
@@ -72,7 +74,13 @@ You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
 **What is a Pack?** See: [Pack System](../README.md#pack-system)
 
-This pack adds automatic memory to your AI system. The Kai History System automatically documents every feature you build, bug you fix, decision you make, and lesson you learn - all through hooks that run silently in the background.
+This pack adds automatic memory to your entire AI infrastructure. The Kai History System is not just about agent outputs - it's a granular context-tracking system for EVERYTHING that happens in your system:
+
+- **Continuous Learning**: Capture insights as they happen
+- **Bug Fixing**: Trace exactly what was done when debugging
+- **Avoiding Mistakes**: Learn from past errors automatically
+- **After-Action Reviews**: Analyze what worked and what didn't
+- **Restoration Points**: Recover from data loss with historical snapshots
 
 **Core principle:** Work normally, documentation handles itself.
 
@@ -104,18 +112,35 @@ AI agents are powerful but forgetful. Each session starts fresh with no memory o
 - What bugs you've already fixed (and might reintroduce)
 - Lessons learned from debugging sessions
 - Research you've already conducted
+- What agents discovered during parallel execution
 
-This creates several problems:
+This creates cascading problems across your entire AI infrastructure:
 
-**Repeated mistakes**: Without history, you'll solve the same problems multiple times, each time from scratch.
+**For Development Work:**
+- You fix the same bug twice because you forgot the root cause
+- Architectural decisions lack rationale when revisited months later
+- Code reviews miss context because the "why" is lost
 
-**Lost context**: "Why did we do it this way?" becomes unanswerable when you can't trace decisions back to their rationale.
+**For Agent Orchestration:**
+- Parallel agents complete work that's never captured
+- Background research disappears when the session ends
+- Agent outputs aren't categorized or searchable
 
-**Manual documentation burden**: If you want records, you have to manually write them - which means you won't, because you're busy doing actual work.
+**For Operational Continuity:**
+- Session handoffs require manual context transfer
+- Multi-day projects need constant re-explanation
+- Team members can't see what the AI worked on
 
-**Session discontinuity**: Each conversation is isolated. Multi-day projects require constant re-explanation of context.
+**For Learning and Improvement:**
+- Insights get lost in conversation history
+- No after-action reviews are possible
+- Mistakes repeat because there's no institutional memory
 
-The result? Your AI is brilliant but has permanent amnesia. Every session is day one.
+**The Fundamental Problem:**
+
+Traditional AI systems treat each interaction as ephemeral. But real work is cumulative. Today's debugging session informs tomorrow's architecture decision. Last month's research prevents this month's repeated mistake.
+
+Without a history system, your AI is brilliant but amnesiac. Every session is day one. Every context is fresh. Every lesson must be relearned.
 
 ## The Solution
 <!--
@@ -135,39 +160,69 @@ understand the approach conceptually before diving into implementation.
 
 The Kai History System solves this through **automatic, hook-based documentation**. Instead of requiring manual effort, it captures work as a byproduct of doing the work.
 
-**Architecture:**
+**Core Architecture:**
 
 ```
-~/.config/pai/history/
-├── sessions/YYYY-MM/          # Session summaries (SessionEnd hook)
-├── learnings/YYYY-MM/         # Problem-solving narratives (Stop hook)
-├── research/YYYY-MM/          # Investigation reports (Agent hooks)
-├── decisions/YYYY-MM/         # Architectural decisions (Agent hooks)
-├── execution/
-│   ├── features/YYYY-MM/      # Feature implementations
-│   ├── bugs/YYYY-MM/          # Bug fixes
-│   └── refactors/YYYY-MM/     # Code improvements
-└── raw-outputs/YYYY-MM/       # JSONL logs (PostToolUse hook)
+~/.config/pai/
+├── hooks/                           # Hook implementations
+│   ├── capture-all-events.ts        # Universal event capture (all hooks)
+│   ├── stop-hook.ts                 # Main agent completion capture
+│   ├── subagent-stop-hook.ts        # Subagent output routing
+│   ├── capture-session-summary.ts   # Session end summarization
+│   └── lib/                         # Shared libraries
+│       ├── observability.ts         # Dashboard integration
+│       └── metadata-extraction.ts   # Agent instance tracking
+├── history/                         # Captured outputs
+│   ├── sessions/YYYY-MM/            # Session summaries
+│   ├── learnings/YYYY-MM/           # Problem-solving narratives
+│   ├── research/YYYY-MM/            # Investigation reports
+│   ├── decisions/YYYY-MM/           # Architectural decisions
+│   ├── execution/
+│   │   ├── features/YYYY-MM/        # Feature implementations
+│   │   ├── bugs/YYYY-MM/            # Bug fixes
+│   │   └── refactors/YYYY-MM/       # Code improvements
+│   └── raw-outputs/YYYY-MM/         # JSONL event logs
+└── settings.json                    # Hook configuration (or use .claude/settings.json)
 ```
 
-**Five Hooks, Complete Coverage:**
+**Four Hooks, Complete Coverage:**
 
-1. **PostToolUse Hook** - Captures every tool execution (Bash, Edit, Write, etc.) as raw JSONL logs
-2. **Stop Hook** - Analyzes completed work and categorizes as LEARNING or SESSION
-3. **SubagentStop Hook** - Routes agent outputs to appropriate directories by agent type
-4. **SessionEnd Hook** - Creates session summaries when you quit
-5. **SessionStart Hook** - Loads context and prepares the environment
+1. **capture-all-events.ts** (Universal Event Capture)
+   - Hooks: ALL events (PreToolUse, PostToolUse, Stop, SessionStart, SessionEnd, etc.)
+   - Captures: Every event to daily JSONL logs with full payload
+   - Output: `raw-outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl`
+   - Purpose: Complete audit trail, debugging, analytics
+
+2. **stop-hook.ts** (Main Agent Completion)
+   - Hook: Stop
+   - Captures: Main agent work summaries and learnings
+   - Output: `learnings/` or `sessions/` based on content analysis
+   - Purpose: Capture what was accomplished and what was learned
+
+3. **subagent-stop-hook.ts** (Subagent Output Routing)
+   - Hook: SubagentStop
+   - Captures: All spawned agent outputs
+   - Output: Routed to `research/`, `decisions/`, or `execution/` by agent type
+   - Purpose: Never lose agent work, automatic categorization
+
+4. **capture-session-summary.ts** (Session End)
+   - Hook: SessionEnd
+   - Captures: Session summary with files changed, commands run, tools used
+   - Output: `sessions/YYYY-MM/timestamp_SESSION_focus.md`
+   - Purpose: Know what happened in each session
 
 **Design Principles:**
 
-- **Zero overhead**: Hooks run silently, no action required from user
-- **Future-proof**: Generic payload capture means new fields are automatically stored
-- **Queryable**: Standard file naming enables powerful search and filtering
-- **Categorized**: Different work types route to appropriate directories
+1. **Zero Overhead**: Hooks run silently, no action required from user
+2. **Never Block**: All hooks fail gracefully - never interrupt work
+3. **Future-Proof**: Generic payload capture means new fields are automatically stored
+4. **Queryable**: Consistent file naming enables powerful search and filtering
+5. **Categorized**: Different work types route to appropriate directories
+6. **Complete**: Every component included - nothing left to figure out
 
 **The Key Insight:**
 
-Documentation is a byproduct, not a task. By instrumenting the work itself, you get perfect records without any effort.
+Documentation is a byproduct, not a task. By instrumenting the work itself, you get perfect records without any effort. The history system sees everything because it's wired into the event stream.
 
 ## Installation
 <!--
@@ -188,161 +243,1006 @@ paths, commands to run, and expected outputs.
 
 ### Prerequisites
 
-- Bun runtime installed (`curl -fsSL https://bun.sh/install | bash`)
-- Claude Code or compatible agent system with hook support
+- **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
+- **Claude Code** (or compatible agent system with hook support)
+- **Write access** to `~/.config/pai/` (or your PAI directory)
 
-### Step 1: Create directory structure
+### Step 1: Create Directory Structure
 
 ```bash
+# Create all required directories
+mkdir -p ~/.config/pai/hooks/lib
 mkdir -p ~/.config/pai/history/{sessions,learnings,research,decisions,raw-outputs}
 mkdir -p ~/.config/pai/history/execution/{features,bugs,refactors}
-mkdir -p ~/.config/pai/hooks
+
+# Verify structure
+ls -la ~/.config/pai/
+ls -la ~/.config/pai/history/
 ```
 
-### Step 2: Create the PostToolUse capture hook
+Expected output: All directories created with no errors.
+
+---
+
+### Step 2: Create Library Files
+
+These shared libraries are used by multiple hooks.
+
+#### 2.1: Create observability.ts
 
 ```typescript
-// ~/.config/pai/hooks/capture-tool-output.ts
-// Captures every tool execution to daily JSONL logs
+// ~/.config/pai/hooks/lib/observability.ts
+// Dashboard integration for real-time monitoring
 
-import { appendFileSync, mkdirSync } from "fs";
-import { join } from "path";
-
-const historyDir = process.env.PAI_HISTORY || join(process.env.HOME!, ".config/pai/history");
-
-interface HookPayload {
-  hook_type: string;
-  tool_name: string;
-  tool_input: Record<string, unknown>;
-  tool_output: string;
+export interface ObservabilityEvent {
+  source_app: string;
+  session_id: string;
+  hook_event_type: string;
   timestamp: string;
-  session_id?: string;
+  transcript_path?: string;
+  summary?: string;
+  tool_name?: string;
+  tool_input?: any;
+  tool_output?: any;
+  agent_type?: string;
+  [key: string]: any;
 }
 
-function getDatePath(): string {
+/**
+ * Send event to observability dashboard (optional)
+ * Fails silently if dashboard is not running
+ */
+export async function sendEventToObservability(event: ObservabilityEvent): Promise<void> {
+  try {
+    const response = await fetch('http://localhost:4000/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'PAI-Hook/1.0'
+      },
+      body: JSON.stringify(event),
+    });
+    // Silently ignore failures - dashboard may be offline
+  } catch (error) {
+    // Fail silently - hooks should never fail due to observability issues
+  }
+}
+
+export function getCurrentTimestamp(): string {
+  return new Date().toISOString();
+}
+
+export function getSourceApp(): string {
+  return process.env.PAI_SOURCE_APP || process.env.DA || 'PAI';
+}
+```
+
+#### 2.2: Create metadata-extraction.ts
+
+```typescript
+// ~/.config/pai/hooks/lib/metadata-extraction.ts
+// Extract agent instance metadata from Task tool calls
+
+export interface AgentInstanceMetadata {
+  agent_instance_id?: string;
+  agent_type?: string;
+  instance_number?: number;
+  parent_session_id?: string;
+  parent_task_id?: string;
+}
+
+/**
+ * Extract agent instance ID from Task tool input
+ */
+export function extractAgentInstanceId(
+  toolInput: any,
+  description?: string
+): AgentInstanceMetadata {
+  const result: AgentInstanceMetadata = {};
+
+  // Strategy 1: Extract from description [agent-type-N]
+  if (description) {
+    const descMatch = description.match(/\[([a-z-]+-researcher)-(\d+)\]/);
+    if (descMatch) {
+      result.agent_type = descMatch[1];
+      result.instance_number = parseInt(descMatch[2], 10);
+      result.agent_instance_id = `${result.agent_type}-${result.instance_number}`;
+    }
+  }
+
+  // Strategy 2: Extract from prompt [AGENT_INSTANCE: ...]
+  if (!result.agent_instance_id && toolInput?.prompt && typeof toolInput.prompt === 'string') {
+    const promptMatch = toolInput.prompt.match(/\[AGENT_INSTANCE:\s*([^\]]+)\]/);
+    if (promptMatch) {
+      result.agent_instance_id = promptMatch[1].trim();
+      const parts = result.agent_instance_id.match(/^([a-z-]+)-(\d+)$/);
+      if (parts) {
+        result.agent_type = parts[1];
+        result.instance_number = parseInt(parts[2], 10);
+      }
+    }
+  }
+
+  // Strategy 3: Fallback to subagent_type
+  if (!result.agent_type && toolInput?.subagent_type) {
+    result.agent_type = toolInput.subagent_type;
+  }
+
+  return result;
+}
+
+/**
+ * Enrich event with agent metadata
+ */
+export function enrichEventWithAgentMetadata(
+  event: any,
+  toolInput: any,
+  description?: string
+): any {
+  const metadata = extractAgentInstanceId(toolInput, description);
+  const enrichedEvent = { ...event };
+
+  if (metadata.agent_instance_id) enrichedEvent.agent_instance_id = metadata.agent_instance_id;
+  if (metadata.agent_type) enrichedEvent.agent_type = metadata.agent_type;
+  if (metadata.instance_number !== undefined) enrichedEvent.instance_number = metadata.instance_number;
+
+  return enrichedEvent;
+}
+
+/**
+ * Check if a tool call is spawning a subagent
+ */
+export function isAgentSpawningCall(toolName: string, toolInput: any): boolean {
+  return toolName === 'Task' && toolInput?.subagent_type !== undefined;
+}
+```
+
+---
+
+### Step 3: Create Hook Files
+
+#### 3.1: Create capture-all-events.ts (Universal Event Capture)
+
+```typescript
+#!/usr/bin/env bun
+// ~/.config/pai/hooks/capture-all-events.ts
+// Captures ALL Claude Code hook events to JSONL
+
+import { readFileSync, appendFileSync, mkdirSync, existsSync, writeFileSync } from 'fs';
+import { join } from 'path';
+import { homedir } from 'os';
+import { enrichEventWithAgentMetadata, isAgentSpawningCall } from './lib/metadata-extraction';
+
+interface HookEvent {
+  source_app: string;
+  session_id: string;
+  hook_event_type: string;
+  payload: Record<string, any>;
+  timestamp: number;
+  timestamp_local: string;
+}
+
+function getLocalTimestamp(): string {
+  const date = new Date();
+  const tz = process.env.TIME_ZONE || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = new Date(date.toLocaleString('en-US', { timeZone: tz }));
+
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  const hours = String(localDate.getHours()).padStart(2, '0');
+  const minutes = String(localDate.getMinutes()).padStart(2, '0');
+  const seconds = String(localDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+function getEventsFilePath(): string {
+  const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+
+  const monthDir = join(paiDir, 'history', 'raw-outputs', `${year}-${month}`);
+  if (!existsSync(monthDir)) {
+    mkdirSync(monthDir, { recursive: true });
+  }
+
+  return join(monthDir, `${year}-${month}-${day}_all-events.jsonl`);
 }
 
-function getTodayFilename(): string {
-  const now = new Date();
-  return now.toISOString().split("T")[0];
+function getSessionMappingFile(): string {
+  const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+  return join(paiDir, 'agent-sessions.json');
 }
 
-export function captureToolOutput(payload: HookPayload): void {
-  const datePath = getDatePath();
-  const outputDir = join(historyDir, "raw-outputs", datePath);
-
-  mkdirSync(outputDir, { recursive: true });
-
-  const filename = `${getTodayFilename()}_all-events.jsonl`;
-  const filepath = join(outputDir, filename);
-
-  const record = {
-    ...payload,
-    captured_at: new Date().toISOString(),
-  };
-
-  appendFileSync(filepath, JSON.stringify(record) + "\n");
+function getAgentForSession(sessionId: string): string {
+  try {
+    const mappingFile = getSessionMappingFile();
+    if (existsSync(mappingFile)) {
+      const mappings = JSON.parse(readFileSync(mappingFile, 'utf-8'));
+      return mappings[sessionId] || 'main';
+    }
+  } catch (error) {}
+  return 'main';
 }
 
-// Main execution
-const input = JSON.parse(process.argv[2] || "{}");
-captureToolOutput(input);
+function setAgentForSession(sessionId: string, agentName: string): void {
+  try {
+    const mappingFile = getSessionMappingFile();
+    let mappings: Record<string, string> = {};
+    if (existsSync(mappingFile)) {
+      mappings = JSON.parse(readFileSync(mappingFile, 'utf-8'));
+    }
+    mappings[sessionId] = agentName;
+    writeFileSync(mappingFile, JSON.stringify(mappings, null, 2), 'utf-8');
+  } catch (error) {}
+}
+
+async function main() {
+  try {
+    const args = process.argv.slice(2);
+    const eventTypeIndex = args.indexOf('--event-type');
+
+    if (eventTypeIndex === -1) {
+      console.error('Missing --event-type argument');
+      process.exit(0);
+    }
+
+    const eventType = args[eventTypeIndex + 1];
+    const stdinData = await Bun.stdin.text();
+    const hookData = JSON.parse(stdinData);
+
+    const sessionId = hookData.session_id || 'main';
+    let agentName = getAgentForSession(sessionId);
+
+    // Track agent type from Task tool calls
+    if (hookData.tool_name === 'Task' && hookData.tool_input?.subagent_type) {
+      agentName = hookData.tool_input.subagent_type;
+      setAgentForSession(sessionId, agentName);
+    } else if (eventType === 'SubagentStop' || eventType === 'Stop') {
+      agentName = 'main';
+      setAgentForSession(sessionId, 'main');
+    } else if (process.env.CLAUDE_CODE_AGENT) {
+      agentName = process.env.CLAUDE_CODE_AGENT;
+      setAgentForSession(sessionId, agentName);
+    }
+
+    let event: HookEvent = {
+      source_app: agentName,
+      session_id: hookData.session_id || 'main',
+      hook_event_type: eventType,
+      payload: hookData,
+      timestamp: Date.now(),
+      timestamp_local: getLocalTimestamp()
+    };
+
+    // Enrich with agent metadata if spawning subagent
+    if (isAgentSpawningCall(hookData.tool_name, hookData.tool_input)) {
+      event = enrichEventWithAgentMetadata(event, hookData.tool_input, hookData.description);
+    }
+
+    const eventsFile = getEventsFilePath();
+    appendFileSync(eventsFile, JSON.stringify(event) + '\n', 'utf-8');
+
+  } catch (error) {
+    console.error('Event capture error:', error);
+  }
+
+  process.exit(0);
+}
+
+main();
 ```
 
-### Step 3: Create the Stop hook for learning capture
+#### 3.2: Create stop-hook.ts (Main Agent Completion)
 
 ```typescript
+#!/usr/bin/env bun
 // ~/.config/pai/hooks/stop-hook.ts
-// Captures session work and learnings when main agent completes
+// Captures main agent work summaries and learnings
 
-import { writeFileSync, mkdirSync } from "fs";
-import { join } from "path";
-
-const historyDir = process.env.PAI_HISTORY || join(process.env.HOME!, ".config/pai/history");
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { join } from 'path';
+import { homedir } from 'os';
+import { sendEventToObservability, getCurrentTimestamp, getSourceApp } from './lib/observability';
 
 interface StopPayload {
   stop_hook_active: boolean;
   transcript_path?: string;
   response?: string;
+  session_id?: string;
+}
+
+function getLocalTimestamp(): string {
+  const date = new Date();
+  const tz = process.env.TIME_ZONE || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = new Date(date.toLocaleString('en-US', { timeZone: tz }));
+
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  const hours = String(localDate.getHours()).padStart(2, '0');
+  const minutes = String(localDate.getMinutes()).padStart(2, '0');
+  const seconds = String(localDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 function hasLearningIndicators(text: string): boolean {
-  const indicators = ["problem", "solved", "discovered", "fixed", "learned", "realized"];
-  const matches = indicators.filter(i => text.toLowerCase().includes(i));
+  const indicators = [
+    'problem', 'solved', 'discovered', 'fixed', 'learned', 'realized',
+    'figured out', 'root cause', 'debugging', 'issue was', 'turned out',
+    'mistake', 'error', 'bug', 'solution'
+  ];
+  const lowerText = text.toLowerCase();
+  const matches = indicators.filter(i => lowerText.includes(i));
   return matches.length >= 2;
+}
+
+function extractSummary(response: string): string {
+  // Look for COMPLETED section
+  const completedMatch = response.match(/🎯\s*COMPLETED[:\s]*(.+?)(?:\n|$)/i);
+  if (completedMatch) {
+    return completedMatch[1].trim().slice(0, 100);
+  }
+
+  // Look for SUMMARY section
+  const summaryMatch = response.match(/📋\s*SUMMARY[:\s]*(.+?)(?:\n|$)/i);
+  if (summaryMatch) {
+    return summaryMatch[1].trim().slice(0, 100);
+  }
+
+  // Fallback: first meaningful line
+  const lines = response.split('\n').filter(l => l.trim().length > 10);
+  if (lines.length > 0) {
+    return lines[0].trim().slice(0, 100);
+  }
+
+  return 'work-session';
 }
 
 function generateFilename(type: string, description: string): string {
   const now = new Date();
-  const timestamp = now.toISOString().replace(/[-:]/g, "").split(".")[0];
-  const kebab = description.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 60);
+  const timestamp = now.toISOString().replace(/[-:]/g, '').split('.')[0];
+  const kebab = description.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
   return `${timestamp}_${type}_${kebab}.md`;
 }
 
-export function captureStop(payload: StopPayload): void {
-  if (!payload.response) return;
+async function main() {
+  try {
+    const stdinData = await Bun.stdin.text();
+    if (!stdinData.trim()) {
+      process.exit(0);
+    }
 
-  const isLearning = hasLearningIndicators(payload.response);
-  const type = isLearning ? "LEARNING" : "SESSION";
-  const subdir = isLearning ? "learnings" : "sessions";
+    const payload: StopPayload = JSON.parse(stdinData);
+    if (!payload.response) {
+      process.exit(0);
+    }
 
-  const datePath = new Date().toISOString().slice(0, 7); // YYYY-MM
-  const outputDir = join(historyDir, subdir, datePath);
+    const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+    const historyDir = join(paiDir, 'history');
 
-  mkdirSync(outputDir, { recursive: true });
+    const isLearning = hasLearningIndicators(payload.response);
+    const type = isLearning ? 'LEARNING' : 'SESSION';
+    const subdir = isLearning ? 'learnings' : 'sessions';
 
-  const filename = generateFilename(type, payload.response.slice(0, 100));
-  const filepath = join(outputDir, filename);
+    const now = new Date();
+    const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const outputDir = join(historyDir, subdir, yearMonth);
 
-  const content = `---
+    if (!existsSync(outputDir)) {
+      mkdirSync(outputDir, { recursive: true });
+    }
+
+    const summary = extractSummary(payload.response);
+    const filename = generateFilename(type, summary);
+    const filepath = join(outputDir, filename);
+
+    const content = `---
 capture_type: ${type}
-timestamp: ${new Date().toISOString()}
+timestamp: ${getLocalTimestamp()}
+session_id: ${payload.session_id || 'unknown'}
+executor: main
 ---
 
+# ${type}: ${summary}
+
 ${payload.response}
+
+---
+
+*Captured by PAI History System stop-hook*
 `;
 
-  writeFileSync(filepath, content);
+    writeFileSync(filepath, content);
+    console.log(`📝 Captured ${type} to ${subdir}/${yearMonth}/${filename}`);
+
+    // Send to observability dashboard (optional)
+    await sendEventToObservability({
+      source_app: getSourceApp(),
+      session_id: payload.session_id || 'unknown',
+      hook_event_type: 'Stop',
+      timestamp: getCurrentTimestamp(),
+      summary: summary
+    });
+
+  } catch (error) {
+    console.error('Stop hook error:', error);
+  }
+
+  process.exit(0);
 }
 
-const input = JSON.parse(process.argv[2] || "{}");
-captureStop(input);
+main();
 ```
 
-### Step 4: Register hooks in settings
+#### 3.3: Create subagent-stop-hook.ts (Subagent Output Routing)
 
-Add to your Claude Code settings (`.claude/settings.json` or equivalent):
+```typescript
+#!/usr/bin/env bun
+// ~/.config/pai/hooks/subagent-stop-hook.ts
+// Routes subagent outputs to appropriate history directories
+
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'fs';
+import { join, dirname } from 'path';
+import { homedir } from 'os';
+import { sendEventToObservability, getCurrentTimestamp, getSourceApp } from './lib/observability';
+import { extractAgentInstanceId } from './lib/metadata-extraction';
+
+function getLocalTimestamp(): string {
+  const date = new Date();
+  const tz = process.env.TIME_ZONE || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = new Date(date.toLocaleString('en-US', { timeZone: tz }));
+
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  const hours = String(localDate.getHours()).padStart(2, '0');
+  const minutes = String(localDate.getMinutes()).padStart(2, '0');
+  const seconds = String(localDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+async function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function findTaskResult(transcriptPath: string, maxAttempts: number = 2): Promise<{ result: string | null, agentType: string | null, description: string | null, toolInput: any | null }> {
+  let actualTranscriptPath = transcriptPath;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    if (attempt > 0) await delay(200);
+
+    if (!existsSync(actualTranscriptPath)) {
+      const dir = dirname(transcriptPath);
+      if (existsSync(dir)) {
+        const files = readdirSync(dir)
+          .filter(f => f.startsWith('agent-') && f.endsWith('.jsonl'))
+          .map(f => ({ name: f, mtime: statSync(join(dir, f)).mtime }))
+          .sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+
+        if (files.length > 0) {
+          actualTranscriptPath = join(dir, files[0].name);
+        }
+      }
+      if (!existsSync(actualTranscriptPath)) continue;
+    }
+
+    try {
+      const transcript = readFileSync(actualTranscriptPath, 'utf-8');
+      const lines = transcript.trim().split('\n');
+
+      for (let i = lines.length - 1; i >= 0; i--) {
+        try {
+          const entry = JSON.parse(lines[i]);
+          if (entry.type === 'assistant' && entry.message?.content) {
+            for (const content of entry.message.content) {
+              if (content.type === 'tool_use' && content.name === 'Task') {
+                const toolInput = content.input;
+                const description = toolInput?.description || null;
+
+                for (let j = i + 1; j < lines.length; j++) {
+                  const resultEntry = JSON.parse(lines[j]);
+                  if (resultEntry.type === 'user' && resultEntry.message?.content) {
+                    for (const resultContent of resultEntry.message.content) {
+                      if (resultContent.type === 'tool_result' && resultContent.tool_use_id === content.id) {
+                        let taskOutput: string;
+                        if (typeof resultContent.content === 'string') {
+                          taskOutput = resultContent.content;
+                        } else if (Array.isArray(resultContent.content)) {
+                          taskOutput = resultContent.content
+                            .filter((item: any) => item.type === 'text')
+                            .map((item: any) => item.text)
+                            .join('\n');
+                        } else {
+                          continue;
+                        }
+
+                        let agentType = toolInput?.subagent_type || 'default';
+                        return { result: taskOutput, agentType, description, toolInput };
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        } catch (e) {}
+      }
+    } catch (e) {}
+  }
+
+  return { result: null, agentType: null, description: null, toolInput: null };
+}
+
+function extractCompletionMessage(taskOutput: string): { message: string | null, agentType: string | null } {
+  // Look for COMPLETED section
+  const patterns = [
+    /🎯\s*COMPLETED[:\s]*\[AGENT:(\w+[-\w]*)\]\s*(.+?)(?:\n|$)/is,
+    /🎯\s*COMPLETED[:\s]*(.+?)(?:\n|$)/i,
+    /COMPLETED[:\s]*(.+?)(?:\n|$)/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = taskOutput.match(pattern);
+    if (match) {
+      if (match[2]) {
+        return { message: match[2].trim(), agentType: match[1].toLowerCase() };
+      }
+      return { message: match[1].trim(), agentType: null };
+    }
+  }
+
+  return { message: null, agentType: null };
+}
+
+async function captureAgentOutput(
+  agentType: string,
+  completionMessage: string,
+  taskOutput: string,
+  transcriptPath: string
+) {
+  const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+  const historyDir = join(paiDir, 'history');
+
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/[-:]/g, '').split('.')[0];
+  const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+  // Route by agent type
+  let captureType = 'RESEARCH';
+  let category = 'research';
+
+  if (agentType.includes('researcher') || agentType === 'intern') {
+    captureType = 'RESEARCH';
+    category = 'research';
+  } else if (agentType === 'architect') {
+    captureType = 'DECISION';
+    category = 'decisions';
+  } else if (agentType === 'engineer' || agentType === 'designer') {
+    captureType = 'FEATURE';
+    category = 'execution/features';
+  }
+
+  const description = completionMessage
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 60);
+
+  const filename = `${timestamp}_AGENT-${agentType}_${captureType}_${description}.md`;
+  const outputDir = join(historyDir, category, yearMonth);
+
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir, { recursive: true });
+  }
+
+  const document = `---
+capture_type: ${captureType}
+timestamp: ${getLocalTimestamp()}
+executor: ${agentType}
+agent_completion: ${completionMessage}
+---
+
+# ${captureType}: ${completionMessage}
+
+**Agent:** ${agentType}
+**Completed:** ${timestamp}
+
+---
+
+## Agent Output
+
+${taskOutput}
+
+---
+
+## Metadata
+
+**Transcript:** \`${transcriptPath}\`
+**Captured:** ${getLocalTimestamp()}
+
+---
+
+*Captured by PAI History System subagent-stop-hook*
+`;
+
+  writeFileSync(join(outputDir, filename), document);
+  console.log(`📝 Captured ${agentType} output to ${category}/${yearMonth}/${filename}`);
+}
+
+async function main() {
+  try {
+    let input = '';
+    const decoder = new TextDecoder();
+    const reader = Bun.stdin.stream().getReader();
+
+    const timeoutPromise = new Promise<void>((resolve) => setTimeout(resolve, 500));
+    const readPromise = (async () => {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        input += decoder.decode(value, { stream: true });
+      }
+    })();
+
+    await Promise.race([readPromise, timeoutPromise]);
+
+    if (!input) process.exit(0);
+
+    const parsed = JSON.parse(input);
+    const transcriptPath = parsed.transcript_path;
+    if (!transcriptPath) process.exit(0);
+
+    const { result: taskOutput, agentType, description, toolInput } = await findTaskResult(transcriptPath);
+    if (!taskOutput) process.exit(0);
+
+    const { message: completionMessage, agentType: extractedAgentType } = extractCompletionMessage(taskOutput);
+    if (!completionMessage) process.exit(0);
+
+    const finalAgentType = extractedAgentType || agentType || 'default';
+
+    await captureAgentOutput(finalAgentType, completionMessage, taskOutput, transcriptPath);
+
+    await sendEventToObservability({
+      source_app: getSourceApp(),
+      session_id: parsed.session_id,
+      hook_event_type: 'SubagentStop',
+      timestamp: getCurrentTimestamp(),
+      transcript_path: transcriptPath,
+      agent_type: finalAgentType,
+      summary: completionMessage
+    });
+
+  } catch (error) {
+    console.error('Subagent stop hook error:', error);
+  }
+
+  process.exit(0);
+}
+
+main();
+```
+
+#### 3.4: Create capture-session-summary.ts (Session End)
+
+```typescript
+#!/usr/bin/env bun
+// ~/.config/pai/hooks/capture-session-summary.ts
+// Creates session summary when Claude Code session ends
+
+import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync } from 'fs';
+import { join } from 'path';
+import { homedir } from 'os';
+
+interface SessionData {
+  conversation_id: string;
+  timestamp: string;
+  [key: string]: any;
+}
+
+function getLocalTimestamp(): string {
+  const date = new Date();
+  const tz = process.env.TIME_ZONE || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = new Date(date.toLocaleString('en-US', { timeZone: tz }));
+
+  const year = localDate.getFullYear();
+  const month = String(localDate.getMonth() + 1).padStart(2, '0');
+  const day = String(localDate.getDate()).padStart(2, '0');
+  const hours = String(localDate.getHours()).padStart(2, '0');
+  const minutes = String(localDate.getMinutes()).padStart(2, '0');
+  const seconds = String(localDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+function determineSessionFocus(filesChanged: string[], commandsExecuted: string[]): string {
+  const filePatterns = filesChanged.map(f => f.toLowerCase());
+
+  if (filePatterns.some(f => f.includes('/blog/') || f.includes('/posts/'))) return 'blog-work';
+  if (filePatterns.some(f => f.includes('/hooks/'))) return 'hook-development';
+  if (filePatterns.some(f => f.includes('/skills/'))) return 'skill-updates';
+  if (filePatterns.some(f => f.includes('/agents/'))) return 'agent-work';
+  if (commandsExecuted.some(cmd => cmd.includes('test'))) return 'testing-session';
+  if (commandsExecuted.some(cmd => cmd.includes('git commit'))) return 'git-operations';
+  if (commandsExecuted.some(cmd => cmd.includes('deploy'))) return 'deployment';
+
+  if (filesChanged.length > 0) {
+    const mainFile = filesChanged[0].split('/').pop()?.replace(/\.(md|ts|js)$/, '');
+    if (mainFile) return `${mainFile}-work`;
+  }
+
+  return 'development-session';
+}
+
+async function analyzeSession(conversationId: string, yearMonth: string): Promise<any> {
+  const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+  const rawOutputsDir = join(paiDir, 'history', 'raw-outputs', yearMonth);
+
+  let filesChanged: string[] = [];
+  let commandsExecuted: string[] = [];
+  let toolsUsed: Set<string> = new Set();
+
+  try {
+    if (existsSync(rawOutputsDir)) {
+      const files = readdirSync(rawOutputsDir).filter(f => f.endsWith('.jsonl'));
+
+      for (const file of files) {
+        const content = readFileSync(join(rawOutputsDir, file), 'utf-8');
+        const lines = content.split('\n').filter(l => l.trim());
+
+        for (const line of lines) {
+          try {
+            const entry = JSON.parse(line);
+            if (entry.payload?.tool_name) {
+              toolsUsed.add(entry.payload.tool_name);
+            }
+            if (entry.payload?.tool_name === 'Edit' || entry.payload?.tool_name === 'Write') {
+              if (entry.payload?.tool_input?.file_path) {
+                filesChanged.push(entry.payload.tool_input.file_path);
+              }
+            }
+            if (entry.payload?.tool_name === 'Bash' && entry.payload?.tool_input?.command) {
+              commandsExecuted.push(entry.payload.tool_input.command);
+            }
+          } catch (e) {}
+        }
+      }
+    }
+  } catch (error) {}
+
+  return {
+    focus: determineSessionFocus([...new Set(filesChanged)], commandsExecuted),
+    filesChanged: [...new Set(filesChanged)].slice(0, 10),
+    commandsExecuted: commandsExecuted.slice(0, 10),
+    toolsUsed: Array.from(toolsUsed)
+  };
+}
+
+async function main() {
+  try {
+    const input = await Bun.stdin.text();
+    if (!input.trim()) process.exit(0);
+
+    const data: SessionData = JSON.parse(input);
+    const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+    const historyDir = join(paiDir, 'history');
+
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[-:]/g, '').split('.')[0];
+    const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    const sessionInfo = await analyzeSession(data.conversation_id, yearMonth);
+    const filename = `${timestamp}_SESSION_${sessionInfo.focus}.md`;
+
+    const sessionDir = join(historyDir, 'sessions', yearMonth);
+    if (!existsSync(sessionDir)) {
+      mkdirSync(sessionDir, { recursive: true });
+    }
+
+    const sessionDoc = `---
+capture_type: SESSION
+timestamp: ${getLocalTimestamp()}
+session_id: ${data.conversation_id}
+executor: main
+---
+
+# Session: ${sessionInfo.focus}
+
+**Session ID:** ${data.conversation_id}
+**Ended:** ${getLocalTimestamp()}
+
+---
+
+## Tools Used
+
+${sessionInfo.toolsUsed.length > 0 ? sessionInfo.toolsUsed.map((t: string) => `- ${t}`).join('\n') : '- None recorded'}
+
+---
+
+## Files Modified
+
+${sessionInfo.filesChanged.length > 0 ? sessionInfo.filesChanged.map((f: string) => `- \`${f}\``).join('\n') : '- None recorded'}
+
+---
+
+## Commands Executed
+
+${sessionInfo.commandsExecuted.length > 0 ? '```bash\n' + sessionInfo.commandsExecuted.join('\n') + '\n```' : 'None recorded'}
+
+---
+
+*Session summary captured by PAI History System*
+`;
+
+    writeFileSync(join(sessionDir, filename), sessionDoc);
+    console.log(`📝 Session summary saved to sessions/${yearMonth}/${filename}`);
+
+  } catch (error) {
+    console.error('Session summary error:', error);
+  }
+
+  process.exit(0);
+}
+
+main();
+```
+
+---
+
+### Step 4: Register Hooks in settings.json
+
+Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the following hook configuration:
+
+**File location:** `~/.claude/settings.json`
 
 ```json
 {
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PreToolUse"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
-        "command": "bun run ~/.config/pai/hooks/capture-tool-output.ts"
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PostToolUse"
+          }
+        ]
       }
     ],
     "Stop": [
       {
-        "command": "bun run ~/.config/pai/hooks/stop-hook.ts"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/stop-hook.ts"
+          },
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Stop"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/subagent-stop-hook.ts"
+          },
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SubagentStop"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-session-summary.ts"
+          },
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionEnd"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionStart"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type UserPromptSubmit"
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-### Step 5: Verify installation
+**Important:** If you already have a settings.json, merge the hooks section with your existing configuration.
+
+---
+
+### Step 5: Set Environment Variables (Optional)
+
+Add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
 
 ```bash
-# Check directory structure exists
-ls -la ~/.config/pai/history/
+# PAI configuration
+export PAI_DIR="$HOME/.config/pai"
+export TIME_ZONE="America/Los_Angeles"  # Your timezone
+export DA="PAI"  # Your AI assistant name
 
-# Run a test command in your AI agent, then verify capture
-ls ~/.config/pai/history/raw-outputs/
+# Reload shell
+source ~/.zshrc
 ```
+
+---
+
+### Step 6: Verify Installation
+
+```bash
+# 1. Check all hooks exist and are executable
+ls -la ~/.config/pai/hooks/*.ts
+# Should show 4 hook files
+
+# 2. Check lib files exist
+ls -la ~/.config/pai/hooks/lib/*.ts
+# Should show 2 lib files
+
+# 3. Check directory structure
+ls -la ~/.config/pai/history/
+# Should show: sessions, learnings, research, decisions, execution, raw-outputs
+
+# 4. Verify Bun can run the hooks
+bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Test <<< '{"test": true}'
+# Should create an entry in raw-outputs
+
+# 5. Check raw-outputs for the test entry
+ls ~/.config/pai/history/raw-outputs/$(date +%Y-%m)/
+# Should show today's events file
+
+# 6. Restart Claude Code to activate hooks
+# Then run any command and check for new files in history/
+```
+
+**Success indicators:**
+- No errors when running hooks
+- Files appearing in `~/.config/pai/history/raw-outputs/`
+- Session summaries appearing after ending sessions
+- Agent outputs captured in appropriate subdirectories
 
 ## Invocation Scenarios
 <!--
@@ -360,29 +1260,31 @@ Help users understand the pack's behavior in their system so they can
 predict when it will activate and what it will do.
 -->
 
-The history system triggers automatically - no user action required:
+The history system triggers automatically on Claude Code events:
 
-| Scenario | Hook | Output Location |
-|----------|------|-----------------|
-| Any tool executes (Bash, Edit, etc.) | PostToolUse | `raw-outputs/YYYY-MM/` |
-| Main agent completes a task | Stop | `learnings/` or `sessions/` |
-| Subagent finishes work | SubagentStop | Varies by agent type |
-| User quits session | SessionEnd | `sessions/` |
-| User starts new session | SessionStart | Loads context |
+| Event | Hook | Output Location | Captured Data |
+|-------|------|-----------------|---------------|
+| Any tool starts | PreToolUse | `raw-outputs/` | Tool name, input, session |
+| Any tool completes | PostToolUse | `raw-outputs/` | Tool name, input, output |
+| Main agent finishes | Stop | `learnings/` or `sessions/` | Full response, categorized |
+| Subagent completes | SubagentStop | `research/`, `decisions/`, or `execution/` | Agent output, routed by type |
+| User quits session | SessionEnd | `sessions/` | Files changed, tools used |
+| User starts session | SessionStart | `raw-outputs/` | Session metadata |
+| User sends prompt | UserPromptSubmit | `raw-outputs/` | Prompt content |
 
-**Automatic Categorization:**
+**Automatic Categorization Logic:**
 
 The Stop hook analyzes response content for learning indicators:
-- 2+ indicators (problem, solved, discovered, fixed, learned) → `learnings/`
-- Fewer indicators → `sessions/`
+- Contains 2+ of: problem, solved, discovered, fixed, learned, realized, bug, error, root cause
+- **YES** → Saves to `learnings/`
+- **NO** → Saves to `sessions/`
 
-**Example Flow:**
+**Agent Routing Logic:**
 
-1. User: "Fix the authentication bug"
-2. Agent investigates, edits files, runs tests
-3. PostToolUse captures each tool call to JSONL
-4. Agent completes with "Fixed the bug by..."
-5. Stop hook detects "fixed" + "problem" → saves to `learnings/`
+The SubagentStop hook routes by agent type:
+- `*researcher`, `intern` → `research/`
+- `architect` → `decisions/`
+- `engineer`, `designer` → `execution/features/`
 
 ## Example Usage
 <!--
@@ -402,63 +1304,51 @@ Show the pack doing what it's designed to do.
 
 ### Example 1: Searching Past Work
 
-**User asks:**
-```
-Have we worked on authentication before?
-```
-
-**Agent searches:**
 ```bash
+# User: "Have we worked on authentication before?"
+
 grep -r "authentication" ~/.config/pai/history/
+
+# Results:
+# learnings/2025-10/20251013T143022_LEARNING_jwt-token-refresh.md
+# execution/features/2025-09/20250928T091530_FEATURE_user-login.md
+# decisions/2025-09/20250925T162045_DECISION_auth-strategy.md
 ```
 
-**Result:**
-```
-learnings/2025-10/20251013_LEARNING_jwt-token-refresh.md
-execution/features/2025-09/20250928_FEATURE_user-login.md
-decisions/2025-09/20250925_DECISION_auth-strategy.md
-```
+### Example 2: Reviewing Session Activity
 
-### Example 2: Reviewing a Session
-
-**User asks:**
-```
-What did we do last session?
-```
-
-**Agent reads:**
 ```bash
-ls -lt ~/.config/pai/history/sessions/2025-12/ | head -1
-# Returns: 20251228_SESSION_feature-implementation.md
-```
+# After a session ends, check what was captured
 
-**Session file contains:**
-```markdown
----
-capture_type: SESSION
-timestamp: 2025-12-28T15:30:00-08:00
----
+ls -lt ~/.config/pai/history/sessions/2025-12/ | head -5
 
-Implemented the new dashboard feature including:
-- Database schema updates
-- API endpoints for data retrieval
-- Frontend components with charts
-- Unit tests for all new functions
+# Shows recent session files with their focus:
+# 20251228T153045_SESSION_hook-development.md
+# 20251228T142312_SESSION_blog-work.md
+# 20251228T101523_SESSION_testing-session.md
 ```
 
 ### Example 3: Finding Why a Decision Was Made
 
-**User asks:**
-```
-Why did we choose PostgreSQL over MongoDB?
-```
-
-**Agent searches:**
 ```bash
-grep -l "PostgreSQL\|MongoDB" ~/.config/pai/history/decisions/
+# User: "Why did we choose that architecture?"
+
+grep -l "architecture\|decision\|chose" ~/.config/pai/history/decisions/
+
+# Returns files with architectural decisions and rationale
 ```
 
-**Returns decision document with full rationale.**
+### Example 4: Checking Agent Work
+
+```bash
+# See all research agents completed today
+
+ls ~/.config/pai/history/research/2025-12/ | grep AGENT
+
+# Shows:
+# 20251228T143022_AGENT-researcher_RESEARCH_market-analysis.md
+# 20251228T142518_AGENT-intern_RESEARCH_competitor-review.md
+```
 
 ## Configuration
 <!--
@@ -476,146 +1366,99 @@ If no configuration is needed, write "No configuration required." and briefly
 explain why (e.g., "Works out of the box with sensible defaults.").
 -->
 
+**Environment variables:**
+
 ```bash
-# Environment variables (optional)
+# Override default PAI directory (default: ~/.config/pai)
+export PAI_DIR="$HOME/.config/pai"
 
-# Override default history location
-export PAI_HISTORY="$HOME/.config/pai/history"
+# Set timezone for timestamps (default: system timezone)
+export TIME_ZONE="America/Los_Angeles"
 
-# Override timezone for timestamps (default: system timezone)
-export PAI_TIMEZONE="America/Los_Angeles"
+# Set source app name for observability (default: PAI)
+export DA="MyAI"
+export PAI_SOURCE_APP="MyAI"
 ```
 
-**Directory structure is fixed** - the categorization system depends on consistent paths. Customize only the root location if needed.
+**Settings file location:**
+- Claude Code: `~/.claude/settings.json`
+- OpenCode: Check your platform's hook configuration location
+
+**Directory structure is fixed** - categorization depends on consistent paths. Only customize the root PAI_DIR location if needed.
 
 ## Credits
 <!--
 (256 words max)
 
 INSTRUCTIONS: Attribution for ideas, inspiration, and contributions.
-Include:
-- Original author(s)
-- Contributors
-- Inspiration sources (papers, projects, people)
-- Acknowledgments
-
-Be generous with credit. Link to profiles/projects where appropriate.
 -->
 
 - **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure
 - **Contributors**: The PAI community
-- **Inspired by**: Git's approach to version history, engineering logbooks, the Zettelkasten method
+- **Inspired by**: Git's version history, engineering logbooks, Zettelkasten method
 
 ## Related Work
 <!--
 (256 words max)
 
 INSTRUCTIONS: Link to similar or related projects.
-Include:
-- Alternative solutions to the same problem
-- Complementary tools or libraries
-- Academic papers or blog posts
-- Standards or specifications
-
-Help users understand the ecosystem and find additional resources.
 -->
 
 - **mem0**: https://github.com/mem0ai/mem0 - AI memory layer
-- **Obsidian**: https://obsidian.md - Knowledge management with linking
-- **Logseq**: https://logseq.com - Outliner with git-based storage
+- **Obsidian**: https://obsidian.md - Knowledge management
+- **Logseq**: https://logseq.com - Outliner with git storage
 
 ## Works Well With
 <!--
 (256 words max)
 
 INSTRUCTIONS: List packs that complement this one.
-Include:
-- Pack name and brief explanation of synergy
-- Why they work well together
-- Any integration notes
-
-Focus on functional combinations, not just related packs.
 -->
 
-- **session-progress**: Track multi-session work with handoff artifacts - history provides the searchable archive, session-progress provides active state
-- **agent-factory**: Custom agents get their outputs automatically categorized by the SubagentStop hook
+- **session-progress**: Track multi-session work with handoff artifacts
+- **agent-factory**: Custom agents get outputs auto-categorized
+- **observability-server**: Visualize history data in real-time dashboard
 
 ## Recommended
 <!--
 (256 words max)
 
 INSTRUCTIONS: Packs you recommend using alongside this one.
-Include:
-- Pack name and why it's recommended
-- Priority level (essential vs nice-to-have)
-- Brief reasoning
-
-This is your "if you install this, also consider..." section.
 -->
 
-- **session-progress**: Essential for multi-session work - provides the "current state" complement to history's "past record"
-- **observability-server**: Nice-to-have - visualize history data in a dashboard
+- **session-progress**: Essential for multi-session work continuity
+- **observability-server**: Nice-to-have for visual monitoring
 
 ## Relationships
 <!--
 (512 words max total for all subsections)
-
-INSTRUCTIONS: Document how this pack relates to others in the ecosystem.
-Use the four relationship types below. Each is optional - include only those
-that apply. This helps users understand the pack hierarchy and find related packs.
 -->
 
 ### Parent Of
-<!--
-(128 words max, optional)
-INSTRUCTIONS: List packs that extend or depend on this pack.
-These are more specialized versions or add-ons.
--->
-
-- **history-analytics**: Analyzes history data to surface patterns and insights
-- **history-search**: Advanced semantic search across all captured history
+- **history-analytics**: Analyze patterns in captured history
+- **history-search**: Semantic search across all history
 
 ### Child Of
-<!--
-(128 words max, optional)
-INSTRUCTIONS: List packs this pack extends or depends on.
-These are prerequisites or base packs.
--->
-
-None - this is a foundational infrastructure pack.
+None - foundational infrastructure pack.
 
 ### Sibling Of
-<!--
-(128 words max, optional)
-INSTRUCTIONS: List packs at the same level with common purpose.
-These solve similar problems or share architectural patterns.
--->
-
-- **session-progress**: Both address continuity, history captures past, session-progress tracks present
-- **context-loader**: Both are infrastructure packs that operate via hooks
+- **session-progress**: Both address continuity
+- **context-loader**: Both operate via hooks
 
 ### Part Of Collection
-<!--
-(128 words max, optional)
-INSTRUCTIONS: List author collections or themed pack groups this belongs to.
--->
-
-- **danielmiessler's Infrastructure Suite**: Core packs for AI agent memory and continuity
+- **danielmiessler's Infrastructure Suite**: Core packs for AI memory
 
 ## Changelog
 <!--
 INSTRUCTIONS: Document version history.
-Format: ### {version} - {YYYY-MM-DD}
-Include: bullet points of changes for each version
-Start with most recent version at top.
 -->
 
 ### 1.0.0 - 2025-12-28
 - Initial release
-- PostToolUse hook for raw capture
-- Stop hook for learning/session categorization
-- Directory structure for organized storage
-- Search patterns for retrieval
+- Four hooks: capture-all-events, stop-hook, subagent-stop-hook, capture-session-summary
+- Two lib files: observability, metadata-extraction
+- Automatic categorization by content and agent type
+- Full settings.json configuration included
 ```
 
 ---
@@ -627,7 +1470,7 @@ Start with most recent version at top.
 | `## Installation Prompt` | 512 | Context briefing for receiving AI |
 | `## The Concept and/or Problem` | 2048 | What problem does this solve? |
 | `## The Solution` | 4096 | How does this pack solve it? |
-| `## Installation` | 16384 | Step-by-step with code snippets |
+| `## Installation` | 16384 | Step-by-step with ALL code |
 | `## Invocation Scenarios` | 8192 | When/how it triggers |
 | `## Example Usage` | 8192 | Concrete examples |
 | `## Configuration` | 512 | Options and customization |
@@ -635,8 +1478,26 @@ Start with most recent version at top.
 | `## Related Work` | 256 | Similar projects |
 | `## Works Well With` | 256 | Complementary packs |
 | `## Recommended` | 256 | Suggested companions |
-| `## Relationships` | 512 | Parent Of, Child Of, Sibling Of, Part Of Collection (128 each) |
+| `## Relationships` | 512 | Parent Of, Child Of, Sibling Of, Part Of Collection |
 | `## Changelog` | - | Version history |
+
+---
+
+## Pack Completeness Checklist
+
+Before publishing, verify your pack includes:
+
+- [ ] **Full context**: What, why, who needs it
+- [ ] **All code**: Complete, working implementations
+- [ ] **File locations**: Exact paths for every file
+- [ ] **Directory structure**: Commands to create directories
+- [ ] **Hook code**: If hooks required, full implementations
+- [ ] **Library dependencies**: All lib/ files included
+- [ ] **settings.json**: Exact JSON configuration with file location
+- [ ] **Environment variables**: Required vars and where to set them
+- [ ] **Verification steps**: How to confirm success
+
+**The test:** Can someone go from fresh Claude Code to fully working system using ONLY this pack?
 
 ---
 
