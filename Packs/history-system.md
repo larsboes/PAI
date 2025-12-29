@@ -11,7 +11,9 @@ dependencies: []
 keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation, context, recovery, debugging]
 ---
 
-![Kai History System](icons/history-system.png)
+<p align="center">
+  <img src="icons/history-system.png" alt="Kai History System" width="256">
+</p>
 
 # Kai History System
 
