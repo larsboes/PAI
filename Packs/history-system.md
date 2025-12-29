@@ -93,7 +93,6 @@ The Kai History System solves this through **automatic, hook-based documentation
 │   ├── subagent-stop-hook.ts        # Subagent output routing
 │   ├── capture-session-summary.ts   # Session end summarization
 │   └── lib/                         # Shared libraries
-│       ├── observability.ts         # Dashboard integration
 │       └── metadata-extraction.ts   # Agent instance tracking
 ├── history/                         # Captured outputs
 │   ├── sessions/YYYY-MM/            # Session summaries
@@ -175,56 +174,7 @@ Expected output: All directories created with no errors.
 
 These shared libraries are used by multiple hooks.
 
-#### 2.1: Create observability.ts
-
-```typescript
-// ~/.config/pai/hooks/lib/observability.ts
-// Dashboard integration for real-time monitoring
-
-export interface ObservabilityEvent {
-  source_app: string;
-  session_id: string;
-  hook_event_type: string;
-  timestamp: string;
-  transcript_path?: string;
-  summary?: string;
-  tool_name?: string;
-  tool_input?: any;
-  tool_output?: any;
-  agent_type?: string;
-  [key: string]: any;
-}
-
-/**
- * Send event to observability dashboard (optional)
- * Fails silently if dashboard is not running
- */
-export async function sendEventToObservability(event: ObservabilityEvent): Promise<void> {
-  try {
-    const response = await fetch('http://localhost:4000/events', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'PAI-Hook/1.0'
-      },
-      body: JSON.stringify(event),
-    });
-    // Silently ignore failures - dashboard may be offline
-  } catch (error) {
-    // Fail silently - hooks should never fail due to observability issues
-  }
-}
-
-export function getCurrentTimestamp(): string {
-  return new Date().toISOString();
-}
-
-export function getSourceApp(): string {
-  return process.env.PAI_SOURCE_APP || process.env.DA || 'PAI';
-}
-```
-
-#### 2.2: Create metadata-extraction.ts
+#### 2.1: Create metadata-extraction.ts
 
 ```typescript
 // ~/.config/pai/hooks/lib/metadata-extraction.ts
@@ -453,7 +403,6 @@ main();
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import { sendEventToObservability, getCurrentTimestamp, getSourceApp } from './lib/observability';
 
 interface StopPayload {
   stop_hook_active: boolean;
@@ -567,15 +516,6 @@ ${payload.response}
     writeFileSync(filepath, content);
     console.log(`📝 Captured ${type} to ${subdir}/${yearMonth}/${filename}`);
 
-    // Send to observability dashboard (optional)
-    await sendEventToObservability({
-      source_app: getSourceApp(),
-      session_id: payload.session_id || 'unknown',
-      hook_event_type: 'Stop',
-      timestamp: getCurrentTimestamp(),
-      summary: summary
-    });
-
   } catch (error) {
     console.error('Stop hook error:', error);
   }
@@ -596,7 +536,6 @@ main();
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { homedir } from 'os';
-import { sendEventToObservability, getCurrentTimestamp, getSourceApp } from './lib/observability';
 import { extractAgentInstanceId } from './lib/metadata-extraction';
 
 function getLocalTimestamp(): string {
@@ -814,16 +753,6 @@ async function main() {
     const finalAgentType = extractedAgentType || agentType || 'default';
 
     await captureAgentOutput(finalAgentType, completionMessage, taskOutput, transcriptPath);
-
-    await sendEventToObservability({
-      source_app: getSourceApp(),
-      session_id: parsed.session_id,
-      hook_event_type: 'SubagentStop',
-      timestamp: getCurrentTimestamp(),
-      transcript_path: transcriptPath,
-      agent_type: finalAgentType,
-      summary: completionMessage
-    });
 
   } catch (error) {
     console.error('Subagent stop hook error:', error);
@@ -1127,7 +1056,7 @@ ls -la ~/.config/pai/hooks/*.ts
 
 # 2. Check lib files exist
 ls -la ~/.config/pai/hooks/lib/*.ts
-# Should show 2 lib files
+# Should show metadata-extraction.ts
 
 # 3. Check directory structure
 ls -la ~/.config/pai/history/
@@ -1261,11 +1190,11 @@ export PAI_SOURCE_APP="MyAI"
 ## Works Well With
 - **session-progress**: Track multi-session work with handoff artifacts
 - **agent-factory**: Custom agents get outputs auto-categorized
-- **observability-server**: Visualize history data in real-time dashboard
+- **observability-server** (separate pack): Real-time dashboard for visualizing agent activity
 
 ## Recommended
 - **session-progress**: Essential for multi-session work continuity
-- **observability-server**: Nice-to-have for visual monitoring
+- **observability-server**: Optional - adds real-time visual monitoring dashboard
 
 ## Relationships
 
@@ -1288,6 +1217,7 @@ None - foundational infrastructure pack.
 ### 1.0.0 - 2025-12-28
 - Initial release
 - Four hooks: capture-all-events, stop-hook, subagent-stop-hook, capture-session-summary
-- Two lib files: observability, metadata-extraction
+- One lib file: metadata-extraction
 - Automatic categorization by content and agent type
 - Full settings.json configuration included
+- Note: Observability dashboard integration is a separate pack (observability-server)
