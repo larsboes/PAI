@@ -10,15 +10,17 @@ This is the bundle of Packs that gets near feature parity to my own Kai system I
 
 ---
 
-## What You Get
+## What This Bundle Provides
 
-When fully installed, The Official PAI (Kai) Bundle gives you:
+When fully installed, the Kai bundle gives you a number of features that elevate Claude Code, or whatever underlying system you are using, with fundamental enhancements that make everything about your AI experience better:
 
-- **History System** - Automatic capture of sessions, decisions, learnings, and research
-- **Security Hooks** - Protection against prompt injection and dangerous operations
-- **Skill System** - Modular capabilities with intent-based routing
-- **Voice Notifications** - Spoken updates when tasks complete
-- **Agent Delegation** - Spawn parallel agents for concurrent work
+- A custom History system
+- A custom set of Hooks
+- A custom Skill system
+- A custom Voice notification system
+- A custom Agent swarm creation system
+- A custom Security control system
+- And many more
 
 ---
 
