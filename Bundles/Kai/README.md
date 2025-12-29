@@ -14,12 +14,12 @@ This is the bundle of Packs that gets near feature parity to my own Kai system I
 
 When fully installed, the Kai bundle gives you a number of features that elevate Claude Code, or whatever underlying system you are using, with fundamental enhancements that make everything about your AI experience better:
 
-- A custom History system
-- A custom set of Hooks
-- A custom Skill system
-- A custom Voice notification system
-- A custom Agent swarm creation system
-- A custom Security control system
+- A custom **History system** - Automatically captures sessions, decisions, learnings, and research so your AI never forgets important context
+- A custom set of **Hooks** - Event-driven automation that triggers on session start, tool use, and task completion
+- A custom **Skill system** - Modular capabilities that route based on intent, with dynamic loading to minimize context usage
+- A custom **Voice notification system** - Spoken updates via ElevenLabs when tasks complete, with prosody enhancement for natural speech
+- A custom **Agent swarm creation system** - Spawn parallel agents for concurrent work, with personality templates and voice assignments
+- A custom **Security control system** - Protection against prompt injection, dangerous operations, and accidental exposure of sensitive data
 - And many more
 
 ---
