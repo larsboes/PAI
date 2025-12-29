@@ -4,15 +4,33 @@
 
 # PAI Packs
 
-> Self-contained upgrade packages for AI agent systems - like learning kung-fu in The Matrix
+> The best AI in the world should be available to everyone
 
-**PAI Packs** are modular upgrade packages that add specific capabilities to your AI agent system. Each pack is a complete, self-contained bundle with everything needed to go from a fresh installation to a fully working feature.
+Right now the most powerful AI setups are being built inside companies for efficiency and profits. But the purpose of technology is to serve humans—not the other way around.
+
+**PAI Packs** are how we make that happen. Each pack is a battle-tested capability extracted from a production AI system, packaged so anyone can install it. Think of them like learning kung-fu in The Matrix—complete, tested capabilities you can download directly into your system.
+
+These aren't theoretical examples or proof-of-concepts. They're the actual tools and systems running in production every day, now available to you. A full platform for magnifying yourself and your impact on the world.
 
 ---
 
-## What is a Pack?
+## Why Packs?
 
-A pack is a single markdown file containing:
+The old approach was "here's my whole system—clone it and customize." That created a Jenga tower of dependencies where changing one piece broke three others.
+
+**Packs are different:**
+- **Self-contained** - Works without understanding the rest of the system
+- **Independently installable** - Add what you need, skip what you don't
+- **Platform-agnostic** - Works with Claude Code, OpenCode, Cursor, or custom systems
+- **AI-installable** - Give your AI the pack file, it handles the rest
+
+**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system autonomously.
+
+---
+
+## What's in a Pack?
+
+Each pack is a single markdown file containing everything needed to go from zero to working:
 
 - **The Problem** - What challenge this pack solves
 - **The Solution** - How it solves it (with architecture diagrams)
