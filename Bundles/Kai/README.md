@@ -6,7 +6,7 @@
 
 > **FOR AI AGENTS:** Install each pack listed below by reading its file and following the installation instructions.
 
-The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production Kai system. "Kai" is Daniel's personal AI; this bundle packages his infrastructure for others to use.
+This is the bundle of packs that gets near feature parity to my own Kai system I use every day, and that started the project. I have replicated most of the functionality of my system into individual packs, which are all contained within this bundle.
 
 ---
 
