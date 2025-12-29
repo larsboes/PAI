@@ -121,6 +121,24 @@ The meta-principle: Hypothesis → Experiment → Measure → Iterate. Every dec
 
 ---
 
+## The Journey: PAI v1.x → v2.0
+
+**PAI v1.x** attempted to mirror my entire personal AI system (Kai) as an installable template. The idea was simple: "Here's everything I built - clone it and customize."
+
+**The problem:** It didn't work. The system was a Jenga tower of interconnected dependencies. Change one piece, and three others broke. Users couldn't easily adopt parts without understanding the whole. Updates were a nightmare because everything was coupled.
+
+**PAI v2.0** takes a fundamentally different approach: **modular packs**.
+
+Instead of "here's my whole system," it's "here are battle-tested capabilities you can install independently." Each pack is:
+- **Self-contained** - Works without understanding the rest of the system
+- **Independently installable** - Add what you need, skip what you don't
+- **Platform-agnostic** - Works with Claude Code, OpenCode, or custom systems
+- **AI-installable** - Your AI can read the pack and set it up for you
+
+The packs are extracted from Kai - real capabilities that have been running in production. They're not theoretical examples. They're the actual tools and systems I use daily, packaged for others to adopt.
+
+---
+
 <div align="center">
 
 # PAI v2.0: PAI Packs
