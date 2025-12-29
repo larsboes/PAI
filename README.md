@@ -170,7 +170,7 @@ The packs are extracted from Kai - real capabilities that have been running in p
 
 | Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| [**Kai History System**](Packs/history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
+| [**Kai History System**](Packs/kai-history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
 
 ### Skills (Action-Oriented Capabilities)
 

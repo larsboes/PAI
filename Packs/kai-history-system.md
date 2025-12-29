@@ -1,6 +1,6 @@
 ---
 name: Kai History System
-pack-id: danielmiessler-history-system-core-v1.0.0
+pack-id: danielmiessler-kai-history-system-core-v1.0.0
 version: 1.0.0
 author: danielmiessler
 description: Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically
@@ -12,7 +12,7 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
 ---
 
 <p align="center">
-  <img src="icons/history-system-v3.png" alt="Kai History System" width="256">
+  <img src="icons/kai-history-system.png" alt="Kai History System" width="256">
 </p>
 
 # Kai History System

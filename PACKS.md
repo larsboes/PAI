@@ -223,7 +223,7 @@ Browse all packs: [Packs/](Packs/)
 
 | Pack | Type | Description |
 |------|------|-------------|
-| [Kai History System](Packs/history-system.md) | Feature | Automatic context-tracking for entire AI infrastructure |
+| [Kai History System](Packs/kai-history-system.md) | Feature | Automatic context-tracking for entire AI infrastructure |
 
 *More packs coming soon*
 

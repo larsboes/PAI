@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="bundles-icon.png" alt="PAI Bundles" width="256">
+</p>
+
 # PAI Bundles
 
 > **FOR AI AGENTS:** Bundles are curated collections of packs. When a user asks you to install a bundle, read the BUNDLE.md file and install each pack in the specified order.
@@ -13,6 +17,17 @@ A **bundle** is a curated collection of PAI packs designed to work together as a
 Think of it this way:
 - **Packs** = Individual capabilities (ingredients)
 - **Bundles** = Curated collections (recipes)
+
+### Bundle Types
+
+Bundles can be organized around different purposes:
+
+| Bundle Type | Description | Example |
+|-------------|-------------|---------|
+| **Creator Bundle** | All packs from a specific creator | "Kai Bundle" - Daniel Miessler's complete system |
+| **Functionality Bundle** | Packs that serve a specific purpose | "Research Bundle" - tools for investigation |
+| **Domain Bundle** | Packs for a specific field | "Security Bundle" - security-focused tools |
+| **Starter Bundle** | Minimal set to get started | "Kai Lite" - essential packs only |
 
 While you can install packs individually, bundles provide:
 
