@@ -6,7 +6,7 @@
 
 > **FOR AI AGENTS:** Install each Pack listed below by reading its file and following the installation instructions.
 
-This is the bundle of Packs that gets near feature parity to my own Kai system I use every day, and that started the project. I have replicated most of the functionality of my system into individual Packs, which are all contained within this bundle.
+This is a highly opinionated bundle of Packs that gets near feature parity to my own Kai system I use every day, and that started the project. I have replicated most of the functionality of my system into individual Packs, which are all contained within this bundle.
 
 ---
 
