@@ -1265,27 +1265,25 @@ If the voice server is offline:
 
 ## Works Well With
 
-- **kai-hook-system**: Foundation for voice hooks (required)
-- **kai-history-system**: Captures work for voice summaries
-- **kai-skill-system**: Skills can trigger voice notifications
+*None specified - maintainer to provide if applicable.*
 
 ## Recommended
 
-- **kai-hook-system**: Required dependency - install first
+*None specified - maintainer to provide if applicable.*
 
 ## Relationships
 
 ### Parent Of
-None
+*None specified.*
 
 ### Child Of
-- **kai-hook-system**: Voice hooks depend on hook system foundation
+*None specified.*
 
 ### Sibling Of
-- **kai-history-system**: Both use Stop/SubagentStop hooks
+*None specified.*
 
 ### Part Of Collection
-- **The Official PAI (Kai) Bundle**: Core Packs for personal AI infrastructure
+*None specified.*
 
 ---
 

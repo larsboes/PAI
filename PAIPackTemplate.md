@@ -699,46 +699,49 @@ INSTRUCTIONS FOR AI: Attribution for ideas, inspiration, and contributions.
 ## Related Work
 <!--
 (256 words max)
-INSTRUCTIONS FOR AI: Link to similar or related projects.
+INSTRUCTIONS FOR AI: DO NOT FABRICATE. Leave empty or ask the maintainer.
+Only fill in if the maintainer provides specific projects to link.
 -->
 
-- **mem0**: https://github.com/mem0ai/mem0 - AI memory layer
-- **Obsidian**: https://obsidian.md - Knowledge management
+*None specified - maintainer to provide if applicable.*
 
 ## Works Well With
 <!--
 (256 words max)
-INSTRUCTIONS FOR AI: List packs that complement this one.
+INSTRUCTIONS FOR AI: DO NOT FABRICATE. Leave empty or ask the maintainer.
+Only fill in if the maintainer specifies which packs complement this one.
 -->
 
-- **session-progress**: Track multi-session work with handoff artifacts
-- **observability-server**: Visualize history data in real-time dashboard
+*None specified - maintainer to provide if applicable.*
 
 ## Recommended
 <!--
 (256 words max)
-INSTRUCTIONS FOR AI: Packs you recommend using alongside this one.
+INSTRUCTIONS FOR AI: DO NOT FABRICATE. Leave empty or ask the maintainer.
+Only fill in if the maintainer specifies recommended companion packs.
 -->
 
-- **session-progress**: Essential for multi-session work continuity
+*None specified - maintainer to provide if applicable.*
 
 ## Relationships
 <!--
 (512 words max total)
-INSTRUCTIONS FOR AI: Document how this pack relates to others in the ecosystem.
+INSTRUCTIONS FOR AI: DO NOT FABRICATE. Leave empty or ask the maintainer.
+These relationships must be REAL, verified connections to other packs.
+Only fill in if the maintainer provides specific pack relationships.
 -->
 
 ### Parent Of
-- **history-analytics**: Analyze patterns in captured history
+*None specified.*
 
 ### Child Of
-None - foundational infrastructure pack.
+*None specified.*
 
 ### Sibling Of
-- **session-progress**: Both address continuity
+*None specified.*
 
 ### Part Of Collection
-- **danielmiessler's Infrastructure Suite**: Core packs for AI memory
+*None specified.*
 
 ## Changelog
 <!--

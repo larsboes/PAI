@@ -1090,33 +1090,29 @@ function setTabTitle(title: string): void {
 
 ## Related Work
 
-- **Claude Code Hooks**: Official hook documentation
-- **UOCS**: Universal Output Capture System (in kai-history-system)
+*None specified - maintainer to provide if applicable.*
 
 ## Works Well With
 
-- **kai-history-system**: Uses hooks for automatic capture (recommended)
-- **kai-voice-system**: Uses Stop hooks for voice notifications
-- **kai-skill-system**: Context injection uses SessionStart hooks
+*None specified - maintainer to provide if applicable.*
 
 ## Recommended
 
-- **kai-history-system**: Install after this Pack for automatic work capture
+*None specified - maintainer to provide if applicable.*
 
 ## Relationships
 
 ### Parent Of
-- **kai-history-system**: History capture builds on hook foundation
-- **kai-voice-system**: Voice notifications use Stop hooks
+*None specified.*
 
 ### Child Of
-None - foundational infrastructure Pack.
+*None specified.*
 
 ### Sibling Of
-- **kai-skill-system**: Both are core infrastructure
+*None specified.*
 
 ### Part Of Collection
-- **The Official PAI (Kai) Bundle**: Core Packs for personal AI infrastructure
+*None specified.*
 
 ---
 

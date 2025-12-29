@@ -1196,34 +1196,30 @@ export PAI_SOURCE_APP="MyAI"
 - **Inspired by**: Git's version history, engineering logbooks, Zettelkasten method
 
 ## Related Work
-- **mem0**: https://github.com/mem0ai/mem0 - AI memory layer
-- **Obsidian**: https://obsidian.md - Knowledge management
-- **Logseq**: https://logseq.com - Outliner with git storage
+
+*None specified - maintainer to provide if applicable.*
 
 ## Works Well With
-- **session-progress**: Track multi-session work with handoff artifacts
-- **agent-factory**: Custom agents get outputs auto-categorized
-- **observability-server** (separate pack): Real-time dashboard for visualizing agent activity
+
+*None specified - maintainer to provide if applicable.*
 
 ## Recommended
-- **session-progress**: Essential for multi-session work continuity
-- **observability-server**: Optional - adds real-time visual monitoring dashboard
+
+*None specified - maintainer to provide if applicable.*
 
 ## Relationships
 
 ### Parent Of
-- **history-analytics**: Analyze patterns in captured history
-- **history-search**: Semantic search across all history
+*None specified.*
 
 ### Child Of
-None - foundational infrastructure pack.
+*None specified.*
 
 ### Sibling Of
-- **session-progress**: Both address continuity
-- **context-loader**: Both operate via hooks
+*None specified.*
 
 ### Part Of Collection
-- **danielmiessler's Infrastructure Suite**: Core packs for AI memory
+*None specified.*
 
 ## Changelog
 

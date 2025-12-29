@@ -2122,42 +2122,35 @@ const ALWAYS_LOADED_SKILLS = [
 
 ## Related Work
 
-- [Claude Code Documentation](https://docs.anthropic.com/claude-code)
-- [PAI Pack System](https://github.com/danielmiessler/PAI)
+*None specified - maintainer to provide if applicable.*
 
 ---
 
 ## Works Well With
 
-| Pack | Integration |
-|------|-------------|
-| kai-hook-system | Skills can trigger via hooks |
-| kai-history-system | Skill invocations logged to history |
-| kai-voice-system | Skill notifications spoken aloud |
-| kai-da-identity | CORE skill defines AI personality |
+*None specified - maintainer to provide if applicable.*
 
 ---
 
 ## Recommended
 
-After installing this pack:
-1. Create your first custom skill to learn the system
-2. Set up a CORE skill with your AI's identity
-3. Add commonly-used workflows as skills
+*None specified - maintainer to provide if applicable.*
 
 ---
 
 ## Relationships
 
-```
-kai-hook-system ─────► kai-skill-system ─────► kai-voice-system
-        │                     │                      │
-        │                     │                      │
-        └─────────────────────┼──────────────────────┘
-                              │
-                              ▼
-                      kai-da-identity
-```
+### Parent Of
+*None specified.*
+
+### Child Of
+*None specified.*
+
+### Sibling Of
+*None specified.*
+
+### Part Of Collection
+*None specified.*
 
 ---
 
