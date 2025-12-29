@@ -18,10 +18,11 @@
 [![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-1-purple?style=for-the-badge)](Packs/)
+[![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
 
 <br/>
 
-[**Browse Packs**](#-available-packs) · [**Quick Start**](#-quick-start) · [**Principles**](#the-14-founding-principles) · [**Community**](#-community)
+[**Browse Packs**](#-available-packs) · [**Browse Bundles**](#-available-bundles) · [**Quick Start**](#-quick-start) · [**Principles**](#the-14-founding-principles) · [**Community**](#-community)
 
 <br/>
 
@@ -190,6 +191,27 @@ The packs are extracted from Kai - real capabilities that have been running in p
 - **OSINT** - Open-source intelligence gathering
 
 [**Submit your own pack**](#-contributing) →
+
+---
+
+## 📦 Available Bundles
+
+**Bundles** are curated collections of packs designed to work together. Instead of installing packs one-by-one, install a bundle to get a complete, tested experience.
+
+| Bundle | Description | Packs | Tier |
+|--------|-------------|-------|------|
+| [**Kai Bundle**](Bundles/Kai/) | The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production system | 15 | Complete |
+
+### Why Bundles?
+
+- **Curated combinations** - Tested packs that work well together
+- **Proper installation order** - Dependencies handled correctly
+- **Emergent capabilities** - The whole is greater than the sum of parts
+- **Complete experience** - Everything needed for a specific goal
+
+**The Kai Bundle** is the flagship bundle. Installing all its packs recreates the PAI v1.0 "mirrored system" experience - but through modular, maintainable packs instead of a monolithic copy.
+
+[**Learn more about bundles →**](Bundles/)
 
 ---
 
@@ -438,6 +460,7 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 | Document | Description |
 |----------|-------------|
 | [PACKS.md](PACKS.md) | Complete pack system documentation |
+| [Bundles/](Bundles/) | Bundle system documentation and available bundles |
 | [SECURITY.md](SECURITY.md) | Security policies and best practices |
 
 ---

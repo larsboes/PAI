@@ -1,0 +1,239 @@
+# PAI Bundles
+
+> **FOR AI AGENTS:** Bundles are curated collections of packs. When a user asks you to install a bundle, read the BUNDLE.md file and install each pack in the specified order.
+
+Curated collections of packs that work together to achieve a larger goal.
+
+---
+
+## What is a Bundle?
+
+A **bundle** is a curated collection of PAI packs designed to work together as a cohesive system.
+
+Think of it this way:
+- **Packs** = Individual capabilities (ingredients)
+- **Bundles** = Curated collections (recipes)
+
+While you can install packs individually, bundles provide:
+
+| Value | Description |
+|-------|-------------|
+| **Curation** | Tested combinations that work well together |
+| **Order** | Proper installation sequence for dependencies |
+| **Synergy** | Documentation of how packs interact |
+| **Completeness** | Everything needed for a particular goal |
+
+---
+
+## Available Bundles
+
+| Bundle | Description | Tier | Status |
+|--------|-------------|------|--------|
+| [Kai](Kai/) | The official PAI bundle - complete personal AI infrastructure | Complete | Active |
+
+*More bundles coming soon*
+
+---
+
+## Installing a Bundle
+
+### Option 1: AI-Assisted (Recommended)
+
+1. Open the bundle's `BUNDLE.md` file
+2. Give it to your AI
+3. Say: "Install this bundle into my system"
+
+Your AI will:
+- Install packs in the correct order
+- Configure dependencies between packs
+- Verify each pack works
+- Validate the bundle as a whole
+
+### Option 2: Manual Installation
+
+Follow the bundle's BUNDLE.md file:
+
+1. Install prerequisite packs first
+2. Install core packs in listed order
+3. Install optional packs as desired
+4. Run bundle verification
+
+### Option 3: Cherry-Pick
+
+Bundles are collections - you can install just the packs you want from a bundle.
+
+---
+
+## Bundle vs Pack
+
+| Aspect | Pack | Bundle |
+|--------|------|--------|
+| **Scope** | Single capability | Multiple capabilities |
+| **Structure** | Single markdown file | Directory with BUNDLE.md |
+| **Code** | Contains complete code | References pack files |
+| **Installation** | Standalone | Ordered sequence |
+| **Value** | Specific function | Curated experience |
+
+---
+
+## Creating a Bundle
+
+### When to Create a Bundle
+
+Create a bundle when:
+- Multiple packs serve a unified purpose
+- Packs have installation order dependencies
+- The combination creates emergent capabilities
+- You want to share a curated experience
+
+### Bundle Structure
+
+```
+Bundles/
+└── YourBundle/
+    ├── BUNDLE.md       # Bundle specification (required)
+    └── icons/          # Optional bundle icon
+        └── bundle.png
+```
+
+### Bundle Template
+
+Use the following structure for BUNDLE.md:
+
+---
+
+## Bundle Template Specification
+
+### Frontmatter Schema
+
+```yaml
+---
+name: {Bundle Name}
+bundle-id: {author}-{bundle-name}-v{version}
+version: 1.0.0
+author: {github username}
+description: {Brief description - 128 words max}
+type: bundle
+purpose: {One sentence - what this bundle achieves}
+tier: {starter|intermediate|advanced|complete}
+platform: {agnostic|claude-code|opencode|cursor}
+pack-count: {number of packs included}
+dependencies: []
+keywords: [searchable, tags]
+---
+```
+
+### Required Sections
+
+1. **Purpose** - What the bundle achieves as a whole
+2. **Philosophy** - Principles behind the curation
+3. **Contents** - Complete pack listing with installation order
+4. **Pack Relationships** - How packs interact and depend on each other
+5. **Installation** - Combined installation steps
+6. **Verification** - How to verify the bundle is working
+7. **What You Get** - Capabilities after full installation
+8. **Credits** - Attribution
+9. **Related Bundles** - Similar or complementary bundles
+10. **Changelog** - Version history
+
+### Contents Section Format
+
+List packs in installation order:
+
+```markdown
+### Required Packs (Install in Order)
+
+| # | Pack | Type | Purpose | Status |
+|---|------|------|---------|--------|
+| 1 | pack-name | feature | What it does | Available |
+| 2 | another-pack | hook | What it does | Coming Soon |
+
+### Recommended Packs
+
+| Pack | Type | Purpose | Status |
+|------|------|---------|--------|
+| optional-pack | tool | Enhancement | Available |
+
+### Optional Packs
+
+| Pack | Type | Purpose | Status |
+|------|------|---------|--------|
+| extra-pack | integration | Nice to have | Available |
+```
+
+---
+
+## Bundle Tiers
+
+| Tier | Description | Typical Size |
+|------|-------------|--------------|
+| **Starter** | Minimal viable collection | 2-3 packs |
+| **Intermediate** | Core functionality | 4-6 packs |
+| **Advanced** | Extended capabilities | 7-10 packs |
+| **Complete** | Full experience | 10+ packs |
+
+---
+
+## Quality Standards
+
+A bundle must:
+
+- [ ] Include only packs that serve the stated purpose
+- [ ] Document installation order clearly
+- [ ] Explain pack relationships and dependencies
+- [ ] Provide bundle-level verification steps
+- [ ] Have a clear, unified purpose
+- [ ] Mark pack availability status (Available/Coming Soon)
+- [ ] Follow the bundle template structure
+
+---
+
+## Bundle Philosophy
+
+### Why Bundles Exist
+
+Individual packs are powerful, but:
+- Users may not know which packs work well together
+- Installation order matters for dependencies
+- Some capabilities emerge only from combinations
+- Curation provides tested, production-ready setups
+
+### The Value of Curation
+
+A well-designed bundle is more than the sum of its packs. It provides:
+1. **Coherent Vision** - Packs selected for a unified goal
+2. **Tested Integration** - Known to work together
+3. **Documented Synergies** - How capabilities combine
+4. **Reduced Friction** - No guessing about compatibility
+
+---
+
+## FAQ
+
+### Can I install just some packs from a bundle?
+
+Yes. Bundles are documentation of curated collections. You can install any subset of packs you want.
+
+### What if a pack in a bundle isn't released yet?
+
+Bundle listings show pack status (Available/Coming Soon). Install available packs first; others will be added as they're released.
+
+### Can I create my own bundle?
+
+Absolutely. Fork the repo, create a new directory in Bundles/, and follow the template.
+
+### How do bundles handle pack updates?
+
+Bundles reference packs by name. When a pack is updated, reinstall it to get the latest version.
+
+---
+
+## Resources
+
+- [PAI Repository](https://github.com/danielmiessler/PAI)
+- [Pack System](../PACKS.md)
+- [Kai Bundle](Kai/) - Reference implementation
+
+---
+
+*PAI Bundle System v1.0 - Curated experiences.*
