@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="kai.png" alt="PAI (Kai) Bundle" width="256">
+  <img src="kai.png" alt="The Official PAI (Kai) Bundle" width="256">
 </p>
 
-# PAI (Kai) Bundle
+# The Official PAI (Kai) Bundle
 
 > **FOR AI AGENTS:** Install each pack listed below by reading its file and following the installation instructions.
 
@@ -12,7 +12,7 @@ The official PAI bundle - complete personal AI infrastructure extracted from Dan
 
 ## What You Get
 
-When fully installed, the PAI (Kai) Bundle gives you an AI system that:
+When fully installed, The Official PAI (Kai) Bundle gives you an AI system that:
 
 - **Remembers everything** - Every decision, learning, and session captured automatically
 - **Protects you** - Security hooks blocking prompt injection and dangerous operations
