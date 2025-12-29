@@ -1,4 +1,4 @@
-# kai-da-identity
+# Kai DA Identity (kai-da-identity)
 
 **Personal AI Identity, Personality, and Response Format Framework**
 

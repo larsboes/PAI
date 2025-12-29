@@ -15,7 +15,7 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
   <img src="icons/kai-history-system.png" alt="Kai History System" width="256">
 </p>
 
-# Kai History System
+# Kai History System (kai-history-system)
 
 > Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically with zero manual effort
 

@@ -15,7 +15,7 @@ keywords: [hooks, automation, events, security, validation, sessions, context, c
   <img src="icons/kai-hook-system.png" alt="Kai Hook System" width="256">
 </p>
 
-# Kai Hook System
+# Kai Hook System (kai-hook-system)
 
 > Event-driven automation framework for Claude Code - the foundation for all hook-based capabilities
 

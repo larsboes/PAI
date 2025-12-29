@@ -15,7 +15,7 @@ keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, perso
   <img src="icons/kai-voice-system.png" alt="Kai Voice System" width="256">
 </p>
 
-# Kai Voice System
+# Kai Voice System (kai-voice-system)
 
 > Voice notification system with natural speech synthesis and personality-driven delivery
 

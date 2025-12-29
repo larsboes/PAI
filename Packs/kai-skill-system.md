@@ -17,7 +17,7 @@ keywords: [skills, routing, capabilities, workflows, modular, claude-code, autom
   <img src="icons/kai-skill-system.png" alt="Kai Skill System" width="256">
 </p>
 
-# Kai Skill System
+# Kai Skill System (kai-skill-system)
 
 > A complete capability routing and skill management framework that gives your AI structured, reusable workflows it can invoke based on intent.
 
