@@ -123,11 +123,11 @@ The meta-principle: Hypothesis → Experiment → Measure → Iterate. Every dec
 
 <div align="center">
 
-# PAI v2.0: PAI Packs (PAX)
+# PAI v2.0: PAI Packs
 
 </div>
 
-**PAI Packs (PAX)** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix - each pack is a complete, tested capability that you can download into your system.
+**PAI Packs** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix - each pack is a complete, tested capability that you can download into your system.
 
 **PAI Packs provide** self-contained bundles with everything your AI needs to implement a specific capability:
 
@@ -509,12 +509,12 @@ If you find it valuable:
 ## 📜 Update History
 
 <details open>
-<summary><strong>v2.0.0 (2025-12-28) — PAI Packs (PAX) System Launch</strong></summary>
+<summary><strong>v2.0.0 (2025-12-28) — PAI Packs System Launch</strong></summary>
 
 <br/>
 
 **Major Architecture Shift**
-- Transitioned from "mirrored system" approach to modular **PAI Packs (PAX)**
+- Transitioned from "mirrored system" approach to modular **PAI Packs**
 - Packs are self-contained, AI-installable capability bundles
 - Platform-agnostic design: works with Claude Code, OpenCode, Gemini Code, GPT-Codex, or custom systems
 
