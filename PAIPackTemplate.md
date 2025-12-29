@@ -52,10 +52,28 @@ Every pack MUST have a 256x256 transparent PNG icon immediately after the frontm
 
 **Icon specs:**
 - 256x256 pixels
-- Transparent background
+- **ACTUAL transparent background** (not baked-in checkerboard)
 - Blue (#4a90d9) primary color
 - Purple (#8b5cf6) accent only (10-15%)
 - Simple, recognizable at 64x64
+
+**CRITICAL - Icon Generation:**
+
+When generating icons, you MUST use the `--remove-bg` flag to ensure actual transparency:
+
+```bash
+bun run ~/.claude/Skills/Art/Tools/Generate.ts \
+  --model nano-banana-pro \
+  --prompt "[ICON_DESCRIPTION], simple flat icon design, 256x256 pixels. COLOR PALETTE: Background solid dark (#0a0a0f), Primary electric blue (#4a90d9), Accent purple (#8b5cf6). Simple enough to read at 64x64." \
+  --size 1K \
+  --aspect-ratio 1:1 \
+  --remove-bg \
+  --output ~/Downloads/pack-icon.png
+```
+
+**The `--remove-bg` flag is MANDATORY.** Without it, the image will have a baked-in checkerboard pattern instead of actual transparency.
+
+After generation, verify transparency by viewing in a browser - the browser's background should show through, not a checkerboard pattern.
 
 **Format in pack file:**
 ```markdown
@@ -771,7 +789,7 @@ Format: ### {version} - {YYYY-MM-DD}
 - [ ] **settings.json**: Exact JSON configuration with file location
 - [ ] **Environment variables**: Required vars and where to set them
 - [ ] **Verification steps**: How to confirm success
-- [ ] **256x256 icon**: Transparent PNG in blue/purple palette
+- [ ] **256x256 icon**: Transparent PNG in blue/purple palette (generated with `--remove-bg` flag)
 
 **The test:** Can someone go from fresh Claude Code to fully working system using ONLY this pack?
 
