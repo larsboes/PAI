@@ -11,43 +11,49 @@
 
 # Personal AI Infrastructure
 
-### Self-contained functionality packs for building your own AI-powered system
+### Open-source scaffolding for building your own AI-powered operating system
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-0.1--alpha-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-1.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-[![Packs](https://img.shields.io/badge/skills-1-purple?style=for-the-badge)](Packs/)
-[![Features](https://img.shields.io/badge/features-0-orange?style=for-the-badge)](Packs/)
+[![Packs](https://img.shields.io/badge/packs-1-purple?style=for-the-badge)](Packs/)
 
 <br/>
 
-[**Browse Packs**](#-available-packs) · [**Quick Start**](#-quick-start) · [**Submit a Pack**](#-contributing) · [**Community**](#-community)
+[**Browse Packs**](#-available-packs) · [**Quick Start**](#-quick-start) · [**Principles**](#the-14-founding-principles) · [**Community**](#-community)
 
 <br/>
+
+[![PAI Overview Video](https://img.youtube.com/vi/iKwRWwabkEc/maxresdefault.jpg)](https://youtu.be/iKwRWwabkEc)
+
+**[Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
 
 ---
 
-# The New PAI: Functionality Packs
+# The best AI in the world should be available to everyone
 
 </div>
 
-**PAI has fundamentally changed.** Instead of a fragile mirrored system that requires constant synchronization, PAI is now a **collection of self-contained functionality packs** that your AI can integrate into any system.
+Right now the most powerful AI setups are being built inside companies for efficiency and profits.
 
-## The Problem with Mirroring
+That's all good, but I think the purpose of technology is to serve humans—not the other way around. These new AI frameworks should be available to everyone, including people not in technology, so that regular people can use it to help them flourish.
 
-The old PAI tried to maintain a complete, synchronized copy of a rapidly-evolving personal AI infrastructure (Kai). This created:
+That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
 
-- **Constant breakage** - Changes in one system broke the other
-- **Security risks** - Easy to accidentally leak private data during sync
-- **Integration friction** - All-or-nothing approach, couldn't pick individual features
-- **Maintenance burden** - Manual work to keep 747,211 interconnected pieces aligned
+**Related reading:**
+- [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) — The vision behind PAI
+- [AI's Predictable Path: 7 Components](https://danielmiessler.com/blog/ai-predictable-path-7-components-2024) — Visual walkthrough of where AI is heading
 
-**This was 2025 thinking.**
+---
 
-## 2026 Thinking: PAI Packs
+<div align="center">
 
-Instead of mirroring an entire system, PAI now provides **functionality packs** - self-contained bundles with everything your AI needs to implement a specific capability:
+# PAI v1.0: Functionality Packs
+
+</div>
+
+**PAI provides functionality packs** - self-contained bundles with everything your AI needs to implement a specific capability:
 
 - **The problem** being solved
 - **The solution** and how it works
@@ -325,18 +331,7 @@ The code itself is platform-independent (TypeScript, Python, Bash). Integration 
 
 ---
 
-## 💡 Why This Approach?
-
-### What Changed from Old PAI
-
-| Old PAI (Mirror) | New PAI (Packs) |
-|------------------|--------------------|
-| Mirrored entire system | Self-contained functionality bundles |
-| Broke constantly | Stable, versioned releases |
-| All-or-nothing | Pick what you need |
-| Manual synchronization | AI-assisted installation |
-| Security risks | Each pack reviewed |
-| Platform-locked | Platform-agnostic |
+## 💡 Why Packs?
 
 ### The Philosophy
 
@@ -409,12 +404,7 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 | Document | Description |
 |----------|-------------|
 | [PACKS.md](PACKS.md) | Complete pack system documentation |
-| [SKILL_PACKAGE_TEMPLATE.md](SKILL_PACKAGE_TEMPLATE.md) | Template for creating skill packs |
-| [FEATURE_PACKAGE_TEMPLATE.md](FEATURE_PACKAGE_TEMPLATE.md) | Template for creating feature packs |
-| [MIGRATION_TO_PACKS.md](MIGRATION_TO_PACKS.md) | Migration guide from old mirror system |
 | [SECURITY.md](SECURITY.md) | Security policies and best practices |
-
-**Previous documentation** (pre-1.0 mirror system) is in [Docs/Archive/](Docs/Archive/).
 
 ---
 
@@ -463,8 +453,7 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 - (List will be populated as packs are submitted)
 
 **Special thanks:**
-- All early PAI users who provided feedback on the mirror system
-- Contributors who helped identify pain points
+- All early PAI users who provided feedback
 - The Claude Code team for building an incredible platform
 
 ---
