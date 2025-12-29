@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="kai.png" alt="Kai Bundle" width="256">
+  <img src="kai.png" alt="PAI (Kai) Bundle" width="256">
 </p>
 
-# Kai Bundle
+# PAI (Kai) Bundle
 
 > **FOR AI AGENTS:** Install each pack listed below by reading its file and following the installation instructions.
 
-The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production Kai system.
+The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production Kai system. "Kai" is Daniel's personal AI; this bundle packages his infrastructure for others to use.
 
 ---
 
 ## What You Get
 
-When fully installed, the Kai Bundle gives you an AI system that:
+When fully installed, the PAI (Kai) Bundle gives you an AI system that:
 
 - **Remembers everything** - Every decision, learning, and session captured automatically
 - **Protects you** - Security hooks blocking prompt injection and dangerous operations
@@ -22,13 +22,37 @@ When fully installed, the Kai Bundle gives you an AI system that:
 
 ---
 
-## Packs
+## Installation Order (CRITICAL)
 
-| # | Pack | Purpose |
-|---|------|---------|
-| 1 | [kai-history-system](../../Packs/kai-history-system.md) | Automatic memory - captures all work, decisions, learnings |
+**Install packs in this exact order** - each depends on the previous:
 
-*More packs added as they're extracted from the Kai system.*
+| # | Pack | Purpose | Dependencies |
+|---|------|---------|--------------|
+| 1 | [kai-hook-system](../../Packs/kai-hook-system.md) | Event-driven automation | None |
+| 2 | [kai-history-system](../../Packs/kai-history-system.md) | Memory and capture | Hooks |
+| 3 | [kai-skill-system](../../Packs/kai-skill-system.md) | Capability routing | Hooks, History |
+| 4 | [kai-voice-system](../../Packs/kai-voice-system.md) | Voice notifications | Hooks, Skills |
+| 5 | [kai-da-identity](../../Packs/kai-da-identity.md) | Personality layer | All above |
+
+### Why Order Matters
+
+- **Hooks** are the foundation - they enable all event-driven automation
+- **History** uses hooks to capture events and context
+- **Skills** use hooks for invocation and history for logging
+- **Voice** uses hooks for completion events and integrates with skills
+- **Identity** is the CORE skill that ties everything together
+
+### Pack Availability
+
+| Pack | Status |
+|------|--------|
+| kai-hook-system | Coming Soon |
+| kai-history-system | **Available** |
+| kai-skill-system | **Available** |
+| kai-voice-system | Coming Soon |
+| kai-da-identity | Coming Soon |
+
+*Install available packs first. Others will be added as they're extracted from the Kai system.*
 
 ---
 
@@ -39,18 +63,43 @@ When fully installed, the Kai Bundle gives you an AI system that:
 - [Bun](https://bun.sh): `curl -fsSL https://bun.sh/install | bash`
 - [Claude Code](https://claude.com/claude-code) installed
 
-### Install
+### Install (AI-Assisted)
+
+For each available pack in order:
 
 ```
-Give your AI: ~/Projects/PAI/Packs/kai-history-system.md
-Say: "Install this pack into my system"
+1. Give your AI the pack file
+2. Say: "Install this pack into my system"
+3. Verify installation before proceeding to next pack
 ```
 
-### Verify
+**Current installation sequence:**
 
 ```bash
-ls ~/.config/pai/history/
-# Should show: sessions, learnings, research, decisions, execution, raw-outputs
+# Step 1: History System (available)
+Give AI: ~/Projects/PAI/Packs/kai-history-system.md
+# Verify: ls ~/.config/pai/History/
+
+# Step 2: Skill System (available)
+Give AI: ~/Projects/PAI/Packs/kai-skill-system.md
+# Verify: ls ~/.config/pai/Skills/ && bun run ~/.config/pai/Tools/SkillSearch.ts --list
+```
+
+### Verify Bundle
+
+After installing available packs:
+
+```bash
+# Check History
+ls ~/.config/pai/History/
+# Should show: Sessions/, Learnings/, Research/, Decisions/
+
+# Check Skills
+ls ~/.config/pai/Skills/
+# Should show: CORE/, CreateSkill/, skill-index.json
+
+# Search capabilities
+bun run ~/.config/pai/Tools/SkillSearch.ts --list
 ```
 
 ---

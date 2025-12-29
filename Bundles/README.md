@@ -24,7 +24,7 @@ Bundles can be organized around different purposes:
 
 | Bundle Type | Description | Example |
 |-------------|-------------|---------|
-| **Creator Bundle** | All packs from a specific creator | "Kai Bundle" - Daniel Miessler's complete system |
+| **Creator Bundle** | All packs from a specific creator | "PAI (Kai) Bundle" - Daniel Miessler's complete system |
 | **Functionality Bundle** | Packs that serve a specific purpose | "Research Bundle" - tools for investigation |
 | **Domain Bundle** | Packs for a specific field | "Security Bundle" - security-focused tools |
 | **Starter Bundle** | Minimal set to get started | "Kai Lite" - essential packs only |
@@ -44,7 +44,7 @@ While you can install packs individually, bundles provide:
 
 | Bundle | Description | Tier | Status |
 |--------|-------------|------|--------|
-| [Kai](Kai/) | The official PAI bundle - complete personal AI infrastructure | Complete | Active |
+| [PAI (Kai)](Kai/) | The official PAI bundle - complete personal AI infrastructure | Complete | Active |
 
 *More bundles coming soon*
 
@@ -246,7 +246,7 @@ Bundles reference packs by name. When a pack is updated, reinstall it to get the
 
 - [PAI Repository](https://github.com/danielmiessler/PAI)
 - [Pack System](../PACKS.md)
-- [Kai Bundle](Kai/) - Reference implementation
+- [PAI (Kai) Bundle](Kai/) - Reference implementation
 
 ---
 
