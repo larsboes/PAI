@@ -1,13 +1,16 @@
 ---
 name: Kai Voice System
-pack-id: danielmiessler-kai-voice-system-core-v1.0.0
-version: 1.0.0
+pack-id: danielmiessler-kai-voice-system-core-v1.1.0
+version: 1.1.0
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
 purpose-type: [notifications, accessibility, automation]
 platform: claude-code
-dependencies: [kai-hook-system]
+dependencies:
+  - kai-hook-system (required) - Hooks trigger voice notifications
+  - kai-skill-system (required) - Skills define notification patterns
+  - kai-identity (required) - Agent personalities drive voice selection
 keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, personalities, accessibility]
 ---
 
@@ -116,16 +119,17 @@ $PAI_DIR/
 
 **Agent Voice Mapping:**
 
-| Agent Type | Voice Archetype | Speaking Rate | Stability |
-|------------|-----------------|---------------|-----------|
-| Main (Kai) | Enthusiast | 235 wpm | 0.38 |
-| Intern | High-energy | 270 wpm | 0.30 |
-| Engineer | Wise leader | 212 wpm | 0.72 |
-| Architect | Academic | 205 wpm | 0.75 |
-| Researcher | Analyst | 229-240 wpm | 0.55-0.64 |
-| Designer | Perfectionist | 226 wpm | 0.52 |
-| Artist | Creative | 215 wpm | 0.20 |
-| Pentester | Chaotic | 260 wpm | 0.18 |
+| Agent Type | Voice ID | Voice Name | Speaking Rate | Stability |
+|------------|----------|------------|---------------|-----------|
+| PAI (Main) | `P9S3WZL3JE8uQqgYH5B7` | Your DA | 235 wpm | 0.38 |
+| Intern | `d3MFdIuCfbAIwiu7jC4a` | Dev Patel | 270 wpm | 0.30 |
+| Engineer | `iLVmqjzCGGvqtMCk6vVQ` | Marcus Webb | 212 wpm | 0.72 |
+| Architect | `muZKMsIDGYtIkjjiUS82` | Serena Blackwood | 205 wpm | 0.75 |
+| Researcher | `AXdMgz6evoL7OPd7eU12` | Ava Sterling | 229 wpm | 0.64 |
+| Designer | `ZF6FPAbjXT4488VcRRnw` | Aditi Sharma | 226 wpm | 0.52 |
+| Artist | `cfc7wVYq4gw4OpcEEAom` | Priya Desai | 215 wpm | 0.20 |
+| Pentester | `xvHLFjaUEpx4BOf7EiDd` | Rook Blackburn | 260 wpm | 0.18 |
+| Writer | `gfRt6Z3Z8aTbpLfexQ7N` | Emma Hartley | 230 wpm | 0.48 |
 
 ## Why This Is Different
 
@@ -317,9 +321,170 @@ The difference: Basic TTS treats AI output as text to read. The voice system tre
 ### Prerequisites
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
-- **ElevenLabs API key**: Sign up at [elevenlabs.io](https://elevenlabs.io)
-- **kai-hook-system Pack**: Install foundation hooks first
-- **Voice notification server**: Local HTTP server at port 8888
+- **macOS**: This pack uses `afplay` for audio playback (macOS built-in). Linux users need to modify the audio playback section.
+- **ElevenLabs account**: Sign up at [elevenlabs.io](https://elevenlabs.io) - see Step 8 for detailed setup
+- **Required PAI Packs** (install these first):
+  - `kai-hook-system` - Foundation hook infrastructure
+  - `kai-skill-system` - Skill routing and management
+  - `kai-identity` - Agent personality definitions
+
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, analyze the current system state to verify dependencies and detect conflicts.
+
+#### Step 0.1: Verify Required Dependencies
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+echo "=== Checking Required Dependencies ==="
+
+# Check hook system (REQUIRED)
+if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
+  echo "✓ kai-hook-system is installed"
+else
+  echo "❌ kai-hook-system NOT installed - REQUIRED! Install it first."
+fi
+
+# Check skill system (REQUIRED)
+if [ -d "$PAI_CHECK/Skills" ]; then
+  echo "✓ kai-skill-system is installed"
+else
+  echo "❌ kai-skill-system NOT installed - REQUIRED! Install it first."
+fi
+
+# Check identity/CORE skill (REQUIRED for personality routing)
+if [ -f "$PAI_CHECK/Skills/CORE/SKILL.md" ]; then
+  echo "✓ kai-identity (CORE skill) is installed"
+else
+  echo "❌ kai-identity NOT installed - REQUIRED for voice personality routing!"
+fi
+
+# Check for ElevenLabs API key
+if [ -f "$HOME/.env" ] && grep -q "ELEVENLABS_API_KEY" "$HOME/.env"; then
+  echo "✓ ELEVENLABS_API_KEY found in ~/.env"
+else
+  echo "⚠️  ELEVENLABS_API_KEY not found - you'll need to add it"
+fi
+```
+
+#### Step 0.2: Detect Existing Voice System
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+echo ""
+echo "=== Checking for Existing Voice System ==="
+
+# Check for existing voice directory
+if [ -d "$PAI_CHECK/voice" ]; then
+  echo "⚠️  Voice directory EXISTS at: $PAI_CHECK/voice"
+  ls -la "$PAI_CHECK/voice" 2>/dev/null
+else
+  echo "✓ No existing voice directory (clean install)"
+fi
+
+# Check for voice server
+if [ -f "$PAI_CHECK/voice/server.ts" ]; then
+  echo "⚠️  Voice server already exists"
+fi
+
+# Check for running voice server
+if lsof -i :8888 > /dev/null 2>&1; then
+  echo "⚠️  Something is already running on port 8888 (voice server port)"
+  lsof -i :8888 | head -3
+else
+  echo "✓ Port 8888 is available"
+fi
+
+# Check for LaunchAgent (macOS)
+if [ -f "$HOME/Library/LaunchAgents/com.pai.voice-server.plist" ]; then
+  echo "⚠️  Voice server LaunchAgent already exists"
+fi
+
+# Check for stop-hook integration
+if [ -f "$PAI_CHECK/hooks/stop-hook.ts" ]; then
+  if grep -q "voice" "$PAI_CHECK/hooks/stop-hook.ts" 2>/dev/null; then
+    echo "⚠️  stop-hook.ts already has voice integration"
+  else
+    echo "ℹ️  stop-hook.ts exists but no voice integration (will be updated)"
+  fi
+fi
+```
+
+#### Step 0.3: Conflict Resolution Matrix
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No voice/, dependencies met | Proceed normally with Step 1 |
+| **Missing Dependencies** | Hook/skill/identity missing | Install required packs first |
+| **Voice Directory Exists** | Files in voice/ | Backup, then replace with new version |
+| **Server Running on 8888** | Port in use | Stop existing server first |
+| **LaunchAgent Exists** | Auto-start configured | Unload old agent before installing new |
+| **stop-hook Has Voice** | Already integrated | Compare versions, may need merge |
+
+#### Step 0.4: Stop Existing Voice Server (If Running)
+
+```bash
+# Stop any running voice server
+if lsof -i :8888 > /dev/null 2>&1; then
+  echo "Stopping existing voice server on port 8888..."
+  pkill -f "voice/server.ts" 2>/dev/null || true
+  sleep 1
+fi
+
+# Unload LaunchAgent if exists (macOS)
+if [ -f "$HOME/Library/LaunchAgents/com.pai.voice-server.plist" ]; then
+  launchctl unload "$HOME/Library/LaunchAgents/com.pai.voice-server.plist" 2>/dev/null
+  echo "✓ Unloaded existing LaunchAgent"
+fi
+```
+
+#### Step 0.5: Backup Existing Voice System (If Needed)
+
+```bash
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+if [ -d "$PAI_CHECK/voice" ]; then
+  mkdir -p "$BACKUP_DIR"
+  cp -r "$PAI_CHECK/voice" "$BACKUP_DIR/voice"
+  echo "✓ Backed up voice directory to $BACKUP_DIR/voice"
+fi
+
+if [ -f "$HOME/Library/LaunchAgents/com.pai.voice-server.plist" ]; then
+  mkdir -p "$BACKUP_DIR/LaunchAgents"
+  cp "$HOME/Library/LaunchAgents/com.pai.voice-server.plist" "$BACKUP_DIR/LaunchAgents/"
+  echo "✓ Backed up LaunchAgent"
+fi
+```
+
+**After completing system analysis, proceed to Step 1.**
+
+---
+
+### Why ElevenLabs (and Alternatives)
+
+This Pack uses **ElevenLabs** for text-to-speech because they offer exceptionally high-quality, natural-sounding voices with emotional expressiveness. The voices genuinely sound human—not robotic—which makes the difference between a system you want to hear and one you mute.
+
+**ElevenLabs is a paid service.** Pricing varies by usage tier, but expect to pay for the quality.
+
+**Alternatives exist** and this Pack's architecture supports them:
+
+| Alternative | Pros | Cons |
+|-------------|------|------|
+| **macOS `say` command** | Free, built-in, no API | Robotic, limited voices |
+| **Windows SAPI** | Free, built-in | Limited quality |
+| **Coqui TTS** | Free, open source, local | Requires setup, variable quality |
+| **Piper TTS** | Free, fast, local | Limited voice options |
+| **OpenAI TTS** | Good quality, simple API | Paid, less expressive than ElevenLabs |
+| **Google Cloud TTS** | Good quality, many languages | Paid, requires setup |
+
+**To use an alternative:** Modify the voice server (`server.ts`) to call a different TTS API. The hook architecture remains the same—only the final TTS call changes.
+
+The voice IDs in this Pack are ElevenLabs-specific. If you switch providers, you'll need to map agent types to your provider's voice identifiers.
 
 ### Step 1: Create Directory Structure
 
@@ -344,18 +509,18 @@ Create the voice personality configuration file:
   "default_rate": 175,
   "notification_server": "http://localhost:8888/notify",
   "voices": {
-    "kai": {
-      "voice_id": "${ELEVENLABS_VOICE_KAI}",
-      "name": "Kai",
+    "pai": {
+      "voice_id": "P9S3WZL3JE8uQqgYH5B7",
+      "name": "PAI",
       "rate_wpm": 235,
       "stability": 0.38,
       "similarity_boost": 0.70,
       "archetype": "enthusiast",
-      "description": "Expressive eager buddy: genuinely excited to help"
+      "description": "Your personal AI: expressive, helpful, genuinely invested in your success"
     },
     "engineer": {
-      "voice_id": "${ELEVENLABS_VOICE_ENGINEER}",
-      "name": "Engineer",
+      "voice_id": "iLVmqjzCGGvqtMCk6vVQ",
+      "name": "Marcus Webb",
       "rate_wpm": 212,
       "stability": 0.72,
       "similarity_boost": 0.88,
@@ -363,8 +528,8 @@ Create the voice personality configuration file:
       "description": "Battle-scarred leader: thinks in years not sprints"
     },
     "architect": {
-      "voice_id": "${ELEVENLABS_VOICE_ARCHITECT}",
-      "name": "Architect",
+      "voice_id": "muZKMsIDGYtIkjjiUS82",
+      "name": "Serena Blackwood",
       "rate_wpm": 205,
       "stability": 0.75,
       "similarity_boost": 0.88,
@@ -372,8 +537,8 @@ Create the voice personality configuration file:
       "description": "Academic wisdom: sees timeless patterns vs trends"
     },
     "intern": {
-      "voice_id": "${ELEVENLABS_VOICE_INTERN}",
-      "name": "Intern",
+      "voice_id": "d3MFdIuCfbAIwiu7jC4a",
+      "name": "Dev Patel",
       "rate_wpm": 270,
       "stability": 0.30,
       "similarity_boost": 0.65,
@@ -381,8 +546,8 @@ Create the voice personality configuration file:
       "description": "Brilliant overachiever: brain races ahead"
     },
     "designer": {
-      "voice_id": "${ELEVENLABS_VOICE_DESIGNER}",
-      "name": "Designer",
+      "voice_id": "ZF6FPAbjXT4488VcRRnw",
+      "name": "Aditi Sharma",
       "rate_wpm": 226,
       "stability": 0.52,
       "similarity_boost": 0.84,
@@ -390,8 +555,8 @@ Create the voice personality configuration file:
       "description": "Design school perfectionist: exacting standards"
     },
     "researcher": {
-      "voice_id": "${ELEVENLABS_VOICE_RESEARCHER}",
-      "name": "Researcher",
+      "voice_id": "AXdMgz6evoL7OPd7eU12",
+      "name": "Ava Sterling",
       "rate_wpm": 229,
       "stability": 0.64,
       "similarity_boost": 0.90,
@@ -399,8 +564,8 @@ Create the voice personality configuration file:
       "description": "Strategic thinker: sees three moves ahead"
     },
     "pentester": {
-      "voice_id": "${ELEVENLABS_VOICE_PENTESTER}",
-      "name": "Pentester",
+      "voice_id": "xvHLFjaUEpx4BOf7EiDd",
+      "name": "Rook Blackburn",
       "rate_wpm": 260,
       "stability": 0.18,
       "similarity_boost": 0.85,
@@ -408,16 +573,25 @@ Create the voice personality configuration file:
       "description": "Reformed grey hat: giddy finding vulnerabilities"
     },
     "artist": {
-      "voice_id": "${ELEVENLABS_VOICE_ARTIST}",
-      "name": "Artist",
+      "voice_id": "cfc7wVYq4gw4OpcEEAom",
+      "name": "Priya Desai",
       "rate_wpm": 215,
       "stability": 0.20,
       "similarity_boost": 0.52,
       "archetype": "enthusiast",
       "description": "Aesthetic anarchist: follows invisible beauty threads"
     },
+    "writer": {
+      "voice_id": "gfRt6Z3Z8aTbpLfexQ7N",
+      "name": "Emma Hartley",
+      "rate_wpm": 230,
+      "stability": 0.48,
+      "similarity_boost": 0.78,
+      "archetype": "storyteller",
+      "description": "Technical storyteller: translates complexity into narrative"
+    },
     "default": {
-      "voice_id": "${ELEVENLABS_VOICE_DEFAULT}",
+      "voice_id": "P9S3WZL3JE8uQqgYH5B7",
       "name": "Default",
       "rate_wpm": 220,
       "stability": 0.50,
@@ -425,11 +599,55 @@ Create the voice personality configuration file:
       "archetype": "professional",
       "description": "Balanced professional delivery"
     }
+  },
+  "available_voices": {
+    "description": "Additional ElevenLabs voices for custom agents or personalization",
+    "voices": [
+      {
+        "voice_id": "UGTtbzgh3HObxRjWaSpr",
+        "gender": "male",
+        "name": "Extra Male 1",
+        "archetype": "professional"
+      },
+      {
+        "voice_id": "HKFOb9iktHA85uKXydRT",
+        "gender": "male",
+        "name": "Extra Male 2",
+        "archetype": "professional"
+      },
+      {
+        "voice_id": "wWWn96OtTHu1sn8SRGEr",
+        "gender": "male",
+        "name": "Extra Male 3",
+        "archetype": "professional"
+      },
+      {
+        "voice_id": "EST9Ui6982FZPSi7gCHi",
+        "gender": "female",
+        "name": "Extra Female 1",
+        "archetype": "professional"
+      },
+      {
+        "voice_id": "XhNlP8uwiH6XZSFnH1yL",
+        "gender": "female",
+        "name": "Extra Female 2",
+        "archetype": "professional"
+      },
+      {
+        "voice_id": "aRlmTYIQo6Tlg5SlulGC",
+        "gender": "female",
+        "name": "Extra Female 3",
+        "archetype": "professional"
+      }
+    ]
   }
 }
 ```
 
-**Note:** Replace `${ELEVENLABS_VOICE_*}` with your actual ElevenLabs voice IDs, or set them as environment variables.
+**Note:** All voice IDs are from ElevenLabs' voice library. You can:
+- Replace with your own cloned voices
+- Use the `available_voices` for custom agent types
+- Switch to a different TTS provider (see "Why ElevenLabs" section)
 
 ---
 
@@ -458,8 +676,8 @@ export interface ProsodyConfig {
  * Agent personality configurations
  */
 const AGENT_PERSONALITIES: Record<string, AgentPersonality> = {
-  'kai': {
-    name: 'Kai',
+  'pai': {
+    name: 'PAI',
     rate_wpm: 235,
     stability: 0.38,
     archetype: 'professional',
@@ -687,7 +905,7 @@ export function enhanceProsody(
   let enhanced = message;
 
   const personality = AGENT_PERSONALITIES[agentType.toLowerCase()] ||
-                     AGENT_PERSONALITIES['kai'];
+                     AGENT_PERSONALITIES['pai'];
 
   // 1. Context Analysis - Detect emotional context
   if (config.contextAnalysis && config.emotionalMarkers) {
@@ -831,7 +1049,7 @@ function contentToText(content: unknown): string {
 /**
  * Extract completion message with prosody enhancement
  */
-function extractCompletion(text: string, agentType: string = 'kai'): string {
+function extractCompletion(text: string, agentType: string = 'pai'): string {
   // Remove system-reminder tags
   text = text.replace(/<system-reminder>[\s\S]*?<\/system-reminder>/g, '');
 
@@ -948,7 +1166,7 @@ async function main() {
 
   // Extract completion from transcript
   let completion = 'Completed task';
-  const agentType = 'kai'; // Main agent is always Kai
+  const agentType = 'pai'; // Main agent is your PAI
 
   if (hookInput?.transcript_path) {
     const lastMessage = getLastAssistantMessage(hookInput.transcript_path);
@@ -962,7 +1180,7 @@ async function main() {
 
   // Send voice notification
   const payload: NotificationPayload = {
-    title: 'Kai',
+    title: 'PAI',
     message: completion,
     voice_enabled: true,
     priority: 'normal',
@@ -1281,9 +1499,9 @@ export PAI_VOICE_SERVER="http://localhost:8888/notify"
 
 # ElevenLabs voice IDs (get these from your ElevenLabs account)
 export ELEVENLABS_API_KEY="your-api-key"
-export ELEVENLABS_VOICE_KAI="your-kai-voice-id"
-export ELEVENLABS_VOICE_DEFAULT="your-default-voice-id"
-# Add more as needed for other agent types
+export ELEVENLABS_VOICE_PAI="P9S3WZL3JE8uQqgYH5B7"
+export ELEVENLABS_VOICE_DEFAULT="P9S3WZL3JE8uQqgYH5B7"
+# The PAI voice ID is used as default - customize as needed
 
 # Reload
 source ~/.zshrc
@@ -1291,85 +1509,1107 @@ source ~/.zshrc
 
 ---
 
-### Step 8: Voice Server (Required Dependency)
+### Step 8: Set Up ElevenLabs Account
 
-The voice system requires a notification server at port 8888. This server:
-- Receives notification payloads via HTTP POST
-- Calls ElevenLabs API for TTS
-- Plays audio output
+Before creating the voice server, you need an ElevenLabs account and API key.
 
-**Basic server pattern:**
+#### 8.1: Create ElevenLabs Account
 
-```typescript
-// Example voice server structure (implement your own)
-Bun.serve({
-  port: 8888,
-  async fetch(req) {
-    if (req.method === 'POST' && req.url.includes('/notify')) {
-      const payload = await req.json();
+1. **Sign up** at [elevenlabs.io](https://elevenlabs.io)
+2. **Choose a plan**:
+   - **Free tier**: 10,000 characters/month - good for testing
+   - **Starter** ($5/month): 30,000 characters - light personal use
+   - **Creator** ($22/month): 100,000 characters - recommended for regular use
+3. **Verify your email** to activate the account
 
-      // Call ElevenLabs API
-      const audioResponse = await fetch(
-        `https://api.elevenlabs.io/v1/text-to-speech/${payload.voice_id}`,
-        {
-          method: 'POST',
-          headers: {
-            'xi-api-key': process.env.ELEVENLABS_API_KEY,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            text: payload.message,
-            voice_settings: {
-              stability: 0.5,
-              similarity_boost: 0.75
-            }
-          })
-        }
-      );
+#### 8.2: Get Your API Key
 
-      // Play audio (platform-specific)
-      const audioBuffer = await audioResponse.arrayBuffer();
-      // ... play audio using afplay (macOS), aplay (Linux), etc.
+1. Log in to [elevenlabs.io](https://elevenlabs.io)
+2. Click your **profile icon** (top right)
+3. Select **"Profile + API key"**
+4. Click **"Create API Key"** or copy existing key
+5. **Save this key** - you'll need it in Step 10
 
-      return new Response('OK');
-    }
+#### 8.3: Choose Your Voice
 
-    return new Response('Not found', { status: 404 });
-  }
-});
+1. Go to **"Voices"** in the left sidebar
+2. Browse the **Voice Library** or use default voices
+3. **Note the Voice ID** for your preferred voice:
+   - Click on a voice
+   - The Voice ID is in the URL: `elevenlabs.io/voice-lab/[VOICE_ID]`
+   - Or find it in voice settings
+
+**Recommended starter voice:** `s3TPKV1kjDlVtZbl4Ksh` (Jamie - UK Male, expressive)
+
+#### 8.4: Test Your API Key
+
+```bash
+# Quick test - should return audio (save as test.mp3)
+curl -X POST "https://api.elevenlabs.io/v1/text-to-speech/s3TPKV1kjDlVtZbl4Ksh" \
+  -H "xi-api-key: YOUR_API_KEY_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello, this is a test of the voice system.", "model_id": "eleven_turbo_v2_5"}' \
+  --output test.mp3
+
+# Play the test audio (macOS)
+afplay test.mp3
+
+# Clean up
+rm test.mp3
 ```
 
-**Note:** A full voice server implementation is beyond this Pack's scope. You can:
-- Build your own using the pattern above
-- Use an existing notification server
-- Adapt to your preferred TTS provider
+If you hear "Hello, this is a test of the voice system" - your API key works!
 
 ---
 
-### Step 9: Verify Installation
+### Step 9: Create Voice Server
+
+Create the complete voice server that handles notifications and TTS:
+
+```typescript
+#!/usr/bin/env bun
+// $PAI_DIR/voice-server/server.ts
+// Voice notification server using ElevenLabs TTS
+
+import { serve } from "bun";
+import { spawn } from "child_process";
+import { homedir } from "os";
+import { join } from "path";
+import { existsSync, readFileSync } from "fs";
+
+// Load .env from user home directory
+const envPath = join(homedir(), '.env');
+if (existsSync(envPath)) {
+  const envContent = await Bun.file(envPath).text();
+  envContent.split('\n').forEach(line => {
+    const [key, value] = line.split('=');
+    if (key && value && !key.startsWith('#')) {
+      process.env[key.trim()] = value.trim();
+    }
+  });
+}
+
+const PORT = parseInt(process.env.PAI_VOICE_PORT || "8888");
+const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+
+if (!ELEVENLABS_API_KEY) {
+  console.error('⚠️  ELEVENLABS_API_KEY not found in ~/.env');
+  console.error('Add: ELEVENLABS_API_KEY=your_key_here');
+}
+
+// Default voice ID (customize to your preference)
+const DEFAULT_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || "s3TPKV1kjDlVtZbl4Ksh";
+
+// Voice configuration types
+interface VoiceConfig {
+  voice_id: string;
+  voice_name: string;
+  stability: number;
+  similarity_boost: number;
+  description: string;
+}
+
+interface VoicesConfig {
+  default_volume?: number;
+  voices: Record<string, VoiceConfig>;
+}
+
+// 13 Emotional Presets - Prosody System
+const EMOTIONAL_PRESETS: Record<string, { stability: number; similarity_boost: number }> = {
+  'excited': { stability: 0.7, similarity_boost: 0.9 },
+  'celebration': { stability: 0.65, similarity_boost: 0.85 },
+  'insight': { stability: 0.55, similarity_boost: 0.8 },
+  'creative': { stability: 0.5, similarity_boost: 0.75 },
+  'success': { stability: 0.6, similarity_boost: 0.8 },
+  'progress': { stability: 0.55, similarity_boost: 0.75 },
+  'investigating': { stability: 0.6, similarity_boost: 0.85 },
+  'debugging': { stability: 0.55, similarity_boost: 0.8 },
+  'learning': { stability: 0.5, similarity_boost: 0.75 },
+  'pondering': { stability: 0.65, similarity_boost: 0.8 },
+  'focused': { stability: 0.7, similarity_boost: 0.85 },
+  'caution': { stability: 0.4, similarity_boost: 0.6 },
+  'urgent': { stability: 0.3, similarity_boost: 0.9 },
+};
+
+// Load voice configuration
+let voicesConfig: VoicesConfig | null = null;
+try {
+  const voicesPath = join(import.meta.dir, '..', 'config', 'voice-personalities.json');
+  if (existsSync(voicesPath)) {
+    const voicesContent = readFileSync(voicesPath, 'utf-8');
+    voicesConfig = JSON.parse(voicesContent);
+    console.log('✅ Loaded voice personalities from config');
+  }
+} catch (error) {
+  console.warn('⚠️  Failed to load voice personalities, using defaults');
+}
+
+// Extract emotional marker from message
+function extractEmotionalMarker(message: string): { cleaned: string; emotion?: string } {
+  const emojiToEmotion: Record<string, string> = {
+    '💥': 'excited', '🎉': 'celebration', '💡': 'insight', '🎨': 'creative',
+    '✨': 'success', '📈': 'progress', '🔍': 'investigating', '🐛': 'debugging',
+    '📚': 'learning', '🤔': 'pondering', '🎯': 'focused', '⚠️': 'caution', '🚨': 'urgent'
+  };
+
+  const emotionMatch = message.match(/\[(💥|🎉|💡|🎨|✨|📈|🔍|🐛|📚|🤔|🎯|⚠️|🚨)\s+(\w+)\]/);
+  if (emotionMatch) {
+    const emoji = emotionMatch[1];
+    const emotionName = emotionMatch[2].toLowerCase();
+    if (emojiToEmotion[emoji] === emotionName) {
+      return {
+        cleaned: message.replace(emotionMatch[0], '').trim(),
+        emotion: emotionName
+      };
+    }
+  }
+  return { cleaned: message };
+}
+
+// Get voice configuration by voice ID or agent name
+function getVoiceConfig(identifier: string): VoiceConfig | null {
+  if (!voicesConfig) return null;
+  if (voicesConfig.voices[identifier]) return voicesConfig.voices[identifier];
+  for (const config of Object.values(voicesConfig.voices)) {
+    if (config.voice_id === identifier) return config;
+  }
+  return null;
+}
+
+// Sanitize input for TTS - allow natural speech, block dangerous characters
+function sanitizeForSpeech(input: string): string {
+  return input
+    .replace(/<script/gi, '')
+    .replace(/\.\.\//g, '')
+    .replace(/[;&|><`$\\]/g, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/#{1,6}\s+/g, '')
+    .trim()
+    .substring(0, 500);
+}
+
+// Validate input
+function validateInput(input: any): { valid: boolean; error?: string; sanitized?: string } {
+  if (!input || typeof input !== 'string') {
+    return { valid: false, error: 'Invalid input type' };
+  }
+  if (input.length > 500) {
+    return { valid: false, error: 'Message too long (max 500 characters)' };
+  }
+  const sanitized = sanitizeForSpeech(input);
+  if (!sanitized || sanitized.length === 0) {
+    return { valid: false, error: 'Message contains no valid content after sanitization' };
+  }
+  return { valid: true, sanitized };
+}
+
+// Generate speech using ElevenLabs API
+async function generateSpeech(
+  text: string,
+  voiceId: string,
+  voiceSettings?: { stability: number; similarity_boost: number }
+): Promise<ArrayBuffer> {
+  if (!ELEVENLABS_API_KEY) {
+    throw new Error('ElevenLabs API key not configured');
+  }
+
+  const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+  const settings = voiceSettings || { stability: 0.5, similarity_boost: 0.5 };
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'audio/mpeg',
+      'Content-Type': 'application/json',
+      'xi-api-key': ELEVENLABS_API_KEY,
+    },
+    body: JSON.stringify({
+      text: text,
+      model_id: 'eleven_turbo_v2_5',
+      voice_settings: settings,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`ElevenLabs API error: ${response.status} - ${errorText}`);
+  }
+
+  return await response.arrayBuffer();
+}
+
+// Get volume setting from config (defaults to 0.8 = 80%)
+function getVolumeSetting(): number {
+  if (voicesConfig && typeof voicesConfig.default_volume === 'number') {
+    const vol = voicesConfig.default_volume;
+    if (vol >= 0 && vol <= 1) return vol;
+  }
+  return 0.8;
+}
+
+// Play audio using afplay (macOS)
+async function playAudio(audioBuffer: ArrayBuffer): Promise<void> {
+  const tempFile = `/tmp/voice-${Date.now()}.mp3`;
+  await Bun.write(tempFile, audioBuffer);
+  const volume = getVolumeSetting();
+
+  return new Promise((resolve, reject) => {
+    const proc = spawn('/usr/bin/afplay', ['-v', volume.toString(), tempFile]);
+
+    proc.on('error', (error) => {
+      console.error('Error playing audio:', error);
+      reject(error);
+    });
+
+    proc.on('exit', (code) => {
+      spawn('/bin/rm', [tempFile]); // Clean up temp file
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`afplay exited with code ${code}`));
+      }
+    });
+  });
+}
+
+// Escape for AppleScript notifications
+function escapeForAppleScript(input: string): string {
+  return input.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+// Send macOS notification with voice
+async function sendNotification(
+  title: string,
+  message: string,
+  voiceEnabled = true,
+  voiceId: string | null = null
+) {
+  const titleValidation = validateInput(title);
+  const messageValidation = validateInput(message);
+
+  if (!titleValidation.valid) throw new Error(`Invalid title: ${titleValidation.error}`);
+  if (!messageValidation.valid) throw new Error(`Invalid message: ${messageValidation.error}`);
+
+  const safeTitle = titleValidation.sanitized!;
+  let safeMessage = messageValidation.sanitized!;
+
+  // Extract emotional marker if present
+  const { cleaned, emotion } = extractEmotionalMarker(safeMessage);
+  safeMessage = cleaned;
+
+  // Generate and play voice using ElevenLabs
+  if (voiceEnabled && ELEVENLABS_API_KEY) {
+    try {
+      const voice = voiceId || DEFAULT_VOICE_ID;
+      const voiceConfig = getVoiceConfig(voice);
+
+      // Determine voice settings (priority: emotional > personality > defaults)
+      let voiceSettings = { stability: 0.5, similarity_boost: 0.5 };
+
+      if (emotion && EMOTIONAL_PRESETS[emotion]) {
+        voiceSettings = EMOTIONAL_PRESETS[emotion];
+        console.log(`🎭 Emotion: ${emotion}`);
+      } else if (voiceConfig) {
+        voiceSettings = {
+          stability: voiceConfig.stability,
+          similarity_boost: voiceConfig.similarity_boost
+        };
+        console.log(`👤 Personality: ${voiceConfig.description}`);
+      }
+
+      console.log(`🎙️  Generating speech (voice: ${voice}, stability: ${voiceSettings.stability})`);
+
+      const audioBuffer = await generateSpeech(safeMessage, voice, voiceSettings);
+      await playAudio(audioBuffer);
+    } catch (error) {
+      console.error("Failed to generate/play speech:", error);
+    }
+  }
+
+  // Display macOS notification
+  try {
+    const escapedTitle = escapeForAppleScript(safeTitle);
+    const escapedMessage = escapeForAppleScript(safeMessage);
+    const script = `display notification "${escapedMessage}" with title "${escapedTitle}" sound name ""`;
+    spawn('/usr/bin/osascript', ['-e', script]);
+  } catch (error) {
+    console.error("Notification display error:", error);
+  }
+}
+
+// Rate limiting
+const requestCounts = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT = 10;
+const RATE_WINDOW = 60000;
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = requestCounts.get(ip);
+
+  if (!record || now > record.resetTime) {
+    requestCounts.set(ip, { count: 1, resetTime: now + RATE_WINDOW });
+    return true;
+  }
+
+  if (record.count >= RATE_LIMIT) return false;
+  record.count++;
+  return true;
+}
+
+// Start HTTP server
+const server = serve({
+  port: PORT,
+  async fetch(req) {
+    const url = new URL(req.url);
+    const clientIp = req.headers.get('x-forwarded-for') || 'localhost';
+
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": "http://localhost",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    };
+
+    if (req.method === "OPTIONS") {
+      return new Response(null, { headers: corsHeaders, status: 204 });
+    }
+
+    if (!checkRateLimit(clientIp)) {
+      return new Response(
+        JSON.stringify({ status: "error", message: "Rate limit exceeded" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 429 }
+      );
+    }
+
+    // Main notification endpoint
+    if (url.pathname === "/notify" && req.method === "POST") {
+      try {
+        const data = await req.json();
+        const title = data.title || "PAI Notification";
+        const message = data.message || "Task completed";
+        const voiceEnabled = data.voice_enabled !== false;
+        const voiceId = data.voice_id || data.voice_name || null;
+
+        if (voiceId && typeof voiceId !== 'string') {
+          throw new Error('Invalid voice_id');
+        }
+
+        console.log(`📨 Notification: "${title}" - "${message.substring(0, 50)}..."`);
+
+        await sendNotification(title, message, voiceEnabled, voiceId);
+
+        return new Response(
+          JSON.stringify({ status: "success", message: "Notification sent" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+        );
+      } catch (error: any) {
+        console.error("Notification error:", error);
+        return new Response(
+          JSON.stringify({ status: "error", message: error.message || "Internal server error" }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: error.message?.includes('Invalid') ? 400 : 500 }
+        );
+      }
+    }
+
+    // Health check endpoint
+    if (url.pathname === "/health") {
+      return new Response(
+        JSON.stringify({
+          status: "healthy",
+          port: PORT,
+          voice_system: "ElevenLabs",
+          default_voice_id: DEFAULT_VOICE_ID,
+          api_key_configured: !!ELEVENLABS_API_KEY
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
+      );
+    }
+
+    return new Response("PAI Voice Server - POST to /notify", {
+      headers: corsHeaders,
+      status: 200
+    });
+  },
+});
+
+console.log(`🚀 Voice Server running on port ${PORT}`);
+console.log(`🎙️  Using ElevenLabs TTS (default voice: ${DEFAULT_VOICE_ID})`);
+console.log(`📡 POST to http://localhost:${PORT}/notify`);
+console.log(`🔒 Security: CORS restricted to localhost, rate limiting enabled`);
+console.log(`🔑 API Key: ${ELEVENLABS_API_KEY ? '✅ Configured' : '❌ Missing'}`);
+```
+
+---
+
+### Step 10: Create Server Management Scripts
+
+Create scripts to start, stop, and manage the voice server:
+
+#### 10.1: Create Directory Structure
 
 ```bash
-# 1. Check hook files exist
-ls -la $PAI_DIR/hooks/*voice*.ts
-# Should show: stop-hook-voice.ts, subagent-stop-hook-voice.ts
+mkdir -p $PAI_DIR/voice-server
+```
 
-# 2. Check prosody enhancer exists
+#### 10.2: Create Install Script
+
+```bash
+#!/bin/bash
+# $PAI_DIR/voice-server/install.sh
+# Installs the voice server as a macOS LaunchAgent
+
+set -e
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SERVICE_NAME="com.pai.voice-server"
+PLIST_PATH="$HOME/Library/LaunchAgents/${SERVICE_NAME}.plist"
+LOG_PATH="$HOME/Library/Logs/pai-voice-server.log"
+ENV_FILE="$HOME/.env"
+
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${BLUE}     PAI Voice Server Installation${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo
+
+# Check for Bun
+echo -e "${YELLOW}▶ Checking prerequisites...${NC}"
+if ! command -v bun &> /dev/null; then
+    echo -e "${RED}✗ Bun is not installed${NC}"
+    echo "  Install Bun first: curl -fsSL https://bun.sh/install | bash"
+    exit 1
+fi
+echo -e "${GREEN}✓ Bun is installed${NC}"
+
+# Check for existing installation
+if launchctl list | grep -q "$SERVICE_NAME" 2>/dev/null; then
+    echo -e "${YELLOW}⚠ Voice server is already installed${NC}"
+    read -p "Do you want to reinstall? (y/n): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${YELLOW}▶ Stopping existing service...${NC}"
+        launchctl unload "$PLIST_PATH" 2>/dev/null || true
+        echo -e "${GREEN}✓ Existing service stopped${NC}"
+    else
+        echo "Installation cancelled"
+        exit 0
+    fi
+fi
+
+# Check for ElevenLabs configuration
+echo -e "${YELLOW}▶ Checking ElevenLabs configuration...${NC}"
+if [ -f "$ENV_FILE" ] && grep -q "ELEVENLABS_API_KEY=" "$ENV_FILE"; then
+    API_KEY=$(grep "ELEVENLABS_API_KEY=" "$ENV_FILE" | cut -d'=' -f2)
+    if [ "$API_KEY" != "your_api_key_here" ] && [ -n "$API_KEY" ]; then
+        echo -e "${GREEN}✓ ElevenLabs API key configured${NC}"
+        ELEVENLABS_CONFIGURED=true
+    else
+        echo -e "${YELLOW}⚠ ElevenLabs API key not configured${NC}"
+        ELEVENLABS_CONFIGURED=false
+    fi
+else
+    echo -e "${YELLOW}⚠ No ElevenLabs configuration found${NC}"
+    ELEVENLABS_CONFIGURED=false
+fi
+
+if [ "$ELEVENLABS_CONFIGURED" = false ]; then
+    echo
+    echo "To enable AI voices, add your ElevenLabs API key to ~/.env:"
+    echo "  echo 'ELEVENLABS_API_KEY=your_api_key_here' >> ~/.env"
+    echo "  Get a key at: https://elevenlabs.io"
+    echo
+fi
+
+# Create LaunchAgent plist
+echo -e "${YELLOW}▶ Creating LaunchAgent configuration...${NC}"
+mkdir -p "$HOME/Library/LaunchAgents"
+
+cat > "$PLIST_PATH" << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>${SERVICE_NAME}</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>$(which bun)</string>
+        <string>run</string>
+        <string>${SCRIPT_DIR}/server.ts</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>${SCRIPT_DIR}</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>${LOG_PATH}</string>
+
+    <key>StandardErrorPath</key>
+    <string>${LOG_PATH}</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOME</key>
+        <string>${HOME}</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.bun/bin</string>
+    </dict>
+</dict>
+</plist>
+EOF
+
+echo -e "${GREEN}✓ LaunchAgent configuration created${NC}"
+
+# Load the LaunchAgent
+echo -e "${YELLOW}▶ Starting voice server service...${NC}"
+launchctl load "$PLIST_PATH" 2>/dev/null || {
+    echo -e "${RED}✗ Failed to load LaunchAgent${NC}"
+    echo "  Try manually: launchctl load $PLIST_PATH"
+    exit 1
+}
+
+# Wait for server to start
+sleep 2
+
+# Test the server
+echo -e "${YELLOW}▶ Testing voice server...${NC}"
+if curl -s -f -X GET http://localhost:8888/health > /dev/null 2>&1; then
+    echo -e "${GREEN}✓ Voice server is running${NC}"
+
+    echo -e "${YELLOW}▶ Sending test notification...${NC}"
+    curl -s -X POST http://localhost:8888/notify \
+        -H "Content-Type: application/json" \
+        -d '{"message": "Voice server installed successfully"}' > /dev/null
+    echo -e "${GREEN}✓ Test notification sent${NC}"
+else
+    echo -e "${RED}✗ Voice server is not responding${NC}"
+    echo "  Check logs: tail -f $LOG_PATH"
+    echo "  Try running manually: bun run $SCRIPT_DIR/server.ts"
+    exit 1
+fi
+
+# Show summary
+echo
+echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${GREEN}     ✓ Installation Complete!${NC}"
+echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo
+echo -e "${BLUE}Service Information:${NC}"
+echo "  • Service: $SERVICE_NAME"
+echo "  • Status: Running"
+echo "  • Port: 8888"
+echo "  • Logs: $LOG_PATH"
+echo
+echo -e "${BLUE}Management Commands:${NC}"
+echo "  • Status:   ./status.sh"
+echo "  • Stop:     ./stop.sh"
+echo "  • Start:    ./start.sh"
+echo "  • Restart:  ./restart.sh"
+echo
+echo -e "${GREEN}The voice server will start automatically when you log in.${NC}"
+```
+
+#### 10.3: Create Start Script
+
+```bash
+#!/bin/bash
+# $PAI_DIR/voice-server/start.sh
+
+SERVICE_NAME="com.pai.voice-server"
+PLIST_PATH="$HOME/Library/LaunchAgents/${SERVICE_NAME}.plist"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}▶ Starting Voice Server...${NC}"
+
+if [ ! -f "$PLIST_PATH" ]; then
+    echo -e "${RED}✗ Service not installed${NC}"
+    echo "  Run ./install.sh first"
+    exit 1
+fi
+
+if launchctl list | grep -q "$SERVICE_NAME" 2>/dev/null; then
+    echo -e "${YELLOW}⚠ Voice server is already running${NC}"
+    exit 0
+fi
+
+launchctl load "$PLIST_PATH" 2>/dev/null
+sleep 2
+
+if curl -s -f -X GET http://localhost:8888/health > /dev/null 2>&1; then
+    echo -e "${GREEN}✓ Voice server started successfully${NC}"
+else
+    echo -e "${YELLOW}⚠ Server started but not responding yet${NC}"
+    echo "  Check logs: tail -f ~/Library/Logs/pai-voice-server.log"
+fi
+```
+
+#### 10.4: Create Stop Script
+
+```bash
+#!/bin/bash
+# $PAI_DIR/voice-server/stop.sh
+
+SERVICE_NAME="com.pai.voice-server"
+PLIST_PATH="$HOME/Library/LaunchAgents/${SERVICE_NAME}.plist"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${YELLOW}▶ Stopping Voice Server...${NC}"
+
+if launchctl list | grep -q "$SERVICE_NAME" 2>/dev/null; then
+    launchctl unload "$PLIST_PATH" 2>/dev/null
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ Voice server stopped${NC}"
+    else
+        echo -e "${RED}✗ Failed to stop voice server${NC}"
+        exit 1
+    fi
+else
+    echo -e "${YELLOW}⚠ Voice server is not running${NC}"
+fi
+
+# Kill any remaining processes on port 8888
+if lsof -i :8888 > /dev/null 2>&1; then
+    echo -e "${YELLOW}▶ Cleaning up port 8888...${NC}"
+    lsof -ti :8888 | xargs kill -9 2>/dev/null
+    echo -e "${GREEN}✓ Port 8888 cleared${NC}"
+fi
+```
+
+#### 10.5: Create Restart Script
+
+```bash
+#!/bin/bash
+# $PAI_DIR/voice-server/restart.sh
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo "▶ Restarting Voice Server..."
+"$SCRIPT_DIR/stop.sh"
+sleep 2
+"$SCRIPT_DIR/start.sh"
+```
+
+#### 10.6: Create Status Script
+
+```bash
+#!/bin/bash
+# $PAI_DIR/voice-server/status.sh
+
+SERVICE_NAME="com.pai.voice-server"
+LOG_PATH="$HOME/Library/Logs/pai-voice-server.log"
+ENV_FILE="$HOME/.env"
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${BLUE}     PAI Voice Server Status${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo
+
+echo -e "${BLUE}Service Status:${NC}"
+if launchctl list | grep -q "$SERVICE_NAME" 2>/dev/null; then
+    PID=$(launchctl list | grep "$SERVICE_NAME" | awk '{print $1}')
+    if [ "$PID" != "-" ]; then
+        echo -e "  ${GREEN}✓ Service is loaded (PID: $PID)${NC}"
+    else
+        echo -e "  ${YELLOW}⚠ Service is loaded but not running${NC}"
+    fi
+else
+    echo -e "  ${RED}✗ Service is not loaded${NC}"
+fi
+
+echo
+echo -e "${BLUE}Server Status:${NC}"
+if curl -s -f -X GET http://localhost:8888/health > /dev/null 2>&1; then
+    echo -e "  ${GREEN}✓ Server is responding on port 8888${NC}"
+    HEALTH=$(curl -s http://localhost:8888/health)
+    echo "  Response: $HEALTH"
+else
+    echo -e "  ${RED}✗ Server is not responding${NC}"
+fi
+
+echo
+echo -e "${BLUE}ElevenLabs Configuration:${NC}"
+if [ -f "$ENV_FILE" ] && grep -q "ELEVENLABS_API_KEY=" "$ENV_FILE"; then
+    API_KEY=$(grep "ELEVENLABS_API_KEY=" "$ENV_FILE" | cut -d'=' -f2)
+    if [ -n "$API_KEY" ] && [ "$API_KEY" != "your_api_key_here" ]; then
+        echo -e "  ${GREEN}✓ API key configured${NC}"
+    else
+        echo -e "  ${YELLOW}⚠ API key not set${NC}"
+    fi
+else
+    echo -e "  ${YELLOW}⚠ No configuration found${NC}"
+fi
+
+echo
+echo -e "${BLUE}Recent Logs:${NC}"
+if [ -f "$LOG_PATH" ]; then
+    echo "  Log file: $LOG_PATH"
+    echo "  Last 5 lines:"
+    tail -5 "$LOG_PATH" | while IFS= read -r line; do
+        echo "    $line"
+    done
+else
+    echo -e "  ${YELLOW}⚠ No log file found${NC}"
+fi
+
+echo
+echo -e "${BLUE}Test Command:${NC}"
+echo "  curl -X POST http://localhost:8888/notify \\"
+echo "    -H 'Content-Type: application/json' \\"
+echo "    -d '{\"message\":\"Hello from PAI\"}'"
+```
+
+#### 10.7: Make Scripts Executable
+
+```bash
+chmod +x $PAI_DIR/voice-server/*.sh
+```
+
+---
+
+### Step 11: Configure Environment Variables
+
+Add your ElevenLabs credentials to `~/.env`:
+
+```bash
+# Add to ~/.env
+echo 'ELEVENLABS_API_KEY=your_actual_api_key_here' >> ~/.env
+echo 'ELEVENLABS_VOICE_ID=s3TPKV1kjDlVtZbl4Ksh' >> ~/.env
+
+# Reload shell
+source ~/.zshrc
+```
+
+**Also add to your shell profile** (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+# PAI Voice System
+export PAI_VOICE_SERVER="http://localhost:8888/notify"
+export PAI_VOICE_PORT="8888"
+```
+
+---
+
+### Step 12: Install and Verify
+
+Follow this complete verification sequence to ensure everything works end-to-end.
+
+#### 12.1: Verify All Files Are In Place
+
+```bash
+# Check hook files
+echo "=== Checking Hooks ==="
+ls -la $PAI_DIR/hooks/stop-hook-voice.ts
+ls -la $PAI_DIR/hooks/subagent-stop-hook-voice.ts
+
+# Check prosody library
+echo "=== Checking Prosody Library ==="
 ls -la $PAI_DIR/hooks/lib/prosody-enhancer.ts
 
-# 3. Check voice config exists
+# Check voice configuration
+echo "=== Checking Voice Config ==="
 ls -la $PAI_DIR/config/voice-personalities.json
 
-# 4. Test prosody enhancer
-echo 'import { enhanceProsody } from "./lib/prosody-enhancer"; console.log(enhanceProsody("fixed the bug", "kai"))' | \
-  bun run -
+# Check voice server
+echo "=== Checking Voice Server ==="
+ls -la $PAI_DIR/voice-server/server.ts
+ls -la $PAI_DIR/voice-server/install.sh
+ls -la $PAI_DIR/voice-server/start.sh
+ls -la $PAI_DIR/voice-server/stop.sh
+ls -la $PAI_DIR/voice-server/restart.sh
+ls -la $PAI_DIR/voice-server/status.sh
+```
 
-# 5. Test notification (if voice server is running)
+**Expected:** All files should exist. If any are missing, re-create them from the steps above.
+
+#### 12.2: Verify Environment Variables
+
+```bash
+# Check ElevenLabs API key is set
+echo "=== Checking Environment ==="
+grep "ELEVENLABS_API_KEY" ~/.env
+# Should show your key (not "your_api_key_here")
+
+# Test the API key works
+echo "=== Testing ElevenLabs API Key ==="
+curl -s -X POST "https://api.elevenlabs.io/v1/text-to-speech/s3TPKV1kjDlVtZbl4Ksh" \
+  -H "xi-api-key: $(grep ELEVENLABS_API_KEY ~/.env | cut -d'=' -f2)" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "API key verified.", "model_id": "eleven_turbo_v2_5"}' \
+  --output /tmp/test-voice.mp3 && \
+  afplay /tmp/test-voice.mp3 && \
+  rm /tmp/test-voice.mp3 && \
+  echo "✅ ElevenLabs API key is working"
+```
+
+**Expected:** You should hear "API key verified" spoken aloud.
+
+#### 12.3: Install and Start the Voice Server
+
+```bash
+# Install the voice server as a LaunchAgent
+cd $PAI_DIR/voice-server
+./install.sh
+
+# Verify it's running
+./status.sh
+```
+
+**Expected:** You should see "Voice server installed successfully" spoken aloud, and the status should show the server running on port 8888.
+
+#### 12.4: Test Voice Server Health
+
+```bash
+# Health check
+echo "=== Testing Health Endpoint ==="
+curl -s http://localhost:8888/health | jq .
+
+# Expected output:
+# {
+#   "status": "healthy",
+#   "port": 8888,
+#   "voice_system": "ElevenLabs",
+#   "default_voice_id": "s3TPKV1kjDlVtZbl4Ksh",
+#   "api_key_configured": true
+# }
+```
+
+#### 12.5: Test Voice Notification (End-to-End)
+
+```bash
+# Send a test notification with voice
+echo "=== Sending Test Notification ==="
 curl -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
-  -d '{"message":"Test notification","voice_enabled":true,"title":"Test"}'
-
-# 6. Restart Claude Code to activate hooks
+  -d '{
+    "title": "PAI",
+    "message": "Voice system is working perfectly!",
+    "voice_enabled": true
+  }'
 ```
+
+**Expected:** You should hear "Voice system is working perfectly!" spoken aloud in the default PAI voice.
+
+#### 12.6: Test Agent Voice Personalities
+
+```bash
+# Test different agent voices
+echo "=== Testing Agent Voices ==="
+
+# Engineer voice (wise-leader archetype)
+curl -X POST http://localhost:8888/notify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Engineer",
+    "message": "The architecture has been reviewed and approved.",
+    "voice_enabled": true,
+    "voice_id": "iLVmqjzCGGvqtMCk6vVQ"
+  }'
+
+sleep 5
+
+# Intern voice (enthusiast archetype)
+curl -X POST http://localhost:8888/notify \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Intern",
+    "message": "I found it! The bug was in the authentication module!",
+    "voice_enabled": true,
+    "voice_id": "d3MFdIuCfbAIwiu7jC4a"
+  }'
+```
+
+**Expected:** You should hear two different voices - Engineer should sound measured and thoughtful, Intern should sound excited and energetic.
+
+#### 12.7: Verify Hooks Are Registered
+
+```bash
+# Check settings.json for hook configuration
+echo "=== Checking Hook Registration ==="
+cat ~/.claude/settings.json | jq '.hooks'
+
+# Should show Stop and SubagentStop hooks
+```
+
+#### 12.8: Full Integration Test
+
+The final test is to have your AI agent complete a task and verify you hear the voice notification:
+
+1. **Restart Claude Code** (to load the new hooks)
+2. **Ask your PAI a simple question** like "What is 2+2?"
+3. **Wait for completion** - you should hear the 🎯 COMPLETED message spoken aloud
+
+If you don't hear voice on task completion:
+- Check the logs: `tail -f ~/Library/Logs/pai-voice-server.log`
+- Verify hooks are running: Look for hook output in Claude Code's stderr
+
+---
+
+## Troubleshooting
+
+### Server Won't Start
+
+**Symptom:** `./install.sh` fails or server doesn't respond
+
+```bash
+# Check if port 8888 is in use
+lsof -i :8888
+
+# If something else is using it, kill it
+lsof -ti :8888 | xargs kill -9
+
+# Try manual start to see errors
+bun run $PAI_DIR/voice-server/server.ts
+```
+
+### No Sound Playing
+
+**Symptom:** Server responds but no audio plays
+
+```bash
+# Check macOS audio
+# 1. Make sure volume is up
+# 2. Check audio output device is correct
+
+# Test afplay directly
+echo "Testing audio" | say  # Should use macOS built-in TTS
+
+# Check ElevenLabs is returning audio
+curl -s -X POST "https://api.elevenlabs.io/v1/text-to-speech/s3TPKV1kjDlVtZbl4Ksh" \
+  -H "xi-api-key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "test", "model_id": "eleven_turbo_v2_5"}' \
+  --output /tmp/test.mp3 && file /tmp/test.mp3
+# Should show: Audio file with ID3
+```
+
+### API Key Errors
+
+**Symptom:** "ElevenLabs API error: 401"
+
+1. Verify your API key at [elevenlabs.io](https://elevenlabs.io) → Profile → API Key
+2. Check the key in ~/.env matches exactly (no extra spaces or quotes)
+3. Ensure your ElevenLabs subscription is active
+
+### Hooks Not Running
+
+**Symptom:** Tasks complete but no voice notification
+
+```bash
+# Check hooks are in settings.json
+cat ~/.claude/settings.json | jq '.hooks'
+
+# Check hooks are executable
+ls -la $PAI_DIR/hooks/stop-hook-voice.ts
+
+# Test hook manually (pipe simulated input)
+echo '{"session_id":"test","transcript_path":"/tmp/test.jsonl"}' | \
+  bun run $PAI_DIR/hooks/stop-hook-voice.ts
+```
+
+### Voice Sounds Robotic
+
+**Symptom:** Speech plays but quality is poor
+
+- Ensure you're using `eleven_turbo_v2_5` model (already default in server)
+- Try different voice IDs for better fit
+- Adjust stability/similarity_boost in voice config
+
+### Rate Limiting
+
+**Symptom:** "Rate limit exceeded" errors
+
+The server has built-in rate limiting (10 requests/minute per IP). If you're testing heavily:
+
+```bash
+# Wait 60 seconds, or restart the server to reset
+./restart.sh
+```
+
+### Common Error Messages
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "ELEVENLABS_API_KEY not found" | Missing .env | Add key to ~/.env |
+| "Voice server is not responding" | Server crashed | `./restart.sh` |
+| "Invalid voice_id" | Wrong voice ID format | Check voice ID exists in ElevenLabs |
+| "afplay exited with code" | Audio playback failed | Check macOS audio settings |
+
+### Logs Location
+
+```bash
+# Voice server logs
+tail -f ~/Library/Logs/pai-voice-server.log
+
+# Claude Code logs (for hook output)
+# Check Claude Code's terminal output
+```
+
+---
+
+## Quick Reference
+
+### Management Commands
+
+```bash
+cd $PAI_DIR/voice-server
+
+./status.sh     # Check if server is running
+./start.sh      # Start the server
+./stop.sh       # Stop the server
+./restart.sh    # Restart the server
+```
+
+### Test Notification
+
+```bash
+curl -X POST http://localhost:8888/notify \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Your message here"}'
+```
+
+### File Locations
+
+| File | Location |
+|------|----------|
+| Voice Server | `$PAI_DIR/voice-server/server.ts` |
+| Management Scripts | `$PAI_DIR/voice-server/*.sh` |
+| Stop Hook | `$PAI_DIR/hooks/stop-hook-voice.ts` |
+| Subagent Hook | `$PAI_DIR/hooks/subagent-stop-hook-voice.ts` |
+| Prosody Library | `$PAI_DIR/hooks/lib/prosody-enhancer.ts` |
+| Voice Config | `$PAI_DIR/config/voice-personalities.json` |
+| Server Logs | `~/Library/Logs/pai-voice-server.log` |
+| LaunchAgent | `~/Library/LaunchAgents/com.pai.voice-server.plist` |
 
 ---
 
@@ -1377,13 +2617,13 @@ curl -X POST http://localhost:8888/notify \
 
 ### Archetypes
 
-| Archetype | Energy | Voice Characteristics |
-|-----------|--------|----------------------|
-| **Enthusiast** | Chaotic/Expressive | Fast, variable, exclamatory |
-| **Professional** | Expressive | Balanced, warm, emphasis on actions |
-| **Analyst** | Measured | Confident, findings-focused |
-| **Critic** | Measured | Precise, sophisticated, deliberate |
-| **Wise Leader** | Stable | Slow, thoughtful, em-dashes for pauses |
+| Archetype | Energy | Voice Characteristics | Example Agents |
+|-----------|--------|----------------------|----------------|
+| **Enthusiast** | Chaotic/Expressive | Fast, variable, exclamatory | PAI, Intern, Pentester, Artist |
+| **Storyteller** | Expressive | Warm, engaging, narrative flow | Writer |
+| **Analyst** | Measured | Confident, findings-focused | Researcher |
+| **Critic** | Measured | Precise, sophisticated, deliberate | Designer |
+| **Wise Leader** | Stable | Slow, thoughtful, em-dashes for pauses | Engineer, Architect |
 
 ### Prosody Elements
 
@@ -1418,7 +2658,8 @@ curl -X POST http://localhost:8888/notify \
 |----------|---------|---------|
 | `PAI_VOICE_SERVER` | `http://localhost:8888/notify` | Voice server URL |
 | `ELEVENLABS_API_KEY` | - | ElevenLabs API key |
-| `ELEVENLABS_VOICE_*` | - | Voice IDs per agent type |
+| `ELEVENLABS_VOICE_PAI` | `P9S3WZL3JE8uQqgYH5B7` | Main PAI voice |
+| `ELEVENLABS_VOICE_DEFAULT` | `P9S3WZL3JE8uQqgYH5B7` | Fallback voice |
 
 **Graceful Degradation:**
 
@@ -1431,35 +2672,60 @@ If the voice server is offline:
 
 ## Credits
 
-- **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure
+- **Original concept**: Daniel Miessler - developed as part of the PAI (Personal AI) project
 - **ElevenLabs**: Text-to-speech engine
 - **Prosody research**: ElevenLabs eleven_turbo_v2_5 emotional marker support
+- **Voice IDs**: ElevenLabs public voice library - customize with your own voices
+
+## Related Work
+
+- **ElevenLabs** - Industry-leading text-to-speech synthesis
+- **Prosody research** - Natural speech rhythm and intonation patterns
+- **Accessibility systems** - Voice output for enhanced accessibility
 
 ## Works Well With
 
-*None specified - maintainer to provide if applicable.*
+- **kai-hook-system** - Required; Stop hooks trigger voice notifications
+- **kai-skill-system** - Required; SkillNotifications.md defines notification patterns
+- **kai-identity** - Required; Agent personalities map to voice configurations
+- **kai-history-system** - History capture can trigger voice announcements
 
 ## Recommended
 
-*None specified - maintainer to provide if applicable.*
+- **kai-hook-system** - Required; provides the event triggers for voice output
+- **kai-identity** - Required; defines agent personalities and voice mappings
 
 ## Relationships
 
 ### Parent Of
-*None specified.*
+*None - this is an output layer, not a foundation for other packs.*
 
 ### Child Of
-*None specified.*
+- **kai-hook-system** - Uses Stop and SubagentStop hooks for voice triggers
+- **kai-identity** - Agent personalities from identity map to voice configurations
 
 ### Sibling Of
-*None specified.*
+- **kai-history-system** - Both consume hook events for their functionality
+- **kai-skill-system** - Both depend on kai-hook-system as foundation
 
 ### Part Of Collection
-*None specified.*
+**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 
 ## Changelog
+
+### 1.1.0 - 2025-12-29
+- **END-TO-END COMPLETE RELEASE**
+- Added complete voice server implementation (server.ts)
+- Added server management scripts (install.sh, start.sh, stop.sh, restart.sh, status.sh)
+- Added macOS LaunchAgent auto-start configuration
+- Added detailed ElevenLabs account setup walkthrough (Steps 8.1-8.4)
+- Added comprehensive verification sequence (Steps 12.1-12.8)
+- Added full troubleshooting section with common issues and fixes
+- Added quick reference section with file locations
+- Updated dependencies to include kai-skill-system and kai-identity-system
+- Pack now meets PAI End-to-End Completeness Requirements
 
 ### 1.0.0 - 2025-12-29
 - Initial release

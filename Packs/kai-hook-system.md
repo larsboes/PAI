@@ -273,6 +273,117 @@ Claude Code exposes hook events but provides no framework for using them effecti
 - **Claude Code** (or compatible agent system with hook support)
 - **Write access** to `$PAI_DIR/` (or your PAI directory)
 
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, analyze the current system state to detect conflicts and determine the appropriate installation strategy.
+
+#### Step 0.1: Detect Current Configuration
+
+Run these commands to understand your current system:
+
+```bash
+# 1. Check if PAI_DIR is set
+echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
+
+# 2. Check for existing PAI directory
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+if [ -d "$PAI_CHECK" ]; then
+  echo "⚠️  PAI directory EXISTS at: $PAI_CHECK"
+  echo "Contents:"
+  ls -la "$PAI_CHECK" 2>/dev/null || echo "  (empty or inaccessible)"
+else
+  echo "✓ PAI directory does not exist (clean install)"
+fi
+
+# 3. Check for existing hooks directory
+if [ -d "$PAI_CHECK/hooks" ]; then
+  echo "⚠️  Hooks directory EXISTS"
+  echo "Existing hooks:"
+  ls -la "$PAI_CHECK/hooks"/*.ts 2>/dev/null || echo "  (no .ts files)"
+else
+  echo "✓ No existing hooks directory"
+fi
+
+# 4. Check Claude settings for existing hooks
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+if [ -f "$CLAUDE_SETTINGS" ]; then
+  echo "Claude settings.json EXISTS"
+  if grep -q '"hooks"' "$CLAUDE_SETTINGS" 2>/dev/null; then
+    echo "⚠️  Existing hooks configuration found:"
+    grep -A 20 '"hooks"' "$CLAUDE_SETTINGS" | head -25
+  else
+    echo "✓ No hooks configured in settings.json"
+  fi
+else
+  echo "✓ No Claude settings.json (will be created)"
+fi
+
+# 5. Check environment variables
+echo ""
+echo "Environment variables:"
+echo "  DA: ${DA:-'NOT SET'}"
+echo "  TIME_ZONE: ${TIME_ZONE:-'NOT SET'}"
+echo "  PAI_SOURCE_APP: ${PAI_SOURCE_APP:-'NOT SET'}"
+```
+
+#### Step 0.2: Conflict Resolution Matrix
+
+Based on the detection above, follow the appropriate path:
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No PAI_DIR, no hooks | Proceed normally with Step 1 |
+| **PAI Directory Exists** | Directory with files | Review files, backup if needed, then proceed |
+| **Hooks Exist** | Files in `$PAI_DIR/hooks/` | Merge new hooks alongside existing, or backup and replace |
+| **Claude Settings Has Hooks** | `settings.json` has hook config | **MERGE** - add new hooks to existing array |
+| **Environment Variables Set** | PAI_DIR, DA already defined | Use existing values or update in shell profile |
+
+#### Step 0.3: Backup Existing Configuration (If Needed)
+
+If conflicts were detected, create a backup before proceeding:
+
+```bash
+# Create timestamped backup
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+
+# Backup PAI directory if exists
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+if [ -d "$PAI_CHECK" ]; then
+  cp -r "$PAI_CHECK" "$BACKUP_DIR/pai"
+  echo "✓ Backed up PAI directory to $BACKUP_DIR/pai"
+fi
+
+# Backup Claude settings if exists
+if [ -f "$HOME/.claude/settings.json" ]; then
+  cp "$HOME/.claude/settings.json" "$BACKUP_DIR/settings.json"
+  echo "✓ Backed up settings.json to $BACKUP_DIR/settings.json"
+fi
+
+echo "Backup complete: $BACKUP_DIR"
+```
+
+#### Step 0.4: Set Required Environment Variables
+
+If not already set, configure these in your shell profile (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+# Add to your shell profile
+export PAI_DIR="${HOME}/.config/pai"
+export DA="PAI"  # Your AI assistant name
+export TIME_ZONE="America/Los_Angeles"  # Your timezone
+export PAI_SOURCE_APP="${DA}"
+
+# Reload your shell
+source ~/.zshrc  # or ~/.bashrc
+```
+
+**After completing system analysis, proceed to Step 1.**
+
+---
+
 ### Step 1: Create Directory Structure
 
 ```bash
@@ -1224,29 +1335,37 @@ function setTabTitle(title: string): void {
 
 ## Related Work
 
-*None specified - maintainer to provide if applicable.*
+- **Claude Code Hooks** - The underlying event system this pack builds upon
+- **Middleware patterns** - This pack implements event-driven middleware architecture
 
 ## Works Well With
 
-*None specified - maintainer to provide if applicable.*
+- **kai-history-system** - Uses hooks for capturing session work and learnings
+- **kai-voice-system** - Uses hooks for voice notification triggers
+- **kai-skill-system** - Uses SessionStart hooks for CORE skill context injection
+- **kai-identity** - Uses hooks for session initialization and response formatting
 
 ## Recommended
 
-*None specified - maintainer to provide if applicable.*
+- **kai-history-system** - Capture all work automatically via Stop/SubagentStop hooks
+- **kai-voice-system** - Add voice notifications to hook events
 
 ## Relationships
 
 ### Parent Of
-*None specified.*
+- **kai-history-system** - History capture depends on hook events (Stop, SubagentStop)
+- **kai-skill-system** - Skill loading uses SessionStart hooks
+- **kai-voice-system** - Voice notifications triggered via hooks
+- **kai-identity** - Identity/session management leverages hook infrastructure
 
 ### Child Of
-*None specified.*
+*None - this is the foundation layer.*
 
 ### Sibling Of
-*None specified.*
+*None - this is the foundation layer.*
 
 ### Part Of Collection
-*None specified.*
+**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 

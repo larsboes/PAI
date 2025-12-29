@@ -7,7 +7,8 @@ description: Granular context-tracking system for the entire AI infrastructure -
 type: feature
 purpose-type: [productivity, automation, development]
 platform: claude-code
-dependencies: []
+dependencies:
+  - kai-hook-system (required) - History capture depends on hook events
 keywords: [history, documentation, memory, capture, hooks, sessions, learnings, automation, context, recovery, debugging]
 ---
 
@@ -332,11 +333,110 @@ Memory systems and vector databases store what you explicitly save or what gets 
 ---
 
 ## Installation
+
 ### Prerequisites
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with hook support)
 - **Write access** to `$PAI_DIR/` (or your PAI directory)
+- **kai-hook-system Pack** installed (this pack depends on the hook infrastructure)
+
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, analyze the current system state to detect conflicts and ensure dependencies are met.
+
+#### Step 0.1: Verify Dependencies
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Check that hook system is installed
+if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
+  echo "✓ Hook system is installed"
+else
+  echo "❌ Hook system NOT installed - install kai-hook-system first!"
+fi
+
+# Check hooks directory exists
+if [ -d "$PAI_CHECK/hooks" ]; then
+  echo "✓ Hooks directory exists"
+  ls "$PAI_CHECK/hooks"/*.ts 2>/dev/null | head -5
+else
+  echo "❌ Hooks directory missing - install kai-hook-system first!"
+fi
+```
+
+#### Step 0.2: Detect Existing History System
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Check for existing history directory
+if [ -d "$PAI_CHECK/history" ]; then
+  echo "⚠️  History directory EXISTS at: $PAI_CHECK/history"
+  echo "Existing categories:"
+  ls -la "$PAI_CHECK/history" 2>/dev/null
+  echo ""
+  echo "Existing files count per category:"
+  for dir in "$PAI_CHECK/history"/*/; do
+    if [ -d "$dir" ]; then
+      count=$(ls -1 "$dir" 2>/dev/null | wc -l)
+      echo "  $(basename "$dir"): $count files"
+    fi
+  done
+else
+  echo "✓ No existing history directory (clean install)"
+fi
+
+# Check for existing history hooks
+echo ""
+echo "Checking for existing history hooks..."
+for hook in "capture-all-events" "stop-hook" "subagent-stop-hook" "capture-session-summary"; do
+  if [ -f "$PAI_CHECK/hooks/${hook}.ts" ]; then
+    echo "⚠️  ${hook}.ts already exists"
+  else
+    echo "✓ ${hook}.ts not found (will be created)"
+  fi
+done
+```
+
+#### Step 0.3: Conflict Resolution Matrix
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No history dir, no hooks | Proceed normally with Step 1 |
+| **History Directory Exists** | Files in history/ | New captures added alongside; existing files preserved |
+| **History Hooks Exist** | Hook files present | Compare versions; backup old hooks before replacing |
+| **Missing Dependencies** | No hook system | Install kai-hook-system first |
+
+#### Step 0.4: Backup Existing History (If Needed)
+
+```bash
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Backup history directory if exists
+if [ -d "$PAI_CHECK/history" ]; then
+  mkdir -p "$BACKUP_DIR"
+  cp -r "$PAI_CHECK/history" "$BACKUP_DIR/history"
+  echo "✓ Backed up history to $BACKUP_DIR/history"
+fi
+
+# Backup history-related hooks
+mkdir -p "$BACKUP_DIR/hooks" 2>/dev/null
+for hook in "capture-all-events" "stop-hook" "subagent-stop-hook" "capture-session-summary"; do
+  if [ -f "$PAI_CHECK/hooks/${hook}.ts" ]; then
+    cp "$PAI_CHECK/hooks/${hook}.ts" "$BACKUP_DIR/hooks/"
+    echo "✓ Backed up ${hook}.ts"
+  fi
+done
+```
+
+**After completing system analysis, proceed to Step 1.**
+
+---
 
 ### Step 1: Create Directory Structure
 
@@ -1369,29 +1469,36 @@ export PAI_SOURCE_APP="MyAI"
 
 ## Related Work
 
-*None specified - maintainer to provide if applicable.*
+- **Git version control** - Inspired by git's approach to tracking history
+- **Engineering logbooks** - Traditional approach to capturing work and learnings
+- **Zettelkasten method** - Interconnected knowledge capture system
 
 ## Works Well With
 
-*None specified - maintainer to provide if applicable.*
+- **kai-hook-system** - Required foundation; provides the event stream this pack captures
+- **kai-skill-system** - Skills can reference past learnings and research from history
+- **kai-voice-system** - Voice notifications can announce when significant history is captured
+- **kai-identity** - CORE skill can guide what gets captured and categorized
 
 ## Recommended
 
-*None specified - maintainer to provide if applicable.*
+- **kai-hook-system** - Required dependency; without it no events are captured
+- **kai-skill-system** - Enables skill-based categorization of learnings
 
 ## Relationships
 
 ### Parent Of
-*None specified.*
+*None - this is a data capture layer, not a foundation for other packs.*
 
 ### Child Of
-*None specified.*
+- **kai-hook-system** - Depends entirely on hook events (Stop, SubagentStop, SessionEnd) for all capture
 
 ### Sibling Of
-*None specified.*
+- **kai-skill-system** - Both are Tier 1 packs that depend on kai-hook-system
+- **kai-voice-system** - Both consume hook events for their functionality
 
 ### Part Of Collection
-*None specified.*
+**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ## Changelog
 

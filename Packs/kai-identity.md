@@ -405,9 +405,137 @@ The difference: System prompts describe behavior. Identity frameworks define an 
 
 ### Prerequisites
 
-- kai-hook-system Pack installed (for session context loading)
-- kai-skill-system Pack installed (for skill structure)
-- kai-voice-system Pack installed (for voice notifications)
+- **kai-hook-system Pack** installed (for session context loading)
+- **kai-skill-system Pack** installed (for skill structure)
+- **kai-voice-system Pack** installed (for voice notifications)
+- **Write access** to `$PAI_DIR/` (or your PAI directory)
+
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, verify all dependencies are met and check for existing identity configuration.
+
+#### Step 0.1: Verify All Dependencies
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+echo "=== Checking Required Dependencies ==="
+
+# Check hook system (REQUIRED)
+if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
+  echo "✓ kai-hook-system is installed"
+else
+  echo "❌ kai-hook-system NOT installed - REQUIRED!"
+fi
+
+# Check for hooks in Claude settings
+if [ -f "$HOME/.claude/settings.json" ]; then
+  if grep -q "load-core-context" "$HOME/.claude/settings.json" 2>/dev/null; then
+    echo "✓ Core context loading hook is configured"
+  else
+    echo "⚠️  load-core-context hook not in settings.json (will need to add)"
+  fi
+fi
+
+# Check skill system (REQUIRED)
+if [ -d "$PAI_CHECK/Skills" ]; then
+  echo "✓ kai-skill-system is installed"
+else
+  echo "❌ kai-skill-system NOT installed - REQUIRED!"
+fi
+
+# Check voice system (REQUIRED for voice notifications)
+if [ -d "$PAI_CHECK/voice" ]; then
+  echo "✓ kai-voice-system is installed"
+else
+  echo "⚠️  kai-voice-system not installed (identity works but no voice)"
+fi
+
+# Check environment
+echo ""
+echo "=== Environment Variables ==="
+echo "DA (AI Name): ${DA:-'NOT SET - using PAI'}"
+echo "PAI_DIR: ${PAI_DIR:-'NOT SET - using ~/.config/pai'}"
+```
+
+#### Step 0.2: Detect Existing Identity Configuration
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+echo ""
+echo "=== Checking for Existing Identity ==="
+
+# Check for CORE skill directory
+if [ -d "$PAI_CHECK/Skills/CORE" ]; then
+  echo "⚠️  CORE skill directory EXISTS"
+  echo "Existing files:"
+  ls -la "$PAI_CHECK/Skills/CORE" 2>/dev/null
+
+  # Check for SKILL.md specifically
+  if [ -f "$PAI_CHECK/Skills/CORE/SKILL.md" ]; then
+    echo ""
+    echo "⚠️  SKILL.md (identity file) already exists"
+    echo "First 20 lines:"
+    head -20 "$PAI_CHECK/Skills/CORE/SKILL.md"
+  fi
+else
+  echo "✓ No existing CORE skill (clean install)"
+fi
+
+# Check for personalized content
+echo ""
+echo "=== Checking for Personalized Content ==="
+if [ -f "$PAI_CHECK/Skills/CORE/Contacts.md" ]; then
+  echo "⚠️  Contacts.md exists (contains personal data - preserve!)"
+fi
+if [ -f "$PAI_CHECK/Skills/CORE/Definitions.md" ]; then
+  echo "ℹ️  Definitions.md exists (may have custom definitions)"
+fi
+```
+
+#### Step 0.3: Conflict Resolution Matrix
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No CORE/, dependencies met | Proceed normally |
+| **Missing Dependencies** | Hook/skill system missing | Install required packs first |
+| **CORE Directory Exists** | Has identity files | **CAREFUL** - review and merge |
+| **SKILL.md Exists** | Identity already defined | Compare; keep customizations, update structure |
+| **Contacts.md Exists** | Personal data | **PRESERVE** - never overwrite |
+| **Constitution.md Exists** | Custom principles | Review and merge |
+
+#### Step 0.4: Backup Existing Identity (IMPORTANT)
+
+**Identity files often contain personal customizations. Always backup before replacing.**
+
+```bash
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+if [ -d "$PAI_CHECK/Skills/CORE" ]; then
+  mkdir -p "$BACKUP_DIR/Skills"
+  cp -r "$PAI_CHECK/Skills/CORE" "$BACKUP_DIR/Skills/CORE"
+  echo "✓ Backed up CORE skill to $BACKUP_DIR/Skills/CORE"
+  echo ""
+  echo "Backed up files:"
+  ls -la "$BACKUP_DIR/Skills/CORE"
+fi
+```
+
+#### Step 0.5: Decide Installation Strategy
+
+Based on your analysis:
+
+1. **Clean Install**: No existing CORE → proceed with full installation
+2. **Upgrade**: Existing CORE → install new files, preserve personal data (Contacts.md)
+3. **Merge**: Existing customizations → manually merge after comparing backup
+
+**After completing system analysis, proceed to Directory Structure.**
+
+---
 
 ### Directory Structure
 
@@ -1323,6 +1451,45 @@ The Identity Pack integrates with kai-voice-system:
 
 Without the response format, voice notifications won't work.
 
+### Choosing Your DA's Voice
+
+Your Personal AI can have any voice you choose. The kai-voice-system Pack includes 16 ElevenLabs voice IDs ready to use:
+
+**Primary Agent Voices (pre-assigned to agent types):**
+
+| Voice ID | Agent Type | Description |
+|----------|------------|-------------|
+| `P9S3WZL3JE8uQqgYH5B7` | PAI (Default) | Your main DA voice |
+| `iLVmqjzCGGvqtMCk6vVQ` | Engineer | Battle-scarred leader |
+| `muZKMsIDGYtIkjjiUS82` | Architect | Academic wisdom |
+| `ZF6FPAbjXT4488VcRRnw` | Designer | Perfectionist critic |
+| `cfc7wVYq4gw4OpcEEAom` | Artist | Aesthetic anarchist |
+| `xvHLFjaUEpx4BOf7EiDd` | Pentester | Reformed grey hat |
+| `d3MFdIuCfbAIwiu7jC4a` | Intern | Brilliant overachiever |
+| `AXdMgz6evoL7OPd7eU12` | Researcher | Strategic thinker |
+| `gfRt6Z3Z8aTbpLfexQ7N` | Writer | Technical storyteller |
+| `2zRM7PkgwBPiau2jvVXc` | Multi-perspective | Systems thinker |
+
+**Extra Voices (available for customization):**
+
+| Voice ID | Gender | Notes |
+|----------|--------|-------|
+| `UGTtbzgh3HObxRjWaSpr` | Male | Available for custom agents |
+| `HKFOb9iktHA85uKXydRT` | Male | Available for custom agents |
+| `wWWn96OtTHu1sn8SRGEr` | Male | Available for custom agents |
+| `EST9Ui6982FZPSi7gCHi` | Female | Available for custom agents |
+| `XhNlP8uwiH6XZSFnH1yL` | Female | Available for custom agents |
+| `aRlmTYIQo6Tlg5SlulGC` | Female | Available for custom agents |
+
+**To change your DA's voice:**
+
+1. Pick a voice ID from the tables above
+2. Update `voice-personalities.json` in your config
+3. Set the `pai.voice_id` to your chosen ID
+4. Restart Claude Code to apply
+
+**To preview voices:** Visit [ElevenLabs Voice Library](https://elevenlabs.io/voice-library) to hear samples before choosing.
+
 ---
 
 ## Troubleshooting
@@ -1352,6 +1519,49 @@ Without the response format, voice notifications won't work.
 - **Author:** Daniel Miessler
 - **Origin:** Extracted from production Kai system (2024-2025)
 - **Philosophy:** Based on PAI 14 Founding Principles
+
+---
+
+## Related Work
+
+- **AI Assistants** - Siri, Alexa, Google Assistant - inspiration for personal AI identity
+- **Personality frameworks** - Big Five, MBTI - inspiration for trait calibration
+- **Operating systems** - Core identity is like an OS kernel for the AI
+
+---
+
+## Works Well With
+
+- **kai-hook-system** - Required; provides SessionStart hooks that load CORE skill
+- **kai-skill-system** - Required; defines the SKILL.md format this pack uses
+- **kai-voice-system** - Required; enables voice output for the 🎯 COMPLETED line
+- **kai-history-system** - Captures sessions and learnings guided by identity
+
+---
+
+## Recommended
+
+- **kai-hook-system** - Required for automatic CORE loading at session start
+- **kai-skill-system** - Required; defines how skills work including CORE
+- **kai-voice-system** - Required for voice output of responses
+
+---
+
+## Relationships
+
+### Parent Of
+*None - this is the identity layer, consumed by other packs.*
+
+### Child Of
+- **kai-hook-system** - Uses SessionStart hooks for automatic loading
+- **kai-skill-system** - Implements CORE skill using the skill system format
+- **kai-voice-system** - Response format drives voice output via 🎯 COMPLETED line
+
+### Sibling Of
+*None - this is a top-tier integration pack that consumes all others.*
+
+### Part Of Collection
+**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 

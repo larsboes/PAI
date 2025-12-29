@@ -394,6 +394,113 @@ The Tools layer follows a specific pattern for building CLI tools that integrate
 
 ## Installation
 
+### Prerequisites
+
+- **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
+- **Claude Code** (or compatible agent system)
+- **Write access** to `$PAI_DIR/` (or your PAI directory)
+- **kai-hook-system Pack** installed (recommended for session context loading)
+- **kai-history-system Pack** installed (optional, for capturing skill usage)
+
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, analyze the current system state to detect conflicts.
+
+#### Step 0.1: Verify Environment and Dependencies
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Check if PAI_DIR is set
+echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
+
+# Check for hook system (recommended)
+if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
+  echo "✓ Hook system is installed (recommended)"
+else
+  echo "⚠️  Hook system not installed (skills will work but no session context loading)"
+fi
+
+# Check for history system (optional)
+if [ -d "$PAI_CHECK/history" ]; then
+  echo "✓ History system is installed (optional)"
+else
+  echo "ℹ️  History system not installed (skill usage won't be logged)"
+fi
+```
+
+#### Step 0.2: Detect Existing Skill System
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Check for existing Skills directory
+if [ -d "$PAI_CHECK/Skills" ]; then
+  echo "⚠️  Skills directory EXISTS at: $PAI_CHECK/Skills"
+  echo "Existing skills:"
+  ls -la "$PAI_CHECK/Skills" 2>/dev/null
+
+  # Check for existing CORE skill
+  if [ -d "$PAI_CHECK/Skills/CORE" ]; then
+    echo ""
+    echo "⚠️  CORE skill directory exists:"
+    ls -la "$PAI_CHECK/Skills/CORE" 2>/dev/null
+  fi
+else
+  echo "✓ No existing Skills directory (clean install)"
+fi
+
+# Check for existing Tools directory
+if [ -d "$PAI_CHECK/Tools" ]; then
+  echo ""
+  echo "Tools directory EXISTS:"
+  ls "$PAI_CHECK/Tools"/*.ts 2>/dev/null | head -5
+fi
+
+# Check for skill-index.json
+if [ -f "$PAI_CHECK/Skills/skill-index.json" ]; then
+  echo ""
+  echo "⚠️  skill-index.json exists - will need to merge or replace"
+fi
+```
+
+#### Step 0.3: Conflict Resolution Matrix
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No Skills/, no Tools/ | Proceed normally with Step 1 |
+| **Skills Directory Exists** | Other skills present | New skills added alongside; existing preserved |
+| **CORE Skill Exists** | CORE/ has files | **CAREFUL** - compare and merge, or backup and replace |
+| **skill-index.json Exists** | Index file present | Merge new skills into existing index |
+| **SkillSearch.ts Exists** | Tool already present | Compare versions; replace if newer |
+
+#### Step 0.4: Backup Existing Skills (If Needed)
+
+```bash
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Backup Skills directory if exists
+if [ -d "$PAI_CHECK/Skills" ]; then
+  mkdir -p "$BACKUP_DIR"
+  cp -r "$PAI_CHECK/Skills" "$BACKUP_DIR/Skills"
+  echo "✓ Backed up Skills to $BACKUP_DIR/Skills"
+fi
+
+# Backup skill-related tools
+if [ -f "$PAI_CHECK/Tools/SkillSearch.ts" ]; then
+  mkdir -p "$BACKUP_DIR/Tools"
+  cp "$PAI_CHECK/Tools/SkillSearch.ts" "$BACKUP_DIR/Tools/"
+  echo "✓ Backed up SkillSearch.ts"
+fi
+```
+
+**After completing system analysis, proceed to Step 1.**
+
+---
+
 ### Step 1: Create Directory Structure
 
 ```bash
@@ -402,7 +509,7 @@ mkdir -p $PAI_DIR/Skills
 mkdir -p $PAI_DIR/Skills/CORE
 mkdir -p $PAI_DIR/Tools
 
-# PAI_HOME is typically ~/.claude or ~/.config/pai
+# PAI_DIR is typically ~/.config/pai or ~/.claude
 # Adjust based on your setup
 ```
 
@@ -2423,35 +2530,42 @@ const ALWAYS_LOADED_SKILLS = [
 
 ## Related Work
 
-*None specified - maintainer to provide if applicable.*
+- **Unix philosophy** - Modular, composable tools that do one thing well
+- **Plugin systems** - Dynamic capability loading patterns
+- **Intent routing** - Natural language to action mapping
 
 ---
 
 ## Works Well With
 
-*None specified - maintainer to provide if applicable.*
+- **kai-identity** - Required; the CORE skill defines identity and response format
+- **kai-hook-system** - Enables skill loading via SessionStart hooks
+- **kai-history-system** - Skills can reference past learnings and capture new ones
+- **kai-voice-system** - Skills can trigger voice notifications via SkillNotifications.md
 
 ---
 
 ## Recommended
 
-*None specified - maintainer to provide if applicable.*
+- **kai-identity** - Required; without CORE skill there's no auto-loading at session start
+- **kai-hook-system** - Enables automatic skill loading via hooks
 
 ---
 
 ## Relationships
 
 ### Parent Of
-*None specified.*
+- **kai-identity** - The skill system defines how the CORE skill is structured and loaded
 
 ### Child Of
-*None specified.*
+- **kai-hook-system** - Uses SessionStart hooks for automatic CORE skill loading
 
 ### Sibling Of
-*None specified.*
+- **kai-history-system** - Both are Tier 1 packs that depend on kai-hook-system
+- **kai-voice-system** - Both consume hook infrastructure and work together
 
 ### Part Of Collection
-*None specified.*
+**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 
