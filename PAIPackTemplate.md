@@ -212,6 +212,54 @@ Don't include code here - that goes in Installation. Focus on helping the reader
 understand the approach conceptually before diving into implementation.
 -->
 
+## Architecture: The Special Sauce
+<!--
+(4096 words max)
+
+🚨 THIS SECTION IS CRITICAL - IT'S WHAT MAKES PACKS VALUABLE 🚨
+
+INSTRUCTIONS FOR AI: This is where you explain WHY this pack is architecturally
+interesting and BETTER than a baseline AI installation. This is the "special sauce"
+that justifies the pack's existence.
+
+Every pack MUST explain its architectural innovation:
+- What layers/components exist and how they interact
+- How data/intent flows through the system
+- Why this architecture is superior to naive approaches
+- What makes it deterministic, composable, or debuggable
+
+USE VISUAL DIAGRAMS - ASCII art showing the flow is extremely valuable.
+
+EXAMPLE (from kai-skill-system):
+The skill system has 5 explicit routing layers:
+1. SKILL.md frontmatter → loaded into system prompt for routing
+2. SKILL.md body → workflow routing table, loads on invocation
+3. Context files → topic-specific docs, load on-demand
+4. Workflows/ → HOW to do things (prompts/procedures)
+5. Tools/ → CLI programs called by workflows
+
+Each layer has a purpose. Intent flows explicitly through them. This is
+FUNDAMENTALLY DIFFERENT from "just adding custom instructions" because:
+- Progressive loading (not everything upfront)
+- Explicit routing (not fuzzy matching)
+- Separation of concerns (metadata, docs, procedures, code)
+- Deterministic execution (workflows map intent to CLI flags)
+
+WITHOUT this section, readers won't understand why your pack is better than
+just writing a prompt. WITH this section, they see the architectural insight
+that makes the pack genuinely valuable.
+
+Include:
+- Visual diagram (ASCII) showing components and flow
+- Explanation of each layer/component
+- How intent/data flows through the system
+- Why this architecture matters (explicit benefits)
+- What problems this architecture prevents
+
+This is NOT optional. If your pack doesn't have interesting architecture,
+it might not be worth being a pack.
+-->
+
 The Kai History System solves this through **automatic, hook-based documentation**. Instead of requiring manual effort, it captures work as a byproduct of doing the work.
 
 **Core Architecture:**
