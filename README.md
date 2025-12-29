@@ -25,9 +25,9 @@
 
 <br/>
 
-[![PAI Overview Video](https://img.youtube.com/vi/nvU0GbA9F9Q/maxresdefault.jpg)](https://youtu.be/nvU0GbA9F9Q)
+[![PAI Overview Video](https://img.youtube.com/vi/Le0DLrn7ta0/maxresdefault.jpg)](https://youtu.be/Le0DLrn7ta0)
 
-**[Watch the full PAI walkthrough](https://youtu.be/nvU0GbA9F9Q)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
+**[Watch the full PAI walkthrough](https://youtu.be/Le0DLrn7ta0)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
 
 ---
 
@@ -64,37 +64,6 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 - **Installation instructions** (for both AI and manual)
 - **Testing procedures**
 - **Troubleshooting guides**
-
-### How It Works
-
-```
-┌─────────────────────────────────────────────────────────┐
-│ PAI Pack (Single Markdown File)                     │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  📋 Pack Metadata (version, deps, platforms)        │
-│  🔍 Problem Statement                                   │
-│  ✅ Solution Overview                                   │
-│  ⚡ Quick Start                                         │
-│  📦 Complete Code (embedded in markdown)               │
-│  📖 Workflows (step-by-step processes)                 │
-│  🎯 Examples (real usage scenarios)                    │
-│  🔧 Installation (AI-assisted + manual)                │
-│  ✅ Testing & Validation                               │
-│  🐛 Troubleshooting                                    │
-│  📚 Credits & Resources                                │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-                         │
-                         ↓
-      ┌──────────────────┴──────────────────┐
-      │                                     │
-      ↓                                     ↓
-┌──────────────┐                    ┌──────────────┐
-│  Claude Code │                    │  Other AI    │
-│  Integration │                    │  Systems     │
-└──────────────┘                    └──────────────┘
-```
 
 **The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
 
