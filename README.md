@@ -508,10 +508,170 @@ If you find it valuable:
 
 ## 📜 Update History
 
-| Date | Version | Change |
-|------|---------|--------|
-| 2025-12-28 | v2.0 | PAI Packs (PAX) system launch. First pack: History System |
-| 2025-07 | v1.x | Original PAI: Mirrored system approach (deprecated) |
+<details open>
+<summary><strong>v2.0.0 (2025-12-28) — PAI Packs (PAX) System Launch</strong></summary>
+
+<br/>
+
+**Major Architecture Shift**
+- Transitioned from "mirrored system" approach to modular **PAI Packs (PAX)**
+- Packs are self-contained, AI-installable capability bundles
+- Platform-agnostic design: works with Claude Code, OpenCode, Gemini Code, GPT-Codex, or custom systems
+
+**First Pack Released**
+- **Kai History System** (v1.0.0) - Automatic context-tracking for entire AI infrastructure
+- Complete implementation: 4 hooks, 3 library files, settings.json configuration
+
+**New Documentation**
+- `PAIPackTemplate.md` - Full pack template specification
+- `PACKS.md` - Complete pack system documentation
+- Updated README with 14 Founding Principles and full pack installation guide
+
+**Why the Change?**
+- v1.x tried to mirror the entire Kai system - too fragile, too many interdependencies
+- v2.0 extracts battle-tested features as independent, installable modules
+- Each pack is like learning kung-fu in The Matrix - a complete capability download
+
+</details>
+
+<details>
+<summary><strong>v0.9.1 (2025-12-01) — Patch Release</strong></summary>
+
+<br/>
+
+**Fixes**
+- `PAI_DIR` now auto-configures in settings.json during setup
+- Platform-agnostic paths work across macOS, Linux, Windows
+- Fixed timezone configuration in hooks
+
+</details>
+
+<details>
+<summary><strong>v0.9.0 (2025-11-28) — Observability & Identity</strong></summary>
+
+<br/>
+
+**Observability Dashboard**
+- Real-time agent monitoring with live charts
+- Bun + Vue architecture for performance
+- Multiple themes (Tokyo Night, Nord, Catppuccin, etc.)
+- Security obfuscation for sensitive data
+
+**Genericized Agent Identity**
+- All agent references now use `process.env.DA || 'main'`
+- No more hardcoded names — your DA name flows through the entire system
+- Observability dashboard shows your configured identity
+
+**Platform-Agnostic Configuration**
+- Clear separation: `settings.json` for identity/paths, `.env` for API keys
+- `DA` (Digital Assistant name) — your AI's identity
+- `PAI_DIR` — root directory for all configuration
+- `TIME_ZONE` — configurable timezone for timestamps
+
+**Skill System Improvements**
+- Canonical TitleCase file naming throughout
+- Standardized skill-workflow-notification script for dashboard detection
+- All paths use `${PAI_DIR}/` for location-agnostic installation
+
+</details>
+
+<details>
+<summary><strong>v0.8.0 (2025-11-25) — Research & Documentation</strong></summary>
+
+<br/>
+
+**Research Skill**
+- Comprehensive research skill with 10 specialized workflows
+- Multi-source research with parallel agent execution
+- Fabric pattern integration (242+ AI patterns)
+
+**Infrastructure**
+- Path standardization using `${PAI_DIR}/` throughout
+- `PAI_CONTRACT.md` defining core guarantees
+- Self-test validation system for health checks
+- Protection system for PAI-specific files
+
+</details>
+
+<details>
+<summary><strong>v0.7.0 (2025-11-20) — Protection & Clarity</strong></summary>
+
+<br/>
+
+**PAI Path Resolution System** (#112)
+- Centralized `pai-paths.ts` library — single source of truth
+- Smart detection with fallback to `~/.claude`
+- Updated 7 hooks to use centralized paths
+
+**PAI vs Kai Clarity** (#113)
+- `PAI_CONTRACT.md` — official contract defining boundaries
+- Self-test system (`bun ${PAI_DIR}/hooks/self-test.ts`)
+- Clear README section distinguishing PAI from Kai
+
+**Protection System**
+- `.pai-protected.json` manifest of protected files
+- `validate-protected.ts` script for pre-commit validation
+- Pre-commit hook template for automated checks
+
+</details>
+
+<details>
+<summary><strong>v0.6.5 (2025-11-18) — BrightData Integration</strong></summary>
+
+<br/>
+
+**Four-Tier Progressive Web Scraping**
+- Tier 1: WebFetch (free, built-in)
+- Tier 2: cURL with headers (free, more reliable)
+- Tier 3: Playwright (free, JavaScript rendering)
+- Tier 4: Bright Data MCP (paid, anti-bot bypass)
+
+</details>
+
+<details>
+<summary><strong>v0.6.0 (2025-11-15) — Major Architecture Update</strong></summary>
+
+<br/>
+
+**Repository Restructure**
+- Moved all configuration to `.claude/` directory
+- Skills-as-containers architecture
+- Three-tier progressive disclosure
+
+**Skills System**
+- Art skill with visual content generation
+- Story-explanation skill for narrative summaries
+- Create-skill and create-cli meta-skills
+
+**Hook System**
+- Comprehensive event capture system
+- Session summary and tool output capture
+- Tab title updates
+
+**Voice Integration**
+- Voice server with ElevenLabs TTS
+- Session start notifications
+
+</details>
+
+<details>
+<summary><strong>v0.5.0 and Earlier</strong></summary>
+
+<br/>
+
+**v0.5.0 — Foundation**
+- CORE skill as central context loader
+- Constitution defining system principles
+- CLI-First Architecture pattern
+- Initial skills: Fabric, FFUF, Alex Hormozi pitch
+
+**Pre-v0.5.0 — Early Development**
+- Initial repository setup
+- Basic settings.json structure
+- Agent personality definitions
+- Foundational hook experiments
+
+</details>
 
 ---
 
