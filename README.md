@@ -350,6 +350,25 @@ The code itself is platform-independent (TypeScript, Python, Bash). Integration 
 
 **No vendor lock-in.** Packs describe *how to solve a problem*, not just "here's the code for our platform."
 
+### The 14 Founding Principles
+
+These principles guide how PAI packs are designed and built:
+
+1. **Clear Thinking + Prompting is King** - The quality of your prompts determines the quality of your results
+2. **Scaffolding > Model** - Good structure around the model matters more than the model itself
+3. **As Deterministic as Possible** - Reduce randomness, increase predictability
+4. **Code Before Prompts** - Solve with code when you can, prompts when you must
+5. **Spec / Test / Evals First** - Define success criteria before building
+6. **UNIX Philosophy (Modular Tooling)** - Small tools that do one thing well
+7. **ENG / SRE Principles** - Build for reliability, observability, maintainability
+8. **CLI as Interface** - Command line first, GUI optional
+9. **Goal → Code → CLI → Prompts → Agents** - The hierarchy of implementation
+10. **Meta / Self Update System** - Systems that improve themselves
+11. **Custom Skill Management** - Modular capabilities that route intelligently
+12. **Custom History System** - Memory that persists and learns
+13. **Custom Agent Personalities / Voices** - Distinct agents with unique traits
+14. **Science as Cognitive Loop** - Hypothesis → Experiment → Measure → Iterate
+
 ---
 
 ## 🤝 Contributing
