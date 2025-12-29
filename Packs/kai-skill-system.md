@@ -15,7 +15,7 @@ keywords: [skills, routing, capabilities, workflows, modular, claude-code, autom
 ---
 
 <p align="center">
-  <img src="icons/kai-skill-system-v2.png" alt="Kai Skill System" width="256">
+  <img src="icons/kai-skill-system-v3.png" alt="Kai Skill System" width="256">
 </p>
 
 # Kai Skill System (kai-skill-system)
