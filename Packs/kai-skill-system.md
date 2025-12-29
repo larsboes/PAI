@@ -23,15 +23,29 @@ keywords: [skills, routing, capabilities, workflows, modular, claude-code, autom
 
 ## Installation Prompt
 
-```
-Install this pack into my system
-```
+You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
-Your AI will create the skill system infrastructure, set up the index generator, and configure your settings.
+**What is PAI?** See: [PAI Project Overview](../README.md#what-is-pai)
+
+**What is a Pack?** See: [Pack System](../README.md#pack-system)
+
+This Pack adds a complete capability routing and skill management system to your AI infrastructure. The Kai Skill System provides:
+
+- **SKILL.md Format**: Standardized structure for all capabilities
+- **Intent Matching**: AI activates skills based on natural language triggers
+- **Workflow Routing**: Skills route to specific step-by-step procedures
+- **Dynamic Loading**: Only load context when actually needed
+- **Skill Discovery**: Search and browse available skills
+
+**Core principle:** Skills are modular capabilities that route intelligently based on intent.
+
+Instead of loading everything into context, skills load dynamically when triggered. This means you can have hundreds of capabilities without token bloat.
+
+Please follow the installation instructions below to integrate this Pack into your infrastructure.
 
 ---
 
-## The Problem
+## The Concept and/or Problem
 
 Without a skill system:
 
