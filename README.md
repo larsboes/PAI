@@ -25,9 +25,9 @@
 
 <br/>
 
-[![PAI Overview Video](https://img.youtube.com/vi/iKwRWwabkEc/maxresdefault.jpg)](https://youtu.be/iKwRWwabkEc)
+[![PAI Overview Video](https://img.youtube.com/vi/nvU0GbA9F9Q/maxresdefault.jpg)](https://youtu.be/nvU0GbA9F9Q)
 
-**[Watch the full PAI walkthrough](https://youtu.be/iKwRWwabkEc)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
+**[Watch the full PAI walkthrough](https://youtu.be/nvU0GbA9F9Q)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
 
 ---
 
@@ -102,33 +102,29 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 
 ## 📦 Available Packs
 
-### Skills (Action-Oriented Capabilities)
-
-| Pack | Version | Category | Description |
-|---------|---------|----------|-------------|
-| [**Art**](Packs/Art-Pack.md) | 1.0.0 | Visual Content | Complete visual content system with charcoal architectural sketch aesthetic. Generate blog headers, technical diagrams, comparisons, and more with consistent branding. |
-
 ### Features (Architectural Systems)
 
 | Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| *Coming soon* | - | - | Infrastructure packs being extracted from Kai |
+| [**Kai History System**](Packs/history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
+
+### Skills (Action-Oriented Capabilities)
+
+| Pack | Version | Category | Description |
+|---------|---------|----------|-------------|
+| *Coming soon* | - | - | Skills being extracted and packaged |
 
 ### Coming Soon
 
-**Skills being packd:**
-- **Research** - Multi-source research orchestration with parallel agents
-- **Blogging** - Complete blog workflow (write, optimize, deploy)
-- **Newsletter** - Email newsletter drafting and publishing
-- **OSINT** - Open-source intelligence gathering
-- **Metrics** - Analytics aggregation across properties
-- **Security** - Vulnerability management and security workflows
-
-**Features being packd:**
-- **History System** - UOCS (Uniform Output Capture Standard) documentation system
+**Features being packaged:**
 - **Skill System** - Skill routing and workflow management
 - **Agent Factory** - Custom agent creation and orchestration
 - **Prompting System** - Meta-prompting and template framework
+
+**Skills being packaged:**
+- **Art** - Visual content generation system
+- **Research** - Multi-source research orchestration with parallel agents
+- **OSINT** - Open-source intelligence gathering
 
 [**Submit your own pack**](#-contributing) →
 
@@ -143,8 +139,8 @@ That's what PAI is. It's the foundation for building a Personal AI System that u
 3. **Ask your AI to install it:**
 
 ```
-Install the Art pack into my system. Set up the skill routing,
-save the tools, verify dependencies, and test it works.
+Install the History System pack into my system. Set up the hooks,
+save the code, verify dependencies, and test it works.
 ```
 
 Your AI will:
@@ -198,7 +194,7 @@ PAI offers **two types of packs**, each with its own structure and purpose:
 
 **Features** are architectural patterns and systems - infrastructure pieces like custom history systems, skill routing, agent orchestration, or prompting frameworks.
 
-**Examples:** History System (UOCS documentation), Skill System (routing and management), Agent Factory (custom agent creation), Prompting System (meta-prompting and templates)
+**Examples:** History System (automatic context-tracking), Skill System (routing and management), Agent Factory (custom agent creation), Prompting System (meta-prompting and templates)
 
 **Structure:**
 1. **🤖 Assistant Install Prompt** - Step-by-step instructions for AI to autonomously install
@@ -253,14 +249,10 @@ pack:
 
 ### Creating a PAI Pack
 
-**1. Choose your pack type and get the template:**
+**1. Get the pack template:**
 
 ```bash
-# For Skills (action-oriented capabilities)
-curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/SKILL_PACKAGE_TEMPLATE.md
-
-# For Features (architectural patterns/systems)
-curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/FEATURE_PACKAGE_TEMPLATE.md
+curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/PAIPackTemplate.md
 ```
 
 **2. Fill in each section:**
@@ -373,7 +365,7 @@ These principles guide how PAI packs are designed and built:
 We welcome packs that solve real problems:
 
 1. **Fork the repository**
-2. **Create your pack** - Follow [PACKAGE_TEMPLATE.md](PACKAGE_TEMPLATE.md)
+2. **Create your pack** - Follow [PAIPackTemplate.md](PAIPackTemplate.md)
 3. **Test it thoroughly** - Install in a fresh system with AI assistance
 4. **Submit a PR** - Include examples and testing evidence
 
@@ -413,7 +405,7 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 ### v1.0 (Current)
 
 - [x] Pack format specification
-- [x] Art pack (visual content system)
+- [x] History System pack (context-tracking)
 - [x] Pack template
 - [x] Installation documentation
 - [ ] Pack discovery website
@@ -479,6 +471,15 @@ If you find it valuable:
 - ✍️ **Write about it** - Blog posts, videos, tutorials
 
 **Premium support** coming soon for organizations.
+
+---
+
+## 📜 Update History
+
+| Date | Version | Change |
+|------|---------|--------|
+| 2025-12-28 | v1.0 | PAI v2 launch: Pack-based architecture. First pack: History System |
+| 2025-12 | v0.x | Original PAI: Mirrored system approach (deprecated) |
 
 ---
 
