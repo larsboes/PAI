@@ -312,6 +312,8 @@ These principles guide how PAI packs are designed and built:
 
 [![PAI System Principles](https://danielmiessler.com/images/pai-system-principles.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 
+**[Read the full breakdown of each principle →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
+
 #### 1. Clear Thinking + Prompting is King
 [![Clear Thinking](https://danielmiessler.com/images/pai-principle-01-clear-thinking.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Good prompts come from clear thinking about what you actually need. Spend more time clarifying the problem than writing the prompt.
