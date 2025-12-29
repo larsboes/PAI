@@ -52,9 +52,9 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 | kai-history-system | **Available** |
 | kai-skill-system | **Available** |
 | kai-voice-system | **Available** |
-| kai-da-identity | Coming Soon |
+| kai-da-identity | **Available** |
 
-*Install available Packs first. Others will be added as they're extracted from the Kai system.*
+*All Packs are now available. Install in order to get the complete Kai experience.*
 
 ---
 
@@ -93,6 +93,10 @@ Give AI: ~/Projects/PAI/Packs/kai-skill-system.md
 # Step 4: Voice System (available)
 Give AI: ~/Projects/PAI/Packs/kai-voice-system.md
 # Verify: Check stop-hook.ts exists and notification server pattern is configured
+
+# Step 5: Identity System (available)
+Give AI: ~/Projects/PAI/Packs/kai-da-identity.md
+# Verify: ls ~/.config/pai/Skills/CORE/ && check response format in SKILL.md
 ```
 
 ### Verify Bundle
