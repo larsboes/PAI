@@ -89,6 +89,38 @@ Below is the Kai History System pack as the reference implementation demonstrati
 
 > Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically with zero manual effort
 
+## Why This Is Different
+<!--
+(128 words max)
+
+INSTRUCTIONS FOR AI: Explain what makes this pack unique compared to similar solutions.
+Format EXACTLY as follows:
+1. Opening line: "This sounds similar to [ALTERNATIVE] which also does [CAPABILITY]. What makes this approach different?"
+2. A 64-word paragraph explaining the key differentiator
+3. Four bullets of exactly 8 words each
+
+Example:
+"This sounds similar to mem0 which also does AI memory. What makes this approach different?
+
+[64-word paragraph explaining the unique value proposition]
+
+- First eight-word bullet explaining a key difference
+- Second eight-word bullet explaining another key difference
+- Third eight-word bullet explaining another key difference
+- Fourth eight-word bullet explaining another key difference"
+-->
+
+This sounds similar to [ALTERNATIVE] which also does [CAPABILITY]. What makes this approach different?
+
+[64-word paragraph answering the question - what makes your approach fundamentally different from existing solutions? Focus on the architectural insight, the unique methodology, or the problem framing that sets this apart.]
+
+- [First eight-word bullet explaining a key difference]
+- [Second eight-word bullet explaining another key difference]
+- [Third eight-word bullet explaining another key difference]
+- [Fourth eight-word bullet explaining another key difference]
+
+---
+
 ## Installation Prompt
 <!--
 (512 words max)
@@ -708,6 +740,7 @@ Format: ### {version} - {YYYY-MM-DD}
 
 | Section | Word Limit | Purpose |
 |---------|------------|---------|
+| `## Why This Is Different` | 128 | Differentiation from similar solutions |
 | `## Installation Prompt` | 512 | Context briefing for receiving AI |
 | `## The Concept and/or Problem` | 2048 | What problem does this solve? |
 | `## The Solution` | 4096 | How does this pack solve it? |
@@ -728,6 +761,7 @@ Format: ### {version} - {YYYY-MM-DD}
 
 > **FOR AI AGENTS:** Before publishing, verify your pack includes ALL of these:
 
+- [ ] **Why Different**: 64-word paragraph + 4 eight-word bullets
 - [ ] **Full context**: What, why, who needs it
 - [ ] **All code**: Complete, working implementations (no snippets, no placeholders)
 - [ ] **File locations**: Exact paths for every file

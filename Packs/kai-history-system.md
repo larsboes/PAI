@@ -19,6 +19,19 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
 
 > Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically with zero manual effort
 
+## Why This Is Different
+
+This sounds similar to ChatGPT's Memory feature or vector databases like Pinecone, which also preserve context. What makes this approach different?
+
+Memory systems and vector databases store what you explicitly save or what gets embedded. They require manual tagging, intentional capture, and structured queries. The Kai History System captures everything automatically through hooks—every agent output, every research finding, every debugging session—without any manual effort. History is organized by time and category, searchable by grep, and stored in plain markdown. You work normally; documentation handles itself.
+
+- Automatic capture through hooks needs no manual effort
+- Plain markdown files searchable with standard Unix tools
+- Categorized by type: learnings, research, sessions, projects
+- Every agent's output is routed and preserved automatically
+
+---
+
 ## Installation Prompt
 You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 

@@ -19,6 +19,19 @@ keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, perso
 
 > Voice notification system with natural speech synthesis and personality-driven delivery
 
+## Why This Is Different
+
+This sounds similar to basic text-to-speech tools like macOS's say command, which also read text aloud. What makes this approach different?
+
+Basic TTS reads everything literally—code blocks, markdown syntax, technical artifacts. The Kai Voice System applies prosody enhancement before speech: bold text gets emphasis, ellipses create pauses, emotional markers adjust tone. It intelligently summarizes code blocks instead of reading them verbatim. Different agent personalities use different voices. The result is natural speech that sounds like a colleague reporting, not a screen reader monotonously parsing text.
+
+- Prosody enhancement adds natural pauses and emphasis automatically
+- Code blocks summarized instead of read character by character
+- Agent personalities map to distinct ElevenLabs voice IDs
+- Graceful degradation works silently when server is offline
+
+---
+
 ## Installation Prompt
 
 You are receiving a PAI Pack - a modular upgrade for AI agent systems.

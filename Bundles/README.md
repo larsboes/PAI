@@ -139,16 +139,17 @@ keywords: [searchable, tags]
 
 ### Required Sections
 
-1. **Purpose** - What the bundle achieves as a whole
-2. **Philosophy** - Principles behind the curation
-3. **Contents** - Complete pack listing with installation order
-4. **Pack Relationships** - How packs interact and depend on each other
-5. **Installation** - Combined installation steps
-6. **Verification** - How to verify the bundle is working
-7. **What You Get** - Capabilities after full installation
-8. **Credits** - Attribution
-9. **Related Bundles** - Similar or complementary bundles
-10. **Changelog** - Version history
+1. **Why This Is Different** - (128 words max) Opens with "This sounds similar to [ALTERNATIVE] which also does [CAPABILITY]. What makes this approach different?" followed by a 64-word paragraph and four 8-word bullets
+2. **Purpose** - What the bundle achieves as a whole
+3. **Philosophy** - Principles behind the curation
+4. **Contents** - Complete pack listing with installation order
+5. **Pack Relationships** - How packs interact and depend on each other
+6. **Installation** - Combined installation steps
+7. **Verification** - How to verify the bundle is working
+8. **What You Get** - Capabilities after full installation
+9. **Credits** - Attribution
+10. **Related Bundles** - Similar or complementary bundles
+11. **Changelog** - Version history
 
 ### Contents Section Format
 
