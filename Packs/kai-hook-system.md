@@ -19,19 +19,6 @@ keywords: [hooks, automation, events, security, validation, sessions, context, c
 
 > Event-driven automation framework for Claude Code - the foundation for all hook-based capabilities
 
-## Why This Is Different
-
-This sounds similar to Claude Code's built-in hooks in settings.json, which also intercept events. What makes this approach different?
-
-Claude Code exposes hook events but provides no framework for using them effectively. You get raw events with no patterns for security validation, no libraries for safe execution, no templates for common use cases. The Kai Hook System provides production-ready hook implementations that transform these raw events into intelligent automation. Every hook follows fail-safe patterns that never block agent work, with shared libraries for observability, logging, and integration.
-
-- Production-ready security validation for every Bash command
-- Fail-safe patterns ensure hooks never block work
-- Shared libraries for observability and logging included
-- Complete event documentation with practical code examples
-
----
-
 ## Installation Prompt
 You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
@@ -130,6 +117,17 @@ The Kai Hook System provides a complete framework for event-driven automation:
 **The Key Insight:**
 
 Hooks are middleware for your AI. They sit between Claude Code's event system and your custom logic. By instrumenting the event stream, you gain complete visibility and control over your AI's operations.
+
+## Why This Is Different
+
+This sounds similar to Claude Code's built-in hooks in settings.json, which also intercept events. What makes this approach different?
+
+Claude Code exposes hook events but provides no framework for using them effectively. You get raw events with no patterns for security validation, no libraries for safe execution, no templates for common use cases. The Kai Hook System provides production-ready hook implementations that transform these raw events into intelligent automation. Every hook follows fail-safe patterns that never block agent work, with shared libraries for observability, logging, and integration.
+
+- Production-ready security validation for every Bash command
+- Fail-safe patterns ensure hooks never block work
+- Shared libraries for observability and logging included
+- Complete event documentation with practical code examples
 
 ---
 

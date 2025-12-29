@@ -21,19 +21,6 @@ keywords: [skills, routing, capabilities, workflows, modular, claude-code, autom
 
 > A complete capability routing and skill management framework that gives your AI structured, reusable workflows it can invoke based on intent.
 
-## Why This Is Different
-
-This sounds similar to ChatGPT's Custom GPTs or custom instructions, which also define AI capabilities. What makes this approach different?
-
-Custom GPTs and system prompts load everything upfront—all context, all instructions, all the time. Token budgets explode. The Kai Skill System uses dynamic loading: a tiny SKILL.md file describes what the skill can do, but workflows and documentation only load when actually invoked. This means you can have hundreds of skills without context bloat. Intent-based triggers activate exactly what's needed, when it's needed.
-
-- Dynamic loading prevents token bloat from unused context
-- Intent-based USE WHEN triggers activate skills naturally
-- Workflow routing tables enable multi-step complex procedures
-- CreateSkill meta-skill bootstraps new skills following standards
-
----
-
 ## Installation Prompt
 
 ```
@@ -76,6 +63,17 @@ The Kai Skill System provides:
 3. **USE WHEN Triggers** - Intent-based activation in skill descriptions
 4. **TitleCase Convention** - Mandatory naming for all skill components
 5. **Dynamic Loading** - Minimal SKILL.md with on-demand context files
+
+## Why This Is Different
+
+This sounds similar to ChatGPT's Custom GPTs or custom instructions, which also define AI capabilities. What makes this approach different?
+
+Custom GPTs and system prompts load everything upfront—all context, all instructions, all the time. Token budgets explode. The Kai Skill System uses dynamic loading: a tiny SKILL.md file describes what the skill can do, but workflows and documentation only load when actually invoked. This means you can have hundreds of skills without context bloat. Intent-based triggers activate exactly what's needed, when it's needed.
+
+- Dynamic loading prevents token bloat from unused context
+- Intent-based USE WHEN triggers activate skills naturally
+- Workflow routing tables enable multi-step complex procedures
+- CreateSkill meta-skill bootstraps new skills following standards
 
 ---
 
