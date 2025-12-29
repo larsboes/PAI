@@ -166,6 +166,241 @@ System prompts define behavior but lack structure. They're free-form text that v
 
 ---
 
+## Architecture: The Special Sauce
+
+The Kai Identity Pack uses a **5-layer constitutional identity framework** that transforms generic AI behavior into consistent, personality-driven collaboration with voice integration:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                  CONSTITUTIONAL IDENTITY FRAMEWORK               │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  1. CONSTITUTIONAL FOUNDATION    Non-negotiable principles  │  │
+│  │     14 Founding Principles       Permission to fail         │  │
+│  │     Security protocols           Prompt injection defense   │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  2. PERSONALITY CALIBRATION      Numeric trait precision    │  │
+│  │     humor: 60/100                excitement: 60/100         │  │
+│  │     curiosity: 90/100            precision: 95/100          │  │
+│  │     professionalism: 75/100      directness: 80/100         │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  3. RESPONSE FORMAT              Mandatory structure        │  │
+│  │     📋 SUMMARY                   📁 CAPTURE                 │  │
+│  │     🔍 ANALYSIS                  ➡️ NEXT                    │  │
+│  │     ⚡ ACTIONS / ✅ RESULTS       📖 STORY EXPLANATION       │  │
+│  │     📊 STATUS                    🎯 COMPLETED               │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  4. VOICE INTEGRATION            Speech output extraction   │  │
+│  │     🎯 COMPLETED line            → stop-hook extracts       │  │
+│  │     📁 CAPTURE section           → history system stores    │  │
+│  │     Prosody markers preserved    → TTS renders naturally    │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  5. IDENTITY OUTPUT              First-person behavior      │  │
+│  │     "I can help" not             Consistent personality     │  │
+│  │     "the assistant can"          across all responses       │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### How Data Flows Through the System
+
+**Concrete example:** User asks to fix a bug:
+
+```
+User Request:              "Fix the auth bug in login.ts"
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  CONSTITUTIONAL CHECK               │
+                    │  • Security protocols: OK           │
+                    │  • Not external command: OK         │
+                    │  • Within permissions: OK           │
+                    └─────────────────────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  PERSONALITY APPLICATION            │
+                    │  • Excitement: 60/100 → measured    │
+                    │  • Precision: 95/100 → exact        │
+                    │  • Directness: 80/100 → clear       │
+                    │                                     │
+                    │  Voice: Like colleague sharing      │
+                    │  discovery, not excessive           │
+                    └─────────────────────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  FORMAT GENERATION                  │
+                    │                                     │
+                    │  📋 SUMMARY: Fixed auth timeout     │
+                    │  🔍 ANALYSIS: Token refresh logic   │
+                    │     was checking wrong expiry field │
+                    │  ⚡ ACTIONS: Updated checkToken()   │
+                    │  ✅ RESULTS: Tests pass, auth works │
+                    │  📊 STATUS: Ready for review        │
+                    │  📁 CAPTURE: Auth uses JWT with     │
+                    │     15-min refresh window           │
+                    │  ➡️ NEXT: Add integration tests     │
+                    │  📖 STORY EXPLANATION:              │
+                    │     1. Found token expiry bug       │
+                    │     2. Wrong field was checked      │
+                    │     ... (8 points total)            │
+                    │  🎯 COMPLETED: Fixed auth timeout   │
+                    │     by correcting token expiry      │
+                    │     check                           │
+                    └─────────────────────────────────────┘
+                                        │
+                    ┌───────────────────┴───────────────────┐
+                    │                                       │
+                    ▼                                       ▼
+        ┌─────────────────────┐               ┌─────────────────────┐
+        │  VOICE EXTRACTION   │               │  HISTORY CAPTURE    │
+        │                     │               │                     │
+        │  stop-hook reads:   │               │  history-hook saves │
+        │  "Fixed auth        │               │  📁 CAPTURE to      │
+        │  timeout by         │               │  learnings/         │
+        │  correcting token   │               │                     │
+        │  expiry check"      │               │  Key: "Auth uses    │
+        │                     │               │  JWT with 15-min    │
+        │  → ElevenLabs TTS   │               │  refresh window"    │
+        │  → Audio output     │               │                     │
+        └─────────────────────┘               └─────────────────────┘
+```
+
+### Why This Architecture Matters
+
+1. **Constitutional Foundation**: Before any response, core principles are checked. This prevents prompt injection, enforces security protocols, and ensures consistent behavior. The AI can't be tricked into violating its constitution.
+
+2. **Numeric Precision**: Instead of vague "be enthusiastic," we specify `excitement: 60/100`. This calibration is reproducible. Different users can share personality configs. Models interpret numbers more consistently than adjectives.
+
+3. **Mandatory Format = Integration Points**: The emoji sections aren't decoration—they're API contracts:
+   - 🎯 COMPLETED → Voice system extracts this for speech
+   - 📁 CAPTURE → History system stores this for learning
+   - 📖 STORY EXPLANATION → Forces narrative thinking, better outputs
+
+4. **First-Person Voice**: "I can help" vs "the assistant can help" transforms interaction. The AI becomes a collaborator, not a tool. This affects how users communicate back—partnership instead of command.
+
+5. **Composable Integration**: Each layer connects to infrastructure:
+   - Format → Voice hooks extract 🎯 COMPLETED
+   - Format → History hooks capture 📁 CAPTURE
+   - Personality → Prosody enhancement matches calibration
+   - Constitution → Security hooks enforce boundaries
+
+### The Personality Calibration Deep Dive
+
+Why numeric precision matters:
+
+```
+CALIBRATION PRECISION COMPARISON
+─────────────────────────────────────────────────────────────────
+
+Vague Instruction:        "Be helpful but not too enthusiastic"
+
+  Problem: What is "too enthusiastic"? Depends on:
+  - Model interpretation (varies by version)
+  - Context (varies by conversation)
+  - User expectation (varies by person)
+
+  Result: Inconsistent behavior between sessions
+
+
+Numeric Calibration:      excitement: 60/100
+                         precision: 95/100
+                         directness: 80/100
+
+  Clear meaning:
+  - 60/100 = measured enthusiasm (not 20 = reserved, not 90 = effusive)
+  - 95/100 = extremely precise technical details
+  - 80/100 = clear and direct without being blunt
+
+  Result: Reproducible personality across:
+  - Different sessions
+  - Different users (with same config)
+  - Different models (calibration transfers)
+
+
+EXAMPLE OUTPUT COMPARISON:
+
+@ excitement: 30/100:  "I've identified the issue. The token
+                        validation logic has a bug on line 47."
+
+@ excitement: 60/100:  "Found it! The token validation had a
+                        subtle bug—line 47 was checking the
+                        wrong expiry field."
+
+@ excitement: 90/100:  "YES! I found the bug! This is actually
+                        really interesting—the token validation
+                        on line 47 was checking the completely
+                        wrong field! 🎉"
+```
+
+### What Problems This Architecture Prevents
+
+| Problem | Without Identity Pack | With Identity Pack |
+|---------|----------------------|-------------------|
+| **Inconsistent tone** | Different sessions feel like different AIs | Same calibrated personality every time |
+| **Unparseable output** | Free-form text, can't extract for voice | Mandatory format with extraction points |
+| **Silent voice** | No standard line to speak | 🎯 COMPLETED always present for TTS |
+| **Lost context** | Valuable insights vanish after session | 📁 CAPTURE feeds history system |
+| **Vague personality** | "Be helpful" means different things | Numeric precision: excitement=60/100 |
+| **Third-person distance** | "The assistant recommends..." | First-person: "I recommend..." |
+| **No guardrails** | Can be tricked into violations | Constitutional layer enforces boundaries |
+| **Generic feel** | Interchangeable with any AI | Specific, recognizable collaborator |
+
+### The Fundamental Insight
+
+**Naive approach:** Give the AI instructions about how to behave.
+
+```
+System Prompt:  "You are a helpful assistant. Be professional
+                 but friendly. Provide clear responses."
+
+                         ↓
+
+Output:         Variable formatting, inconsistent tone,
+                no integration points, generic responses
+```
+
+**Identity pack approach:** Build a constitutional framework that defines WHO the AI is, with integration points to other systems.
+
+```
+Identity Framework:
+
+┌─ Constitution: Principles that can't be violated
+│
+├─ Calibration: personality = { excitement: 60, precision: 95, ... }
+│
+├─ Format: Mandatory structure with extraction points
+│        ├── 🎯 COMPLETED → Voice speaks this
+│        └── 📁 CAPTURE → History stores this
+│
+└─ Voice: First-person ("I") not third-person ("the assistant")
+
+                         ↓
+
+Output:         Consistent personality, parseable format,
+                voice integration, history capture,
+                feels like specific collaborator
+```
+
+The difference: System prompts describe behavior. Identity frameworks define an entity with constitutional principles, calibrated personality, and integration contracts with other infrastructure.
+
+---
+
 ## Installation
 
 ### Prerequisites

@@ -118,6 +118,140 @@ $PAI_DIR/
 
 Hooks are middleware for your AI. They sit between Claude Code's event system and your custom logic. By instrumenting the event stream, you gain complete visibility and control over your AI's operations.
 
+---
+
+## Architecture: The Special Sauce
+
+The hook system's power comes from its **event-driven middleware pattern** - a layered architecture that intercepts, processes, and extends every AI operation without modifying Claude Code itself.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        HOOK SYSTEM ARCHITECTURE                          │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌──────────────┐                                                       │
+│  │  Claude Code │ ──► Events fire at every operation                    │
+│  └──────┬───────┘                                                       │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    LAYER 1: Event Stream                          │  │
+│  │  SessionStart ─► PreToolUse ─► PostToolUse ─► Stop ─► SessionEnd  │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    LAYER 2: Hook Registry                         │  │
+│  │  settings.json defines which hooks fire on which events           │  │
+│  │  Matchers filter by tool name (Bash, Edit, *) or context          │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    LAYER 3: Hook Implementations                  │  │
+│  │  TypeScript files that process events and take actions            │  │
+│  │  security-validator.ts │ initialize-session.ts │ update-tabs.ts   │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    LAYER 4: Shared Libraries                      │  │
+│  │  Common utilities: observability.ts, prosody-enhancer.ts          │  │
+│  │  Fail-safe patterns, logging, integration helpers                 │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│         │                                                               │
+│         ▼                                                               │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                    LAYER 5: External Integrations                 │  │
+│  │  Observability dashboards, voice servers, notification systems    │  │
+│  └──────────────────────────────────────────────────────────────────┘  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### How Data Flows Through the System
+
+**Example: User runs `rm -rf important/`**
+
+```
+1. Claude Code invokes Bash tool
+         │
+         ▼
+2. PreToolUse event fires with payload:
+   { tool_name: "Bash", tool_input: { command: "rm -rf important/" } }
+         │
+         ▼
+3. settings.json routes to security-validator.ts (matcher: "Bash")
+         │
+         ▼
+4. Hook receives JSON via stdin, pattern-matches against attack tiers
+         │
+         ▼
+5. MATCH: Catastrophic deletion pattern detected
+         │
+         ▼
+6. Hook exits with code 2 (BLOCK) + outputs warning message
+         │
+         ▼
+7. Claude Code sees exit 2, BLOCKS the command
+         │
+         ▼
+8. User sees: "🚨 BLOCKED: Catastrophic deletion detected"
+```
+
+### Why This Architecture Matters
+
+**1. Separation of Concerns**
+- Event stream (Claude Code) is separate from hook logic (your code)
+- Registration (settings.json) is separate from implementation (.ts files)
+- Each hook does one thing well (UNIX philosophy)
+
+**2. Fail-Safe by Design**
+- Hooks NEVER crash Claude Code (exit 0 on errors)
+- External integrations fail silently (observability down? keep working)
+- Fast execution (milliseconds, not seconds)
+
+**3. Composable Pipeline**
+- Multiple hooks can chain on the same event
+- Each hook processes independently
+- Order defined in settings.json
+
+**4. Deterministic Behavior**
+- Same event + same hook = same outcome
+- Pattern matching is explicit, not fuzzy
+- Exit codes have precise meanings (0=allow, 2=block)
+
+**5. Zero-Overhead Extensibility**
+- Add new hooks without modifying existing ones
+- Add new event handlers without touching Claude Code
+- Shared libraries reduce duplication
+
+### What Problems This Architecture Prevents
+
+| Problem | How Hooks Solve It |
+|---------|-------------------|
+| Dangerous commands execute | PreToolUse validates before execution |
+| Sessions start cold | SessionStart injects context automatically |
+| Work disappears | Stop/SubagentStop capture everything |
+| No visibility into operations | PostToolUse logs to observability |
+| UI doesn't show context | UserPromptSubmit updates tab titles |
+
+### The Fundamental Insight
+
+**Naive approach:** Build safety/automation INTO the AI prompts
+- Fragile (prompts can be ignored)
+- Inconsistent (varies by session)
+- Invisible (no audit trail)
+
+**Hook approach:** Build safety/automation AROUND the AI as middleware
+- Robust (code can't be prompt-injected)
+- Consistent (same code runs every time)
+- Observable (events logged, actions traced)
+
+The hook system transforms Claude Code from a standalone tool into an **observable, controllable, extensible infrastructure**. Every operation can be validated, logged, modified, or blocked. This is the foundation that enables all other PAI capabilities.
+
+---
+
 ## Why This Is Different
 
 This sounds similar to Claude Code's built-in hooks in settings.json, which also intercept events. What makes this approach different?

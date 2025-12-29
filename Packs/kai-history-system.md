@@ -146,6 +146,178 @@ $PAI_DIR/
 
 Documentation is a byproduct, not a task. By instrumenting the work itself, you get perfect records without any effort. The history system sees everything because it's wired into the event stream.
 
+---
+
+## Architecture: The Special Sauce
+
+The history system's power comes from its **automatic categorization pipeline** - a multi-layered architecture that captures, analyzes, and routes every piece of work to the right location without any manual intervention.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      HISTORY SYSTEM ARCHITECTURE                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                   LAYER 1: Event Capture                         │   │
+│  │  capture-all-events.ts hooks into EVERY Claude Code event        │   │
+│  │  PreToolUse │ PostToolUse │ Stop │ SubagentStop │ SessionEnd     │   │
+│  └──────────────────────────────┬──────────────────────────────────┘   │
+│                                 │                                       │
+│                                 ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                   LAYER 2: Raw Storage                           │   │
+│  │  Every event → JSONL file with full payload                      │   │
+│  │  raw-outputs/YYYY-MM/YYYY-MM-DD_all-events.jsonl                 │   │
+│  └──────────────────────────────┬──────────────────────────────────┘   │
+│                                 │                                       │
+│                                 ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                   LAYER 3: Content Analysis                      │   │
+│  │  Hooks analyze response content for category indicators          │   │
+│  │  "problem + solved + root cause" → LEARNING                      │   │
+│  │  "completed + deployed" → SESSION                                │   │
+│  └──────────────────────────────┬──────────────────────────────────┘   │
+│                                 │                                       │
+│                                 ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                   LAYER 4: Agent Type Routing                    │   │
+│  │  SubagentStop routes by agent type automatically                 │   │
+│  │  researcher/intern → research/                                   │   │
+│  │  architect → decisions/                                          │   │
+│  │  engineer/designer → execution/features/                         │   │
+│  └──────────────────────────────┬──────────────────────────────────┘   │
+│                                 │                                       │
+│                                 ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │                   LAYER 5: Organized Storage                     │   │
+│  │  Markdown files with YAML frontmatter in categorized dirs        │   │
+│  │  learnings/ │ research/ │ decisions/ │ sessions/ │ execution/    │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### How Data Flows Through the System
+
+**Example: You debug a tricky auth bug with a researcher agent**
+
+```
+1. You ask Claude to investigate the auth bug
+         │
+         ▼
+2. Claude spawns a researcher agent (Task tool)
+         │
+         ├──► PreToolUse event captured to raw-outputs/
+         │
+         ▼
+3. Researcher agent investigates, finds root cause
+         │
+         ▼
+4. Agent completes with: "🎯 COMPLETED: Found root cause - JWT tokens not refreshing"
+         │
+         ├──► SubagentStop fires
+         │
+         ▼
+5. subagent-stop-hook.ts:
+   a) Extracts completion message
+   b) Detects agent_type = "researcher"
+   c) Routes to research/YYYY-MM/
+         │
+         ▼
+6. Main Claude fixes the bug based on research
+         │
+         ▼
+7. Claude responds with "fixed", "root cause", "solved" in message
+         │
+         ├──► Stop fires
+         │
+         ▼
+8. stop-hook.ts:
+   a) Analyzes content for learning indicators
+   b) Detects 3+ learning keywords
+   c) Routes to learnings/YYYY-MM/
+         │
+         ▼
+9. Result: TWO history entries automatically created:
+   - research/2025-12/..._AGENT-researcher_RESEARCH_jwt-token-issue.md
+   - learnings/2025-12/..._LEARNING_jwt-refresh-fix.md
+```
+
+### Why This Architecture Matters
+
+**1. Zero Manual Effort**
+- No "save this" commands needed
+- No copy-paste to documentation
+- Work normally; history captures itself
+
+**2. Automatic Categorization**
+- Content analysis detects learnings vs sessions
+- Agent type determines output location
+- Never manually file anything
+
+**3. Complete Audit Trail**
+- Raw JSONL captures EVERYTHING (even things not categorized)
+- Can replay/analyze any session retroactively
+- Nothing lost, ever
+
+**4. Queryable Structure**
+- Consistent file naming: `TIMESTAMP_TYPE_description.md`
+- Time-based directories: `YYYY-MM/`
+- Standard Unix tools work: `grep -r "authentication" history/`
+
+**5. Agent Awareness**
+- Each spawned agent's output is captured separately
+- Agent type informs categorization
+- Parallel work doesn't get lost or merged
+
+### The Categorization Logic (Deep Dive)
+
+**Learning Detection (stop-hook.ts):**
+```
+Contains 2+ of these indicators:
+  problem, solved, discovered, fixed, learned, realized,
+  figured out, root cause, debugging, issue was, turned out,
+  mistake, error, bug, solution
+
+YES → learnings/
+NO  → sessions/
+```
+
+**Agent Routing (subagent-stop-hook.ts):**
+```
+Agent Type          → Output Directory
+─────────────────────────────────────
+*researcher, intern → research/
+architect           → decisions/
+engineer, designer  → execution/features/
+```
+
+### What Problems This Architecture Prevents
+
+| Problem | How History Solves It |
+|---------|----------------------|
+| "What did we work on last week?" | `ls history/sessions/2025-01/` |
+| "Why did we choose that architecture?" | `grep -l "architecture" history/decisions/` |
+| "I fixed this bug before, what was the fix?" | `grep -r "auth" history/learnings/` |
+| "What did that researcher agent find?" | Automatically in `history/research/` |
+| "Can we audit what happened?" | Complete JSONL in `raw-outputs/` |
+
+### The Fundamental Insight
+
+**Naive approach:** Ask the AI to "remember" or manually save important things
+- Requires explicit action (never happens)
+- AI memory is session-scoped (resets on restart)
+- No searchable archive
+
+**History approach:** Instrument the event stream, capture automatically
+- Zero effort (hooks run silently)
+- Permanent markdown files (never lost)
+- Searchable with grep/ls
+
+The history system transforms ephemeral AI interactions into **permanent, searchable institutional memory**. Every debugging session, every research finding, every architectural decision - captured automatically, categorized intelligently, queryable forever.
+
+---
+
 ## Why This Is Different
 
 This sounds similar to ChatGPT's Memory feature or vector databases like Pinecone, which also preserve context. What makes this approach different?

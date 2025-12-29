@@ -140,6 +140,178 @@ Basic TTS reads everything literally—code blocks, markdown syntax, technical a
 
 ---
 
+## Architecture: The Special Sauce
+
+The Kai Voice System uses a **5-layer prosody enhancement pipeline** that transforms raw AI text into natural speech with emotional intelligence and personality-driven delivery:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    PROSODY ENHANCEMENT PIPELINE                   │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  1. TEXT EXTRACTION         Raw completion message          │  │
+│  │     🎯 COMPLETED:           "fixed the authentication bug"  │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  2. CONTEXT ANALYSIS        Detect emotional patterns       │  │
+│  │     Pattern: "fixed"        → success emotion detected      │  │
+│  │     Output:                 [✨ success] fixed the auth...  │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  3. PERSONALITY PROSODY     Agent-specific speech patterns  │  │
+│  │     Agent: "engineer"       → wise-leader archetype         │  │
+│  │     Output:                 [✨ success] **fixed** the...   │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  4. SPEECH CLEANING         Remove non-spoken artifacts     │  │
+│  │     Strip: ```code```,      Preserve: **, ..., --           │  │
+│  │            stray emoji      (prosody markers)               │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                              │                                    │
+│                              ▼                                    │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  5. VOICE DELIVERY          Personality → Voice ID routing  │  │
+│  │     Agent: "engineer"       → ELEVENLABS_VOICE_ENGINEER     │  │
+│  │     Settings:               stability=0.72, rate=212wpm     │  │
+│  │     → POST to voice server → ElevenLabs TTS → Audio output  │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### How Data Flows Through the System
+
+**Concrete example:** A background research agent completes a task:
+
+```
+Raw Output:                    "📋 SUMMARY: Analyzed competitor
+                                ...
+                                🎯 COMPLETED: [AGENT:Researcher]
+                                Found 3 critical market gaps"
+
+                                        │
+     ┌──────────────────────────────────┼──────────────────────────────────┐
+     │                                  │                                  │
+     ▼                                  ▼                                  ▼
+┌──────────┐                    ┌──────────────┐                   ┌──────────┐
+│ Extract  │                    │ Detect       │                   │ Lookup   │
+│ COMPLETED│                    │ agent type:  │                   │ voice:   │
+│ line     │                    │ "researcher" │                   │ Analyst  │
+└──────────┘                    └──────────────┘                   └──────────┘
+     │                                  │                                  │
+     │                                  │                                  │
+     └──────────────────────────────────┼──────────────────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  CONTEXT ANALYSIS                   │
+                    │  Pattern: "Found 3" + "gaps"        │
+                    │  → [💡 insight] emotion detected    │
+                    └─────────────────────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  PERSONALITY PROSODY                │
+                    │  Analyst archetype: emphasize       │
+                    │  findings → **Found** 3 critical... │
+                    └─────────────────────────────────────┘
+                                        │
+                                        ▼
+                    ┌─────────────────────────────────────┐
+                    │  VOICE DELIVERY                     │
+                    │  POST to localhost:8888/notify      │
+                    │  {                                  │
+                    │    title: "Researcher",             │
+                    │    message: "[💡 insight] Researcher│
+                    │      completed **Found** 3 critical │
+                    │      market gaps",                  │
+                    │    voice_id: "VOICE_RESEARCHER",    │
+                    │    voice_enabled: true              │
+                    │  }                                  │
+                    └─────────────────────────────────────┘
+                                        │
+                                        ▼
+                        ┌─────────────────────────┐
+                        │  ELEVENLABS TTS          │
+                        │  stability: 0.64         │
+                        │  rate: 229 wpm           │
+                        │  → Audio plays through   │
+                        │    speakers              │
+                        └─────────────────────────┘
+```
+
+### Why This Architecture Matters
+
+1. **Emotional Intelligence**: The system doesn't just read text—it understands context. "Fixed the bug" becomes `[✨ success]` with emphasis. "CRITICAL error" becomes `[🚨 urgent]` with urgency markers.
+
+2. **Personality-Specific Delivery**: Each agent type has distinct prosody patterns. Enthusiast agents get `!` endings and `...` pauses. Wise-leader agents get em-dashes (`--`) for thoughtful breaks. Same message, different delivery.
+
+3. **Speech-First Cleaning**: The system knows what to speak and what to skip. Code blocks become "code block", inline code is stripped, but prosody markers (`**bold**`, `...`) are preserved for TTS emphasis.
+
+4. **Graceful Degradation**: If the voice server is offline, hooks exit silently with code 0. No errors, no interruptions. Voice is an enhancement, not a dependency.
+
+5. **Voice Routing Abstraction**: Agent types map to voice IDs via environment variables. Change voices by updating config, not code. Add new agents without touching existing hooks.
+
+### The Emotional Detection Deep Dive
+
+The prosody enhancer scans for patterns that indicate emotional context:
+
+```
+DETECTION PRIORITY (checked in order):
+─────────────────────────────────────────
+1. urgent     → "critical", "broken", "failing"    → [🚨 urgent]
+2. debugging  → "bug", "error", "tracking"         → [🐛 debugging]
+3. insight    → "wait", "aha", "I see"             → [💡 insight]
+4. celebration→ "finally", "phew", "we did it"     → [🎉 celebration]
+5. excited    → "breakthrough", "discovered"       → [💥 excited]
+6. investigating → "analyzing", "examining"        → [🔍 investigating]
+7. progress   → "phase complete", "moving to"      → [📈 progress]
+8. success    → "completed", "fixed", "deployed"   → [✨ success]
+9. caution    → "warning", "careful", "partial"    → [⚠️ caution]
+```
+
+If a message already has a marker (e.g., `[✨ success]`), detection is skipped to avoid double-marking.
+
+### What Problems This Architecture Prevents
+
+| Problem | Without Voice System | With Voice System |
+|---------|---------------------|-------------------|
+| **Missing completions** | Task finishes while you're in another window—you don't know | Hear announcement immediately |
+| **Robotic TTS** | Basic TTS reads code blocks character-by-character | Intelligent cleaning summarizes code as "code block" |
+| **No personality** | All agents sound the same | Each agent type has distinct voice and prosody |
+| **Context-free delivery** | "Fixed the bug" sounds same as "CRITICAL error" | Emotional markers adjust tone automatically |
+| **Server dependency** | TTS failure breaks the workflow | Graceful degradation—silent but functional |
+| **Hardcoded voices** | Changing voices requires code changes | Environment variables abstract voice IDs |
+
+### The Fundamental Insight
+
+**Naive approach:** Read text aloud with basic TTS.
+
+```
+AI Output  →  say "completed fixing the authentication bug"  →  Robotic monotone
+```
+
+**Voice system approach:** Build a prosody enhancement pipeline that transforms text into emotionally-intelligent speech.
+
+```
+AI Output  →  Extract COMPLETED  →  Detect "fixed" = success
+           →  Add [✨ success] marker
+           →  Apply engineer prosody (em-dashes, emphasis on actions)
+           →  Route to engineer voice ID (stability: 0.72, rate: 212wpm)
+           →  POST to voice server  →  ElevenLabs TTS  →  Natural speech
+```
+
+The difference: Basic TTS treats AI output as text to read. The voice system treats AI output as information to communicate—with appropriate emotion, personality, and delivery.
+
+---
+
 ## Installation
 
 ### Prerequisites
