@@ -82,12 +82,186 @@ The Kai Skill System provides:
 
 This sounds similar to ChatGPT's Custom GPTs or custom instructions, which also define AI capabilities. What makes this approach different?
 
-Custom GPTs and system prompts load everything upfront—all context, all instructions, all the time. Token budgets explode. The Kai Skill System uses dynamic loading: a tiny SKILL.md file describes what the skill can do, but workflows and documentation only load when actually invoked. This means you can have hundreds of skills without context bloat. Intent-based triggers activate exactly what's needed, when it's needed.
+Custom GPTs and system prompts load everything upfront—all context, all instructions, all the time. Token budgets explode. The Kai Skill System uses **explicit layered routing** with dynamic loading at each layer.
 
-- Dynamic loading prevents token bloat from unused context
-- Intent-based USE WHEN triggers activate skills naturally
-- Workflow routing tables enable multi-step complex procedures
-- CreateSkill meta-skill bootstraps new skills following standards
+---
+
+## Architecture: The Layered Routing System
+
+**This is what makes the skill system powerful.** There are 5 distinct layers, each with a specific purpose, and intent flows explicitly through them:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    THE 5 ROUTING LAYERS                         │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. SKILL.md Frontmatter    → System prompt (always loaded)     │
+│         │                      - name, description, USE WHEN    │
+│         │                      - Enables intent-based routing   │
+│         ▼                                                       │
+│  2. SKILL.md Body           → Main skill content (on invoke)    │
+│         │                      - Workflow routing table         │
+│         │                      - Examples, quick reference      │
+│         ▼                                                       │
+│  3. Context Files           → Topic-specific context (on-demand)│
+│         │                      - CoreStack.md, Contacts.md      │
+│         │                      - Deep documentation per topic   │
+│         ▼                                                       │
+│  4. Workflows/              → HOW to do things (explicit steps) │
+│         │                      - Step-by-step procedures        │
+│         │                      - Intent-to-flag mapping tables  │
+│         ▼                                                       │
+│  5. Tools/                  → CLI tools (deterministic code)    │
+│                                - TypeScript CLI programs        │
+│                                - Called by workflows            │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Layer 1: SKILL.md Frontmatter (Always Loaded)
+
+The YAML frontmatter is extracted and loaded into the system prompt at session start:
+
+```yaml
+---
+name: Art
+description: Visual content system. USE WHEN art, header images, visualizations, diagrams, PAI icon.
+---
+```
+
+This is the **routing metadata** - it tells the AI when to activate this skill. The `USE WHEN` triggers are parsed for intent matching. This is the ONLY part that loads for every skill at startup.
+
+### Layer 2: SKILL.md Body (On Invocation)
+
+When a skill is triggered, the full SKILL.md body loads:
+
+```markdown
+# Art Skill
+
+## Workflow Routing
+
+| Workflow | Trigger | File |
+|----------|---------|------|
+| **Essay** | blog header | `Workflows/Essay.md` |
+| **CreatePAIPackIcon** | PAI icon | `Workflows/CreatePAIPackIcon.md` |
+
+## Examples
+...
+```
+
+This contains the **workflow routing table** - mapping specific intents to workflow files. It also has examples and quick reference info.
+
+### Layer 3: Context Files (On-Demand)
+
+Named `.md` files in the skill root provide deep context on specific topics:
+
+```
+Skills/Art/
+├── SKILL.md              # Routing + quick ref
+├── Aesthetic.md          # Context: design philosophy
+├── ColorPalette.md       # Context: brand colors
+└── Examples.md           # Context: reference examples
+```
+
+These load ONLY when a workflow needs them or when explicitly referenced. This keeps SKILL.md minimal while allowing deep documentation.
+
+### Layer 4: Workflows (Explicit Procedures)
+
+Workflows are **prompts that define HOW to do things**:
+
+```
+Skills/Art/Workflows/
+├── Essay.md              # How to create blog headers
+├── CreatePAIPackIcon.md  # How to create PAI icons
+└── TechnicalDiagrams.md  # How to create diagrams
+```
+
+Each workflow contains:
+- Step-by-step instructions
+- Intent-to-flag mapping tables (user says X → use flag Y)
+- Tool invocation patterns
+- Validation checklists
+
+**Workflows are not code** - they're structured prompts that guide execution.
+
+### Layer 5: Tools (Deterministic CLI Programs)
+
+Tools are **TypeScript CLI programs** that workflows invoke:
+
+```
+Skills/Art/Tools/
+├── Generate.ts           # Image generation CLI
+└── Generate.help.md      # Tool documentation
+```
+
+Tools follow the **CLI-First Pattern**:
+- Every tool is a standalone CLI program
+- Supports `--help` for self-documentation
+- Uses flags for all options
+- Returns structured output
+- Can be composed with other tools
+
+**Workflows map user intent to tool flags** - the tool itself is deterministic.
+
+### The Flow in Action
+
+```
+User: "Create an icon for the skill system pack"
+         │
+         ▼
+┌─ Layer 1: Frontmatter ─────────────────────────────┐
+│  Art skill: "USE WHEN ... PAI icon"                │
+│  → Match! Invoke Art skill                         │
+└────────────────────────────────────────────────────┘
+         │
+         ▼
+┌─ Layer 2: SKILL.md Body ───────────────────────────┐
+│  Workflow Routing Table:                           │
+│  "PAI icon" → Workflows/CreatePAIPackIcon.md       │
+└────────────────────────────────────────────────────┘
+         │
+         ▼
+┌─ Layer 3: Context Files ───────────────────────────┐
+│  CreatePAIPackIcon.md references ColorPalette.md   │
+│  → Load color specs: #4a90d9, #8b5cf6              │
+└────────────────────────────────────────────────────┘
+         │
+         ▼
+┌─ Layer 4: Workflow ────────────────────────────────┐
+│  CreatePAIPackIcon.md steps:                       │
+│  1. Construct prompt with color palette            │
+│  2. Map intent → flags (--remove-bg, --size 1K)    │
+│  3. Call Generate.ts tool                          │
+│  4. Resize to 256x256                              │
+└────────────────────────────────────────────────────┘
+         │
+         ▼
+┌─ Layer 5: Tool ────────────────────────────────────┐
+│  bun run Generate.ts \                             │
+│    --model nano-banana-pro \                       │
+│    --prompt "..." \                                │
+│    --remove-bg \                                   │
+│    --output ~/Downloads/icon.png                   │
+└────────────────────────────────────────────────────┘
+         │
+         ▼
+      Result: Transparent PNG icon
+```
+
+### Why This Architecture Matters
+
+1. **Explicit Routing** - No fuzzy matching. Clear decision trees at each layer.
+2. **Progressive Loading** - Only load what you need when you need it.
+3. **Separation of Concerns** - Metadata, documentation, procedures, and code are all separate.
+4. **Deterministic Execution** - Workflows map intent to flags; tools execute deterministically.
+5. **Composability** - Tools can be reused across workflows; workflows across skills.
+6. **Debuggability** - You can trace exactly which layer made which decision.
+
+---
+
+### Coming Soon: CLI Tool Pattern Pack
+
+The Tools layer follows a specific pattern for building CLI tools that integrate with workflows. This will be extracted into its own pack: **kai-cli-tooling** - covering how to build TypeScript CLI tools for any skill's Tools/ directory.
 
 ---
 
