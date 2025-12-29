@@ -8,6 +8,58 @@ Each pack is a single flat markdown file with YAML frontmatter and structured se
 
 ---
 
+## 🔴 END-TO-END REQUIREMENT (MANDATORY)
+
+**Every pack MUST be end-to-end complete.** This is the most important requirement.
+
+### What End-to-End Means
+
+If your pack has a data flow, EVERY component in that flow must be included:
+
+```
+Hook → sends to → Server → calls → API → plays → Audio
+  ✅        ✅        ✅       ✅      ✅       ✅
+  ALL of these must be in the pack
+```
+
+### Anti-Patterns (NEVER DO THESE)
+
+| ❌ WRONG | ✅ RIGHT |
+|----------|----------|
+| "A full server implementation is beyond this pack's scope" | Include the complete server implementation |
+| "You can implement your own TTS provider" | Include the TTS integration code |
+| "See the skeleton pattern below" | Include production-ready code |
+| "Adapt to your preferred system" | Include the complete working system |
+| "The voice server is a required dependency" | Include the voice server |
+
+### The Chain Test
+
+Before publishing, trace every data flow:
+
+1. **Identify the chain**: What calls what? (Hook → Server → API → Output)
+2. **Check each link**: Is the code for this component in the pack?
+3. **Find the gaps**: Any "implement your own" or "beyond scope"?
+4. **Fill the gaps**: Add the missing components
+
+**If ANY link says "you implement this" or "beyond scope" - the pack is INCOMPLETE.**
+
+### Example: Voice System
+
+A voice system pack MUST include:
+
+| Component | What It Does | Included? |
+|-----------|--------------|-----------|
+| Stop hook | Extracts completion message | ✅ Required |
+| Prosody enhancer | Adds emotional markers | ✅ Required |
+| Voice server | HTTP server on port 8888 | ✅ Required |
+| ElevenLabs integration | Calls TTS API | ✅ Required |
+| Audio playback | Plays the audio | ✅ Required |
+| Server management | Start/stop/restart script | ✅ Required |
+
+**NOT:** "The voice server is beyond scope." That makes the pack useless.
+
+---
+
 ## Frontmatter (Metadata)
 
 ```yaml
@@ -365,6 +417,12 @@ This sounds similar to [ALTERNATIVE] which also does [CAPABILITY]. What makes th
 INSTRUCTIONS FOR AI: Provide step-by-step installation instructions.
 Include:
 - Prerequisites (dependencies, API keys, system requirements)
+- PRE-INSTALLATION SYSTEM ANALYSIS (REQUIRED):
+  - Scripts to detect existing PAI installation
+  - Scripts to check for conflicting files/hooks
+  - Scripts to verify dependencies are installed
+  - Conflict Resolution Matrix table
+  - Backup instructions for existing files
 - Numbered steps with clear actions
 - All code needed (use fenced code blocks with language tags)
 - Code languages: typescript (bun), bash, python (uv), json, html
@@ -374,6 +432,10 @@ Include:
 Write for an AI assistant that will execute these steps. Be explicit about file
 paths, commands to run, and expected outputs. Include ALL code - no snippets,
 no "add more patterns here", no placeholders.
+
+The Pre-Installation section is CRITICAL - it ensures the AI understands the
+current system state before making changes. This prevents conflicts and allows
+for proper merge/replace/skip decisions.
 -->
 
 ### Prerequisites
@@ -381,6 +443,112 @@ no "add more patterns here", no placeholders.
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with hook support)
 - **Write access** to `$PAI_DIR/` (or your PAI directory)
+
+---
+
+### Pre-Installation: System Analysis
+
+**IMPORTANT:** Before installing, analyze the current system state to detect conflicts and ensure dependencies are met.
+
+#### Step 0.1: Detect Current Configuration
+
+Run these commands to understand your current system:
+
+```bash
+# 1. Check if PAI_DIR is set
+echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
+
+# 2. Check for existing PAI directory
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+if [ -d "$PAI_CHECK" ]; then
+  echo "⚠️  PAI directory EXISTS at: $PAI_CHECK"
+  echo "Contents:"
+  ls -la "$PAI_CHECK" 2>/dev/null || echo "  (empty or inaccessible)"
+else
+  echo "✓ PAI directory does not exist (clean install)"
+fi
+
+# 3. Check for existing files that this pack will create
+# TODO: Add pack-specific file checks here
+echo ""
+echo "Checking for files this pack will create..."
+# if [ -f "$PAI_CHECK/path/to/file" ]; then
+#   echo "⚠️  file.ts already exists"
+# fi
+
+# 4. Check Claude settings for existing hooks
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+if [ -f "$CLAUDE_SETTINGS" ]; then
+  echo "Claude settings.json EXISTS"
+  if grep -q '"hooks"' "$CLAUDE_SETTINGS" 2>/dev/null; then
+    echo "⚠️  Existing hooks configuration found"
+  else
+    echo "✓ No hooks configured in settings.json"
+  fi
+else
+  echo "✓ No Claude settings.json (will be created)"
+fi
+
+# 5. Check environment variables
+echo ""
+echo "Environment variables:"
+echo "  DA: ${DA:-'NOT SET'}"
+echo "  TIME_ZONE: ${TIME_ZONE:-'NOT SET'}"
+echo "  PAI_DIR: ${PAI_DIR:-'NOT SET'}"
+```
+
+#### Step 0.2: Verify Dependencies
+
+```bash
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Check for required packs (customize for your pack)
+# Example: Check if hook system is installed
+if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
+  echo "✓ kai-hook-system is installed"
+else
+  echo "⚠️  kai-hook-system not installed (may be required)"
+fi
+
+# Add checks for other dependencies your pack needs
+```
+
+#### Step 0.3: Conflict Resolution Matrix
+
+Based on the detection above, follow the appropriate path:
+
+| Scenario | Existing State | Action |
+|----------|---------------|--------|
+| **Clean Install** | No PAI_DIR, no conflicts | Proceed normally with Step 1 |
+| **Directory Exists** | PAI_DIR has files | Review files, backup if needed, then proceed |
+| **Files Exist** | Pack files already present | Backup old files, compare versions, then replace |
+| **Hooks Exist** | Claude settings has hooks | **MERGE** - add new hooks to existing array |
+| **Missing Dependencies** | Required packs missing | Install dependencies first |
+
+#### Step 0.4: Backup Existing Configuration (If Needed)
+
+If conflicts were detected, create a backup before proceeding:
+
+```bash
+# Create timestamped backup
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Backup files this pack will modify
+# TODO: Add pack-specific backup commands
+# Example:
+# if [ -d "$PAI_CHECK/history" ]; then
+#   cp -r "$PAI_CHECK/history" "$BACKUP_DIR/history"
+#   echo "✓ Backed up history directory"
+# fi
+
+echo "Backup location: $BACKUP_DIR"
+```
+
+**After completing system analysis, proceed to Step 1.**
+
+---
 
 ### Step 1: Create Directory Structure
 
@@ -830,6 +998,13 @@ Format: ### {version} - {YYYY-MM-DD}
 
 > **FOR AI AGENTS:** Before publishing, verify your pack includes ALL of these:
 
+### End-to-End Chain (MOST IMPORTANT)
+- [ ] **Chain test passed**: Traced every data flow - no "implement your own" gaps
+- [ ] **Server included**: If pack needs a server, full server code is in the pack
+- [ ] **Server management**: Start/stop/restart scripts included (if server required)
+- [ ] **No "beyond scope"**: Every component mentioned is fully implemented
+
+### Standard Requirements
 - [ ] **Why Different**: 64-word paragraph + 4 eight-word bullets
 - [ ] **Full context**: What, why, who needs it
 - [ ] **All code**: Complete, working implementations (no snippets, no placeholders)
@@ -843,6 +1018,8 @@ Format: ### {version} - {YYYY-MM-DD}
 - [ ] **256x256 icon**: Transparent PNG in blue/purple palette (generated with `--remove-bg` flag)
 
 **The test:** Can someone go from fresh Claude Code to fully working system using ONLY this pack?
+
+**The chain test:** Trace every data flow. If ANY link is missing, the pack is incomplete.
 
 ---
 

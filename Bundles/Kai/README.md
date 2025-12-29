@@ -74,57 +74,187 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 ### Prerequisites
 
 - [Bun](https://bun.sh): `curl -fsSL https://bun.sh/install | bash`
-- [Claude Code](https://claude.com/claude-code) installed
+- [Claude Code](https://claude.com/claude-code) or compatible AI coding assistant
 
-### Install (AI-Assisted)
+### Quick Start: Interactive Wizard (Recommended)
 
-For each available Pack in order:
-
-```
-1. Give your AI the Pack file
-2. Say: "Install this Pack into my system"
-3. Verify installation before proceeding to next Pack
-```
-
-**Current installation sequence:**
+The Kai Bundle includes an interactive installation wizard that guides you through setup:
 
 ```bash
-# Step 1: Hook System (available) - Foundation
-Give AI: ~/Projects/PAI/Packs/kai-hook-system.md
-# Verify: ls $PAI_DIR/hooks/
+# Navigate to the bundle directory
+cd ~/Projects/PAI/Bundles/Kai
 
-# Step 2: History System (available)
-Give AI: ~/Projects/PAI/Packs/kai-history-system.md
-# Verify: ls $PAI_DIR/history/
+# Run the wizard
+bun run install.ts
+```
 
-# Step 3: Skill System (available)
-Give AI: ~/Projects/PAI/Packs/kai-skill-system.md
-# Verify: ls $PAI_DIR/skills/ && bun run $PAI_DIR/tools/SkillSearch.ts --list
+**The wizard will:**
+1. **Prompt for configuration** - Ask where to install, what to name your AI, timezone, etc.
+2. **Detect conflicts** - Find existing PAI installations or Claude hooks
+3. **Offer resolution** - Merge, replace, or cancel based on your preference
+4. **Create backup** - Optionally backup existing files before changes
+5. **Set up structure** - Create all required directories
+6. **Configure environment** - Add variables to your shell profile
+7. **Guide pack installation** - Provide prompts for each pack in order
 
-# Step 4: Voice System (available)
-Give AI: ~/Projects/PAI/Packs/kai-voice-system.md
-# Verify: Check stop-hook.ts exists and notification server pattern is configured
+### Configuration Variables
 
-# Step 5: Identity System (available)
-Give AI: ~/Projects/PAI/Packs/kai-identity.md
-# Verify: ls $PAI_DIR/Skills/CORE/ && check response format in SKILL.md
+The wizard will ask for these values:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PAI_DIR` | `~/.config/pai` | Where PAI stores files (hooks, history, skills) |
+| `DA` | `PAI` | Your AI assistant's name (e.g., Kai, Atlas, Nova) |
+| `TIME_ZONE` | System default | Timezone for timestamps |
+| `ELEVENLABS_API_KEY` | - | Optional: For voice notifications |
+| `ELEVENLABS_VOICE_ID` | Default voice | Optional: Which voice to use |
+
+### Conflict Detection
+
+The wizard automatically detects and handles:
+
+- **Existing PAI directories** - Files already in your PAI_DIR
+- **Claude settings hooks** - Existing hooks in `~/.claude/settings.json`
+- **Environment variables** - PAI_DIR, DA, etc. already set
+
+**Resolution options:**
+- **Merge** - Add Kai hooks alongside your existing hooks
+- **Replace** - Start fresh (with optional backup)
+- **Cancel** - Exit without changes
+
+### Manual Installation (Alternative)
+
+If you prefer not to use the wizard, follow these steps:
+
+#### Step 1: System Analysis (REQUIRED)
+
+Before installing, analyze your current system state:
+
+```bash
+# 1. Check existing PAI installation
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+echo "=== PAI Installation Check ==="
+echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
+
+if [ -d "$PAI_CHECK" ]; then
+  echo "⚠️  PAI directory EXISTS at: $PAI_CHECK"
+  echo "Contents:"
+  ls -la "$PAI_CHECK" 2>/dev/null
+else
+  echo "✓ Clean install - no existing PAI directory"
+fi
+
+# 2. Check Claude settings for existing hooks
+echo ""
+echo "=== Claude Settings Check ==="
+if [ -f "$HOME/.claude/settings.json" ]; then
+  if grep -q '"hooks"' "$HOME/.claude/settings.json"; then
+    echo "⚠️  Existing hooks found in settings.json:"
+    grep -A 10 '"hooks"' "$HOME/.claude/settings.json" | head -15
+  else
+    echo "✓ No existing hooks in settings.json"
+  fi
+else
+  echo "✓ No settings.json (will be created)"
+fi
+
+# 3. Check environment
+echo ""
+echo "=== Environment Check ==="
+echo "DA (AI name): ${DA:-'NOT SET'}"
+echo "TIME_ZONE: ${TIME_ZONE:-'NOT SET'}"
+echo "ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY:+'SET'}${ELEVENLABS_API_KEY:-'NOT SET'}"
+```
+
+#### Step 2: Backup (If Conflicts Detected)
+
+```bash
+BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
+PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+
+# Backup existing PAI directory
+if [ -d "$PAI_CHECK" ]; then
+  mkdir -p "$BACKUP_DIR"
+  cp -r "$PAI_CHECK" "$BACKUP_DIR/pai"
+  echo "✓ Backed up PAI to $BACKUP_DIR/pai"
+fi
+
+# Backup Claude settings
+if [ -f "$HOME/.claude/settings.json" ]; then
+  mkdir -p "$BACKUP_DIR"
+  cp "$HOME/.claude/settings.json" "$BACKUP_DIR/settings.json"
+  echo "✓ Backed up settings.json to $BACKUP_DIR/"
+fi
+```
+
+#### Step 3: Set Up Environment
+
+```bash
+# Add to your shell profile (~/.zshrc or ~/.bashrc)
+export PAI_DIR="$HOME/.config/pai"
+export DA="YourAIName"  # Your AI's name
+export TIME_ZONE="America/Los_Angeles"  # Your timezone
+export PAI_SOURCE_APP="$DA"
+
+# Reload shell
+source ~/.zshrc  # or ~/.bashrc
+```
+
+#### Step 4: Create Directory Structure
+
+```bash
+mkdir -p $PAI_DIR/{hooks/lib,History/{Sessions,Learnings,Research,Decisions},Skills/CORE,Tools,voice}
+```
+
+#### Step 5: Install Packs In Order
+
+Give each pack file to your AI with the context:
+```
+Install this pack using PAI_DIR="[your path]" and DA="[your AI name]".
+Run the Pre-Installation System Analysis section first to check for conflicts.
+```
+
+### Pack Installation Sequence
+
+After running the wizard, install each pack in order by giving your AI the pack file:
+
+| # | Pack | Command | Verification |
+|---|------|---------|--------------|
+| 1 | Hook System | Give AI: `Packs/kai-hook-system.md` | `ls $PAI_DIR/hooks/` |
+| 2 | History System | Give AI: `Packs/kai-history-system.md` | `ls $PAI_DIR/History/` |
+| 3 | Skill System | Give AI: `Packs/kai-skill-system.md` | `bun run $PAI_DIR/Tools/SkillSearch.ts --list` |
+| 4 | Voice System | Give AI: `Packs/kai-voice-system.md` | Check stop-hook.ts exists |
+| 5 | Identity | Give AI: `Packs/kai-identity.md` | `ls $PAI_DIR/Skills/CORE/` |
+
+**For each pack, tell your AI:**
+```
+Install this pack using:
+- PAI_DIR: [your configured path]
+- DA: [your AI name]
 ```
 
 ### Verify Bundle
 
-After installing available Packs:
+After installing all packs:
 
 ```bash
-# Check History
-ls $PAI_DIR/History/
-# Should show: Sessions/, Learnings/, Research/, Decisions/
+# Check complete directory structure
+ls -la $PAI_DIR/
 
-# Check Skills
-ls $PAI_DIR/Skills/
-# Should show: CORE/, CreateSkill/, skill-index.json
+# Expected directories:
+# hooks/       - Event-driven automation
+# History/     - Sessions, Learnings, Research, Decisions
+# Skills/      - CORE and other skills
+# Tools/       - CLI utilities
+# voice/       - Voice server files
 
-# Search capabilities
+# Check hooks are registered
+cat ~/.claude/settings.json | grep -A 5 "hooks"
+
+# Check skills are indexed
 bun run $PAI_DIR/Tools/SkillSearch.ts --list
+
+# Restart Claude Code to activate all hooks
 ```
 
 ---

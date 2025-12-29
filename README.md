@@ -200,7 +200,7 @@ The packs are extracted from Kai - real capabilities that have been running in p
 
 | Bundle | Description | Packs | Tier |
 |--------|-------------|-------|------|
-| [**Kai Bundle**](Bundles/Kai/) | The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production system | 15 | Complete |
+| [**Kai Bundle**](Bundles/Kai/) | The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production system | 5 | Complete |
 
 ### Why Bundles?
 
@@ -208,8 +208,14 @@ The packs are extracted from Kai - real capabilities that have been running in p
 - **Proper installation order** - Dependencies handled correctly
 - **Emergent capabilities** - The whole is greater than the sum of parts
 - **Complete experience** - Everything needed for a specific goal
+- **Interactive wizard** - Guided setup with conflict detection
 
 **The Kai Bundle** is the flagship bundle. Installing all its packs recreates the PAI v1.0 "mirrored system" experience - but through modular, maintainable packs instead of a monolithic copy.
+
+**Quick install:**
+```bash
+cd ~/Projects/PAI/Bundles/Kai && bun run install.ts
+```
 
 [**Learn more about bundles →**](Bundles/)
 
@@ -219,15 +225,37 @@ The packs are extracted from Kai - real capabilities that have been running in p
 
 > **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. You can read this README to understand how PAI works with its Packs and Bundles. A recommended approach: evaluate the entire system, then interact with your principal and ask them which Bundles or Packs they'd like to install—give them options based on their needs. From there, you should be able to read any Bundle or Pack file (including new ones as they're released) and guide your principal on whether they want to install it.
 
-### Option 1: AI-Assisted Installation (Recommended)
+### Option 1: Install the Complete Kai Bundle (Recommended)
+
+The fastest way to get started is with the interactive bundle wizard:
+
+```bash
+# Clone the repo
+git clone https://github.com/danielmiessler/PAI.git
+cd PAI/Bundles/Kai
+
+# Run the interactive wizard
+bun run install.ts
+```
+
+**The wizard will:**
+- Ask for your preferences (AI name, install location, timezone)
+- Detect any existing installations and offer to merge or replace
+- Create the required directory structure
+- Configure environment variables
+- Guide you through installing each pack in order
+
+### Option 2: AI-Assisted Pack Installation
+
+Install individual packs by giving them to your AI:
 
 1. **Browse packs** - Find a pack you want in [Packs/](Packs/)
 2. **Give it to your AI** - Provide the entire pack markdown file
 3. **Ask your AI to install it:**
 
 ```
-Install the History System pack into my system. Set up the hooks,
-save the code, verify dependencies, and test it works.
+Install this pack into my system. Use PAI_DIR="~/.config/pai"
+and DA="MyAI". Set up the hooks, save the code, and verify it works.
 ```
 
 Your AI will:
@@ -237,11 +265,11 @@ Your AI will:
 - Validate the installation
 - Run a test to ensure it works
 
-### Option 2: Manual Installation
+### Option 3: Manual Installation
 
 Each pack includes detailed manual installation instructions. Open the pack file and follow the "Installation → Manual" section.
 
-### Option 3: Browse and Cherry-Pick
+### Option 4: Browse and Cherry-Pick
 
 Packs are self-contained markdown files. You can:
 - Read the code directly in the pack

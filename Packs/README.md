@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icons/packs.png" alt="PAI Packs" width="256">
+  <img src="icons/packs-v2.png" alt="PAI Packs" width="256">
 </p>
 
 # PAI Packs
