@@ -4,7 +4,7 @@
 
 # PAI Bundles
 
-> **FOR AI AGENTS:** Bundles are curated collections of packs. When a user asks you to install a bundle, read the BUNDLE.md file and install each pack in the specified order.
+> **FOR AI AGENTS:** Bundles are curated collections of packs. When a user asks you to install a bundle, read the bundle's README.md file and install each pack in the specified order.
 
 Curated collections of packs that work together to achieve a larger goal.
 
@@ -54,7 +54,7 @@ While you can install packs individually, bundles provide:
 
 ### Option 1: AI-Assisted (Recommended)
 
-1. Open the bundle's `BUNDLE.md` file
+1. Open the bundle's directory (the README displays automatically)
 2. Give it to your AI
 3. Say: "Install this bundle into my system"
 
@@ -66,7 +66,7 @@ Your AI will:
 
 ### Option 2: Manual Installation
 
-Follow the bundle's BUNDLE.md file:
+Follow the bundle's README file:
 
 1. Install prerequisite packs first
 2. Install core packs in listed order
@@ -106,14 +106,13 @@ Create a bundle when:
 ```
 Bundles/
 └── YourBundle/
-    ├── BUNDLE.md       # Bundle specification (required)
-    └── icons/          # Optional bundle icon
-        └── bundle.png
+    ├── README.md           # Bundle specification (required, auto-displays on GitHub)
+    └── your-bundle-icon.png  # Bundle icon (optional)
 ```
 
 ### Bundle Template
 
-Use the following structure for BUNDLE.md:
+Use the following structure for your bundle's README.md:
 
 ---
 
