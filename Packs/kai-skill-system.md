@@ -8,6 +8,7 @@ type: feature
 purpose-type: [productivity, development, automation]
 platform: claude-code
 dependencies:
+  - kai-identity (required) - The CORE skill that auto-loads at session start
   - kai-hook-system (recommended)
   - kai-history-system (optional)
 keywords: [skills, routing, capabilities, workflows, modular, claude-code, automation]
@@ -83,6 +84,132 @@ The Kai Skill System provides:
 This sounds similar to ChatGPT's Custom GPTs or custom instructions, which also define AI capabilities. What makes this approach different?
 
 Custom GPTs and system prompts load everything upfront—all context, all instructions, all the time. Token budgets explode. The Kai Skill System uses **explicit layered routing** with dynamic loading at each layer.
+
+---
+
+## 🚨 The CORE Skill: Foundation of Everything
+
+**Before you understand the skill system architecture, you must understand the CORE skill—because it's what makes everything else possible.**
+
+The CORE skill is not just another skill. It is THE foundational skill that makes the entire system work, and it has a unique characteristic that no other skill shares:
+
+### CORE Auto-Loads at Session Start
+
+This is the defining feature of the skill system. When a new session begins, CORE loads automatically before you type a single character:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                   SESSION STARTUP SEQUENCE                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  1. Claude Code starts                                          │
+│         │                                                       │
+│         ▼                                                       │
+│  2. SessionStart hook fires                                     │
+│         │                                                       │
+│         ▼                                                       │
+│  3. ┌──────────────────────────────────────────────────────┐    │
+│     │  🚨 CORE SKILL LOADS AUTOMATICALLY                   │    │
+│     │                                                      │    │
+│     │  • Identity & Personality → WHO the AI is            │    │
+│     │  • Response Format → HOW it responds                 │    │
+│     │  • Stack Preferences → WHAT it recommends            │    │
+│     │  • Contact Directory → WHO you know                  │    │
+│     │  • Security Protocols → WHAT it protects             │    │
+│     │  • Workflow Routing Table → WHAT it can do           │    │
+│     └──────────────────────────────────────────────────────┘    │
+│         │                                                       │
+│         ▼                                                       │
+│  4. AI is NOW personalized with YOUR context                    │
+│         │                                                       │
+│         ▼                                                       │
+│  5. First user message arrives                                  │
+│         │                                                       │
+│         ▼                                                       │
+│  6. AI already knows who it is, how to respond, your prefs      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**This is why CORE is different from every other skill.** Other skills load when triggered by intent. CORE loads BEFORE any intent—it's the foundation the entire system stands on.
+
+### What CORE Contains
+
+The CORE skill is packed with essential context that shapes every interaction:
+
+| CORE Contains | Why It Matters |
+|---------------|----------------|
+| **Identity & Personality** | Your AI knows WHO it is from the first message—name, personality calibration, voice characteristics |
+| **Mandatory Response Format** | Consistent, parseable output that integrates with voice systems and tooling |
+| **Stack Preferences** | Never suggests Python when you want TypeScript. Knows your package managers, frameworks, conventions |
+| **Contact Directory** | Knows your colleagues, family, frequent contacts—instant lookup without explanation |
+| **Asset Registry** | Knows your domains, repos, services, deployment commands—never deploys to the wrong place |
+| **Security Protocols** | Prompt injection defense, repo separation, sensitive data handling |
+| **Workflow Routing** | What workflows CORE itself can execute (git, delegation, session continuity) |
+
+### The CORE Skill → kai-identity Pack Connection
+
+**The full CORE skill implementation is defined in the [kai-identity pack](kai-identity.md).**
+
+When you install the skill system, you MUST also install the identity pack:
+
+```
+kai-skill-system          ← Provides the routing architecture
+        │
+        └──── REQUIRES ────→ kai-identity  ← Provides the CORE skill content
+                                │
+                                ├── Identity & personality layer
+                                ├── Constitutional principles
+                                ├── Response format specification
+                                ├── Stack preferences
+                                └── Contact/asset registries
+```
+
+Without kai-identity, you have a skill system with no foundation. The routing works, but your AI has no personality, no preferences, no context about who it's working with.
+
+### CORE in the Skill Hierarchy
+
+CORE occupies a unique tier in the skill loading hierarchy:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              SKILL LOADING TIERS                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  TIER 0: CORE (Automatic)                                       │
+│  ════════════════════════                                       │
+│  • Loads at session start                                       │
+│  • NO trigger required                                          │
+│  • ALWAYS present                                               │
+│                                                                 │
+│─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│
+│                                                                 │
+│  TIER 1: Frontmatter Only (System Prompt)                       │
+│  ════════════════════════════════════════                       │
+│  • SKILL.md frontmatter always in context                       │
+│  • USE WHEN triggers enable intent routing                      │
+│  • Minimal token cost                                           │
+│                                                                 │
+│─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│
+│                                                                 │
+│  TIER 2: Full Skill (On Invoke)                                 │
+│  ════════════════════════════════                               │
+│  • SKILL.md body loads when triggered                           │
+│  • Workflow routing table available                             │
+│  • Full capability unlocked                                     │
+│                                                                 │
+│─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─│
+│                                                                 │
+│  TIER 3: Workflow (On Route)                                    │
+│  ════════════════════════════                                   │
+│  • Specific workflow.md loads on routing                        │
+│  • Step-by-step instructions                                    │
+│  • Task-specific context                                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**CORE is Tier 0**—it exists outside the normal trigger system. It's not waiting to be invoked; it's already there.
 
 ---
 
