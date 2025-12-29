@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" alt="Kai Bundle" width="256">
+  <img src="bundle-icon.png" alt="Kai Bundle" width="256">
 </p>
 
 # Kai Bundle
