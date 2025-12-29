@@ -28,6 +28,27 @@ The old approach was "here's my whole system—clone it and customize." That cre
 
 ---
 
+## System Architecture
+
+<p align="center">
+  <img src="icons/pai-system-architecture.png" alt="PAI System Architecture" width="800">
+</p>
+
+**PAI organizes capabilities in a clear hierarchy:**
+
+```
+PAI System
+    └── Bundles (curated collections for specific goals)
+            └── Packs (individual capabilities)
+                    └── Contents (code, hooks, tools, workflows, config)
+```
+
+- **Bundles** group related packs that work well together
+- **Packs** are self-contained capabilities you can install independently
+- **Contents** are the actual code, hooks, tools, and configuration inside each pack
+
+---
+
 ## What's in a Pack?
 
 Each pack is a single markdown file containing everything needed to go from zero to working:
@@ -45,13 +66,13 @@ Each pack is a single markdown file containing everything needed to go from zero
 
 ## Available Packs
 
-| Pack | Version | Category | Description |
-|------|---------|----------|-------------|
-| [**kai-hook-system**](kai-hook-system.md) | 1.0.0 | Foundation | Event-driven automation framework - the foundation for all hook-based capabilities including security validation, session management, and context injection |
-| [**kai-history-system**](kai-history-system.md) | 1.0.0 | Infrastructure | Granular context-tracking that captures all work, decisions, and learnings automatically with zero manual effort |
-| [**kai-skill-system**](kai-skill-system.md) | 1.0.0 | Routing | Complete capability routing through standardized SKILL.md format with dynamic loading and intent-based triggers |
-| [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | Voice notifications with ElevenLabs TTS, prosody enhancement for natural speech, and personality-driven delivery |
-| [**kai-identity**](kai-identity.md) | 1.0.0 | Personality | Personal AI identity with mandatory response format, personality calibration, constitution, and the 14 founding principles |
+| Pack | Version | Category | Bundle | Description |
+|------|---------|----------|--------|-------------|
+| [**kai-hook-system**](kai-hook-system.md) | 1.0.0 | Foundation | [Kai](../Bundles/Kai/) | Event-driven automation framework - the foundation for all hook-based capabilities |
+| [**kai-history-system**](kai-history-system.md) | 1.0.0 | Infrastructure | [Kai](../Bundles/Kai/) | Granular context-tracking that captures all work, decisions, and learnings automatically |
+| [**kai-skill-system**](kai-skill-system.md) | 1.0.0 | Routing | [Kai](../Bundles/Kai/) | Capability routing through standardized SKILL.md format with dynamic loading |
+| [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | [Kai](../Bundles/Kai/) | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
+| [**kai-identity**](kai-identity.md) | 1.0.0 | Personality | [Kai](../Bundles/Kai/) | Personal AI identity with response format, calibration, constitution, and 14 principles |
 
 ---
 
