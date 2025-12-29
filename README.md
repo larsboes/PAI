@@ -217,6 +217,8 @@ The packs are extracted from Kai - real capabilities that have been running in p
 
 ## 🚀 Quick Start
 
+> **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. You can read this README to understand how PAI works with its Packs and Bundles. A recommended approach: evaluate the entire system, then interact with your principal and ask them which Bundles or Packs they'd like to install—give them options based on their needs. From there, you should be able to read any Bundle or Pack file (including new ones as they're released) and guide your principal on whether they want to install it.
+
 ### Option 1: AI-Assisted Installation (Recommended)
 
 1. **Browse packs** - Find a pack you want in [Packs/](Packs/)
