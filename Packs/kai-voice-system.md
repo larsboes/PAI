@@ -85,7 +85,7 @@ The Kai Voice System provides natural-sounding voice output:
 **Core Architecture:**
 
 ```
-~/.config/pai/
+$PAI_DIR/
 ├── hooks/
 │   ├── stop-hook-voice.ts           # Main agent voice notification
 │   ├── subagent-stop-hook-voice.ts  # Subagent voice notification
@@ -153,11 +153,11 @@ Basic TTS reads everything literally—code blocks, markdown syntax, technical a
 
 ```bash
 # Create directories (if not already from hook-system)
-mkdir -p ~/.config/pai/hooks/lib
-mkdir -p ~/.config/pai/config
+mkdir -p $PAI_DIR/hooks/lib
+mkdir -p $PAI_DIR/config
 
 # Verify
-ls -la ~/.config/pai/hooks/
+ls -la $PAI_DIR/hooks/
 ```
 
 ---
@@ -167,7 +167,7 @@ ls -la ~/.config/pai/hooks/
 Create the voice personality configuration file:
 
 ```json
-// ~/.config/pai/config/voice-personalities.json
+// $PAI_DIR/config/voice-personalities.json
 {
   "default_rate": 175,
   "notification_server": "http://localhost:8888/notify",
@@ -264,7 +264,7 @@ Create the voice personality configuration file:
 ### Step 3: Create Prosody Enhancer Library
 
 ```typescript
-// ~/.config/pai/hooks/lib/prosody-enhancer.ts
+// $PAI_DIR/hooks/lib/prosody-enhancer.ts
 // Enhances voice output with emotional markers and natural speech patterns
 
 export interface AgentPersonality {
@@ -617,7 +617,7 @@ export function getVoiceId(agentType: string): string {
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/stop-hook-voice.ts
+// $PAI_DIR/hooks/stop-hook-voice.ts
 // Main agent voice notification with prosody enhancement
 
 import { readFileSync } from 'fs';
@@ -814,7 +814,7 @@ main().catch((error) => {
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/subagent-stop-hook-voice.ts
+// $PAI_DIR/hooks/subagent-stop-hook-voice.ts
 // Subagent voice notification with personality-specific delivery
 
 import { readFileSync, existsSync } from 'fs';
@@ -1078,7 +1078,7 @@ Add voice hooks to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/stop-hook-voice.ts"
+            "command": "bun run $PAI_DIR/hooks/stop-hook-voice.ts"
           }
         ]
       }
@@ -1088,7 +1088,7 @@ Add voice hooks to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/subagent-stop-hook-voice.ts"
+            "command": "bun run $PAI_DIR/hooks/subagent-stop-hook-voice.ts"
           }
         ]
       }
@@ -1178,14 +1178,14 @@ Bun.serve({
 
 ```bash
 # 1. Check hook files exist
-ls -la ~/.config/pai/hooks/*voice*.ts
+ls -la $PAI_DIR/hooks/*voice*.ts
 # Should show: stop-hook-voice.ts, subagent-stop-hook-voice.ts
 
 # 2. Check prosody enhancer exists
-ls -la ~/.config/pai/hooks/lib/prosody-enhancer.ts
+ls -la $PAI_DIR/hooks/lib/prosody-enhancer.ts
 
 # 3. Check voice config exists
-ls -la ~/.config/pai/config/voice-personalities.json
+ls -la $PAI_DIR/config/voice-personalities.json
 
 # 4. Test prosody enhancer
 echo 'import { enhanceProsody } from "./lib/prosody-enhancer"; console.log(enhanceProsody("fixed the bug", "kai"))' | \

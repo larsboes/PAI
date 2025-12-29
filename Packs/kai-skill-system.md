@@ -97,9 +97,9 @@ Custom GPTs and system prompts load everything upfront—all context, all instru
 
 ```bash
 # Create the Skills directory
-mkdir -p ${PAI_HOME}/Skills
-mkdir -p ${PAI_HOME}/Skills/CORE
-mkdir -p ${PAI_HOME}/Tools
+mkdir -p $PAI_DIR/Skills
+mkdir -p $PAI_DIR/Skills/CORE
+mkdir -p $PAI_DIR/Tools
 
 # PAI_HOME is typically ~/.claude or ~/.config/pai
 # Adjust based on your setup
@@ -107,7 +107,7 @@ mkdir -p ${PAI_HOME}/Tools
 
 ### Step 2: Create SkillSystem.md
 
-Save the following to `${PAI_HOME}/Skills/CORE/SkillSystem.md`:
+Save the following to `$PAI_DIR/Skills/CORE/SkillSystem.md`:
 
 ```markdown
 # Custom Skill System
@@ -523,7 +523,7 @@ Before a skill is complete:
 
 ### Step 3: Create SkillSearch Tool
 
-Save to `${PAI_HOME}/Tools/SkillSearch.ts`:
+Save to `$PAI_DIR/Tools/SkillSearch.ts`:
 
 ```typescript
 #!/usr/bin/env bun
@@ -534,11 +534,11 @@ Save to `${PAI_HOME}/Tools/SkillSearch.ts`:
  * Use this when you need to find which skill handles a specific task.
  *
  * Usage:
- *   bun run ${PAI_HOME}/Tools/SkillSearch.ts <query>
- *   bun run ${PAI_HOME}/Tools/SkillSearch.ts "scrape instagram"
- *   bun run ${PAI_HOME}/Tools/SkillSearch.ts --list           # List all skills
- *   bun run ${PAI_HOME}/Tools/SkillSearch.ts --tier always    # List always-loaded skills
- *   bun run ${PAI_HOME}/Tools/SkillSearch.ts --tier deferred  # List deferred skills
+ *   bun run $PAI_DIR/Tools/SkillSearch.ts <query>
+ *   bun run $PAI_DIR/Tools/SkillSearch.ts "scrape instagram"
+ *   bun run $PAI_DIR/Tools/SkillSearch.ts --list           # List all skills
+ *   bun run $PAI_DIR/Tools/SkillSearch.ts --tier always    # List always-loaded skills
+ *   bun run $PAI_DIR/Tools/SkillSearch.ts --tier deferred  # List deferred skills
  *
  * Output: Matching skills with full descriptions and workflows
  */
@@ -678,7 +678,7 @@ async function main() {
   // Check if index exists
   if (!existsSync(INDEX_FILE)) {
     console.error('❌ Skill index not found. Run GenerateSkillIndex.ts first:');
-    console.error(`   bun run ${PAI_HOME}/Tools/GenerateSkillIndex.ts`);
+    console.error(`   bun run $PAI_DIR/Tools/GenerateSkillIndex.ts`);
     process.exit(1);
   }
 
@@ -734,7 +734,7 @@ main().catch(console.error);
 
 ### Step 4: Create GenerateSkillIndex Tool
 
-Save to `${PAI_HOME}/Tools/GenerateSkillIndex.ts`:
+Save to `$PAI_DIR/Tools/GenerateSkillIndex.ts`:
 
 ```typescript
 #!/usr/bin/env bun
@@ -744,9 +744,9 @@ Save to `${PAI_HOME}/Tools/GenerateSkillIndex.ts`:
  * Parses all SKILL.md files and builds a searchable index for dynamic skill discovery.
  * Run this after adding/modifying skills to update the index.
  *
- * Usage: bun run ${PAI_HOME}/Tools/GenerateSkillIndex.ts
+ * Usage: bun run $PAI_DIR/Tools/GenerateSkillIndex.ts
  *
- * Output: ${PAI_HOME}/Skills/skill-index.json
+ * Output: $PAI_DIR/Skills/skill-index.json
  */
 
 import { readdir, readFile, writeFile } from 'fs/promises';
@@ -985,11 +985,11 @@ main().catch(console.error);
 Create the directory structure:
 
 ```bash
-mkdir -p ${PAI_HOME}/Skills/CreateSkill/Workflows
-mkdir -p ${PAI_HOME}/Skills/CreateSkill/Tools
+mkdir -p $PAI_DIR/Skills/CreateSkill/Workflows
+mkdir -p $PAI_DIR/Skills/CreateSkill/Tools
 ```
 
-Save to `${PAI_HOME}/Skills/CreateSkill/SKILL.md`:
+Save to `$PAI_DIR/Skills/CreateSkill/SKILL.md`:
 
 ```markdown
 ---
@@ -1003,7 +1003,7 @@ MANDATORY skill creation framework for ALL skill creation requests.
 
 ## Authoritative Source
 
-**Before creating ANY skill, READ:** `${PAI_HOME}/Skills/CORE/SkillSystem.md`
+**Before creating ANY skill, READ:** `$PAI_DIR/Skills/CORE/SkillSystem.md`
 
 ## TitleCase Naming Convention
 
@@ -1066,7 +1066,7 @@ User: "Canonicalize the daemon skill"
 
 ### Step 6: Create CreateSkill Workflows
 
-Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/CreateSkill.md`:
+Save to `$PAI_DIR/Skills/CreateSkill/Workflows/CreateSkill.md`:
 
 ```markdown
 # CreateSkill Workflow
@@ -1077,7 +1077,7 @@ Create a new skill following the canonical structure with proper TitleCase namin
 
 **REQUIRED FIRST:**
 
-1. Read the skill system documentation: `${PAI_HOME}/Skills/CORE/SkillSystem.md`
+1. Read the skill system documentation: `$PAI_DIR/Skills/CORE/SkillSystem.md`
 
 ## Step 2: Understand the Request
 
@@ -1103,8 +1103,8 @@ Ask the user:
 ## Step 4: Create the Skill Directory
 
 ```bash
-mkdir -p ${PAI_HOME}/Skills/[SkillName]/Workflows
-mkdir -p ${PAI_HOME}/Skills/[SkillName]/Tools
+mkdir -p $PAI_DIR/Skills/[SkillName]/Workflows
+mkdir -p $PAI_DIR/Skills/[SkillName]/Tools
 ```
 
 ## Step 5: Create SKILL.md
@@ -1155,16 +1155,16 @@ User: "[Different request]"
 For each workflow in the routing section:
 
 ```bash
-touch ${PAI_HOME}/Skills/[SkillName]/Workflows/[WorkflowName].md
+touch $PAI_DIR/Skills/[SkillName]/Workflows/[WorkflowName].md
 ```
 
 ## Step 7: Verify TitleCase
 
 Run this check:
 ```bash
-ls ${PAI_HOME}/Skills/[SkillName]/
-ls ${PAI_HOME}/Skills/[SkillName]/Workflows/
-ls ${PAI_HOME}/Skills/[SkillName]/Tools/
+ls $PAI_DIR/Skills/[SkillName]/
+ls $PAI_DIR/Skills/[SkillName]/Workflows/
+ls $PAI_DIR/Skills/[SkillName]/Tools/
 ```
 
 Verify ALL files use TitleCase.
@@ -1197,7 +1197,7 @@ Verify ALL files use TitleCase.
 Skill created following canonical structure with proper TitleCase naming throughout.
 ```
 
-Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/ValidateSkill.md`:
+Save to `$PAI_DIR/Skills/CreateSkill/Workflows/ValidateSkill.md`:
 
 ```markdown
 # ValidateSkill Workflow
@@ -1211,7 +1211,7 @@ Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/ValidateSkill.md`:
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_HOME}/Skills/CORE/SkillSystem.md
+$PAI_DIR/Skills/CORE/SkillSystem.md
 ```
 
 ---
@@ -1219,7 +1219,7 @@ ${PAI_HOME}/Skills/CORE/SkillSystem.md
 ## Step 2: Read the Target Skill
 
 ```bash
-${PAI_HOME}/Skills/[SkillName]/SKILL.md
+$PAI_DIR/Skills/[SkillName]/SKILL.md
 ```
 
 ---
@@ -1228,7 +1228,7 @@ ${PAI_HOME}/Skills/[SkillName]/SKILL.md
 
 ### Skill Directory
 ```bash
-ls ${PAI_HOME}/Skills/ | grep -i [skillname]
+ls $PAI_DIR/Skills/ | grep -i [skillname]
 ```
 
 Verify TitleCase:
@@ -1237,7 +1237,7 @@ Verify TitleCase:
 
 ### Workflow Files
 ```bash
-ls ${PAI_HOME}/Skills/[SkillName]/Workflows/
+ls $PAI_DIR/Skills/[SkillName]/Workflows/
 ```
 
 Verify TitleCase:
@@ -1303,7 +1303,7 @@ User: "[Request]"
 **NON-COMPLIANT** if any check fails. Recommend using CanonicalizeSkill workflow.
 ```
 
-Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/UpdateSkill.md`:
+Save to `$PAI_DIR/Skills/CreateSkill/Workflows/UpdateSkill.md`:
 
 ```markdown
 # UpdateSkill Workflow
@@ -1317,7 +1317,7 @@ Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/UpdateSkill.md`:
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_HOME}/Skills/CORE/SkillSystem.md
+$PAI_DIR/Skills/CORE/SkillSystem.md
 ```
 
 ---
@@ -1325,7 +1325,7 @@ ${PAI_HOME}/Skills/CORE/SkillSystem.md
 ## Step 2: Read the Current Skill
 
 ```bash
-${PAI_HOME}/Skills/[SkillName]/SKILL.md
+$PAI_DIR/Skills/[SkillName]/SKILL.md
 ```
 
 ---
@@ -1340,7 +1340,7 @@ ${PAI_HOME}/Skills/[SkillName]/SKILL.md
 
 2. **Create the workflow file:**
 ```bash
-touch ${PAI_HOME}/Skills/[SkillName]/Workflows/[WorkflowName].md
+touch $PAI_DIR/Skills/[SkillName]/Workflows/[WorkflowName].md
 ```
 
 3. **Add entry to `## Workflow Routing` section in SKILL.md:**
@@ -1378,7 +1378,7 @@ description: [What it does]. USE WHEN [updated intent triggers using OR]. [Capab
 Skill updated while maintaining canonical structure and TitleCase naming.
 ```
 
-Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/CanonicalizeSkill.md`:
+Save to `$PAI_DIR/Skills/CreateSkill/Workflows/CanonicalizeSkill.md`:
 
 ```markdown
 # CanonicalizeSkill Workflow
@@ -1392,7 +1392,7 @@ Save to `${PAI_HOME}/Skills/CreateSkill/Workflows/CanonicalizeSkill.md`:
 **REQUIRED FIRST:** Read the canonical structure:
 
 ```
-${PAI_HOME}/Skills/CORE/SkillSystem.md
+$PAI_DIR/Skills/CORE/SkillSystem.md
 ```
 
 ---
@@ -1412,10 +1412,10 @@ Identify what's wrong:
 ## Step 3: Backup
 
 ```bash
-cp -r ${PAI_HOME}/Skills/[skill-name]/ ${PAI_HOME}/History/Backups/[skill-name]-backup-$(date +%Y%m%d)/
+cp -r $PAI_DIR/Skills/[skill-name]/ $PAI_DIR/History/Backups/[skill-name]-backup-$(date +%Y%m%d)/
 ```
 
-**Note:** Backups go to `${PAI_HOME}/History/Backups/`, NEVER inside skill directories.
+**Note:** Backups go to `$PAI_DIR/History/Backups/`, NEVER inside skill directories.
 
 ---
 
@@ -1435,7 +1435,7 @@ cp -r ${PAI_HOME}/Skills/[skill-name]/ ${PAI_HOME}/History/Backups/[skill-name]-
 
 **Rename files if needed:**
 ```bash
-cd ${PAI_HOME}/Skills/[SkillName]/Workflows/
+cd $PAI_DIR/Skills/[SkillName]/Workflows/
 mv create.md Create.md
 mv update-info.md UpdateInfo.md
 ```
@@ -1448,7 +1448,7 @@ mv update-info.md UpdateInfo.md
 
 Check for nested folders:
 ```bash
-find ${PAI_HOME}/Skills/[SkillName]/ -type d -mindepth 2 -maxdepth 3
+find $PAI_DIR/Skills/[SkillName]/ -type d -mindepth 2 -maxdepth 3
 ```
 
 Fix violations:
@@ -1531,11 +1531,11 @@ The CORE skill is the centerpiece of your AI system - it defines identity, perso
 Create the directory structure:
 
 ```bash
-mkdir -p ${PAI_HOME}/Skills/CORE/Workflows
-mkdir -p ${PAI_HOME}/Skills/CORE/Tools
+mkdir -p $PAI_DIR/Skills/CORE/Workflows
+mkdir -p $PAI_DIR/Skills/CORE/Tools
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/SKILL.md`:
+Save to `$PAI_DIR/Skills/CORE/SKILL.md`:
 
 ```markdown
 ---
@@ -1653,7 +1653,7 @@ Define your technical preferences:
 - Security protocols: `SecurityProtocols.md`
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/Contacts.md`:
+Save to `$PAI_DIR/Skills/CORE/Contacts.md`:
 
 ```markdown
 # Contact Directory
@@ -1687,7 +1687,7 @@ When the user asks about someone:
 3. If not found, ask the user for details
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/AssetManagement.md`:
+Save to `$PAI_DIR/Skills/CORE/AssetManagement.md`:
 
 ```markdown
 # Asset Management
@@ -1738,7 +1738,7 @@ To register a new asset:
 Keep this registry updated so your AI knows what you own and how to deploy it.
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/CoreStack.md`:
+Save to `$PAI_DIR/Skills/CORE/CoreStack.md`:
 
 ```markdown
 # Core Stack Preferences
@@ -1795,7 +1795,7 @@ Technical preferences for code generation and tooling.
 - Error messages should be actionable
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/SecurityProtocols.md`:
+Save to `$PAI_DIR/Skills/CORE/SecurityProtocols.md`:
 
 ```markdown
 # Security Protocols
@@ -1857,7 +1857,7 @@ Before deploying:
 
 Create the CORE workflows:
 
-Save to `${PAI_HOME}/Skills/CORE/Workflows/UpdateIdentity.md`:
+Save to `$PAI_DIR/Skills/CORE/Workflows/UpdateIdentity.md`:
 
 ```markdown
 # UpdateIdentity Workflow
@@ -1874,7 +1874,7 @@ Ask the user:
 
 ## Step 2: Read Current Identity
 
-Read \`${PAI_HOME}/Skills/CORE/SKILL.md\` to see current settings.
+Read \`$PAI_DIR/Skills/CORE/SKILL.md\` to see current settings.
 
 ## Step 3: Make Changes
 
@@ -1885,7 +1885,7 @@ Update the relevant section in SKILL.md.
 Confirm the change takes effect in subsequent responses.
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/Workflows/AddContact.md`:
+Save to `$PAI_DIR/Skills/CORE/Workflows/AddContact.md`:
 
 ```markdown
 # AddContact Workflow
@@ -1902,7 +1902,7 @@ Ask the user for:
 
 ## Step 2: Update Contacts
 
-Add to the table in \`${PAI_HOME}/Skills/CORE/Contacts.md\`:
+Add to the table in \`$PAI_DIR/Skills/CORE/Contacts.md\`:
 
 \`\`\`markdown
 | [Name] | [Role] | [email] | [Notes] |
@@ -1913,7 +1913,7 @@ Add to the table in \`${PAI_HOME}/Skills/CORE/Contacts.md\`:
 Tell the user the contact was added.
 ```
 
-Save to `${PAI_HOME}/Skills/CORE/Workflows/UpdateAssets.md`:
+Save to `$PAI_DIR/Skills/CORE/Workflows/UpdateAssets.md`:
 
 ```markdown
 # UpdateAssets Workflow
@@ -1944,7 +1944,7 @@ For services:
 
 ## Step 3: Update Registry
 
-Add to the appropriate table in \`${PAI_HOME}/Skills/CORE/AssetManagement.md\`.
+Add to the appropriate table in \`$PAI_DIR/Skills/CORE/AssetManagement.md\`.
 
 ## Step 4: Confirm
 
@@ -1954,7 +1954,7 @@ Tell the user the asset was registered.
 ### Step 8: Generate the Initial Index
 
 ```bash
-bun run ${PAI_HOME}/Tools/GenerateSkillIndex.ts
+bun run $PAI_DIR/Tools/GenerateSkillIndex.ts
 ```
 
 ### Step 8: Configure Claude Code Settings
@@ -1964,8 +1964,8 @@ Add to your `settings.json` (or equivalent configuration):
 ```json
 {
   "skills": {
-    "directory": "${PAI_HOME}/Skills",
-    "indexFile": "${PAI_HOME}/Skills/skill-index.json",
+    "directory": "$PAI_DIR/Skills",
+    "indexFile": "$PAI_DIR/Skills/skill-index.json",
     "alwaysLoad": ["CORE", "Development", "Research"]
   }
 }
@@ -1980,17 +1980,17 @@ After installation, verify the system works:
 ### 1. Check Directory Structure
 
 ```bash
-ls ${PAI_HOME}/Skills/
+ls $PAI_DIR/Skills/
 # Should show: CORE/ CreateSkill/ skill-index.json
 
-ls ${PAI_HOME}/Tools/
+ls $PAI_DIR/Tools/
 # Should show: SkillSearch.ts GenerateSkillIndex.ts
 ```
 
 ### 2. Run SkillSearch
 
 ```bash
-bun run ${PAI_HOME}/Tools/SkillSearch.ts --list
+bun run $PAI_DIR/Tools/SkillSearch.ts --list
 # Should show available skills
 ```
 
@@ -2031,9 +2031,9 @@ User: "Create a skill for managing my garden tasks"
 AI: I'll create the Garden skill following the canonical structure.
 
 *Creates:*
-- ${PAI_HOME}/Skills/Garden/SKILL.md
-- ${PAI_HOME}/Skills/Garden/Workflows/
-- ${PAI_HOME}/Skills/Garden/Tools/
+- $PAI_DIR/Skills/Garden/SKILL.md
+- $PAI_DIR/Skills/Garden/Workflows/
+- $PAI_DIR/Skills/Garden/Tools/
 
 *SKILL.md content:*
 ---

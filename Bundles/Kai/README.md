@@ -45,7 +45,7 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 | 2 | [kai-history-system](../../Packs/kai-history-system.md) | Memory and capture | Hooks |
 | 3 | [kai-skill-system](../../Packs/kai-skill-system.md) | Capability routing | Hooks, History |
 | 4 | [kai-voice-system](../../Packs/kai-voice-system.md) | Voice notifications | Hooks, Skills |
-| 5 | [kai-da-identity](../../Packs/kai-da-identity.md) | Personality layer | All above |
+| 5 | [kai-identity](../../Packs/kai-identity.md) | Personality layer | All above |
 
 ### Why Order Matters
 
@@ -63,7 +63,7 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 | kai-history-system | **Available** |
 | kai-skill-system | **Available** |
 | kai-voice-system | **Available** |
-| kai-da-identity | **Available** |
+| kai-identity | **Available** |
 
 *All Packs are now available. Install in order to get the complete Kai experience.*
 
@@ -91,23 +91,23 @@ For each available Pack in order:
 ```bash
 # Step 1: Hook System (available) - Foundation
 Give AI: ~/Projects/PAI/Packs/kai-hook-system.md
-# Verify: ls ~/.config/pai/hooks/
+# Verify: ls $PAI_DIR/hooks/
 
 # Step 2: History System (available)
 Give AI: ~/Projects/PAI/Packs/kai-history-system.md
-# Verify: ls ~/.config/pai/history/
+# Verify: ls $PAI_DIR/history/
 
 # Step 3: Skill System (available)
 Give AI: ~/Projects/PAI/Packs/kai-skill-system.md
-# Verify: ls ~/.config/pai/skills/ && bun run ~/.config/pai/tools/SkillSearch.ts --list
+# Verify: ls $PAI_DIR/skills/ && bun run $PAI_DIR/tools/SkillSearch.ts --list
 
 # Step 4: Voice System (available)
 Give AI: ~/Projects/PAI/Packs/kai-voice-system.md
 # Verify: Check stop-hook.ts exists and notification server pattern is configured
 
 # Step 5: Identity System (available)
-Give AI: ~/Projects/PAI/Packs/kai-da-identity.md
-# Verify: ls ~/.config/pai/Skills/CORE/ && check response format in SKILL.md
+Give AI: ~/Projects/PAI/Packs/kai-identity.md
+# Verify: ls $PAI_DIR/Skills/CORE/ && check response format in SKILL.md
 ```
 
 ### Verify Bundle
@@ -116,15 +116,15 @@ After installing available Packs:
 
 ```bash
 # Check History
-ls ~/.config/pai/History/
+ls $PAI_DIR/History/
 # Should show: Sessions/, Learnings/, Research/, Decisions/
 
 # Check Skills
-ls ~/.config/pai/Skills/
+ls $PAI_DIR/Skills/
 # Should show: CORE/, CreateSkill/, skill-index.json
 
 # Search capabilities
-bun run ~/.config/pai/Tools/SkillSearch.ts --list
+bun run $PAI_DIR/Tools/SkillSearch.ts --list
 ```
 
 ---

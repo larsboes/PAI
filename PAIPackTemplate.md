@@ -217,7 +217,7 @@ The Kai History System solves this through **automatic, hook-based documentation
 **Core Architecture:**
 
 ```
-~/.config/pai/
+$PAI_DIR/
 ├── hooks/                           # Hook implementations
 │   ├── capture-all-events.ts        # Universal event capture (all hooks)
 │   ├── stop-hook.ts                 # Main agent completion capture
@@ -332,19 +332,19 @@ no "add more patterns here", no placeholders.
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with hook support)
-- **Write access** to `~/.config/pai/` (or your PAI directory)
+- **Write access** to `$PAI_DIR/` (or your PAI directory)
 
 ### Step 1: Create Directory Structure
 
 ```bash
 # Create all required directories
-mkdir -p ~/.config/pai/hooks/lib
-mkdir -p ~/.config/pai/history/{sessions,learnings,research,decisions,raw-outputs}
-mkdir -p ~/.config/pai/history/execution/{features,bugs,refactors}
+mkdir -p $PAI_DIR/hooks/lib
+mkdir -p $PAI_DIR/history/{sessions,learnings,research,decisions,raw-outputs}
+mkdir -p $PAI_DIR/history/execution/{features,bugs,refactors}
 
 # Verify structure
-ls -la ~/.config/pai/
-ls -la ~/.config/pai/history/
+ls -la $PAI_DIR/
+ls -la $PAI_DIR/history/
 ```
 
 Expected output: All directories created with no errors.
@@ -358,7 +358,7 @@ These shared libraries are used by multiple hooks.
 #### 2.1: Create observability.ts
 
 ```typescript
-// ~/.config/pai/hooks/lib/observability.ts
+// $PAI_DIR/hooks/lib/observability.ts
 // Dashboard integration for real-time monitoring
 
 export interface ObservabilityEvent {
@@ -407,7 +407,7 @@ export function getSourceApp(): string {
 #### 2.2: Create metadata-extraction.ts
 
 ```typescript
-// ~/.config/pai/hooks/lib/metadata-extraction.ts
+// $PAI_DIR/hooks/lib/metadata-extraction.ts
 // Extract agent instance metadata from Task tool calls
 
 export interface AgentInstanceMetadata {
@@ -509,7 +509,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PreToolUse"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type PreToolUse"
           }
         ]
       }
@@ -520,7 +520,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PostToolUse"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type PostToolUse"
           }
         ]
       }
@@ -530,11 +530,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/stop-hook.ts"
+            "command": "bun run $PAI_DIR/hooks/stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Stop"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type Stop"
           }
         ]
       }
@@ -544,11 +544,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/subagent-stop-hook.ts"
+            "command": "bun run $PAI_DIR/hooks/subagent-stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SubagentStop"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SubagentStop"
           }
         ]
       }
@@ -558,11 +558,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-session-summary.ts"
+            "command": "bun run $PAI_DIR/hooks/capture-session-summary.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionEnd"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SessionEnd"
           }
         ]
       }
@@ -572,7 +572,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionStart"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SessionStart"
           }
         ]
       }
@@ -582,7 +582,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type UserPromptSubmit"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type UserPromptSubmit"
           }
         ]
       }
@@ -599,19 +599,19 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
 
 ```bash
 # 1. Check all hooks exist
-ls -la ~/.config/pai/hooks/*.ts
+ls -la $PAI_DIR/hooks/*.ts
 # Should show 4 hook files
 
 # 2. Check lib files exist
-ls -la ~/.config/pai/hooks/lib/*.ts
+ls -la $PAI_DIR/hooks/lib/*.ts
 # Should show 2 lib files
 
 # 3. Check directory structure
-ls -la ~/.config/pai/history/
+ls -la $PAI_DIR/history/
 # Should show: sessions, learnings, research, decisions, execution, raw-outputs
 
 # 4. Verify Bun can run the hooks
-bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Test <<< '{"test": true}'
+bun run $PAI_DIR/hooks/capture-all-events.ts --event-type Test <<< '{"test": true}'
 # Should create an entry in raw-outputs
 
 # 5. Restart Claude Code to activate hooks
@@ -659,7 +659,7 @@ Include:
 
 ```bash
 # User: "Have we worked on authentication before?"
-grep -r "authentication" ~/.config/pai/history/
+grep -r "authentication" $PAI_DIR/history/
 
 # Results show files with dates and categories
 ```
@@ -667,7 +667,7 @@ grep -r "authentication" ~/.config/pai/history/
 ### Example 2: Reviewing Session Activity
 
 ```bash
-ls -lt ~/.config/pai/history/sessions/2025-12/ | head -5
+ls -lt $PAI_DIR/history/sessions/2025-12/ | head -5
 # Shows recent session files with their focus
 ```
 

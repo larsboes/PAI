@@ -82,7 +82,7 @@ The Kai Hook System provides a complete framework for event-driven automation:
 **Core Architecture:**
 
 ```
-~/.config/pai/
+$PAI_DIR/
 ├── hooks/                           # Hook implementations
 │   ├── security-validator.ts        # PreToolUse: Block dangerous commands
 │   ├── initialize-session.ts        # SessionStart: Session setup
@@ -137,16 +137,16 @@ Claude Code exposes hook events but provides no framework for using them effecti
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with hook support)
-- **Write access** to `~/.config/pai/` (or your PAI directory)
+- **Write access** to `$PAI_DIR/` (or your PAI directory)
 
 ### Step 1: Create Directory Structure
 
 ```bash
 # Create required directories
-mkdir -p ~/.config/pai/hooks/lib
+mkdir -p $PAI_DIR/hooks/lib
 
 # Verify structure
-ls -la ~/.config/pai/hooks/
+ls -la $PAI_DIR/hooks/
 ```
 
 ---
@@ -158,7 +158,7 @@ ls -la ~/.config/pai/hooks/
 This library enables integration with observability dashboards.
 
 ```typescript
-// ~/.config/pai/hooks/lib/observability.ts
+// $PAI_DIR/hooks/lib/observability.ts
 // Sends hook events to observability dashboards
 
 export interface ObservabilityEvent {
@@ -228,7 +228,7 @@ This hook validates commands before execution and blocks dangerous operations.
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/security-validator.ts
+// $PAI_DIR/hooks/security-validator.ts
 // PreToolUse hook: Validates commands and blocks dangerous operations
 
 import { sendEventToObservability, getCurrentTimestamp, getSourceApp } from './lib/observability';
@@ -463,7 +463,7 @@ This hook runs at session start to initialize state and environment.
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/initialize-session.ts
+// $PAI_DIR/hooks/initialize-session.ts
 // SessionStart hook: Initialize session state and environment
 
 import { existsSync, writeFileSync, mkdirSync } from 'fs';
@@ -616,7 +616,7 @@ This hook loads skill definitions into the AI's context at session start.
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/load-core-context.ts
+// $PAI_DIR/hooks/load-core-context.ts
 // SessionStart hook: Inject skill/context files into Claude's context
 
 import { existsSync, readFileSync } from 'fs';
@@ -718,7 +718,7 @@ This hook updates terminal tab titles with task context.
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/update-tab-titles.ts
+// $PAI_DIR/hooks/update-tab-titles.ts
 // UserPromptSubmit hook: Update terminal tab title with task context
 
 interface UserPromptPayload {
@@ -834,11 +834,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/initialize-session.ts"
+            "command": "bun run $PAI_DIR/hooks/initialize-session.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/load-core-context.ts"
+            "command": "bun run $PAI_DIR/hooks/load-core-context.ts"
           }
         ]
       }
@@ -849,7 +849,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/security-validator.ts"
+            "command": "bun run $PAI_DIR/hooks/security-validator.ts"
           }
         ]
       }
@@ -860,7 +860,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/update-tab-titles.ts"
+            "command": "bun run $PAI_DIR/hooks/update-tab-titles.ts"
           }
         ]
       }
@@ -896,27 +896,27 @@ source ~/.zshrc
 
 ```bash
 # 1. Check all hooks exist
-ls -la ~/.config/pai/hooks/*.ts
+ls -la $PAI_DIR/hooks/*.ts
 # Should show: security-validator.ts, initialize-session.ts,
 #              load-core-context.ts, update-tab-titles.ts
 
 # 2. Check lib files exist
-ls -la ~/.config/pai/hooks/lib/*.ts
+ls -la $PAI_DIR/hooks/lib/*.ts
 # Should show: observability.ts
 
 # 3. Test security validator with a safe command
 echo '{"session_id":"test","tool_name":"Bash","tool_input":{"command":"ls -la"}}' | \
-  bun run ~/.config/pai/hooks/security-validator.ts
+  bun run $PAI_DIR/hooks/security-validator.ts
 # Should exit 0 (allowed)
 
 # 4. Test security validator with a dangerous command
 echo '{"session_id":"test","tool_name":"Bash","tool_input":{"command":"rm -rf /"}}' | \
-  bun run ~/.config/pai/hooks/security-validator.ts
+  bun run $PAI_DIR/hooks/security-validator.ts
 # Should exit 2 (blocked) and print warning
 
 # 5. Test session initialization
 echo '{"session_id":"test","cwd":"/Users/you/Projects/MyProject"}' | \
-  bun run ~/.config/pai/hooks/initialize-session.ts
+  bun run $PAI_DIR/hooks/initialize-session.ts
 # Should set tab title and create session marker
 
 # 6. Restart Claude Code to activate hooks
@@ -926,7 +926,7 @@ echo '{"session_id":"test","cwd":"/Users/you/Projects/MyProject"}' | \
 - Security validator blocks dangerous commands (exit code 2)
 - Security validator allows safe commands (exit code 0)
 - Tab title updates when you send prompts
-- Session marker created at ~/.config/pai/.current-session
+- Session marker created at $PAI_DIR/.current-session
 
 ---
 

@@ -86,7 +86,7 @@ The Kai History System solves this through **automatic, hook-based documentation
 **Core Architecture:**
 
 ```
-~/.config/pai/
+$PAI_DIR/
 ├── hooks/                           # Hook implementations
 │   ├── capture-all-events.ts        # Universal event capture (all hooks)
 │   ├── stop-hook.ts                 # Main agent completion capture
@@ -164,19 +164,19 @@ Memory systems and vector databases store what you explicitly save or what gets 
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with hook support)
-- **Write access** to `~/.config/pai/` (or your PAI directory)
+- **Write access** to `$PAI_DIR/` (or your PAI directory)
 
 ### Step 1: Create Directory Structure
 
 ```bash
 # Create all required directories
-mkdir -p ~/.config/pai/hooks/lib
-mkdir -p ~/.config/pai/history/{sessions,learnings,research,decisions,raw-outputs}
-mkdir -p ~/.config/pai/history/execution/{features,bugs,refactors}
+mkdir -p $PAI_DIR/hooks/lib
+mkdir -p $PAI_DIR/history/{sessions,learnings,research,decisions,raw-outputs}
+mkdir -p $PAI_DIR/history/execution/{features,bugs,refactors}
 
 # Verify structure
-ls -la ~/.config/pai/
-ls -la ~/.config/pai/history/
+ls -la $PAI_DIR/
+ls -la $PAI_DIR/history/
 ```
 
 Expected output: All directories created with no errors.
@@ -190,7 +190,7 @@ These shared libraries are used by multiple hooks.
 #### 2.1: Create metadata-extraction.ts
 
 ```typescript
-// ~/.config/pai/hooks/lib/metadata-extraction.ts
+// $PAI_DIR/hooks/lib/metadata-extraction.ts
 // Extract agent instance metadata from Task tool calls
 
 export interface AgentInstanceMetadata {
@@ -275,7 +275,7 @@ export function isAgentSpawningCall(toolName: string, toolInput: any): boolean {
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/capture-all-events.ts
+// $PAI_DIR/hooks/capture-all-events.ts
 // Captures ALL Claude Code hook events to JSONL
 
 import { readFileSync, appendFileSync, mkdirSync, existsSync, writeFileSync } from 'fs';
@@ -410,7 +410,7 @@ main();
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/stop-hook.ts
+// $PAI_DIR/hooks/stop-hook.ts
 // Captures main agent work summaries and learnings
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -543,7 +543,7 @@ main();
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/subagent-stop-hook.ts
+// $PAI_DIR/hooks/subagent-stop-hook.ts
 // Routes subagent outputs to appropriate history directories
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync } from 'fs';
@@ -781,7 +781,7 @@ main();
 
 ```typescript
 #!/usr/bin/env bun
-// ~/.config/pai/hooks/capture-session-summary.ts
+// $PAI_DIR/hooks/capture-session-summary.ts
 // Creates session summary when Claude Code session ends
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync, readdirSync } from 'fs';
@@ -958,7 +958,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PreToolUse"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type PreToolUse"
           }
         ]
       }
@@ -969,7 +969,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type PostToolUse"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type PostToolUse"
           }
         ]
       }
@@ -979,11 +979,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/stop-hook.ts"
+            "command": "bun run $PAI_DIR/hooks/stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Stop"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type Stop"
           }
         ]
       }
@@ -993,11 +993,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/subagent-stop-hook.ts"
+            "command": "bun run $PAI_DIR/hooks/subagent-stop-hook.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SubagentStop"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SubagentStop"
           }
         ]
       }
@@ -1007,11 +1007,11 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-session-summary.ts"
+            "command": "bun run $PAI_DIR/hooks/capture-session-summary.ts"
           },
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionEnd"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SessionEnd"
           }
         ]
       }
@@ -1021,7 +1021,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type SessionStart"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type SessionStart"
           }
         ]
       }
@@ -1031,7 +1031,7 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/.config/pai/hooks/capture-all-events.ts --event-type UserPromptSubmit"
+            "command": "bun run $PAI_DIR/hooks/capture-all-events.ts --event-type UserPromptSubmit"
           }
         ]
       }
@@ -1064,23 +1064,23 @@ source ~/.zshrc
 
 ```bash
 # 1. Check all hooks exist and are executable
-ls -la ~/.config/pai/hooks/*.ts
+ls -la $PAI_DIR/hooks/*.ts
 # Should show 4 hook files
 
 # 2. Check lib files exist
-ls -la ~/.config/pai/hooks/lib/*.ts
+ls -la $PAI_DIR/hooks/lib/*.ts
 # Should show metadata-extraction.ts
 
 # 3. Check directory structure
-ls -la ~/.config/pai/history/
+ls -la $PAI_DIR/history/
 # Should show: sessions, learnings, research, decisions, execution, raw-outputs
 
 # 4. Verify Bun can run the hooks
-bun run ~/.config/pai/hooks/capture-all-events.ts --event-type Test <<< '{"test": true}'
+bun run $PAI_DIR/hooks/capture-all-events.ts --event-type Test <<< '{"test": true}'
 # Should create an entry in raw-outputs
 
 # 5. Check raw-outputs for the test entry
-ls ~/.config/pai/history/raw-outputs/$(date +%Y-%m)/
+ls $PAI_DIR/history/raw-outputs/$(date +%Y-%m)/
 # Should show today's events file
 
 # 6. Restart Claude Code to activate hooks
@@ -1089,7 +1089,7 @@ ls ~/.config/pai/history/raw-outputs/$(date +%Y-%m)/
 
 **Success indicators:**
 - No errors when running hooks
-- Files appearing in `~/.config/pai/history/raw-outputs/`
+- Files appearing in `$PAI_DIR/history/raw-outputs/`
 - Session summaries appearing after ending sessions
 - Agent outputs captured in appropriate subdirectories
 
@@ -1126,7 +1126,7 @@ The SubagentStop hook routes by agent type:
 ```bash
 # User: "Have we worked on authentication before?"
 
-grep -r "authentication" ~/.config/pai/history/
+grep -r "authentication" $PAI_DIR/history/
 
 # Results:
 # learnings/2025-10/20251013T143022_LEARNING_jwt-token-refresh.md
@@ -1139,7 +1139,7 @@ grep -r "authentication" ~/.config/pai/history/
 ```bash
 # After a session ends, check what was captured
 
-ls -lt ~/.config/pai/history/sessions/2025-12/ | head -5
+ls -lt $PAI_DIR/history/sessions/2025-12/ | head -5
 
 # Shows recent session files with their focus:
 # 20251228T153045_SESSION_hook-development.md
@@ -1152,7 +1152,7 @@ ls -lt ~/.config/pai/history/sessions/2025-12/ | head -5
 ```bash
 # User: "Why did we choose that architecture?"
 
-grep -l "architecture\|decision\|chose" ~/.config/pai/history/decisions/
+grep -l "architecture\|decision\|chose" $PAI_DIR/history/decisions/
 
 # Returns files with architectural decisions and rationale
 ```
@@ -1162,7 +1162,7 @@ grep -l "architecture\|decision\|chose" ~/.config/pai/history/decisions/
 ```bash
 # See all research agents completed today
 
-ls ~/.config/pai/history/research/2025-12/ | grep AGENT
+ls $PAI_DIR/history/research/2025-12/ | grep AGENT
 
 # Shows:
 # 20251228T143022_AGENT-researcher_RESEARCH_market-analysis.md
