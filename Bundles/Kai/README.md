@@ -16,8 +16,8 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 
 - A custom **History system** - Automatically captures sessions, decisions, learnings, and research so your AI never forgets important context
 - A custom set of **Hooks** - Event-driven automation that triggers on session start, tool use, and task completion
-- A custom **Skill system** - Modular capabilities that route based on intent, with dynamic loading to minimizcomplete e context usage
-- A custom **Voice notification system** - Spoken updates via ElevenLabs when tasks complete, with prosody enhancement for ncomplete atural speech
+- A custom **Skill system** - Modular capabilities that route based on intent, with dynamic loading to minimize context usage
+- A custom **Voice notification system** - Spoken updates via ElevenLabs when tasks complete, with prosody enhancement for natural speech
 - A custom **Agent swarm creation system** - Spawn parallel agents for concurrent work, with personality templates and voice assignments
 - A custom **Security control system** - Protection against prompt injection, dangerous operations, and accidental exposure of sensitive data
 - And many more
@@ -48,7 +48,7 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 
 | Pack | Status |
 |------|--------|
-| kai-hook-system | Coming Soon |
+| kai-hook-system | **Available** |
 | kai-history-system | **Available** |
 | kai-skill-system | **Available** |
 | kai-voice-system | Coming Soon |
@@ -78,13 +78,17 @@ For each available Pack in order:
 **Current installation sequence:**
 
 ```bash
-# Step 1: History System (available)
-Give AI: ~/Projects/PAI/Packs/kai-history-system.md
-# Verify: ls ~/.config/pai/History/
+# Step 1: Hook System (available) - Foundation
+Give AI: ~/Projects/PAI/Packs/kai-hook-system.md
+# Verify: ls ~/.config/pai/hooks/
 
-# Step 2: Skill System (available)
+# Step 2: History System (available)
+Give AI: ~/Projects/PAI/Packs/kai-history-system.md
+# Verify: ls ~/.config/pai/history/
+
+# Step 3: Skill System (available)
 Give AI: ~/Projects/PAI/Packs/kai-skill-system.md
-# Verify: ls ~/.config/pai/Skills/ && bun run ~/.config/pai/Tools/SkillSearch.ts --list
+# Verify: ls ~/.config/pai/skills/ && bun run ~/.config/pai/tools/SkillSearch.ts --list
 ```
 
 ### Verify Bundle
