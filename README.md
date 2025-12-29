@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-1.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-1-purple?style=for-the-badge)](Packs/)
 
@@ -41,19 +41,30 @@ That's all good, but I think the purpose of technology is to serve humans—not 
 
 That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
 
-**Related reading:**
-- [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) — The vision behind PAI
-- [AI's Predictable Path: 7 Components](https://danielmiessler.com/blog/ai-predictable-path-7-components-2024) — Visual walkthrough of where AI is heading
+---
+
+## What is PAI?
+
+**PAI (Personal AI Infrastructure)** is a framework for building your own AI-powered operating system. It's built on top of AI coding agents like Claude Code, but personalized to *you* - your goals, your workflows, your context.
+
+When you build a PAI system, you're creating what I call your own "Kai" - a personalized AI assistant that knows your preferences, remembers your history, and has specialized skills for the things you do most.
+
+**PAI is:**
+- **A philosophy** - The 14 Founding Principles that guide how to build AI systems
+- **An architecture** - Skills, Hooks, History, Agents, and MCP integrations
+- **A community** - Open-source packs that anyone can install or contribute
 
 ---
 
 <div align="center">
 
-# PAI v1.0: Functionality Packs
+# PAI v2.0: PAI Packs (PAX)
 
 </div>
 
-**PAI provides functionality packs** - self-contained bundles with everything your AI needs to implement a specific capability:
+**PAI Packs (PAX)** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix - each pack is a complete, tested capability that you can download into your system.
+
+**PAI Packs provide** self-contained bundles with everything your AI needs to implement a specific capability:
 
 - **The problem** being solved
 - **The solution** and how it works
@@ -487,12 +498,20 @@ If you find it valuable:
 
 ---
 
+## 📚 Related Reading
+
+- [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) — The vision behind PAI
+- [AI's Predictable Path: 7 Components](https://danielmiessler.com/blog/ai-predictable-path-7-components-2024) — Visual walkthrough of where AI is heading
+- [Building a Personal AI Infrastructure](https://danielmiessler.com/blog/personal-ai-infrastructure) — Full PAI walkthrough with examples
+
+---
+
 ## 📜 Update History
 
 | Date | Version | Change |
 |------|---------|--------|
-| 2025-12-28 | v1.0 | PAI v2 launch: Pack-based architecture. First pack: History System |
-| 2025-12 | v0.x | Original PAI: Mirrored system approach (deprecated) |
+| 2025-12-28 | v2.0 | PAI Packs (PAX) system launch. First pack: History System |
+| 2025-07 | v1.x | Original PAI: Mirrored system approach (deprecated) |
 
 ---
 
