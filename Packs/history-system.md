@@ -12,7 +12,7 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
 ---
 
 <p align="center">
-  <img src="icons/history-system-v2.png" alt="Kai History System" width="256">
+  <img src="icons/history-system-v3.png" alt="Kai History System" width="256">
 </p>
 
 # Kai History System
