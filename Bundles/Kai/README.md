@@ -76,30 +76,13 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 - [Bun](https://bun.sh): `curl -fsSL https://bun.sh/install | bash`
 - [Claude Code](https://claude.com/claude-code) or compatible AI coding assistant
 
-### Quick Start: Interactive Wizard (Recommended)
+### How It Works
 
-The Kai Bundle includes an interactive installation wizard that guides you through setup:
-
-```bash
-# Navigate to the bundle directory
-cd ~/Projects/PAI/Bundles/Kai
-
-# Run the wizard
-bun run install.ts
-```
-
-**The wizard will:**
-1. **Prompt for configuration** - Ask where to install, what to name your AI, timezone, etc.
-2. **Detect conflicts** - Find existing PAI installations or Claude hooks
-3. **Offer resolution** - Merge, replace, or cancel based on your preference
-4. **Create backup** - Optionally backup existing files before changes
-5. **Set up structure** - Create all required directories
-6. **Configure environment** - Add variables to your shell profile
-7. **Guide pack installation** - Provide prompts for each pack in order
+**The entire installation is AI-driven.** Give each pack file to your AI agent, and it reads the instructions and installs everything autonomously. No scripts to run—just hand over the markdown files.
 
 ### Configuration Variables
 
-The wizard will ask for these values:
+Before starting, decide on these values:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -109,22 +92,7 @@ The wizard will ask for these values:
 | `ELEVENLABS_API_KEY` | - | Optional: For voice notifications |
 | `ELEVENLABS_VOICE_ID` | Default voice | Optional: Which voice to use |
 
-### Conflict Detection
-
-The wizard automatically detects and handles:
-
-- **Existing PAI directories** - Files already in your PAI_DIR
-- **Claude settings hooks** - Existing hooks in `~/.claude/settings.json`
-- **Environment variables** - PAI_DIR, DA, etc. already set
-
-**Resolution options:**
-- **Merge** - Add Kai hooks alongside your existing hooks
-- **Replace** - Start fresh (with optional backup)
-- **Cancel** - Exit without changes
-
-### Manual Installation (Alternative)
-
-If you prefer not to use the wizard, follow these steps:
+### Step-by-Step Installation
 
 #### Step 1: System Analysis (REQUIRED)
 
@@ -216,7 +184,7 @@ Run the Pre-Installation System Analysis section first to check for conflicts.
 
 ### Pack Installation Sequence
 
-After running the wizard, install each pack in order by giving your AI the pack file:
+Install each pack in order by giving your AI the pack file:
 
 | # | Pack | Command | Verification |
 |---|------|---------|--------------|

@@ -551,6 +551,98 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 
 ---
 
+## ❓ FAQ
+
+### What makes PAI better than Claude Code or other agentic AI systems?
+
+PAI isn't a replacement for Claude Code—it's what you build *on top of it*. Claude Code (and systems like Cursor, Windsurf, OpenCode) gives you an AI that can read files, write code, and execute commands. But they're generic. They don't know your goals, your preferred workflows, your history, or your specific context.
+
+PAI provides the scaffolding to make that generic AI *yours*:
+
+- **Persistent memory** — Your AI remembers past sessions, decisions, and learnings
+- **Custom skills** — Specialized capabilities for the things you do most (research, content creation, security analysis, etc.)
+- **Your context** — Goals, contacts, preferences, definitions—all available to your AI without re-explaining
+- **Intelligent routing** — Say "research this" and the right workflow triggers automatically
+- **Self-improvement** — The system can modify itself based on what it learns
+
+Think of it this way: Claude Code is the engine. PAI is everything else that makes it *your* car—the custom seat position, the saved radio stations, the GPS with your home address, the toolbox in the trunk.
+
+### What's the difference between PAI and Anthropic's plugin system?
+
+Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your AI can use. It's powerful and PAI actually uses it under the hood.
+
+The difference is scope and integration:
+
+**Anthropic's plugins** = Individual tools (a hammer, a screwdriver, a wrench)
+
+**PAI** = A complete workshop, organized for *your* projects, with tools that work together
+
+PAI is:
+- **An implemented, full-setup system** — Not just tools, but a complete personal AI infrastructure
+- **Dynamically adaptive** — Adjusts to your existing environment and workflows
+- **Context-aware** — Understands what you're trying to accomplish in your life and work
+- **Customized to you** — Picks and chooses functionality from different sources
+- **Self-managing** — Your AI installs, configures, and maintains the system itself
+
+The plugin system offers building blocks. PAI offers a blueprint for a mansion—plus the AI architect to build it.
+
+### Is PAI only for Claude Code?
+
+No. PAI packs are designed to be **platform-agnostic**. While the examples use Claude Code (because that's what the author uses), the packs work with:
+
+- **Claude Code** — Full native support
+- **OpenCode** — Compatible with minor adaptations
+- **Cursor / Windsurf** — Works with configuration adjustments
+- **Gemini Code / GPT-Codex** — Should work with tweaks (community testing welcome)
+- **Custom systems** — Extract the code and concepts, adapt to your setup
+
+The code is TypeScript, Python, and Bash. The concepts are universal. The integration points vary by platform, but the core value transfers.
+
+### Do I need to install everything?
+
+No. That was the mistake of PAI v1.x—trying to install everything at once.
+
+PAI v2.0 is modular by design:
+- **Start with one pack** — History System is a good first choice
+- **Add more as needed** — Each pack is independent
+- **Use the Kai Bundle** if you want the full experience (but even that installs one pack at a time)
+- **Cherry-pick** — Read a pack, extract the ideas, adapt them yourself
+
+There's no "all or nothing." Take what's useful, leave the rest.
+
+### How do I contribute a pack?
+
+1. **Solve a real problem** — Packs should come from actual use, not theoretical ideas
+2. **Use the template** — Download [PAIPackTemplate.md](PAIPackTemplate.md)
+3. **Test it** — Have your AI install it in a fresh environment
+4. **Submit a PR** — Include examples and evidence it works
+
+See [Contributing](#-contributing) for full details.
+
+### How is this different from fabric?
+
+[Fabric](https://github.com/danielmiessler/fabric) is a collection of AI prompts (patterns) for specific tasks—extract wisdom, analyze arguments, summarize content. It's focused on *what to ask AI*.
+
+PAI is infrastructure for *how your AI operates*—memory, skills, routing, context, self-improvement. They're complementary:
+
+- **Fabric** = A library of expert prompts
+- **PAI** = The system that knows when to use which prompt, remembers your preferences, and learns from results
+
+Many PAI users integrate Fabric patterns into their skills. They work great together.
+
+### What if I break something?
+
+The modular design makes recovery easy:
+
+- **Packs are isolated** — Breaking one doesn't affect others
+- **History is preserved** — Your AI's memory survives mistakes
+- **Git-backed** — Version control everything, roll back when needed
+- **AI can fix it** — Your AI helped build it, it can help repair it
+
+Start small, experiment, iterate. The system is designed for safe exploration.
+
+---
+
 ## 📜 License
 
 MIT License - see [LICENSE](LICENSE) for details.
