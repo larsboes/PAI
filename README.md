@@ -932,7 +932,7 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 
 **Anthropic and the Claude Code team** — First and foremost. You are moving AI further and faster than anyone right now. Claude Code is the foundation that makes all of this possible.
 
-**[IndyDevDan](https://www.youtube.com/@indydevdan)** — For great ideas around orchestration and system thinking that influenced how I approached building PAI.
+**[IndyDevDan](https://www.youtube.com/@indydevdan)** — For great videos on meta-prompting and custom agents that have inspired parts of PAI.
 
 ---
 
