@@ -9,8 +9,7 @@ purpose-type: [notifications, accessibility, automation]
 platform: claude-code
 dependencies:
   - kai-hook-system (required) - Hooks trigger voice notifications
-  - kai-skill-system (required) - Skills define notification patterns
-  - kai-identity (required) - Agent personalities drive voice selection
+  - kai-core-install (required) - Skills, identity, and response format drive voice output
 keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, personalities, accessibility]
 ---
 
@@ -325,8 +324,7 @@ The difference: Basic TTS treats AI output as text to read. The voice system tre
 - **ElevenLabs account**: Sign up at [elevenlabs.io](https://elevenlabs.io) - see Step 8 for detailed setup
 - **Required PAI Packs** (install these first):
   - `kai-hook-system` - Foundation hook infrastructure
-  - `kai-skill-system` - Skill routing and management
-  - `kai-identity` - Agent personality definitions
+  - `kai-core-install` - Skills, identity, and response format
 
 ---
 
@@ -348,18 +346,11 @@ else
   echo "❌ kai-hook-system NOT installed - REQUIRED! Install it first."
 fi
 
-# Check skill system (REQUIRED)
-if [ -d "$PAI_CHECK/Skills" ]; then
-  echo "✓ kai-skill-system is installed"
+# Check core install (REQUIRED - includes skills and identity)
+if [ -d "$PAI_CHECK/Skills" ] && [ -f "$PAI_CHECK/Skills/CORE/SKILL.md" ]; then
+  echo "✓ kai-core-install is installed (Skills + CORE skill)"
 else
-  echo "❌ kai-skill-system NOT installed - REQUIRED! Install it first."
-fi
-
-# Check identity/CORE skill (REQUIRED for personality routing)
-if [ -f "$PAI_CHECK/Skills/CORE/SKILL.md" ]; then
-  echo "✓ kai-identity (CORE skill) is installed"
-else
-  echo "❌ kai-identity NOT installed - REQUIRED for voice personality routing!"
+  echo "❌ kai-core-install NOT installed - REQUIRED! Install it first."
 fi
 
 # Check for ElevenLabs API key
@@ -2686,14 +2677,13 @@ If the voice server is offline:
 ## Works Well With
 
 - **kai-hook-system** - Required; Stop hooks trigger voice notifications
-- **kai-skill-system** - Required; SkillNotifications.md defines notification patterns
-- **kai-identity** - Required; Agent personalities map to voice configurations
+- **kai-core-install** - Required; Skills, identity, and response format drive voice output
 - **kai-history-system** - History capture can trigger voice announcements
 
 ## Recommended
 
 - **kai-hook-system** - Required; provides the event triggers for voice output
-- **kai-identity** - Required; defines agent personalities and voice mappings
+- **kai-core-install** - Required; defines skills, agent personalities, and response format
 
 ## Relationships
 
@@ -2702,14 +2692,13 @@ If the voice server is offline:
 
 ### Child Of
 - **kai-hook-system** - Uses Stop and SubagentStop hooks for voice triggers
-- **kai-identity** - Agent personalities from identity map to voice configurations
+- **kai-core-install** - Agent personalities from CORE skill map to voice configurations
 
 ### Sibling Of
 - **kai-history-system** - Both consume hook events for their functionality
-- **kai-skill-system** - Both depend on kai-hook-system as foundation
 
 ### Part Of Collection
-**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
+**Kai Core Bundle** - One of 4 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 
@@ -2724,7 +2713,7 @@ If the voice server is offline:
 - Added comprehensive verification sequence (Steps 12.1-12.8)
 - Added full troubleshooting section with common issues and fixes
 - Added quick reference section with file locations
-- Updated dependencies to include kai-skill-system and kai-identity-system
+- Updated dependencies to include kai-core-install (replaces kai-skill-system + kai-identity)
 - Pack now meets PAI End-to-End Completeness Requirements
 
 ### 1.0.0 - 2025-12-29

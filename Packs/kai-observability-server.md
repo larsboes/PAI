@@ -1587,7 +1587,7 @@ User: "Something's wrong with my workflow"
 ## Works Well With
 
 - **kai-hook-system** - Required - captures the events that this pack displays
-- **kai-skill-system** - Skills show their activity in the dashboard
+- **kai-core-install** - Skills show their activity in the dashboard
 - **kai-voice-system** - Voice notifications can be triggered from events
 
 ## Recommended

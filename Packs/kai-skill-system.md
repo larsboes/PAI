@@ -18,6 +18,9 @@ keywords: [skills, routing, capabilities, workflows, modular, claude-code, autom
   <img src="icons/kai-skill-system-v3.png" alt="Kai Skill System" width="256">
 </p>
 
+> ⚠️ **DEPRECATED:** This pack has been merged into [kai-core-install](kai-core-install.md).
+> Install `kai-core-install` instead. This file will be removed in v1.2.0.
+
 # Kai Skill System (kai-skill-system)
 
 > A complete capability routing and skill management framework that gives your AI structured, reusable workflows it can invoke based on intent.
@@ -1945,6 +1948,8 @@ mkdir -p $PAI_DIR/Skills/CORE/Tools
 
 Save to `$PAI_DIR/Skills/CORE/SKILL.md`:
 
+**NOTE:** The template below contains placeholders in `[BRACKETS]` that should be filled in during installation using the wizard in `Bundles/Kai/README.md` or by running `bun run install.ts` in the Kai bundle.
+
 ```markdown
 ---
 name: CORE
@@ -1967,7 +1972,7 @@ description: Personal AI Infrastructure core. AUTO-LOADS at session start. USE W
 
 **Example 1: Check contact information**
 \`\`\`
-User: "What's Alex's email?"
+User: "What's [CONTACT_NAME]'s email?"
 → Reads Contacts.md
 → Returns contact information
 \`\`\`
@@ -1984,26 +1989,46 @@ User: "Add my new domain example.com"
 
 ## Identity
 
-**Name:** [YOUR_AI_NAME]
-**Role:** [YOUR_NAME]'s AI assistant
-**Operating Environment:** Personal AI infrastructure built on Claude Code
+**Assistant:**
+- Name: [YOUR_AI_NAME]
+- Role: [YOUR_NAME]'s AI assistant
+- Operating Environment: Personal AI infrastructure built on Claude Code
 
-### Personality Calibration
+**User:**
+- Name: [YOUR_NAME]
+- Profession: [YOUR_PROFESSION]
+- Work Situation: [EMPLOYMENT_CONTEXT - self-employed/employed/building-company/other]
 
-Customize these settings to match your preferred AI personality:
+---
+
+## Purpose & Goals
+
+**Primary Purpose:** [PRIMARY_PURPOSE - e.g., software development, content creation, research]
+
+**System Goals:**
+1. [GOAL_1]
+2. [GOAL_2]
+3. [GOAL_3]
+
+**5-Year Vision:**
+[FIVE_YEAR_VISION - Where you see yourself, helps AI understand priorities]
+
+---
+
+## Personality Calibration
+
+**Configuration Mode:** [generate/custom]
+
+If generated from description: "[PERSONALITY_DESCRIPTION]"
 
 | Trait | Value | Description |
 |-------|-------|-------------|
-| Excitement | 60/100 | Enthusiasm level (higher = more expressive) |
-| Precision | 95/100 | Technical accuracy focus |
-| Curiosity | 90/100 | Interest in exploring tangents |
-| Professionalism | 75/100 | Formality level |
-
-### Voice Characteristics
-
-- [Describe your preferred AI voice/tone]
-- [List specific phrases to use or avoid]
-- [Define any special response patterns]
+| Humor | [0-100]/100 | 0=serious, 100=witty |
+| Curiosity | [0-100]/100 | 0=focused, 100=exploratory |
+| Precision | [0-100]/100 | 0=approximate, 100=exact |
+| Formality | [0-100]/100 | 0=casual, 100=professional |
+| Playfulness | [0-100]/100 | 0=businesslike, 100=playful |
+| Directness | [0-100]/100 | 0=diplomatic, 100=blunt |
 
 ---
 
@@ -2019,6 +2044,49 @@ Your AI should speak as itself, not about itself in third person.
 **Wrong:**
 - "for [AI_NAME]" / "for the [AI_NAME] system"
 - "the system can" (when meaning "I can")
+
+---
+
+## Technical Stack Preferences
+
+**Technical Level:** [TECHNICAL_LEVEL - beginner/intermediate/advanced/expert]
+**Programmer:** [IS_PROGRAMMER - yes/no/learning]
+
+**Platform:**
+- OS: [PRIMARY_OS - macOS/Windows/Linux]
+- Runtime: [SERVER_RUNTIME - bun/node/deno]
+- Package Manager: [PACKAGE_MANAGER - bun/npm/yarn/pnpm]
+
+**Languages (in order of preference):**
+1. [LANGUAGE_1]
+2. [LANGUAGE_2]
+3. [LANGUAGE_3]
+
+**Infrastructure:**
+- Cloudflare: [USES_CLOUDFLARE - Yes/No]
+- Backend: [BACKEND_PREFERENCE]
+- Database: [DATABASE_PREFERENCE]
+
+---
+
+## Stack Rules
+
+Based on your preferences, always follow these rules:
+
+- **Primary Language:** Use [LANGUAGE_1] for all new code unless explicitly requested otherwise
+- **Package Manager:** Use [PACKAGE_MANAGER] (NEVER [OTHER_MANAGERS])
+- **Runtime:** Use [SERVER_RUNTIME] as the default JavaScript runtime
+- **Deployment:** [DEPLOYMENT_RULES based on infrastructure preferences]
+- **Markdown:** Use markdown for all documentation. NEVER use HTML for basic content.
+
+---
+
+## Contacts (Quick Reference)
+
+[CONTACTS - populated from wizard, format below]
+- **[NAME]** ([ROLE]): [EMAIL]
+
+📚 Full contact directory: `Contacts.md`
 
 ---
 
@@ -2038,23 +2106,9 @@ Customize this format to match your preferences.
 
 ---
 
-## Stack Preferences
-
-Define your technical preferences:
-
-| Category | Preference | Notes |
-|----------|------------|-------|
-| Language | TypeScript | Primary language |
-| Package Manager | bun | NOT npm/yarn |
-| Markup | Markdown | NEVER HTML for basic content |
-| Python PM | uv | NOT pip |
-
----
-
 ## Quick Reference
 
 **Full documentation available in context files:**
-- Identity details: `Identity.md`
 - Contacts: `Contacts.md`
 - Assets: `AssetManagement.md`
 - Stack preferences: `CoreStack.md`
@@ -2063,18 +2117,51 @@ Define your technical preferences:
 
 Save to `$PAI_DIR/Skills/CORE/Contacts.md`:
 
+**NOTE:** Contacts are populated during installation via the wizard. Add your key contacts below.
+
 ```markdown
 # Contact Directory
 
 Quick reference for frequently contacted people.
 
+Generated from setup wizard: [SETUP_DATE]
+
 ---
 
-## Contacts
+## Primary Contacts
+
+These are people you reference frequently - colleagues, family, business partners.
 
 | Name | Role | Email | Notes |
 |------|------|-------|-------|
-| [Name] | [Role] | [email@example.com] | [Any notes] |
+| [NAME_1] | [ROLE_1] | [EMAIL_1] | [PRONUNCIATION or notes] |
+| [NAME_2] | [ROLE_2] | [EMAIL_2] | |
+| [NAME_3] | [ROLE_3] | [EMAIL_3] | |
+
+---
+
+## Extended Contacts
+
+Add additional contacts here as needed.
+
+| Name | Role | Email | Notes |
+|------|------|-------|-------|
+| | | | |
+
+---
+
+## Categories
+
+Organize contacts by category for quick lookup:
+
+**Work:**
+- [List work contacts]
+
+**Personal:**
+- [List personal contacts]
+
+**Professional Network:**
+- [List mentors, advisors, partners]
 
 ---
 
@@ -2085,14 +2172,20 @@ To add a new contact:
 1. Use the AddContact workflow: "Add [Name] as a contact"
 2. Or manually edit this file following the table format
 
+**Include:**
+- Full name (with pronunciation if unusual)
+- Email address
+- Role/Relationship (e.g., "CTO", "Business Partner", "Mentor")
+- Any relevant notes
+
 ---
 
 ## Usage
 
-When the user asks about someone:
-1. Check this directory first
-2. Return the relevant contact information
-3. If not found, ask the user for details
+When you ask about someone:
+1. Your AI checks this directory first
+2. Returns the relevant contact information
+3. If not found, asks you for details
 ```
 
 Save to `$PAI_DIR/Skills/CORE/AssetManagement.md`:
@@ -2148,10 +2241,22 @@ Keep this registry updated so your AI knows what you own and how to deploy it.
 
 Save to `$PAI_DIR/Skills/CORE/CoreStack.md`:
 
+**NOTE:** Stack preferences are populated during installation via the wizard based on your technical background and preferences.
+
 ```markdown
 # Core Stack Preferences
 
 Technical preferences for code generation and tooling.
+
+Generated from setup wizard: [SETUP_DATE]
+
+---
+
+## Your Technical Profile
+
+**Technical Level:** [TECHNICAL_LEVEL - beginner/intermediate/advanced/expert]
+**Programmer:** [IS_PROGRAMMER - yes/no/learning]
+**Primary OS:** [PRIMARY_OS - macOS/Windows/Linux]
 
 ---
 
@@ -2159,18 +2264,44 @@ Technical preferences for code generation and tooling.
 
 | Priority | Language | Use Case |
 |----------|----------|----------|
-| 1 | TypeScript | Primary for all new code |
-| 2 | Bash | Scripts and automation |
-| 3 | Python | Only when required |
+| 1 | [LANGUAGE_1] | Primary for all new code |
+| 2 | [LANGUAGE_2] | Secondary language |
+| 3 | [LANGUAGE_3] | When specifically needed |
 
 ---
 
 ## Package Managers
 
-| Language | Manager | Wrong |
-|----------|---------|-------|
-| JavaScript/TypeScript | bun | npm, yarn, pnpm |
+| Language | Manager | Never Use |
+|----------|---------|-----------|
+| JavaScript/TypeScript | [PACKAGE_MANAGER] | [OTHER_MANAGERS] |
 | Python | uv | pip, pip3 |
+
+---
+
+## Runtime & Infrastructure
+
+| Component | Preference | Notes |
+|-----------|------------|-------|
+| JS Runtime | [SERVER_RUNTIME] | Default for all JavaScript execution |
+| Backend | [BACKEND_PREFERENCE] | Primary infrastructure platform |
+| Database | [DATABASE_PREFERENCE] | Default data storage |
+| Cloudflare | [USES_CLOUDFLARE] | Workers, Pages, R2, KV, etc. |
+
+---
+
+## Stack Rules (Auto-Generated)
+
+Based on your preferences, your AI will follow these rules:
+
+- **Primary Language:** Use [LANGUAGE_1] for all new code unless explicitly requested otherwise
+- **Package Manager:** Use [PACKAGE_MANAGER] for JS/TS (NEVER use [OTHER_MANAGERS])
+- **Runtime:** Use [SERVER_RUNTIME] as the default JavaScript runtime
+- **Backend:** Prefer [BACKEND_PREFERENCE] for backend infrastructure
+- **Database:** Default to [DATABASE_PREFERENCE] for data storage
+[IF USES_CLOUDFLARE]
+- **Cloudflare:** Use Cloudflare Workers for serverless, Pages for static sites
+[END IF]
 
 ---
 
@@ -2188,10 +2319,10 @@ Technical preferences for code generation and tooling.
 
 | Type | Convention | Example |
 |------|------------|---------|
-| Skill directories | TitleCase | `Research`, `Art` |
-| Workflow files | TitleCase.md | `Create.md`, `Update.md` |
-| Tool files | TitleCase.ts | `Generate.ts` |
-| Config files | lowercase | `settings.json` |
+| Skill directories | TitleCase | \`Research\`, \`Art\` |
+| Workflow files | TitleCase.md | \`Create.md\`, \`Update.md\` |
+| Tool files | TitleCase.ts | \`Generate.ts\` |
+| Config files | lowercase | \`settings.json\` |
 
 ---
 
@@ -2201,6 +2332,9 @@ Technical preferences for code generation and tooling.
 - No unnecessary abstractions
 - Comments only where logic isn't self-evident
 - Error messages should be actionable
+- Match technical level: [TECHNICAL_LEVEL]
+  - Beginner: More explanation, simpler patterns
+  - Expert: Concise, advanced patterns OK
 ```
 
 Save to `$PAI_DIR/Skills/CORE/SecurityProtocols.md`:

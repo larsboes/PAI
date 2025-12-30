@@ -1342,8 +1342,7 @@ function setTabTitle(title: string): void {
 
 - **kai-history-system** - Uses hooks for capturing session work and learnings
 - **kai-voice-system** - Uses hooks for voice notification triggers
-- **kai-skill-system** - Uses SessionStart hooks for CORE skill context injection
-- **kai-identity** - Uses hooks for session initialization and response formatting
+- **kai-core-install** - Uses SessionStart hooks for CORE skill context injection and response formatting
 
 ## Recommended
 
@@ -1354,9 +1353,8 @@ function setTabTitle(title: string): void {
 
 ### Parent Of
 - **kai-history-system** - History capture depends on hook events (Stop, SubagentStop)
-- **kai-skill-system** - Skill loading uses SessionStart hooks
+- **kai-core-install** - Skill loading uses SessionStart hooks for CORE context injection
 - **kai-voice-system** - Voice notifications triggered via hooks
-- **kai-identity** - Identity/session management leverages hook infrastructure
 
 ### Child Of
 *None - this is the foundation layer.*
@@ -1365,7 +1363,7 @@ function setTabTitle(title: string): void {
 *None - this is the foundation layer.*
 
 ### Part Of Collection
-**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
+**Kai Core Bundle** - One of 4 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ---
 

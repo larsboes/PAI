@@ -70,10 +70,11 @@ Each pack is a single markdown file containing everything needed to go from zero
 |------|---------|----------|--------|-------------|
 | [**kai-hook-system**](kai-hook-system.md) | 1.0.0 | Foundation | [Kai](../Bundles/Kai/) | Event-driven automation framework - the foundation for all hook-based capabilities |
 | [**kai-history-system**](kai-history-system.md) | 1.0.0 | Infrastructure | [Kai](../Bundles/Kai/) | Granular context-tracking that captures all work, decisions, and learnings automatically |
-| [**kai-skill-system**](kai-skill-system.md) | 1.0.0 | Routing | [Kai](../Bundles/Kai/) | Capability routing through standardized SKILL.md format with dynamic loading |
+| [**kai-core-install**](kai-core-install.md) | 1.0.0 | Core | [Kai](../Bundles/Kai/) | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
 | [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | [Kai](../Bundles/Kai/) | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
-| [**kai-identity**](kai-identity.md) | 1.0.0 | Personality | [Kai](../Bundles/Kai/) | Personal AI identity with response format, calibration, constitution, and 14 principles |
 | [**kai-observability-server**](kai-observability-server.md) | 1.0.0 | Observability | [Kai](../Bundles/Kai/) | Real-time multi-agent monitoring dashboard with WebSocket streaming |
+| ~~[kai-skill-system](kai-skill-system.md)~~ | 1.0.0 | Deprecated | - | ⚠️ DEPRECATED - merged into kai-core-install |
+| ~~[kai-identity](kai-identity.md)~~ | 1.0.0 | Deprecated | - | ⚠️ DEPRECATED - merged into kai-core-install |
 
 ---
 
@@ -84,10 +85,9 @@ Packs have dependencies. Install in this order:
 ```
 1. kai-hook-system            ← Foundation (no dependencies)
 2. kai-history-system         ← Depends on hooks
-3. kai-observability-server   ← Depends on hooks
-4. kai-skill-system           ← Depends on hooks, history
-5. kai-voice-system           ← Depends on hooks, skills
-6. kai-identity               ← Depends on all above
+3. kai-core-install           ← Depends on hooks, history (NEW - replaces skill-system + identity)
+4. kai-voice-system           ← Depends on hooks, core-install
+5. kai-observability-server   ← Optional, depends on hooks
 ```
 
 **Or install the complete [Kai Bundle](../Bundles/Kai/)** which handles ordering automatically.

@@ -223,9 +223,15 @@ Browse all packs: [Packs/](Packs/)
 
 | Pack | Type | Description |
 |------|------|-------------|
-| [Kai History System](Packs/kai-history-system.md) | Feature | Automatic context-tracking for entire AI infrastructure |
+| [kai-hook-system](Packs/kai-hook-system.md) | Foundation | Event-driven automation framework for hook-based capabilities |
+| [kai-history-system](Packs/kai-history-system.md) | Infrastructure | Automatic context-tracking for all work, decisions, and learnings |
+| [kai-core-install](Packs/kai-core-install.md) | Core | Skills + Identity + Architecture - complete foundation pack |
+| [kai-voice-system](Packs/kai-voice-system.md) | Notifications | Voice output with ElevenLabs TTS and prosody enhancement |
+| [kai-observability-server](Packs/kai-observability-server.md) | Observability | Real-time multi-agent monitoring dashboard |
 
-*More packs coming soon*
+**Installation order:** hooks → history → core-install → voice → observability (optional)
+
+**Or install the complete [Kai Bundle](Bundles/Kai/)** which handles ordering automatically.
 
 ---
 

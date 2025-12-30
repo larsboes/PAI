@@ -157,17 +157,15 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 |---|------|---------|--------------|
 | 1 | [kai-hook-system](../../Packs/kai-hook-system.md) | Event-driven automation | None |
 | 2 | [kai-history-system](../../Packs/kai-history-system.md) | Memory and capture | Hooks |
-| 3 | [kai-skill-system](../../Packs/kai-skill-system.md) | Capability routing | Hooks, History |
-| 4 | [kai-voice-system](../../Packs/kai-voice-system.md) | Voice notifications | Hooks, Skills |
-| 5 | [kai-identity](../../Packs/kai-identity.md) | Personality layer | All above |
+| 3 | [kai-core-install](../../Packs/kai-core-install.md) | Skills + Identity + Architecture | Hooks, History |
+| 4 | [kai-voice-system](../../Packs/kai-voice-system.md) | Voice notifications | Hooks, Core |
 
 ### Why Order Matters
 
 - **Hooks** are the foundation - they enable all event-driven automation
 - **History** uses hooks to capture events and context
-- **Skills** use hooks for invocation and history for logging
-- **Voice** uses hooks for completion events and integrates with skills
-- **Identity** is the CORE skill that ties everything together
+- **Core Install** provides skill routing, identity framework, and architecture tracking (combines former skill-system and identity packs)
+- **Voice** uses hooks for completion events and integrates with the response format from Core
 
 ### Pack Availability
 
@@ -175,11 +173,12 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 |------|--------|
 | kai-hook-system | **Available** |
 | kai-history-system | **Available** |
-| kai-skill-system | **Available** |
+| kai-core-install | **Available** (NEW - replaces kai-skill-system + kai-identity) |
 | kai-voice-system | **Available** |
-| kai-identity | **Available** |
 
 *All Packs are now available. Install in order to get the complete Kai experience.*
+
+> **Note:** `kai-skill-system` and `kai-identity` have been merged into `kai-core-install` as of v1.0.0. The old packs are deprecated.
 
 ---
 

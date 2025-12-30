@@ -1476,14 +1476,13 @@ export PAI_SOURCE_APP="MyAI"
 ## Works Well With
 
 - **kai-hook-system** - Required foundation; provides the event stream this pack captures
-- **kai-skill-system** - Skills can reference past learnings and research from history
+- **kai-core-install** - Skills can reference past learnings and research from history; CORE skill guides what gets captured
 - **kai-voice-system** - Voice notifications can announce when significant history is captured
-- **kai-identity** - CORE skill can guide what gets captured and categorized
 
 ## Recommended
 
 - **kai-hook-system** - Required dependency; without it no events are captured
-- **kai-skill-system** - Enables skill-based categorization of learnings
+- **kai-core-install** - Enables skill-based categorization of learnings
 
 ## Relationships
 
@@ -1494,11 +1493,11 @@ export PAI_SOURCE_APP="MyAI"
 - **kai-hook-system** - Depends entirely on hook events (Stop, SubagentStop, SessionEnd) for all capture
 
 ### Sibling Of
-- **kai-skill-system** - Both are Tier 1 packs that depend on kai-hook-system
+- **kai-core-install** - Both are foundation packs that depend on kai-hook-system
 - **kai-voice-system** - Both consume hook events for their functionality
 
 ### Part Of Collection
-**Kai Core Bundle** - One of 5 foundational packs that together create the complete Kai personal AI infrastructure.
+**Kai Core Bundle** - One of 4 foundational packs that together create the complete Kai personal AI infrastructure.
 
 ## Changelog
 
