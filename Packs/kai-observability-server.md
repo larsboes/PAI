@@ -42,6 +42,24 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| WebSocket server | `Observability/server/index.ts` | HTTP API + WebSocket streaming |
+| File ingestion | `Observability/server/file-ingest.ts` | Watch JSONL and stream events |
+| Type definitions | `Observability/server/types.ts` | TypeScript interfaces |
+| Vue dashboard | `Observability/dashboard/App.vue` | Real-time monitoring UI |
+| Event capture hook | `hooks/capture-all-events.ts` | Capture all events to JSONL |
+| Metadata extraction | `hooks/lib/metadata-extraction.ts` | Agent instance tracking |
+
+**Summary:**
+- **Files created:** 8+ (server, dashboard, hooks)
+- **Hooks registered:** 7 (all event types via capture-all-events)
+- **Dependencies:** kai-hook-system (required)
+
+---
+
 ## The Concept and/or Problem
 
 When running AI agents, especially multiple agents in parallel, you're flying blind:

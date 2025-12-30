@@ -832,6 +832,28 @@ ${config.elevenLabsVoiceId ? `export ELEVENLABS_VOICE_ID="${config.elevenLabsVoi
       console.log(`ℹ PAI environment variables already exist in ${config.shellProfile}`);
     }
 
+    // Also create .env file for packs to read (fixes #260)
+    console.log("Creating .env file for pack compatibility...");
+    const envFileContent = `# PAI Environment Configuration
+# Created by Kai Bundle installer - ${new Date().toISOString().split("T")[0]}
+# This file is read by packs during installation
+
+DA="${config.daName}"
+PAI_DIR="${config.paiDir}"
+TIME_ZONE="${config.timeZone}"
+${config.elevenLabsApiKey ? `ELEVENLABS_API_KEY="${config.elevenLabsApiKey}"` : "# ELEVENLABS_API_KEY="}
+${config.elevenLabsVoiceId ? `ELEVENLABS_VOICE_ID="${config.elevenLabsVoiceId}"` : "# ELEVENLABS_VOICE_ID="}
+`;
+    await Bun.write(`${paiDir}/.env`, envFileContent);
+    console.log(`✓ Created ${config.paiDir}/.env`);
+
+    // Export to current process for immediate use
+    process.env.PAI_DIR = config.paiDir;
+    process.env.DA = config.daName;
+    process.env.TIME_ZONE = config.timeZone;
+    if (config.elevenLabsApiKey) process.env.ELEVENLABS_API_KEY = config.elevenLabsApiKey;
+    if (config.elevenLabsVoiceId) process.env.ELEVENLABS_VOICE_ID = config.elevenLabsVoiceId;
+
     // Summary
     printHeader("INSTALLATION COMPLETE");
 
@@ -848,11 +870,16 @@ Your Kai system is configured with:
 Next steps:
 
   1. Reload your shell: source ${config.shellProfile}
-  2. Install the packs in order:
-     - kai-hook-system
-     - kai-history-system
-     - kai-core-install
-     - kai-voice-system
+
+  2. Install the packs in order by asking your AI:
+     - "Install kai-hook-system pack"
+     - "Install kai-history-system pack"
+     - "Install kai-core-install pack"
+     - "Install kai-voice-system pack"
+
+     Each pack is a markdown file in Packs/. Give it to your AI
+     and ask it to install - it contains all instructions.
+
   3. Restart Claude Code to activate hooks
 
 Files created:

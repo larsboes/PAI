@@ -49,6 +49,27 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Prompting skill | `Skills/Prompting/SKILL.md` | Routing and quick reference |
+| Standards guide | `Skills/Prompting/Standards.md` | Claude 4.x best practices |
+| Roster template | `Skills/Prompting/Templates/Primitives/Roster.hbs` | Agent/skill definitions |
+| Voice template | `Skills/Prompting/Templates/Primitives/Voice.hbs` | Personality calibration |
+| Structure template | `Skills/Prompting/Templates/Primitives/Structure.hbs` | Workflow patterns |
+| Briefing template | `Skills/Prompting/Templates/Primitives/Briefing.hbs` | Agent context handoff |
+| Gate template | `Skills/Prompting/Templates/Primitives/Gate.hbs` | Validation checklists |
+| Render tool | `Skills/Prompting/Tools/RenderTemplate.ts` | Template rendering CLI |
+| Validate tool | `Skills/Prompting/Tools/ValidateTemplate.ts` | Template validation |
+
+**Summary:**
+- **Files created:** 12+ (skill, standards, templates, tools)
+- **Hooks registered:** 0 (skill-based, not hook-based)
+- **Dependencies:** kai-core-install (required)
+
+---
+
 # PART 1: THE PROBLEM
 
 ## Why You Need This

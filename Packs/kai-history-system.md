@@ -43,6 +43,23 @@ Please follow the installation instructions below to integrate this pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Universal event capture | `hooks/capture-all-events.ts` | Log all events to JSONL for audit trail |
+| Stop hook | `hooks/stop-hook.ts` | Capture main agent completions and learnings |
+| Subagent stop hook | `hooks/subagent-stop-hook.ts` | Route subagent outputs by type |
+| Session summary | `hooks/capture-session-summary.ts` | Summarize sessions at close |
+| Metadata extraction lib | `hooks/lib/metadata-extraction.ts` | Extract agent instance metadata |
+
+**Summary:**
+- **Files created:** 5 + history directory structure
+- **Hooks registered:** 7 (PreToolUse, PostToolUse, Stop, SubagentStop, SessionStart, SessionEnd, UserPromptSubmit)
+- **Dependencies:** kai-hook-system (required)
+
+---
+
 ## The Concept and/or Problem
 AI agents are powerful but forgetful. Each session starts fresh with no memory of:
 

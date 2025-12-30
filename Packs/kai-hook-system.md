@@ -42,6 +42,23 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Security validator | `hooks/security-validator.ts` | Block dangerous commands before execution |
+| Session initializer | `hooks/initialize-session.ts` | Set up session context and markers |
+| Context loader | `hooks/load-core-context.ts` | Load CORE skill at session start |
+| Tab title updater | `hooks/update-tab-titles.ts` | Update terminal tabs with task context |
+| Observability lib | `hooks/lib/observability.ts` | Event logging and dashboard integration |
+
+**Summary:**
+- **Files created:** 5
+- **Hooks registered:** 4 (PreToolUse, SessionStart ×2, UserPromptSubmit)
+- **Dependencies:** None (foundation pack)
+
+---
+
 ## The Concept and/or Problem
 
 Claude Code fires events throughout its operation, but by default nothing listens to them:

@@ -40,6 +40,24 @@ Please follow the installation instructions below to integrate this pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Agents skill | `Skills/Agents/SKILL.md` | Routing and agent definitions |
+| Agent factory | `Skills/Agents/Tools/AgentFactory.ts` | Dynamic agent composition |
+| Trait definitions | `Skills/Agents/Data/Traits.yaml` | Expertise, personality, approach traits |
+| Voice mapping | `Skills/Agents/Data/VoiceMapping.yaml` | Personality to ElevenLabs voice mapping |
+| Create agent | `Skills/Agents/Workflows/CreateCustomAgent.md` | Custom agent workflow |
+| List traits | `Skills/Agents/Workflows/ListTraits.md` | Show available traits |
+
+**Summary:**
+- **Files created:** 8+ (skill, tool, workflows, data)
+- **Hooks registered:** 0 (skill-based, not hook-based)
+- **Dependencies:** kai-core-install (required), kai-voice-system (optional for voice)
+
+---
+
 ## The Concept and/or Problem
 
 AI agent systems typically offer one-size-fits-all agents. You spawn "an agent" to do research, security review, or creative work - but they all have the same personality, same approach, same voice.

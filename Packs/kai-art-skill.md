@@ -43,6 +43,24 @@ Please follow the installation instructions below to integrate this pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Art skill | `Skills/Art/SKILL.md` | Routing and quick reference |
+| Aesthetic config | `Skills/Art/Aesthetic.md` | Style preferences and palette |
+| Generate tool | `Skills/Art/Tools/Generate.ts` | Multi-model image generation CLI |
+| Technical diagrams | `Skills/Art/Workflows/TechnicalDiagrams.md` | Architecture diagram workflow |
+| Essay headers | `Skills/Art/Workflows/Essay.md` | Blog header image workflow |
+| Comics workflow | `Skills/Art/Workflows/Comics.md` | Sequential panel generation |
+
+**Summary:**
+- **Files created:** 8+ (skill, tool, workflows)
+- **Hooks registered:** 0 (skill-based, not hook-based)
+- **Dependencies:** kai-core-install (required), API keys for image models
+
+---
+
 ## The Concept and/or Problem
 
 AI image generation is powerful but inconsistent. Each request requires:

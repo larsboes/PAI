@@ -56,6 +56,24 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| CORE skill | `Skills/CORE/SKILL.md` | Main identity and routing hub |
+| Skill system docs | `Skills/CORE/SkillSystem.md` | Skill routing architecture |
+| Architecture tracker | `Skills/CORE/Architecture.md` | Auto-generated system status |
+| Architecture tool | `Tools/PaiArchitecture.ts` | Generate architecture tracking |
+| CreateSkill templates | `Skills/CreateSkill/` | Templates for new skills |
+| Identity & Principles | `Skills/CORE/Constitution.md` | 14 founding principles |
+
+**Summary:**
+- **Files created:** 10+ (skill files, templates, tools)
+- **Hooks registered:** 0 (uses hook system from kai-hook-system)
+- **Dependencies:** kai-hook-system (required), kai-history-system (optional)
+
+---
+
 # PART 1: THE PROBLEM
 
 ## Why You Need This

@@ -45,6 +45,24 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ---
 
+## What's Included
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| Voice stop hook | `hooks/stop-hook-voice.ts` | Main agent voice notification |
+| Subagent voice hook | `hooks/subagent-stop-hook-voice.ts` | Subagent voice notification |
+| Prosody enhancer | `hooks/lib/prosody-enhancer.ts` | Add emotion/pauses to speech |
+| Voice server | `voice/server.ts` | HTTP server for TTS requests |
+| Server management | `voice/manage.sh` | Start/stop/restart server |
+| LaunchAgent | `com.pai.voice-server.plist` | Auto-start on login (macOS) |
+
+**Summary:**
+- **Files created:** 6
+- **Hooks registered:** 2 (Stop, SubagentStop)
+- **Dependencies:** kai-hook-system (required), kai-core-install (required), ElevenLabs API key
+
+---
+
 ## The Concept and/or Problem
 
 AI agents complete work constantly, but you only know if you're watching the screen:

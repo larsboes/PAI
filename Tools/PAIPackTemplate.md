@@ -196,6 +196,45 @@ Please follow the installation instructions below to integrate this pack into yo
 
 ---
 
+## What's Included
+<!--
+(256 words max)
+
+INSTRUCTIONS FOR AI: Provide a quick manifest of what this pack creates.
+This gives users an at-a-glance summary of the pack's contents BEFORE
+they commit to installation.
+
+Include:
+- A table with Component | File | Purpose columns
+- Summary counts: Files created, Hooks registered, Dependencies
+- This section is REQUIRED for all packs
+
+Example:
+| Component | File | Purpose |
+|-----------|------|---------|
+| Session initializer | `hooks/initialize-session.ts` | Sets up session context |
+| Security validator | `hooks/security-validator.ts` | Blocks dangerous commands |
+| Observability lib | `hooks/lib/observability.ts` | Event logging to dashboard |
+
+**Summary:**
+- **Files created:** 3
+- **Hooks registered:** 2
+- **Dependencies:** kai-hook-system (required)
+-->
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| [Component 1] | `path/to/file1.ts` | [What it does] |
+| [Component 2] | `path/to/file2.ts` | [What it does] |
+| [Library 1] | `hooks/lib/library.ts` | [Shared functionality] |
+
+**Summary:**
+- **Files created:** [N]
+- **Hooks registered:** [N]
+- **Dependencies:** [List or "None"]
+
+---
+
 ## The Concept and/or Problem
 <!--
 (2048 words max)
@@ -1032,6 +1071,7 @@ Format: ### {version} - {YYYY-MM-DD}
 | Section | Word Limit | Purpose |
 |---------|------------|---------|
 | `## Installation Prompt` | 512 | Context briefing for receiving AI |
+| `## What's Included` | 256 | Quick manifest of pack contents |
 | `## The Concept and/or Problem` | 2048 | What problem does this solve? |
 | `## The Solution` | 4096 | How does this pack solve it? |
 | `## Why This Is Different` | 128 | Differentiation from similar solutions |
