@@ -118,6 +118,19 @@ If user selected: TypeScript, bun, Cloudflare Workers
 
 ---
 
+## What Are Packs and Bundles?
+
+**Packs** are collections of functionality organized around a single theme or capability. Each pack is a complete system in itself—not a single ingredient, but a whole subsystem. For example, the `kai-hook-system` pack provides an entire event-driven automation framework with multiple hooks, libraries, and configuration.
+
+**Bundles** are curated combinations of packs that work exceptionally well together—a harmonious system from a single author or unified around a single theme. A bundle isn't just "these packs exist," it's "these packs were designed to integrate seamlessly, and installing them together creates something greater than the sum of its parts."
+
+| Concept | What It Is | Example |
+|---------|-----------|---------|
+| **Pack** | Complete functionality around one theme | kai-hook-system (entire event system) |
+| **Bundle** | Harmonious combination of packs | Kai Bundle (4 packs that form a complete AI infrastructure) |
+
+---
+
 ## About This Bundle
 
 This is *a highly opinionated* bundle of PAI Packs that gets near feature parity to my (Daniel's) own, active Kai system I use every day, and that started the project. I have replicated most of the functionality of my system into individual Packs, which are all contained within this bundle.

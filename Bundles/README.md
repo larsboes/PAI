@@ -12,11 +12,11 @@ Curated collections of packs that work together to achieve a larger goal.
 
 ## What is a Bundle?
 
-A **bundle** is a curated collection of PAI packs designed to work together as a cohesive system.
+A **bundle** is a curated collection of PAI packs designed to work together as a harmonious system.
 
-Think of it this way:
-- **Packs** = Individual capabilities (ingredients)
-- **Bundles** = Curated collections (recipes)
+**Packs** are collections of functionality organized around a single theme or capability—each pack is a complete subsystem, not an individual ingredient. For example, a hook system pack contains an entire event-driven automation framework.
+
+**Bundles** are combinations of packs that work exceptionally well together—a harmonious system from a single author or unified around a single theme. The packs in a bundle were designed to integrate seamlessly, creating emergent capabilities greater than the sum of their parts.
 
 ### Bundle Types
 
@@ -83,11 +83,11 @@ Bundles are collections - you can install just the packs you want from a bundle.
 
 | Aspect | Pack | Bundle |
 |--------|------|--------|
-| **Scope** | Single capability | Multiple capabilities |
-| **Structure** | Single markdown file | Directory with BUNDLE.md |
-| **Code** | Contains complete code | References pack files |
-| **Installation** | Standalone | Ordered sequence |
-| **Value** | Specific function | Curated experience |
+| **Scope** | Complete subsystem around one theme | Harmonious combination of subsystems |
+| **Structure** | Single markdown file | Directory with README.md |
+| **Code** | Contains complete code for that system | References pack files |
+| **Installation** | Can be standalone | Ordered sequence with dependencies |
+| **Value** | Complete functionality for one domain | Integrated experience across domains |
 
 ---
 
