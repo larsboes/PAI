@@ -4,7 +4,32 @@
 
 # The Official PAI (Kai) Bundle
 
-> **FOR AI AGENTS:** Install each Pack listed below by reading its file and following the installation instructions.
+> **FOR AI AGENTS:** You are about to install the complete Kai bundle. Walk your principal through an interactive wizard to configure their system, then install each pack in order.
+
+## AI Installation Wizard
+
+**Start by asking your principal these questions:**
+
+1. **Where should PAI be installed?** (default: `~/.config/pai`)
+2. **What would you like to name your AI assistant?** (e.g., Kai, Atlas, Nova, Jarvis)
+3. **What's your timezone?** (e.g., America/Los_Angeles, Europe/London)
+4. **Do you have an ElevenLabs API key for voice notifications?** (optional - skip if no)
+5. **If yes, what's your preferred ElevenLabs voice ID?** (optional)
+
+**After gathering answers, set these variables:**
+```bash
+export PAI_DIR="[their answer or ~/.config/pai]"
+export DA="[their AI name]"
+export TIME_ZONE="[their timezone]"
+export ELEVENLABS_API_KEY="[if provided]"
+export ELEVENLABS_VOICE_ID="[if provided]"
+```
+
+**Then proceed through each pack in the Installation Order section, reading each pack file and installing it with the configured variables.**
+
+---
+
+## About This Bundle
 
 This is *a highly opinionated* bundle of PAI Packs that gets near feature parity to my (Daniel's) own, active Kai system I use every day, and that started the project. I have replicated most of the functionality of my system into individual Packs, which are all contained within this bundle.
 
@@ -69,141 +94,16 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 
 ---
 
-## Installation
-
-### Prerequisites
+## Prerequisites
 
 - [Bun](https://bun.sh): `curl -fsSL https://bun.sh/install | bash`
 - [Claude Code](https://claude.com/claude-code) or compatible AI coding assistant
 
-### How It Works
+---
 
-**The entire installation is AI-driven.** Give each pack file to your AI agent, and it reads the instructions and installs everything autonomously. No scripts to run—just hand over the markdown files.
+## Verification
 
-### Configuration Variables
-
-Before starting, decide on these values:
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PAI_DIR` | `~/.config/pai` | Where PAI stores files (hooks, history, skills) |
-| `DA` | `PAI` | Your AI assistant's name (e.g., Kai, Atlas, Nova) |
-| `TIME_ZONE` | System default | Timezone for timestamps |
-| `ELEVENLABS_API_KEY` | - | Optional: For voice notifications |
-| `ELEVENLABS_VOICE_ID` | Default voice | Optional: Which voice to use |
-
-### Step-by-Step Installation
-
-#### Step 1: System Analysis (REQUIRED)
-
-Before installing, analyze your current system state:
-
-```bash
-# 1. Check existing PAI installation
-PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
-echo "=== PAI Installation Check ==="
-echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
-
-if [ -d "$PAI_CHECK" ]; then
-  echo "⚠️  PAI directory EXISTS at: $PAI_CHECK"
-  echo "Contents:"
-  ls -la "$PAI_CHECK" 2>/dev/null
-else
-  echo "✓ Clean install - no existing PAI directory"
-fi
-
-# 2. Check Claude settings for existing hooks
-echo ""
-echo "=== Claude Settings Check ==="
-if [ -f "$HOME/.claude/settings.json" ]; then
-  if grep -q '"hooks"' "$HOME/.claude/settings.json"; then
-    echo "⚠️  Existing hooks found in settings.json:"
-    grep -A 10 '"hooks"' "$HOME/.claude/settings.json" | head -15
-  else
-    echo "✓ No existing hooks in settings.json"
-  fi
-else
-  echo "✓ No settings.json (will be created)"
-fi
-
-# 3. Check environment
-echo ""
-echo "=== Environment Check ==="
-echo "DA (AI name): ${DA:-'NOT SET'}"
-echo "TIME_ZONE: ${TIME_ZONE:-'NOT SET'}"
-echo "ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY:+'SET'}${ELEVENLABS_API_KEY:-'NOT SET'}"
-```
-
-#### Step 2: Backup (If Conflicts Detected)
-
-```bash
-BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
-PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
-
-# Backup existing PAI directory
-if [ -d "$PAI_CHECK" ]; then
-  mkdir -p "$BACKUP_DIR"
-  cp -r "$PAI_CHECK" "$BACKUP_DIR/pai"
-  echo "✓ Backed up PAI to $BACKUP_DIR/pai"
-fi
-
-# Backup Claude settings
-if [ -f "$HOME/.claude/settings.json" ]; then
-  mkdir -p "$BACKUP_DIR"
-  cp "$HOME/.claude/settings.json" "$BACKUP_DIR/settings.json"
-  echo "✓ Backed up settings.json to $BACKUP_DIR/"
-fi
-```
-
-#### Step 3: Set Up Environment
-
-```bash
-# Add to your shell profile (~/.zshrc or ~/.bashrc)
-export PAI_DIR="$HOME/.config/pai"
-export DA="YourAIName"  # Your AI's name
-export TIME_ZONE="America/Los_Angeles"  # Your timezone
-export PAI_SOURCE_APP="$DA"
-
-# Reload shell
-source ~/.zshrc  # or ~/.bashrc
-```
-
-#### Step 4: Create Directory Structure
-
-```bash
-mkdir -p $PAI_DIR/{hooks/lib,History/{Sessions,Learnings,Research,Decisions},Skills/CORE,Tools,voice}
-```
-
-#### Step 5: Install Packs In Order
-
-Give each pack file to your AI with the context:
-```
-Install this pack using PAI_DIR="[your path]" and DA="[your AI name]".
-Run the Pre-Installation System Analysis section first to check for conflicts.
-```
-
-### Pack Installation Sequence
-
-Install each pack in order by giving your AI the pack file:
-
-| # | Pack | Command | Verification |
-|---|------|---------|--------------|
-| 1 | Hook System | Give AI: `Packs/kai-hook-system.md` | `ls $PAI_DIR/hooks/` |
-| 2 | History System | Give AI: `Packs/kai-history-system.md` | `ls $PAI_DIR/History/` |
-| 3 | Skill System | Give AI: `Packs/kai-skill-system.md` | `bun run $PAI_DIR/Tools/SkillSearch.ts --list` |
-| 4 | Voice System | Give AI: `Packs/kai-voice-system.md` | Check stop-hook.ts exists |
-| 5 | Identity | Give AI: `Packs/kai-identity.md` | `ls $PAI_DIR/Skills/CORE/` |
-
-**For each pack, tell your AI:**
-```
-Install this pack using:
-- PAI_DIR: [your configured path]
-- DA: [your AI name]
-```
-
-### Verify Bundle
-
-After installing all packs:
+After installing all packs, verify the bundle:
 
 ```bash
 # Check complete directory structure
@@ -218,9 +118,6 @@ ls -la $PAI_DIR/
 
 # Check hooks are registered
 cat ~/.claude/settings.json | grep -A 5 "hooks"
-
-# Check skills are indexed
-bun run $PAI_DIR/Tools/SkillSearch.ts --list
 
 # Restart Claude Code to activate all hooks
 ```

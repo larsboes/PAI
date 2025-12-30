@@ -25,10 +25,11 @@ A bundle is a curated collection of PAI packs designed to work together as a coh
 ```
 Bundles/
 └── YourBundle/
-    ├── README.md           # Bundle specification (required, auto-displays on GitHub)
-    ├── your-bundle-icon.png  # Bundle icon (optional, 256x256 transparent PNG)
-    └── install.ts          # Optional: Installation wizard script
+    ├── README.md             # Bundle specification (required, auto-displays on GitHub)
+    └── your-bundle-icon.png  # Bundle icon (optional, 256x256 transparent PNG)
 ```
+
+**Note:** No installation scripts. All installation is AI-driven through the README.
 
 ---
 
@@ -109,7 +110,43 @@ Below is a template demonstrating COMPLETE bundle structure.
 
 # Bundle Name
 
-> **FOR AI AGENTS:** Install each Pack listed below by reading its file and following the installation instructions.
+> **FOR AI AGENTS:** You are about to install this bundle. Walk your principal through an interactive wizard to configure their system, then install each pack in order.
+
+## AI Installation Wizard
+
+<!--
+🚨 THIS SECTION IS REQUIRED - IT MAKES INSTALLATION AI-DRIVEN 🚨
+
+INSTRUCTIONS FOR AI: This section tells the installing AI what questions to ask
+the user before installing the bundle. This is how PAI works - no scripts,
+just AI reading instructions and executing them.
+
+Include:
+1. Numbered list of questions to ask the principal
+2. Default values for each question
+3. How to set the environment variables from answers
+4. Instruction to proceed through each pack in order
+-->
+
+**Start by asking your principal these questions:**
+
+1. **Where should PAI be installed?** (default: `~/.config/pai`)
+2. **What would you like to name your AI assistant?** (e.g., Kai, Atlas, Nova)
+3. **What's your timezone?** (e.g., America/Los_Angeles)
+4. [Add bundle-specific questions here]
+
+**After gathering answers, set these variables:**
+```bash
+export PAI_DIR="[their answer or default]"
+export DA="[their AI name]"
+# Add other variables as needed
+```
+
+**Then proceed through each pack in the Installation Order section, reading each pack file and installing it with the configured variables.**
+
+---
+
+## About This Bundle
 
 <!--
 (256 words max)
@@ -420,12 +457,13 @@ Format: ### {version} - {YYYY-MM-DD}
 
 | Section | Word Limit | Purpose |
 |---------|------------|---------|
-| Introduction | 256 | What the bundle provides |
+| `## AI Installation Wizard` | 256 | **REQUIRED** - Questions for AI to ask before installing |
+| `## About This Bundle` | 256 | What the bundle provides |
 | `## Why This Is Different` | 128 | Differentiation (64-word paragraph + 4 bullets) |
 | `## What This Bundle Provides` | 1024 | Capabilities overview |
 | `## Architecture` | 2048 | How packs work together |
 | `## Installation Order` | 512 | Pack sequence with dependencies |
-| `## Installation` | 4096 | Step-by-step setup |
+| `## Prerequisites` | 256 | External dependencies (Bun, etc.) |
 | `## Verification` | 512 | Bundle-level testing |
 | `## Principles / Philosophy` | 1024 | Design philosophy |
 | `## Credits` | 256 | Attribution |
@@ -439,6 +477,7 @@ Format: ### {version} - {YYYY-MM-DD}
 > **FOR AI AGENTS:** Before publishing, verify your bundle includes ALL of these:
 
 ### Required Elements
+- [ ] **AI Installation Wizard**: Questions for AI to ask, env var setup, proceed instruction
 - [ ] **Why Different**: 64-word paragraph + 4 eight-word bullets
 - [ ] **Architecture diagram**: ASCII showing pack relationships
 - [ ] **Installation order table**: All packs with dependencies
@@ -446,6 +485,7 @@ Format: ### {version} - {YYYY-MM-DD}
 - [ ] **Configuration variables**: All required env vars documented
 - [ ] **Bundle verification**: Commands that test packs working together
 - [ ] **Pack links**: Every pack linked to its file in Packs/
+- [ ] **NO install scripts**: Installation is AI-driven through README only
 
 ### Quality Checks
 - [ ] **Order explained**: WHY the installation order matters
