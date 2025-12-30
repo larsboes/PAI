@@ -31,7 +31,7 @@ The old approach was "here's my whole system—clone it and customize." That cre
 ## System Architecture
 
 <p align="center">
-  <img src="icons/pai-system-architecture-v3.png" alt="PAI System Architecture" width="800">
+  <img src="icons/pai-system-architecture-v3.png" alt="PAI System Architecture" width="100%">
 </p>
 
 **PAI organizes capabilities in a clear hierarchy:**
