@@ -110,7 +110,7 @@ Good pack candidates:
 
 ### Step 2: Follow the Template
 
-Use the pack template: see `PAIPackTemplate.md` in the Kai system or the example packs in [Packs/](Packs/).
+Use the pack template: see [Tools/PAIPackTemplate.md](Tools/PAIPackTemplate.md) or the example packs in [Packs/](Packs/).
 
 **Required elements:**
 1. YAML frontmatter with metadata

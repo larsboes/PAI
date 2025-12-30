@@ -132,7 +132,7 @@ Open any pack file and follow the "Installation" section step by step.
 
 ## Creating Your Own Pack
 
-See [PAIPackTemplate.md](../PAIPackTemplate.md) for the complete pack specification.
+See [PAIPackTemplate.md](../Tools/PAIPackTemplate.md) for the complete pack specification.
 
 **Quick checklist:**
 - [ ] Single markdown file with YAML frontmatter
@@ -159,7 +159,7 @@ Every pack in this directory must be:
 ## Related
 
 - [**Bundles/**](../Bundles/) - Curated collections of packs
-- [**PAIPackTemplate.md**](../PAIPackTemplate.md) - Full pack specification
+- [**PAIPackTemplate.md**](../Tools/PAIPackTemplate.md) - Full pack specification
 - [**README.md**](../README.md) - PAI project overview
 
 ---

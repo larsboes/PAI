@@ -373,7 +373,7 @@ pack:
 **1. Get the pack template:**
 
 ```bash
-curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/PAIPackTemplate.md
+curl -O https://raw.githubusercontent.com/danielmiessler/PAI/main/Tools/PAIPackTemplate.md
 ```
 
 **2. Fill in each section:**
@@ -465,7 +465,7 @@ The code itself is platform-independent (TypeScript, Python, Bash). Integration 
 We welcome packs that solve real problems:
 
 1. **Fork the repository**
-2. **Create your pack** - Follow [PAIPackTemplate.md](PAIPackTemplate.md)
+2. **Create your pack** - Follow [PAIPackTemplate.md](Tools/PAIPackTemplate.md)
 3. **Test it thoroughly** - Install in a fresh system with AI assistance
 4. **Submit a PR** - Include examples and testing evidence
 
@@ -626,7 +626,7 @@ There's no "all or nothing." Take what's useful, leave the rest.
 ### How do I contribute a pack?
 
 1. **Solve a real problem** — Packs should come from actual use, not theoretical ideas
-2. **Use the template** — Download [PAIPackTemplate.md](PAIPackTemplate.md)
+2. **Use the template** — Download [PAIPackTemplate.md](Tools/PAIPackTemplate.md)
 3. **Test it** — Have your AI install it in a fresh environment
 4. **Submit a PR** — Include examples and evidence it works
 
@@ -705,7 +705,7 @@ If you find it valuable:
 - Complete implementation: 4 hooks, 3 library files, settings.json configuration
 
 **New Documentation**
-- `PAIPackTemplate.md` - Full pack template specification
+- `Tools/PAIPackTemplate.md` - Full pack template specification
 - `PACKS.md` - Complete pack system documentation
 - Updated README with 14 Founding Principles and full pack installation guide
 
