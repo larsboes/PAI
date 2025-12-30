@@ -1,7 +1,7 @@
 ---
 name: Kai Agents Skill
-pack-id: danielmiessler-agents-skill-core-v1.0.0
-version: 1.0.0
+pack-id: danielmiessler-agents-skill-core-v1.1.0
+version: 1.1.0
 author: danielmiessler
 description: Dynamic agent composition and orchestration system - create custom agents with unique personalities, voices, and trait combinations on-the-fly
 type: skill
@@ -244,13 +244,31 @@ The Agents skill provides complete agent composition and management:
 
 ## Route Triggers
 
-**CRITICAL: The word "custom" is the KEY trigger:**
+**CRITICAL: The word "custom" is the ABSOLUTE trigger - NO EXCEPTIONS:**
 
-| User Says | What to Use | Why |
-|-----------|-------------|-----|
-| "**custom agents**", "create **custom** agents" | AgentFactory | Unique prompts + unique voices |
-| "agents", "launch agents", "bunch of agents" | Generic Interns | Same voice, parallel grunt work |
-| "use [agent name]", "get [agent name] to" | Named agent | Pre-defined personality |
+| User Says | What to Use | subagent_type | Why |
+|-----------|-------------|---------------|-----|
+| "**custom agents**", "create **custom** agents", "spin up **custom**" | AgentFactory | `general-purpose` | Unique prompts + unique voices |
+| "agents", "launch agents", "bunch of agents" | Generic prompt | `Intern` | Same voice, parallel grunt work |
+| "use [agent name]", "get [agent name] to" | Direct call | Named agent type | Pre-defined personality |
+
+**CONSTITUTIONAL RULE FOR CUSTOM AGENTS:**
+When user says "custom agents", you MUST:
+1. Use AgentFactory to compose EACH agent with DIFFERENT traits
+2. Use `subagent_type: "general-purpose"` - **NEVER** "Intern", "Designer", "Architect", etc.
+3. Each agent gets their own voice from the trait-to-voice mapping
+
+**❌ NEVER DO THIS for custom agents:**
+```
+subagent_type: "Intern"      // WRONG - forces same voice on all
+subagent_type: "Designer"    // WRONG - forces Designer's voice
+subagent_type: "Architect"   // WRONG - forces Architect's voice
+```
+
+**✅ ALWAYS DO THIS for custom agents:**
+```
+subagent_type: "general-purpose"  // CORRECT - uses custom voice from AgentFactory
+```
 
 ## Architecture
 
@@ -1354,19 +1372,23 @@ bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
 
 ### Step 3: Launch Agents in Parallel
 
+**🚨 CRITICAL: Use `subagent_type: "general-purpose"` - NEVER "Intern" for custom agents!**
+
+Using "Intern" would override the custom voice. We need "general-purpose" to respect the voice_id from AgentFactory.
+
 Use a SINGLE message with MULTIPLE Task calls:
 
 ```typescript
 Task({
   description: "Research agent 1 - enthusiastic",
   prompt: <agent1_full_prompt>,
-  subagent_type: "Intern",
+  subagent_type: "general-purpose",  // 🚨 NEVER "Intern" for custom agents!
   model: "sonnet"
 })
 Task({
   description: "Research agent 2 - skeptical",
   prompt: <agent2_full_prompt>,
-  subagent_type: "Intern",
+  subagent_type: "general-purpose",  // 🚨 NEVER "Intern" for custom agents!
   model: "sonnet"
 })
 ```
@@ -1392,6 +1414,19 @@ Task({
 | Deep reasoning | `opus` | Maximum intelligence |
 
 ## Common Mistakes
+
+**🚨 WRONG: Using named agent types for custom agents**
+```typescript
+// WRONG - forces same voice on all custom agents!
+Task({ prompt: <custom_prompt>, subagent_type: "Intern" })
+Task({ prompt: <custom_prompt>, subagent_type: "Designer" })
+```
+
+**✅ RIGHT: Using general-purpose for custom agents**
+```typescript
+// CORRECT - respects the custom voice from AgentFactory
+Task({ prompt: <custom_prompt>, subagent_type: "general-purpose" })
+```
 
 **WRONG: Same traits for all agents**
 ```bash
@@ -1786,6 +1821,14 @@ prompts. Edit `Traits.yaml` to map trait combinations to your TTS provider's voi
 ---
 
 ## Changelog
+
+### 1.1.0 - 2025-12-30
+- **CRITICAL FIX**: Custom agents now use `subagent_type: "general-purpose"` instead of "Intern"
+  - Using "Intern" was overriding custom voices with a single voice
+  - "general-purpose" respects the voice_id from AgentFactory
+- Added constitutional rule for custom agent creation
+- Added "Common Mistakes" section with subagent_type guidance
+- Updated workflow examples with correct subagent_type
 
 ### 1.0.0 - 2025-12-29
 - Initial release
