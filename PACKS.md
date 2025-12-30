@@ -221,6 +221,8 @@ keywords: [searchable, tags]
 
 Browse all packs: [Packs/](Packs/)
 
+### Foundation Packs
+
 | Pack | Type | Description |
 |------|------|-------------|
 | [kai-hook-system](Packs/kai-hook-system.md) | Foundation | Event-driven automation framework for hook-based capabilities |
@@ -229,7 +231,15 @@ Browse all packs: [Packs/](Packs/)
 | [kai-voice-system](Packs/kai-voice-system.md) | Notifications | Voice output with ElevenLabs TTS and prosody enhancement |
 | [kai-observability-server](Packs/kai-observability-server.md) | Observability | Real-time multi-agent monitoring dashboard |
 
-**Installation order:** hooks → history → core-install → voice → observability (optional)
+### Skill Packs
+
+| Pack | Type | Description |
+|------|------|-------------|
+| [kai-art-skill](Packs/kai-art-skill.md) | Skill | Visual content generation with charcoal architectural sketch aesthetic |
+| [kai-agents-skill](Packs/kai-agents-skill.md) | Skill | Dynamic agent composition with specialized personalities and voices |
+| [kai-prompting-skill](Packs/kai-prompting-skill.md) | Skill | Meta-prompting system for programmatic prompt generation |
+
+**Installation order:** hooks → history → core-install → voice → observability (optional) → skill packs
 
 **Or install the complete [Kai Bundle](Bundles/Kai/)** which handles ordering automatically.
 

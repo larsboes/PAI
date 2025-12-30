@@ -1501,7 +1501,14 @@ Add voice hooks to `~/.claude/settings.json`:
 
 ### Step 7: Set Environment Variables
 
-Add to your shell profile (`~/.zshrc`, `~/.bashrc`):
+**If you used the Kai Bundle wizard:** Core variables are in `$PAI_DIR/.env`. You only need to add ElevenLabs credentials there:
+
+```bash
+# Add to $PAI_DIR/.env
+ELEVENLABS_API_KEY="your-api-key"
+```
+
+**For manual installation:** Add to your shell profile (`~/.zshrc`, `~/.bashrc`):
 
 ```bash
 # Voice configuration

@@ -1335,7 +1335,9 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
 
 ### Step 5: Set Environment Variables (Optional)
 
-Add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+**If you used the Kai Bundle wizard:** These are already in `$PAI_DIR/.env` - skip this step.
+
+**For manual installation:** Add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
 
 ```bash
 # PAI configuration

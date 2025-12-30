@@ -384,7 +384,9 @@ echo "Backup complete: $BACKUP_DIR"
 
 #### Step 0.4: Set Required Environment Variables
 
-If not already set, configure these in your shell profile (`~/.zshrc` or `~/.bashrc`):
+**If you used the Kai Bundle wizard:** Environment variables are already configured in `$PAI_DIR/.env` - skip to Step 1.
+
+**For manual installation:** Configure these in your shell profile (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
 # Add to your shell profile
@@ -395,6 +397,15 @@ export PAI_SOURCE_APP="${DA}"
 
 # Reload your shell
 source ~/.zshrc  # or ~/.bashrc
+```
+
+**Alternative:** Create a `.env` file in your PAI directory:
+
+```bash
+# $PAI_DIR/.env
+DA="PAI"
+PAI_DIR="${HOME}/.config/pai"
+TIME_ZONE="America/Los_Angeles"
 ```
 
 **After completing system analysis, proceed to Step 1.**
@@ -1137,7 +1148,9 @@ Claude Code looks for settings in `~/.claude/settings.json`. Add or merge the fo
 
 ### Step 5: Set Environment Variables (Optional)
 
-Add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
+**If you used the Kai Bundle wizard:** These are already in `$PAI_DIR/.env` - skip this step.
+
+**For manual installation:** Add these to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.):
 
 ```bash
 # PAI configuration

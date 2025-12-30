@@ -932,11 +932,25 @@ ls -lt $PAI_DIR/history/sessions/2025-12/ | head -5
 
 INSTRUCTIONS FOR AI: Document configuration options.
 If no configuration is needed, write "No configuration required."
+
+IMPORTANT: Always document BOTH approaches for environment variables:
+1. .env file (for users who used the Kai Bundle wizard)
+2. Shell profile exports (for manual installation)
 -->
 
 **Environment variables:**
 
+**Option 1: `.env` file** (recommended - created by Kai Bundle wizard):
 ```bash
+# $PAI_DIR/.env
+DA="MyAI"
+PAI_DIR="$HOME/.config/pai"
+TIME_ZONE="America/Los_Angeles"
+```
+
+**Option 2: Shell profile** (for manual installation):
+```bash
+# Add to ~/.zshrc or ~/.bashrc
 export PAI_DIR="$HOME/.config/pai"
 export TIME_ZONE="America/Los_Angeles"
 export DA="MyAI"
