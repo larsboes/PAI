@@ -1,7 +1,7 @@
 ---
 name: Kai Art Skill
-pack-id: danielmiessler-kai-art-skill-core-v1.0.0
-version: 1.0.0
+pack-id: danielmiessler-kai-art-skill-core-v1.1.0
+version: 1.1.0
 author: danielmiessler
 description: Visual content generation with Excalidraw hand-drawn aesthetic - technical diagrams, comics, editorial illustrations
 type: skill
@@ -1203,7 +1203,7 @@ interface CLIArgs {
   creativeVariations?: number;
   aspectRatio?: ReplicateSize;
   transparent?: boolean;
-  referenceImage?: string;
+  referenceImages?: string[]; // Multiple reference images (up to 14 total)
   removeBg?: boolean;
   addBg?: string;
   thumbnail?: boolean;
@@ -1252,6 +1252,9 @@ function handleError(error: unknown): never {
 // Help
 // ============================================================================
 
+// PAI directory for documentation paths
+const PAI_DIR = process.env.PAI_DIR || `${process.env.HOME}/.config/pai`;
+
 function showHelp(): void {
   console.log(`
 generate - Image Generation CLI
@@ -1272,7 +1275,9 @@ OPTIONS:
                              Gemini: 1K, 2K, 4K
   --aspect-ratio <ratio>     Aspect ratio for Gemini (default: 16:9)
   --output <path>            Output path (default: ~/Downloads/art-output.png)
-  --reference-image <path>   Style reference (nano-banana-pro only)
+  --reference-image <path>   Reference image for style/character consistency (nano-banana-pro only)
+                             Can specify MULTIPLE times for improved consistency
+                             API Limits: Up to 5 human refs, 6 object refs, 14 total max
   --transparent              Add transparency instructions to prompt
   --remove-bg                Remove background using remove.bg API
   --add-bg <hex>             Add background color (e.g., "#0a0a0f")
@@ -1290,11 +1295,25 @@ EXAMPLES:
   # Quick draft
   bun run Generate.ts --model nano-banana --prompt "..." --size 16:9
 
+  # MULTIPLE reference images for character consistency (nano-banana-pro only)
+  bun run Generate.ts --model nano-banana-pro --prompt "Person from references at a party..." \\
+    --reference-image face1.jpg --reference-image face2.jpg --reference-image face3.jpg \\
+    --size 2K --aspect-ratio 16:9
+
+MULTI-REFERENCE LIMITS (Gemini API):
+  - Up to 5 human reference images for character consistency
+  - Up to 6 object reference images
+  - Maximum 14 total reference images per request
+
 ENVIRONMENT VARIABLES:
   REPLICATE_API_TOKEN  Required for flux, nano-banana
   GOOGLE_API_KEY       Required for nano-banana-pro
   OPENAI_API_KEY       Required for gpt-image-1
   REMOVEBG_API_KEY     Required for --remove-bg
+
+MORE INFO:
+  Documentation: \${PAI_DIR}/Skills/Art/README.md
+  Source: \${PAI_DIR}/Skills/Art/Tools/Generate.ts
 `);
   process.exit(0);
 }
@@ -1315,6 +1334,9 @@ function parseArgs(argv: string[]): CLIArgs {
     size: DEFAULTS.size,
     output: DEFAULTS.output,
   };
+
+  // Collect reference images into array
+  const referenceImages: string[] = [];
 
   for (let i = 0; i < args.length; i++) {
     const flag = args[i];
@@ -1361,7 +1383,8 @@ function parseArgs(argv: string[]): CLIArgs {
         i++;
         break;
       case "reference-image":
-        parsed.referenceImage = value;
+        // Collect multiple reference images into array
+        referenceImages.push(value);
         i++;
         break;
       case "creative-variations":
@@ -1384,11 +1407,21 @@ function parseArgs(argv: string[]): CLIArgs {
     }
   }
 
+  // Assign collected reference images if any
+  if (referenceImages.length > 0) {
+    parsed.referenceImages = referenceImages;
+  }
+
   if (!parsed.prompt) throw new CLIError("Missing: --prompt");
   if (!parsed.model) throw new CLIError("Missing: --model");
 
-  if (parsed.referenceImage && parsed.model !== "nano-banana-pro") {
+  if (parsed.referenceImages && parsed.referenceImages.length > 0 && parsed.model !== "nano-banana-pro") {
     throw new CLIError("--reference-image only works with nano-banana-pro");
+  }
+
+  // Validate reference image count (API limits: 5 human, 6 object, 14 total max)
+  if (parsed.referenceImages && parsed.referenceImages.length > 14) {
+    throw new CLIError(`Too many reference images: ${parsed.referenceImages.length}. Maximum is 14 total`);
   }
 
   // Validate size for model
@@ -1497,29 +1530,37 @@ async function generateWithNanoBananaPro(
   size: GeminiSize,
   aspectRatio: ReplicateSize,
   output: string,
-  referenceImage?: string
+  referenceImages?: string[]
 ): Promise<void> {
   const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new CLIError("Missing: GOOGLE_API_KEY");
 
   const ai = new GoogleGenAI({ apiKey });
-  console.log(`Generating with Nano Banana Pro at ${size} ${aspectRatio}...`);
+
+  if (referenceImages && referenceImages.length > 0) {
+    console.log(`Generating with Nano Banana Pro at ${size} ${aspectRatio} with ${referenceImages.length} reference image(s)...`);
+  } else {
+    console.log(`Generating with Nano Banana Pro at ${size} ${aspectRatio}...`);
+  }
 
   const parts: Array<{ text?: string; inlineData?: { mimeType: string; data: string } }> = [];
 
-  if (referenceImage) {
-    const imageBuffer = await readFile(referenceImage);
-    const imageBase64 = imageBuffer.toString("base64");
-    const ext = extname(referenceImage).toLowerCase();
-    const mimeMap: Record<string, string> = {
-      ".png": "image/png",
-      ".jpg": "image/jpeg",
-      ".jpeg": "image/jpeg",
-      ".webp": "image/webp",
-    };
-    const mimeType = mimeMap[ext];
-    if (!mimeType) throw new CLIError(`Unsupported format: ${ext}`);
-    parts.push({ inlineData: { mimeType, data: imageBase64 } });
+  // Add all reference images if provided
+  if (referenceImages && referenceImages.length > 0) {
+    for (const referenceImage of referenceImages) {
+      const imageBuffer = await readFile(referenceImage);
+      const imageBase64 = imageBuffer.toString("base64");
+      const ext = extname(referenceImage).toLowerCase();
+      const mimeMap: Record<string, string> = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+      };
+      const mimeType = mimeMap[ext];
+      if (!mimeType) throw new CLIError(`Unsupported format: ${ext}`);
+      parts.push({ inlineData: { mimeType, data: imageBase64 } });
+    }
   }
 
   parts.push({ text: prompt });
@@ -1598,7 +1639,7 @@ async function main(): Promise<void> {
         } else if (args.model === "nano-banana") {
           await generateWithNanoBanana(finalPrompt, args.size as ReplicateSize, varOutput);
         } else if (args.model === "nano-banana-pro") {
-          await generateWithNanoBananaPro(finalPrompt, args.size as GeminiSize, args.aspectRatio!, varOutput, args.referenceImage);
+          await generateWithNanoBananaPro(finalPrompt, args.size as GeminiSize, args.aspectRatio!, varOutput, args.referenceImages);
         } else if (args.model === "gpt-image-1") {
           await generateWithGPTImage(finalPrompt, args.size as OpenAISize, varOutput);
         }
@@ -1613,7 +1654,7 @@ async function main(): Promise<void> {
     } else if (args.model === "nano-banana") {
       await generateWithNanoBanana(finalPrompt, args.size as ReplicateSize, args.output);
     } else if (args.model === "nano-banana-pro") {
-      await generateWithNanoBananaPro(finalPrompt, args.size as GeminiSize, args.aspectRatio!, args.output, args.referenceImage);
+      await generateWithNanoBananaPro(finalPrompt, args.size as GeminiSize, args.aspectRatio!, args.output, args.referenceImages);
     } else if (args.model === "gpt-image-1") {
       await generateWithGPTImage(finalPrompt, args.size as OpenAISize, args.output);
     }
@@ -1824,6 +1865,13 @@ To customize the aesthetic, edit `$PAI_DIR/Skills/Art/Aesthetic.md`:
 ---
 
 ## Changelog
+
+### 1.1.0 - 2025-12-29
+- **Multiple reference images**: Support up to 14 reference images for improved character/style consistency
+  - `--reference-image` flag can now be specified multiple times
+  - API limits: 5 human refs, 6 object refs, 14 total max
+  - Significantly improves likeness consistency across generated images
+- Added `PAI_DIR` constant to fix help text paths
 
 ### 1.0.0 - 2025-12-29
 - Initial release
