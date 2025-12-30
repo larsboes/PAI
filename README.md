@@ -582,7 +582,7 @@ The best way to start: pick ONE pack that solves a problem you have today. Insta
 
 ### What's the difference between PAI and Anthropic's plugin system?
 
-Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your AI can use. It's powerful and PAI actually uses it under the hood.
+Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your AI can use. It's powerful, and you're free to use plugins as part of PAI as well.
 
 The difference is scope and integration:
 
