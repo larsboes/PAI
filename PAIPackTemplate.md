@@ -264,14 +264,14 @@ Don't include code here - that goes in Installation. Focus on helping the reader
 understand the approach conceptually before diving into implementation.
 -->
 
-## Architecture: The Special Sauce
+## What Makes This Different
 <!--
 (4096 words max)
 
 🚨 THIS SECTION IS CRITICAL - IT'S WHAT MAKES PACKS VALUABLE 🚨
 
 INSTRUCTIONS FOR AI: This is where you explain WHY this pack is architecturally
-interesting and BETTER than a baseline AI installation. This is the "special sauce"
+interesting and BETTER than a baseline AI installation. This is what makes it different
 that justifies the pack's existence.
 
 Every pack MUST explain its architectural innovation:

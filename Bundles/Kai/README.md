@@ -8,7 +8,15 @@
 
 ## AI Installation Wizard
 
-**Start by asking your principal these questions:**
+The wizard has two phases:
+1. **Phase 1: System Setup** - Where to install, basic configuration
+2. **Phase 2: Identity & Personalization** - Who you are, what you want from the system
+
+---
+
+### Phase 1: System Setup
+
+**Ask these questions first:**
 
 1. **Where should PAI be installed?** (default: `~/.config/pai`)
 2. **What would you like to name your AI assistant?** (e.g., Kai, Atlas, Nova, Jarvis)
@@ -24,6 +32,87 @@ export TIME_ZONE="[their timezone]"
 export ELEVENLABS_API_KEY="[if provided]"
 export ELEVENLABS_VOICE_ID="[if provided]"
 ```
+
+---
+
+### Phase 2: Identity & Personalization
+
+**This is where we make the AI truly yours.** Ask these questions to customize the CORE skill with personal context.
+
+#### Section 1: DA Personality
+
+Choose ONE path:
+
+**Option A - Generate Personality (Recommended):**
+> "Describe your ideal AI assistant personality in a few sentences. What kind of collaborator do you want?"
+
+Based on their description, generate calibration values (0-100 scale) for:
+- Humor (0=serious, 100=witty)
+- Curiosity (0=focused, 100=exploratory)
+- Precision (0=approximate, 100=exact)
+- Formality (0=casual, 100=professional)
+- Playfulness (0=businesslike, 100=playful)
+- Directness (0=diplomatic, 100=blunt)
+
+**Option B - Manual Calibration:**
+> "Rate each trait from 0-100:"
+> - Humor?
+> - Curiosity?
+> - Precision?
+> - Formality?
+> - Playfulness?
+> - Directness?
+
+#### Section 2: About You
+
+1. **What is your name?**
+2. **What is your profession or primary role?** (e.g., software engineer, entrepreneur, researcher)
+3. **What is the primary purpose you'll use this system for?** (e.g., software development, content creation, research, business automation)
+4. **What would you like to be able to do with this system?** (List 3-5 goals)
+5. **Where do you see yourself in 5 years?** (Career/life context helps AI understand priorities)
+6. **Are you working for yourself or for a company?** (self-employed / employed / building a company / other)
+
+#### Section 3: Key Contacts
+
+> "Would you like to add any key contacts now? These are people you frequently reference - colleagues, family, business partners. Your AI can look them up instantly."
+
+If yes, for each contact:
+- **Name** (and pronunciation if unusual)
+- **Email**
+- **Role/Relationship** (e.g., "Business Partner", "Spouse", "CTO", "Mentor")
+
+Continue adding contacts until they say they're done.
+
+#### Section 4: Technical Preferences
+
+> "Let me understand your technical setup so I can give better recommendations."
+
+1. **How technical are you?** (Beginner / Intermediate / Advanced / Expert)
+2. **Are you a programmer?** (Yes / No / Learning)
+3. **What OS do you primarily use?** (macOS / Windows / Linux)
+4. **Preferred programming languages?** (multi-select: TypeScript, Python, Go, Rust, Java, etc.)
+5. **Preferred package manager for JS/TS?** (bun / npm / yarn / pnpm)
+6. **Preferred server runtime?** (Bun / Node.js / Deno)
+7. **Do you use Cloudflare?** (Yes / No / Not sure)
+8. **Preferred backend infrastructure?** (Cloudflare Workers / AWS / GCP / Vercel / Railway / Fly.io / etc.)
+9. **Database preference?** (PostgreSQL / SQLite / MySQL / MongoDB / Supabase / etc.)
+
+---
+
+### Phase 3: Generate Configuration Files
+
+After gathering all answers, use them to populate the CORE skill templates:
+
+**Files to populate:**
+- `$PAI_DIR/Skills/CORE/SKILL.md` - Identity, personality, goals
+- `$PAI_DIR/Skills/CORE/Contacts.md` - Contact directory
+- `$PAI_DIR/Skills/CORE/CoreStack.md` - Technical preferences with generated rules
+
+**Example stack rules generation:**
+If user selected: TypeScript, bun, Cloudflare Workers
+→ Generate: "Use TypeScript for all code. Use bun (NEVER npm/yarn). Deploy to Cloudflare Workers."
+
+---
 
 **Then proceed through each pack in the Installation Order section, reading each pack file and installing it with the configured variables.**
 

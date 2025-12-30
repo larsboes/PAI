@@ -144,7 +144,7 @@ Basic TTS reads everything literally—code blocks, markdown syntax, technical a
 
 ---
 
-## Architecture: The Special Sauce
+## What Makes This Different
 
 The Kai Voice System uses a **5-layer prosody enhancement pipeline** that transforms raw AI text into natural speech with emotional intelligence and personality-driven delivery:
 

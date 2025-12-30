@@ -166,7 +166,7 @@ System prompts define behavior but lack structure. They're free-form text that v
 
 ---
 
-## Architecture: The Special Sauce
+## What Makes This Different
 
 The Kai Identity Pack uses a **5-layer constitutional identity framework** that transforms generic AI behavior into consistent, personality-driven collaboration with voice integration:
 

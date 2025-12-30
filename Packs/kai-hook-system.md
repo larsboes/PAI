@@ -120,7 +120,7 @@ Hooks are middleware for your AI. They sit between Claude Code's event system an
 
 ---
 
-## Architecture: The Special Sauce
+## What Makes This Different
 
 The hook system's power comes from its **event-driven middleware pattern** - a layered architecture that intercepts, processes, and extends every AI operation without modifying Claude Code itself.
 

@@ -149,7 +149,7 @@ Documentation is a byproduct, not a task. By instrumenting the work itself, you 
 
 ---
 
-## Architecture: The Special Sauce
+## What Makes This Different
 
 The history system's power comes from its **automatic categorization pipeline** - a multi-layered architecture that captures, analyzes, and routes every piece of work to the right location without any manual intervention.
 

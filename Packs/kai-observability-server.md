@@ -12,7 +12,7 @@ keywords: [observability, dashboard, monitoring, agents, websocket, streaming, e
 ---
 
 <p align="center">
-  <img src="icons/kai-observability-server.png" alt="Kai Observability Server" width="256">
+  <img src="icons/kai-observability-server-v2.png" alt="Kai Observability Server" width="256">
 </p>
 
 # Kai Observability Server (kai-observability-server)
@@ -164,7 +164,7 @@ $PAI_DIR/
 
 ---
 
-## Architecture: The Special Sauce
+## What Makes This Different
 
 The observability system's power comes from its **file-based streaming architecture** - a simple but effective pattern that separates event capture from event display.
 

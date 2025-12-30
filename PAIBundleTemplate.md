@@ -209,7 +209,7 @@ When fully installed, this bundle gives you:
 🚨 THIS SECTION IS CRITICAL - IT'S WHAT MAKES BUNDLES VALUABLE 🚨
 
 INSTRUCTIONS FOR AI: This is where you explain how the packs in this bundle
-interact and build on each other. This is the "special sauce" that justifies
+interact and build on each other. This is what makes them work together that justifies
 the bundle's existence over installing packs individually.
 
 Every bundle MUST explain:
