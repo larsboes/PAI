@@ -220,7 +220,9 @@ The packs are extracted from Kai - real capabilities that have been running in p
 
 **Quick install:**
 ```bash
-cd ~/Projects/PAI/Bundles/Kai && bun run install.ts
+# Clone the repo and run the interactive wizard
+git clone https://github.com/danielmiessler/PAI.git
+cd PAI/Bundles/Kai && bun run install.ts
 ```
 
 [**Learn more about bundles →**](Bundles/)
