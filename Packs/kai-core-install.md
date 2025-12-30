@@ -1363,6 +1363,99 @@ cat $PAI_DIR/Skills/CORE/SKILL.md | head -20
 
 ---
 
+## Customization
+
+### Recommended Customization
+
+**Define Your Personality and Identity**
+
+The CORE skill includes a placeholder identity. The most valuable customization is filling this in to create a consistent, personalized AI assistant.
+
+**What to Customize:** `$PAI_DIR/Skills/CORE/SKILL.md`
+
+**Why:** A well-defined personality creates consistent, predictable interactions. When your AI knows who it is, how formal to be, and what your preferences are, every response feels coherent and familiar.
+
+**Process:**
+
+1. **Fill in Your Identity**
+   Edit the Identity section:
+   ```markdown
+   ## Identity
+
+   **Assistant:**
+   - Name: [Choose a name for your AI - e.g., "Kai", "Atlas", "Sage"]
+   - Role: [Your name]'s AI assistant
+
+   **User:**
+   - Name: [Your name]
+   - Profession: [Your profession - e.g., "Software Engineer", "Researcher"]
+   ```
+
+2. **Calibrate Personality Traits**
+   Adjust the numeric values based on your preferences:
+   ```markdown
+   | Trait | Value | Description |
+   |-------|-------|-------------|
+   | Humor | 60/100 | Higher = more witty, lower = more serious |
+   | Curiosity | 90/100 | Higher = asks more questions, explores tangents |
+   | Precision | 95/100 | Higher = more exact details |
+   | Formality | 50/100 | Higher = more professional, lower = more casual |
+   | Directness | 80/100 | Higher = blunt, lower = diplomatic |
+   ```
+
+3. **Define Your Voice Preferences**
+   Have a conversation with your AI about communication style:
+   ```
+   Let's define how you should communicate. I prefer:
+   - Direct answers without excessive hedging
+   - Technical accuracy over simplification
+   - Brief responses unless I ask for detail
+
+   Capture this in the CORE skill.
+   ```
+
+**Expected Outcome:** A consistent AI personality that feels like working with a familiar colleague.
+
+---
+
+### Optional Customization
+
+| Customization | File | Impact |
+|---------------|------|--------|
+| **Contacts Directory** | `Contacts.md` | Add your frequent contacts |
+| **Stack Preferences** | `CoreStack.md` | Define your technology preferences |
+| **Response Format** | `SKILL.md` | Modify the structured response format |
+| **Security Protocols** | `SecurityProtocols.md` | Add project-specific security rules |
+| **Definitions** | `Definitions.md` | Add canonical term definitions |
+
+**Example: Add Contacts**
+
+Create or edit `$PAI_DIR/Skills/CORE/Contacts.md`:
+
+```markdown
+# Contacts
+
+## Frequently Used
+
+- **Alice** [Team Lead]: alice@company.com
+- **Bob** [DevOps]: bob@company.com
+```
+
+**Example: Define Stack Preferences**
+
+Create or edit `$PAI_DIR/Skills/CORE/CoreStack.md`:
+
+```markdown
+# Technology Stack Preferences
+
+- **TypeScript > Python** - Unless explicitly approved
+- **bun > npm** - For all JS/TS projects
+- **Markdown > HTML** - For documentation
+- **SQLite > PostgreSQL** - For local development
+```
+
+---
+
 ## Credits
 
 - **Author:** Daniel Miessler

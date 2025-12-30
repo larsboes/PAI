@@ -353,11 +353,12 @@ else
   echo "❌ kai-core-install NOT installed - REQUIRED! Install it first."
 fi
 
-# Check for ElevenLabs API key
-if [ -f "$HOME/.env" ] && grep -q "ELEVENLABS_API_KEY" "$HOME/.env"; then
-  echo "✓ ELEVENLABS_API_KEY found in ~/.env"
+# Check for ElevenLabs API key in $PAI_DIR/.env
+PAI_ENV="${PAI_DIR:-$HOME/.config/pai}/.env"
+if [ -f "$PAI_ENV" ] && grep -q "ELEVENLABS_API_KEY" "$PAI_ENV"; then
+  echo "✓ ELEVENLABS_API_KEY found in $PAI_ENV"
 else
-  echo "⚠️  ELEVENLABS_API_KEY not found - you'll need to add it"
+  echo "⚠️  ELEVENLABS_API_KEY not found - add it to $PAI_ENV"
 fi
 ```
 
@@ -1568,8 +1569,9 @@ import { homedir } from "os";
 import { join } from "path";
 import { existsSync, readFileSync } from "fs";
 
-// Load .env from user home directory
-const envPath = join(homedir(), '.env');
+// Load .env from PAI directory (single source of truth for all API keys)
+const paiDir = process.env.PAI_DIR || join(homedir(), '.config', 'pai');
+const envPath = join(paiDir, '.env');
 if (existsSync(envPath)) {
   const envContent = await Bun.file(envPath).text();
   envContent.split('\n').forEach(line => {
@@ -1584,8 +1586,8 @@ const PORT = parseInt(process.env.PAI_VOICE_PORT || "8888");
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 
 if (!ELEVENLABS_API_KEY) {
-  console.error('⚠️  ELEVENLABS_API_KEY not found in ~/.env');
-  console.error('Add: ELEVENLABS_API_KEY=your_key_here');
+  console.error(`⚠️  ELEVENLABS_API_KEY not found in ${envPath}`);
+  console.error('Add: ELEVENLABS_API_KEY=your_key_here to $PAI_DIR/.env');
 }
 
 // Default voice ID (customize to your preference)
@@ -2011,8 +2013,8 @@ fi
 
 if [ "$ELEVENLABS_CONFIGURED" = false ]; then
     echo
-    echo "To enable AI voices, add your ElevenLabs API key to ~/.env:"
-    echo "  echo 'ELEVENLABS_API_KEY=your_api_key_here' >> ~/.env"
+    echo "To enable AI voices, add your ElevenLabs API key to \$PAI_DIR/.env:"
+    echo "  echo 'ELEVENLABS_API_KEY=your_api_key_here' >> \$PAI_DIR/.env"
     echo "  Get a key at: https://elevenlabs.io"
     echo
 fi
@@ -2290,21 +2292,19 @@ chmod +x $PAI_DIR/voice-server/*.sh
 
 ### Step 11: Configure Environment Variables
 
-Add your ElevenLabs credentials to `~/.env`:
+Add your ElevenLabs credentials to `$PAI_DIR/.env` (the single source of truth for all API keys):
 
 ```bash
-# Add to ~/.env
-echo 'ELEVENLABS_API_KEY=your_actual_api_key_here' >> ~/.env
-echo 'ELEVENLABS_VOICE_ID=s3TPKV1kjDlVtZbl4Ksh' >> ~/.env
-
-# Reload shell
-source ~/.zshrc
+# Add to $PAI_DIR/.env
+PAI_ENV="${PAI_DIR:-$HOME/.config/pai}/.env"
+echo 'ELEVENLABS_API_KEY=your_actual_api_key_here' >> "$PAI_ENV"
+echo 'ELEVENLABS_VOICE_ID=s3TPKV1kjDlVtZbl4Ksh' >> "$PAI_ENV"
 ```
 
-**Also add to your shell profile** (`~/.zshrc` or `~/.bashrc`):
+**Optionally add convenience variables to your shell profile** (`~/.zshrc` or `~/.bashrc`):
 
 ```bash
-# PAI Voice System
+# PAI Voice System (optional - for CLI access)
 export PAI_VOICE_SERVER="http://localhost:8888/notify"
 export PAI_VOICE_PORT="8888"
 ```
@@ -2348,13 +2348,14 @@ ls -la $PAI_DIR/voice-server/status.sh
 ```bash
 # Check ElevenLabs API key is set
 echo "=== Checking Environment ==="
-grep "ELEVENLABS_API_KEY" ~/.env
+PAI_ENV="${PAI_DIR:-$HOME/.config/pai}/.env"
+grep "ELEVENLABS_API_KEY" "$PAI_ENV"
 # Should show your key (not "your_api_key_here")
 
 # Test the API key works
 echo "=== Testing ElevenLabs API Key ==="
 curl -s -X POST "https://api.elevenlabs.io/v1/text-to-speech/s3TPKV1kjDlVtZbl4Ksh" \
-  -H "xi-api-key: $(grep ELEVENLABS_API_KEY ~/.env | cut -d'=' -f2)" \
+  -H "xi-api-key: $(grep ELEVENLABS_API_KEY "$PAI_ENV" | cut -d'=' -f2)" \
   -H "Content-Type: application/json" \
   -d '{"text": "API key verified.", "model_id": "eleven_turbo_v2_5"}' \
   --output /tmp/test-voice.mp3 && \
@@ -2509,7 +2510,7 @@ curl -s -X POST "https://api.elevenlabs.io/v1/text-to-speech/s3TPKV1kjDlVtZbl4Ks
 **Symptom:** "ElevenLabs API error: 401"
 
 1. Verify your API key at [elevenlabs.io](https://elevenlabs.io) → Profile → API Key
-2. Check the key in ~/.env matches exactly (no extra spaces or quotes)
+2. Check the key in `$PAI_DIR/.env` matches exactly (no extra spaces or quotes)
 3. Ensure your ElevenLabs subscription is active
 
 ### Hooks Not Running
@@ -2551,7 +2552,7 @@ The server has built-in rate limiting (10 requests/minute per IP). If you're tes
 
 | Error | Cause | Fix |
 |-------|-------|-----|
-| "ELEVENLABS_API_KEY not found" | Missing .env | Add key to ~/.env |
+| "ELEVENLABS_API_KEY not found" | Missing .env | Add key to `$PAI_DIR/.env` |
 | "Voice server is not responding" | Server crashed | `./restart.sh` |
 | "Invalid voice_id" | Wrong voice ID format | Check voice ID exists in ElevenLabs |
 | "afplay exited with code" | Audio playback failed | Check macOS audio settings |
@@ -2658,6 +2659,57 @@ If the voice server is offline:
 - Hooks complete silently (exit 0)
 - No errors shown to user
 - Work continues uninterrupted
+
+---
+
+## Customization
+
+### Recommended Customization
+
+**What to Customize:** Voice selection and persona mapping
+
+**Why:** The default voice works, but PAI becomes truly personal when it speaks with a voice that resonates with you. Spending time selecting and mapping voices transforms PAI from "a system that talks" to "your AI's voice."
+
+**Process:**
+
+1. **Explore ElevenLabs Voice Library**
+   - Browse [ElevenLabs Voice Library](https://elevenlabs.io/voice-library)
+   - Listen to at least 10-15 different voices
+   - Note voice IDs for ones that feel right
+
+2. **Define Your Voice Mapping**
+   Have a conversation with your AI to explore preferences:
+   ```
+   "I want to customize my PAI voices. For the main PAI voice, I want
+   something [professional/warm/energetic/calm]. For notifications,
+   maybe something [shorter/punchier/softer]. Let's explore what
+   feels right..."
+   ```
+
+3. **Test with Real Content**
+   - Try different voices with actual PAI outputs
+   - Test emotional markers with different voice models
+   - Listen for naturalness with your typical message length
+
+4. **Update Environment Variables**
+   ```bash
+   # In $PAI_DIR/.env
+   ELEVENLABS_VOICE_PAI="your-chosen-voice-id"
+   ELEVENLABS_VOICE_DEFAULT="your-fallback-voice-id"
+   ```
+
+**Expected Outcome:** PAI speaks in a voice that feels natural and personal to you. The voice becomes part of your PAI's identity rather than a generic TTS output.
+
+### Optional Customization
+
+| Customization | File | Impact |
+|--------------|------|--------|
+| Custom emotional markers | `voice-server/server.ts` | Add your own prosody tags beyond the defaults |
+| Message preprocessing | `voice-server/server.ts` | Custom text cleanup before TTS |
+| Volume/speed defaults | ElevenLabs dashboard | Adjust voice characteristics |
+| Multi-voice personas | `.env` + server config | Different voices for different agent types |
+| Notification sounds | `voice-server/server.ts` | Add audio cues before/after speech |
+| Queue behavior | `voice-server/server.ts` | Adjust how overlapping messages are handled |
 
 ---
 

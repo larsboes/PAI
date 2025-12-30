@@ -287,6 +287,42 @@ Packs are self-contained markdown files. You can:
 
 ---
 
+## 🔐 Authentication Setup
+
+**All API keys live in ONE place: `$PAI_DIR/.env`**
+
+This is a core principle of PAI: **no keys stored anywhere else in the system**. Every pack, every tool, every workflow reads from this single file.
+
+### Setup
+
+```bash
+# 1. Copy the example file to your PAI directory
+cp .env.example $PAI_DIR/.env
+
+# 2. Edit and add your API keys
+nano $PAI_DIR/.env
+
+# 3. Restart Claude Code to load the new environment
+```
+
+### What Goes in .env
+
+**Core variables:**
+- `DA` - Your AI assistant's name
+- `TIME_ZONE` - Your timezone
+
+**Pack-specific keys:** Each pack documents its required API keys in its installation section. Add them to `.env` as you install packs.
+
+### Security Rules
+
+1. **NEVER commit `.env` files to git** - The `.gitignore` already excludes them
+2. **NEVER store API keys in pack files, configs, or code** - Always use environment variables
+3. **ALL authentication flows through `$PAI_DIR/.env`** - One file, one location, no exceptions
+
+See [.env.example](.env.example) for the complete template with documentation.
+
+---
+
 ## 📖 How PAI Packs Work
 
 PAI offers **two types of packs**, each with its own structure and purpose:

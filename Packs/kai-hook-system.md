@@ -1327,6 +1327,82 @@ function setTabTitle(title: string): void {
 
 ---
 
+## Customization
+
+### Recommended Customization
+
+**Define Your Security Policies**
+
+The security validator comes with sensible defaults, but you'll want to customize the attack patterns for your specific environment and risk tolerance.
+
+**What to Customize:** `$PAI_DIR/hooks/security-validator.ts`
+
+**Why:** The default security patterns may be too strict or too lenient for your use case. For example, if you regularly work with Docker, you might want to allow certain commands that are blocked by default. Conversely, if you work with sensitive data, you may want to add stricter patterns.
+
+**Process:**
+
+1. **Review Current Patterns**
+   - Read through the `ATTACK_PATTERNS` object in security-validator.ts
+   - Identify patterns that trigger too often (false positives)
+   - Identify dangerous commands specific to your environment
+
+2. **Add Custom Patterns**
+   ```typescript
+   // Add to ATTACK_PATTERNS in security-validator.ts
+   customProjectRules: {
+     patterns: [
+       /dangerous-command-for-your-project/i,
+     ],
+     action: 'block',
+     message: '🚨 BLOCKED: Custom project security rule'
+   }
+   ```
+
+3. **Adjust Action Levels**
+   - `block` - Completely prevent execution
+   - `warn` - Allow but show warning
+   - `log` - Allow and log for review
+   - `confirm` - Require explicit confirmation
+
+**Expected Outcome:** Security validation tailored to your specific workflow and risk profile.
+
+---
+
+### Optional Customization
+
+| Customization | File | Impact |
+|---------------|------|--------|
+| **Tab Title Format** | `update-tab-titles.ts` | Change the emoji prefix or title format |
+| **Session Initialization** | `initialize-session.ts` | Add custom session startup actions |
+| **Context Loading** | `load-core-context.ts` | Modify what context loads at session start |
+| **Observability URL** | Environment variable | Point to different observability endpoint |
+
+**Example: Custom Tab Title Prefix**
+
+Edit `update-tab-titles.ts` to change the tab icon:
+
+```typescript
+function setTabTitle(title: string): void {
+  const prefix = process.env.PAI_TAB_PREFIX || '🤖';  // Change this
+  // ...
+}
+```
+
+**Example: Add Project-Specific Context**
+
+Edit `load-core-context.ts` to load project-specific context:
+
+```typescript
+// Check for project-specific context file
+const projectContextPath = join(payload.cwd, '.pai', 'context.md');
+if (existsSync(projectContextPath)) {
+  const projectContext = readFileSync(projectContextPath, 'utf-8');
+  console.log(`<system-reminder>${projectContext}</system-reminder>`);
+}
+```
+
+---
+
 ## Credits
 
 - **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure

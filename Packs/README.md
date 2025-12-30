@@ -59,8 +59,18 @@ Each pack is a single markdown file containing everything needed to go from zero
 - **Installation Instructions** - Step-by-step for both AI and manual installation
 - **Verification Steps** - How to confirm it's working
 - **Examples** - Real usage scenarios
+- **Customization** - How to personalize the pack for your specific needs
 
 **Key principle:** Give your AI the pack file, and it can install the entire capability into your system autonomously.
+
+### Customization Section
+
+Many packs include a **Customization** section with:
+
+- **Recommended Customization** - Personalization that significantly improves the pack's value (most users should do this)
+- **Optional Customization** - Additional tweaks for advanced users
+
+For example, the Art Skill pack recommends having an extended conversation with your AI about your aesthetic preferences, then capturing that in the Aesthetic.md file so all generated images reflect your personal style.
 
 ---
 
@@ -113,6 +123,22 @@ Your AI will:
 ### Option 2: Manual
 
 Open any pack file and follow the "Installation" section step by step.
+
+---
+
+## Authentication
+
+**All API keys live in ONE place: `$PAI_DIR/.env`**
+
+Packs that require API keys (Voice, Art, etc.) all read from a single environment file. No keys should ever be stored in pack files, configs, or code.
+
+```bash
+# Copy the example and add your keys
+cp ../.env.example $PAI_DIR/.env
+nano $PAI_DIR/.env
+```
+
+See [.env.example](../.env.example) for the complete list of supported variables.
 
 ---
 

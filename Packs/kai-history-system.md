@@ -1462,6 +1462,95 @@ export PAI_SOURCE_APP="MyAI"
 
 **Directory structure is fixed** - categorization depends on consistent paths. Only customize the root PAI_DIR location if needed.
 
+---
+
+## Customization
+
+### Recommended Customization
+
+**Tune the Learning Detection Keywords**
+
+The history system automatically categorizes responses as "learnings" or "sessions" based on keyword detection. Customize these keywords to match your vocabulary and ensure valuable insights get properly captured.
+
+**What to Customize:** `$PAI_DIR/hooks/stop-hook.ts`
+
+**Why:** Different developers express learning differently. If you say "figured out" but not "root cause", or "aha moment" instead of "discovered", your learnings might not be captured in the learnings/ directory. Tuning these keywords ensures your insights get properly categorized.
+
+**Process:**
+
+1. **Review Your Recent Sessions**
+   ```bash
+   # Look at recent sessions
+   ls -lt $PAI_DIR/history/sessions/ | head -10
+
+   # Check if any should have been learnings
+   grep -l "aha\|insight\|realized" $PAI_DIR/history/sessions/
+   ```
+
+2. **Add Your Keywords**
+   Edit the `hasLearningIndicators` function in `stop-hook.ts`:
+   ```typescript
+   function hasLearningIndicators(text: string): boolean {
+     const indicators = [
+       'problem', 'solved', 'discovered', 'fixed', 'learned', 'realized',
+       'figured out', 'root cause', 'debugging', 'issue was', 'turned out',
+       'mistake', 'error', 'bug', 'solution',
+       // Add your personal indicators:
+       'aha', 'insight', 'trick was', 'key was', 'finally', 'breakthrough'
+     ];
+     // ...
+   }
+   ```
+
+3. **Adjust Threshold**
+   Default requires 2+ matches. Adjust if needed:
+   ```typescript
+   return matches.length >= 2;  // Change to 1 for more sensitive capture
+   ```
+
+**Expected Outcome:** Your valuable learnings are properly categorized and easily searchable.
+
+---
+
+### Optional Customization
+
+| Customization | File | Impact |
+|---------------|------|--------|
+| **Agent Routing** | `subagent-stop-hook.ts` | Add new agent types and their output directories |
+| **Summary Extraction** | `stop-hook.ts` | Modify how completion summaries are extracted |
+| **Session Focus Detection** | `capture-session-summary.ts` | Add patterns for your project types |
+| **File Naming** | All hooks | Change timestamp format or description extraction |
+
+**Example: Add New Agent Type Routing**
+
+Edit `subagent-stop-hook.ts` to add routing for custom agents:
+
+```typescript
+// Add to agent routing logic
+if (agentType === 'security-researcher' || agentType === 'pentester') {
+  captureType = 'SECURITY';
+  category = 'security';  // Creates history/security/
+} else if (agentType === 'code-reviewer') {
+  captureType = 'REVIEW';
+  category = 'reviews';   // Creates history/reviews/
+}
+```
+
+**Example: Custom Session Focus Detection**
+
+Edit `capture-session-summary.ts` to detect your project types:
+
+```typescript
+function determineSessionFocus(filesChanged: string[], commandsExecuted: string[]): string {
+  // Add your project-specific patterns
+  if (filePatterns.some(f => f.includes('/api/'))) return 'api-development';
+  if (filePatterns.some(f => f.includes('/tests/'))) return 'test-writing';
+  // ...
+}
+```
+
+---
+
 ## Credits
 - **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure
 - **Contributors**: The PAI community

@@ -1572,6 +1572,90 @@ User: "Something's wrong with my workflow"
 
 ---
 
+## Customization
+
+### Recommended Customization
+
+**Customize the Dashboard for Your Workflow**
+
+The default dashboard shows all events in a simple timeline. Customize it to highlight what matters most to your work.
+
+**What to Customize:** `$PAI_DIR/observability/apps/client/src/App.vue`
+
+**Why:** Different developers care about different things. Security-focused work might want to highlight Bash commands. Research workflows might want to emphasize agent spawns. A customized dashboard surfaces the information you need.
+
+**Process:**
+
+1. **Identify Your Key Events**
+   - What events do you care about most?
+   - Which agents do you want prominently displayed?
+   - What information should be visible at a glance?
+
+2. **Customize Event Colors**
+   Edit the `getBorderColor` function:
+   ```typescript
+   function getBorderColor(eventType: string): string {
+     const colors: Record<string, string> = {
+       'PreToolUse': 'border-[var(--accent-blue)]',
+       'PostToolUse': 'border-[var(--accent-green)]',
+       'Stop': 'border-[var(--accent-yellow)]',
+       'Completed': 'border-[var(--accent-green)]',
+       // Add your custom highlights:
+       'SecurityWarning': 'border-red-500',
+       'AgentSpawn': 'border-purple-500',
+     }
+     return colors[eventType] || 'border-[var(--text-secondary)]'
+   }
+   ```
+
+3. **Add Custom Filtering**
+   Modify the template to add agent or tool filters:
+   ```vue
+   <select v-model="selectedAgent" class="...">
+     <option value="">All Agents</option>
+     <option v-for="agent in agents" :value="agent">{{ agent }}</option>
+   </select>
+   ```
+
+**Expected Outcome:** A dashboard that immediately shows you what you care about.
+
+---
+
+### Optional Customization
+
+| Customization | File | Impact |
+|---------------|------|--------|
+| **Theme Colors** | `style.css` | Change the color scheme |
+| **Event Limit** | `file-ingest.ts` | Adjust MAX_EVENTS for memory usage |
+| **Ports** | `manage.sh`, `vite.config.ts`, `index.ts` | Change server/client ports |
+| **Agent Name Mapping** | `file-ingest.ts` | Add recognition for custom agent types |
+
+**Example: Change Theme Colors**
+
+Edit `$PAI_DIR/observability/apps/client/src/style.css`:
+
+```css
+:root {
+  --bg-primary: #0d1117;      /* Darker background */
+  --accent-blue: #58a6ff;      /* GitHub-style blue */
+  --accent-green: #3fb950;     /* GitHub-style green */
+}
+```
+
+**Example: Add Custom Agent Recognition**
+
+Edit `file-ingest.ts` to recognize your custom agents:
+
+```typescript
+const subAgentTypes = [
+  'artist', 'intern', 'engineer', 'pentester', 'architect',
+  // Add your custom agent types:
+  'security-researcher', 'documentation-writer', 'code-reviewer'
+];
+```
+
+---
+
 ## Credits
 
 - **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure

@@ -147,8 +147,8 @@ The Art Skill treats image generation as a repeatable process, not a creative ga
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
 - **Claude Code** (or compatible agent system with skill support)
-- **Write access** to `$PAI_DIR/` (default: `~/.config/pai` or `~/.claude`)
-- **API Keys** (at least one required):
+- **Write access** to `$PAI_DIR/` (default: `~/.config/pai`)
+- **API Keys in `$PAI_DIR/.env`** (at least one required):
   - `REPLICATE_API_TOKEN` - For Flux and Nano Banana models
   - `GOOGLE_API_KEY` - For Nano Banana Pro (Gemini 3) model
   - `OPENAI_API_KEY` - For GPT-image-1 model
@@ -292,7 +292,7 @@ bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
   --output ~/Downloads/output.png
 ```
 
-**API keys in:** `$PAI_DIR/.env` or `~/.claude/.env`
+**API keys in:** `$PAI_DIR/.env` (single source of truth for all authentication)
 
 ---
 
@@ -1153,11 +1153,12 @@ const execAsync = promisify(exec);
 // ============================================================================
 
 async function loadEnv(): Promise<void> {
-  // Try multiple locations for .env file
+  // Load from canonical location: $PAI_DIR/.env (single source of truth)
+  // Falls back to legacy locations for backwards compatibility
+  const paiDir = process.env.PAI_DIR || resolve(process.env.HOME!, '.config/pai');
   const envPaths = [
-    resolve(process.env.PAI_DIR || '', '.env'),
-    resolve(process.env.HOME!, '.claude/.env'),
-    resolve(process.env.HOME!, '.config/pai/.env'),
+    resolve(paiDir, '.env'),
+    resolve(process.env.HOME!, '.claude/.env'), // Legacy location
   ];
 
   for (const envPath of envPaths) {
@@ -1834,13 +1835,102 @@ export REMOVEBG_API_KEY="..."           # For background removal
 export PAI_DIR="$HOME/.config/pai"      # Custom PAI directory
 ```
 
-### Customization
+---
 
-To customize the aesthetic, edit `$PAI_DIR/Skills/Art/Aesthetic.md`:
-- Change color hex codes for your brand
-- Adjust color ratios
-- Add emotional registers
-- Update validation criteria
+## Customization
+
+### Recommended Customization
+
+**Personalize Your Aesthetic Through AI Conversation**
+
+The single most valuable customization for this pack is to have an extended conversation with your AI about your personal aesthetic preferences, then capture that in `Aesthetic.md`. This transforms the Art Skill from a generic tool into one that produces images reflecting YOUR unique visual taste.
+
+**What to Customize:** `$PAI_DIR/Skills/Art/Aesthetic.md`
+
+**Why:** The default Aesthetic.md contains a generic Excalidraw-style dark-mode palette. By investing 15-30 minutes in an aesthetic exploration conversation, every image generated will feel like YOUR work, not generic AI output. This is the difference between "usable" and "perfectly on-brand."
+
+**Process:**
+
+1. **Start the Aesthetic Exploration Conversation**
+
+   Tell your AI something like:
+   ```
+   I want to define my personal aesthetic for the Art Skill. Let's have a conversation
+   where you ask me questions about my visual preferences, and we'll capture the
+   result in Aesthetic.md.
+   ```
+
+2. **Answer Questions About Your Preferences**
+
+   Your AI will ask about:
+   - Color preferences (warm vs cool, muted vs vibrant, specific colors you love/hate)
+   - Line quality (precise vs gestural, thick vs thin, confident vs sketchy)
+   - Composition style (minimal vs detailed, symmetric vs organic, structured vs chaotic)
+   - Influences and inspiration (artists, design movements, specific images you love)
+   - Emotional tone (technical, whimsical, serious, playful, elegant, raw)
+   - Typography preferences (serif vs sans, heavy vs light, classic vs modern)
+   - Specific use cases (blog headers, diagrams, social media, presentations)
+
+3. **Iterate with Visual Examples**
+
+   As you discuss, your AI can generate test images:
+   ```
+   Generate a sample header image using what we've discussed so far
+   ```
+   Use these to refine the aesthetic definition. "More like this, less like that."
+
+4. **Capture the Final Aesthetic**
+
+   Once you're satisfied, ask:
+   ```
+   Now update my Aesthetic.md with everything we've defined
+   ```
+   Your AI will rewrite Aesthetic.md with your personalized color palette, style guidelines, and validation criteria.
+
+**Expected Outcome:** After this process, running `create a header image for my post about X` will produce images that feel unmistakably YOURS—matching your brand, preferences, and visual language.
+
+---
+
+### Optional Customization
+
+| Customization | File | Impact |
+|---------------|------|--------|
+| **Custom Color Palette** | `Aesthetic.md` | Change hex codes to match your brand colors |
+| **Custom Prompt Templates** | `Workflows/*.md` | Create prompt patterns for your specific use cases |
+| **Additional Workflows** | `Workflows/` | Add workflows for content types you create frequently (infographics, presentations, etc.) |
+| **Model Preference** | `SKILL.md` | Change default model if you prefer different generation characteristics |
+| **Validation Criteria** | `Aesthetic.md` | Add specific must-have/must-not-have rules for your brand |
+
+**Example: Brand Color Customization**
+
+Edit `Aesthetic.md` to replace the default palette:
+
+```markdown
+## Color Palette
+
+### Primary Colors
+| Color | Hex | Usage |
+|-------|-----|-------|
+| **Background** | `#1a1a2e` | Your brand's dark background |
+| **Primary** | `#ff6b35` | Your brand's accent color |
+| **Secondary** | `#4ecdc4` | Your brand's secondary color |
+```
+
+**Example: Adding a Custom Workflow**
+
+Create `$PAI_DIR/Skills/Art/Workflows/Infographics.md` for a specific content type you create often:
+
+```markdown
+# Infographic Workflow
+
+[Your custom workflow for infographic-style visuals with your specific
+prompt templates, validation criteria, and generation settings]
+```
+
+Then add a routing entry in `SKILL.md`:
+```markdown
+  - Infographic or data visualization → `Workflows/Infographics.md`
+```
 
 ---
 

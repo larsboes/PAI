@@ -22,17 +22,21 @@ The wizard has three phases:
 1. **Where should PAI be installed?** (default: `~/.config/pai`)
 2. **What would you like to name your AI assistant?** (e.g., Kai, Atlas, Nova, Jarvis)
 3. **What's your timezone?** (e.g., America/Los_Angeles, Europe/London)
-4. **Do you have an ElevenLabs API key for voice notifications?** (optional - skip if no)
-5. **If yes, what's your preferred ElevenLabs voice ID?** (optional)
 
-**After gathering answers, set these variables:**
+**After gathering answers, create the .env file:**
 ```bash
-export PAI_DIR="[their answer or ~/.config/pai]"
-export DA="[their AI name]"
-export TIME_ZONE="[their timezone]"
-export ELEVENLABS_API_KEY="[if provided]"
-export ELEVENLABS_VOICE_ID="[if provided]"
+# Create PAI directory
+mkdir -p $PAI_DIR
+
+# Copy the example .env file
+cp ../../.env.example $PAI_DIR/.env
+
+# The .env file should contain:
+DA="[their AI name]"
+TIME_ZONE="[their timezone]"
 ```
+
+**Note:** API keys (ElevenLabs, Replicate, etc.) are added to `.env` later when installing packs that need them. See the [Authentication](#authentication) section for details.
 
 ---
 
@@ -200,6 +204,38 @@ When fully installed, the Kai bundle gives you a number of features that elevate
 
 - [Bun](https://bun.sh): `curl -fsSL https://bun.sh/install | bash`
 - [Claude Code](https://claude.com/claude-code) or compatible AI coding assistant
+
+---
+
+## Authentication
+
+**All API keys live in ONE place: `$PAI_DIR/.env`**
+
+This is a core principle of PAI: no keys stored anywhere else in the system. Every pack reads from this single file.
+
+### Setup
+
+```bash
+# 1. Copy the example file to your PAI directory
+cp ../../.env.example $PAI_DIR/.env
+
+# 2. Edit and add your API keys
+nano $PAI_DIR/.env
+
+# 3. Uncomment and fill in the keys you need
+```
+
+### Which Packs Need Keys?
+
+Most packs require **no API keys** - only packs that integrate with external services need them. Each pack documents its specific requirements in its installation section.
+
+### Security Rules
+
+1. **NEVER commit `.env` files to git**
+2. **NEVER store API keys in pack files, configs, or code**
+3. **ALL authentication flows through `$PAI_DIR/.env`**
+
+See [.env.example](../../.env.example) for the complete template.
 
 ---
 

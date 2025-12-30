@@ -903,6 +903,60 @@ export TIME_ZONE="America/Los_Angeles"
 export DA="MyAI"
 ```
 
+## Customization
+<!--
+(2048 words max)
+
+INSTRUCTIONS FOR AI: This section documents how users can personalize and customize
+the pack beyond basic configuration. This is OPTIONAL but highly encouraged for packs
+that benefit from personalization.
+
+Structure this section with two subsections:
+1. **Recommended Customization** - Personalization steps that significantly improve
+   the pack's value for individual users. These are things most users SHOULD do.
+2. **Optional Customization** - Additional tweaks users CAN make if desired.
+
+For each customization:
+- Explain WHAT to customize
+- Explain WHY it improves the experience
+- Provide specific STEPS or a process
+- Note the EXPECTED OUTCOME
+
+Example from Art Skill:
+- RECOMMENDED: Have an extended conversation with your AI about your aesthetic preferences,
+  capture this in Aesthetic.md, so all generated images reflect your personal style.
+- OPTIONAL: Add your own color palette, create custom prompt templates for your use cases.
+
+If no customization is applicable, write "No customization options. This pack works
+as-is without personalization."
+-->
+
+### Recommended Customization
+
+[Describe customization steps that significantly improve the pack for individual users]
+
+**What to Customize:** [The component/file/setting to personalize]
+
+**Why:** [How this improves the experience]
+
+**Process:**
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+**Expected Outcome:** [What users should expect after customization]
+
+---
+
+### Optional Customization
+
+[Describe additional tweaks users can make]
+
+| Customization | File | Impact |
+|--------------|------|--------|
+| [Custom option 1] | [file.md] | [What it affects] |
+| [Custom option 2] | [file.md] | [What it affects] |
+
 ## Credits
 <!--
 (256 words max)
@@ -984,7 +1038,8 @@ Format: ### {version} - {YYYY-MM-DD}
 | `## Installation` | 16384 | Step-by-step with ALL code |
 | `## Invocation Scenarios` | 8192 | When/how it triggers |
 | `## Example Usage` | 8192 | Concrete examples |
-| `## Configuration` | 512 | Options and customization |
+| `## Configuration` | 512 | Options and environment variables |
+| `## Customization` | 2048 | Personalization beyond basic config |
 | `## Credits` | 256 | Attribution |
 | `## Related Work` | 256 | Similar projects |
 | `## Works Well With` | 256 | Complementary packs |
@@ -1016,6 +1071,7 @@ Format: ### {version} - {YYYY-MM-DD}
 - [ ] **Environment variables**: Required vars and where to set them
 - [ ] **Verification steps**: How to confirm success
 - [ ] **256x256 icon**: Transparent PNG in blue/purple palette (generated with `--remove-bg` flag)
+- [ ] **Customization section**: If pack benefits from personalization, document recommended and optional customizations
 
 **The test:** Can someone go from fresh Claude Code to fully working system using ONLY this pack?
 
