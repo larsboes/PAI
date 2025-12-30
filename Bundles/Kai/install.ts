@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 /**
- * Kai Bundle Installation Wizard v1.1.0
+ * Kai Bundle Installation Wizard v1.2.0
  *
  * Simplified interactive CLI wizard for setting up the Kai bundle.
- * Installs directly to ~/.claude with automatic backup.
+ * Auto-detects AI system directories and creates safety backups.
  *
  * Usage: bun run install.ts
  */
@@ -15,6 +15,12 @@ import { existsSync } from "fs";
 // =============================================================================
 // TYPES
 // =============================================================================
+
+interface AISystem {
+  name: string;
+  dir: string;
+  exists: boolean;
+}
 
 interface WizardConfig {
   daName: string;
@@ -60,20 +66,93 @@ function printHeader(title: string) {
 }
 
 // =============================================================================
+// AI SYSTEM DETECTION
+// =============================================================================
+
+function detectAISystems(): AISystem[] {
+  const home = process.env.HOME;
+  const systems: AISystem[] = [
+    { name: "Claude Code", dir: `${home}/.claude`, exists: false },
+    { name: "Cursor", dir: `${home}/.cursor`, exists: false },
+    { name: "Windsurf", dir: `${home}/.windsurf`, exists: false },
+    { name: "Cline", dir: `${home}/.cline`, exists: false },
+    { name: "Aider", dir: `${home}/.aider`, exists: false },
+    { name: "Continue", dir: `${home}/.continue`, exists: false },
+  ];
+
+  for (const system of systems) {
+    system.exists = existsSync(system.dir);
+  }
+
+  return systems;
+}
+
+function getDetectedSystems(systems: AISystem[]): AISystem[] {
+  return systems.filter((s) => s.exists);
+}
+
+// =============================================================================
 // BACKUP
 // =============================================================================
 
-async function createBackup(): Promise<boolean> {
+async function detectAndBackup(): Promise<boolean> {
+  const allSystems = detectAISystems();
+  const detectedSystems = getDetectedSystems(allSystems);
   const claudeDir = `${process.env.HOME}/.claude`;
   const backupDir = `${process.env.HOME}/.claude-BACKUP`;
 
-  if (!existsSync(claudeDir)) {
-    console.log("No existing ~/.claude directory found. Fresh install.");
+  console.log("Scanning for existing AI system directories...\n");
+
+  // Show detection results
+  if (detectedSystems.length === 0) {
+    console.log("  No existing AI system directories detected.");
+    console.log("  This will be a fresh installation.\n");
+  } else {
+    console.log("  Detected AI systems:");
+    for (const system of detectedSystems) {
+      const isClaude = system.dir === claudeDir;
+      const marker = isClaude ? " ← WILL BE BACKED UP" : "";
+      console.log(`    • ${system.name}: ${system.dir}${marker}`);
+    }
+    console.log();
+  }
+
+  // Check if ~/.claude exists
+  const claudeExists = existsSync(claudeDir);
+
+  if (!claudeExists) {
+    console.log("No existing ~/.claude directory found. Fresh install.\n");
+
+    // Still ask for confirmation before proceeding
+    const proceed = await askYesNo(
+      "Ready to install Kai to ~/.claude. Proceed?",
+      true
+    );
+    if (!proceed) {
+      console.log("Installation cancelled.");
+      return false;
+    }
     return true;
   }
 
+  // ~/.claude exists - explain what will happen
+  console.log("┌─────────────────────────────────────────────────────────────┐");
+  console.log("│  SAFETY BACKUP                                              │");
+  console.log("├─────────────────────────────────────────────────────────────┤");
+  console.log("│                                                             │");
+  console.log("│  The installer will:                                        │");
+  console.log("│                                                             │");
+  console.log("│  1. Copy your current ~/.claude → ~/.claude-BACKUP          │");
+  console.log("│  2. Install fresh Kai files into ~/.claude                  │");
+  console.log("│                                                             │");
+  console.log("│  Your original files will be preserved in the backup.       │");
+  console.log("│                                                             │");
+  console.log("└─────────────────────────────────────────────────────────────┘");
+  console.log();
+
+  // Check for existing backup
   if (existsSync(backupDir)) {
-    console.log(`\nExisting backup found at ${backupDir}`);
+    console.log(`⚠️  Existing backup found at ${backupDir}`);
     const overwrite = await askYesNo("Overwrite existing backup?", false);
     if (!overwrite) {
       console.log("Please manually remove or rename the existing backup first.");
@@ -82,9 +161,19 @@ async function createBackup(): Promise<boolean> {
     await $`rm -rf ${backupDir}`;
   }
 
+  // Ask for explicit confirmation
+  const proceed = await askYesNo(
+    "Do you want to proceed with the backup and installation?",
+    true
+  );
+  if (!proceed) {
+    console.log("Installation cancelled.");
+    return false;
+  }
+
   console.log(`\nBacking up ~/.claude to ~/.claude-BACKUP...`);
   await $`cp -r ${claudeDir} ${backupDir}`;
-  console.log("Backup complete.");
+  console.log("✓ Backup complete.\n");
   return true;
 }
 
@@ -311,15 +400,15 @@ async function main() {
 ║   ██║  ██╗██║  ██║██║    ██████╔╝╚██████╔╝██║ ╚████║██████╔╝███████╗
 ║   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚══════╝
 ║                                                                   ║
-║              Personal AI Infrastructure - v1.1.0                  ║
+║              Personal AI Infrastructure - v1.2.0                  ║
 ║                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════╝
   `);
 
   try {
-    // Step 1: Create backup
-    printHeader("STEP 1: BACKUP");
-    const backupOk = await createBackup();
+    // Step 1: Detect AI systems and create backup
+    printHeader("STEP 1: DETECT & BACKUP");
+    const backupOk = await detectAndBackup();
     if (!backupOk) {
       console.log("\nInstallation cancelled.");
       process.exit(1);

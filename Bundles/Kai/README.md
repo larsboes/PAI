@@ -2,7 +2,7 @@
   <img src="kai.png" alt="The Official PAI (Kai) Bundle" width="256">
 </p>
 
-# The Official PAI (Kai) Bundle v1.1.0
+# The Official PAI (Kai) Bundle v1.2.0
 
 > **FOR AI AGENTS:** You are about to install the complete Kai bundle. Run the wizard, then install each pack in order.
 
@@ -14,12 +14,15 @@ bun run install.ts
 ```
 
 The wizard will:
-1. **Create a backup** of your existing `~/.claude` directory to `~/.claude-BACKUP`
-2. **Ask a few questions** (your name, AI name, timezone, voice preference)
-3. **Install directly to `~/.claude`** - the standard Claude Code location
-4. **Configure environment variables** automatically
+1. **Detect existing AI systems** - Scans for Claude Code, Cursor, Windsurf, Cline, Aider, Continue
+2. **Show you what it found** and explain what will be backed up
+3. **Ask for your confirmation** before making any changes
+4. **Create a safety backup** of your existing `~/.claude` directory to `~/.claude-BACKUP`
+5. **Ask a few questions** (your name, AI name, timezone, voice preference)
+6. **Install directly to `~/.claude`** - the standard Claude Code location
+7. **Configure environment variables** automatically
 
-That's it. No need to open another terminal or manually source files.
+**Safety First:** The installer will not modify anything until you explicitly confirm. Your original files are always preserved in the backup.
 
 ---
 
@@ -140,6 +143,12 @@ The Kai system embeds these principles from [PAI](https://danielmiessler.com/blo
 ---
 
 ## Changelog
+
+### 1.2.0 - 2025-12-30
+- **AI System Detection:** Scans for Claude Code, Cursor, Windsurf, Cline, Aider, Continue
+- **Clear Communication:** Shows exactly what was detected and what will be backed up
+- **Explicit Confirmation:** Asks permission before making any changes to your system
+- **Safety-first approach:** No modifications until user confirms
 
 ### 1.1.0 - 2025-12-30
 - Now installs directly to `~/.claude` instead of configurable `$PAI_DIR`
