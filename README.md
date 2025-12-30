@@ -341,6 +341,58 @@ Packs are self-contained markdown files. You can:
 
 ---
 
+## 📂 Understanding PAI_DIR
+
+The `PAI_DIR` environment variable is the **single source of truth** for where your PAI installation lives.
+
+### What is PAI_DIR?
+
+`PAI_DIR` points to the directory where your personal AI infrastructure is installed - this is where skills, hooks, history, and configuration files live.
+
+### Two Different Things
+
+| Concept | Path | Purpose |
+|---------|------|---------|
+| **PAI Repository** | Where you cloned `git clone https://github.com/danielmiessler/PAI.git` | Source code, packs, templates - read-only reference |
+| **PAI Installation** (`PAI_DIR`) | `~/.claude` (default) or your custom location | Your active installation - skills, hooks, history, config |
+
+The repository is like a cookbook. Your installation is your actual kitchen.
+
+### Default Behavior
+
+If `PAI_DIR` is not set, PAI tools and packs default to `~/.claude`:
+- This is the standard Claude Code configuration directory
+- Works seamlessly with Claude Code out of the box
+- Recommended for most users
+
+### When to Use a Custom PAI_DIR
+
+Set a custom `PAI_DIR` if you:
+- Use a different AI coding assistant (Cursor, Windsurf, OpenCode)
+- Want to keep PAI separate from Claude Code's config
+- Are testing or developing packs
+- Have multiple PAI installations
+
+### Setting PAI_DIR
+
+**In your shell profile** (`~/.zshrc` or `~/.bashrc`):
+```bash
+export PAI_DIR="$HOME/.claude"  # Default - Claude Code location
+# OR
+export PAI_DIR="$HOME/.config/pai"  # Custom location
+```
+
+### How Tools Resolve PAI_DIR
+
+PAI tools use this resolution order:
+1. `process.env.PAI_DIR` - Explicit setting (highest priority)
+2. `process.env.PAI_HOME` - Legacy/alternate variable
+3. `~/.claude` - Default fallback
+
+This means: if you set `PAI_DIR`, it takes precedence. If not, it defaults to Claude Code's standard location.
+
+---
+
 ## 🔐 Authentication Setup
 
 **All API keys live in ONE place: `$PAI_DIR/.env`**

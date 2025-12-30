@@ -185,7 +185,24 @@ async function gatherConfig(): Promise<WizardConfig> {
   printHeader("KAI BUNDLE SETUP");
 
   console.log("This wizard will configure your AI assistant.\n");
-  console.log("Installation directory: ~/.claude (standard Claude Code location)\n");
+
+  // Check for existing PAI_DIR environment variable
+  const existingPaiDir = process.env.PAI_DIR;
+  if (existingPaiDir) {
+    console.log(`📍 Existing PAI_DIR detected: ${existingPaiDir}\n`);
+    const useExisting = await askYesNo(
+      `Use existing PAI_DIR (${existingPaiDir}) for installation?`,
+      true
+    );
+    if (useExisting) {
+      console.log(`\nUsing existing PAI_DIR: ${existingPaiDir}\n`);
+    } else {
+      console.log("\n⚠️  Installation will use ~/.claude (standard Claude Code location)");
+      console.log("   You may need to update your PAI_DIR environment variable after installation.\n");
+    }
+  } else {
+    console.log("Installation directory: ~/.claude (standard Claude Code location)\n");
+  }
 
   // Essential questions only
   const userName = await ask("What is your name? ");

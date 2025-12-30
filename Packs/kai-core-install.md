@@ -617,8 +617,8 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-const PAI_HOME = process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
-const INDEX_FILE = join(PAI_HOME, 'Skills', 'skill-index.json');
+const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
+const INDEX_FILE = join(PAI_DIR, 'Skills', 'skill-index.json');
 
 interface SkillEntry {
   name: string;
@@ -710,8 +710,8 @@ import { readdir, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-const PAI_HOME = process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
-const SKILLS_DIR = join(PAI_HOME, 'Skills');
+const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
+const SKILLS_DIR = join(PAI_DIR, 'Skills');
 const OUTPUT_FILE = join(SKILLS_DIR, 'skill-index.json');
 
 const ALWAYS_LOADED_SKILLS = ['CORE', 'Development', 'Research'];
