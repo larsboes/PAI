@@ -1154,10 +1154,17 @@ echo '{"session_id":"test","tool_name":"Bash","tool_input":{"command":"ls -la"}}
   bun run $PAI_DIR/hooks/security-validator.ts
 # Should exit 0 (allowed)
 
-# 4. Test security validator with a dangerous command
-echo '{"session_id":"test","tool_name":"Bash","tool_input":{"command":"rm -rf /"}}' | \
+# 4. Test security validator catches dangerous patterns
+# NOTE: This is SAFE - we're just piping JSON text to stdin, not executing anything
+echo '{"session_id":"test","tool_name":"Bash","tool_input":{"command":"rm -rf /tmp/test"}}' | \
   bun run $PAI_DIR/hooks/security-validator.ts
 # Should exit 2 (blocked) and print warning
+
+# 4b. Alternative: Canary file test (even safer feeling)
+touch /tmp/pai-security-canary
+# Now ask Claude: "delete /tmp/pai-security-canary"
+# Hook should BLOCK, then verify canary survives:
+ls /tmp/pai-security-canary  # File should still exist
 
 # 5. Test session initialization
 echo '{"session_id":"test","cwd":"/Users/you/Projects/MyProject"}' | \
