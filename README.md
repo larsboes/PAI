@@ -586,9 +586,9 @@ Anthropic's plugin system (Skills, slash commands, MCP servers) provides discret
 
 The difference is scope and integration:
 
-**Anthropic's plugins** = Individual tools (a hammer, a screwdriver, a wrench)
+**Anthropic's plugins** = Individual pieces of functionality that don't understand overall context—they don't know how they work with other pieces of functionality, and most importantly, they don't integrate with your actual system and your actual goals.
 
-**PAI** = A complete workshop, organized for *your* projects, with tools that work together
+**PAI** = A complete system where everything understands the context—your goals, your workflows, how pieces work together, and what you're actually trying to accomplish.
 
 PAI is:
 - **An implemented, full-setup system** — Not just tools, but a complete personal AI infrastructure
