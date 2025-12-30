@@ -851,9 +851,8 @@ Next steps:
   2. Install the packs in order:
      - kai-hook-system
      - kai-history-system
-     - kai-skill-system
+     - kai-core-install
      - kai-voice-system
-     - kai-identity
   3. Restart Claude Code to activate hooks
 
 Files created:

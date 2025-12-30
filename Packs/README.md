@@ -73,8 +73,7 @@ Each pack is a single markdown file containing everything needed to go from zero
 | [**kai-core-install**](kai-core-install.md) | 1.0.0 | Core | [Kai](../Bundles/Kai/) | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
 | [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | [Kai](../Bundles/Kai/) | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
 | [**kai-observability-server**](kai-observability-server.md) | 1.0.0 | Observability | [Kai](../Bundles/Kai/) | Real-time multi-agent monitoring dashboard with WebSocket streaming |
-| ~~[kai-skill-system](kai-skill-system.md)~~ | 1.0.0 | Deprecated | - | ⚠️ DEPRECATED - merged into kai-core-install |
-| ~~[kai-identity](kai-identity.md)~~ | 1.0.0 | Deprecated | - | ⚠️ DEPRECATED - merged into kai-core-install |
+| [**kai-art-skill**](kai-art-skill.md) | 1.0.0 | Creativity | [Kai](../Bundles/Kai/) | Visual content generation with Excalidraw hand-drawn aesthetic - diagrams, comics, illustrations |
 
 ---
 

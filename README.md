@@ -17,7 +17,7 @@
 
 [![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-[![Packs](https://img.shields.io/badge/packs-1-purple?style=for-the-badge)](Packs/)
+[![Packs](https://img.shields.io/badge/packs-6-purple?style=for-the-badge)](Packs/)
 [![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
 
 <br/>

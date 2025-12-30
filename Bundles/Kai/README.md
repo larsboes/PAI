@@ -8,9 +8,10 @@
 
 ## AI Installation Wizard
 
-The wizard has two phases:
+The wizard has three phases:
 1. **Phase 1: System Setup** - Where to install, basic configuration
 2. **Phase 2: Identity & Personalization** - Who you are, what you want from the system
+3. **Phase 3: Generate Configuration Files** - Create all necessary config files
 
 ---
 
