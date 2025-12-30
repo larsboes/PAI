@@ -115,7 +115,7 @@ To understand your current capabilities and what to build next, see the **[Perso
 
 These principles guide how PAI systems are designed and built:
 
-[![PAI System Principles](https://danielmiessler.com/images/pai-system-principles.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
+[![PAI System Principles](./pai-system-principles.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 
 **[Read the full breakdown of each principle →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
 
