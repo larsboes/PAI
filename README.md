@@ -38,28 +38,76 @@
 
 ---
 
-# The best AI in the world should be available to everyone
+# An AI system for pursuing your goals
 
 </div>
 
-Right now the most powerful AI setups are being built inside companies for efficiency and profits.
+The most powerful AI setups are being built inside companies. That's fine, but I think technology should serve humans—not the other way around.
 
-That's all good, but I think the purpose of technology is to serve humans—not the other way around. These new AI frameworks should be available to everyone, including people not in technology, so that regular people can use it to help them flourish.
+PAI is open-source infrastructure for building your own AI system. One that knows your goals, learns from your history, and gets better at helping you over time. Not a generic assistant. *Your* assistant, working on *your* problems.
 
-That's what PAI is. It's the foundation for building a Personal AI System that understands your larger goals and context, gets better over time, and that works for *you* because it's *yours*. Not some generic chatbot. Not some common assistant. A full platform for magnifying yourself and your impact on the world.
+But here's what makes PAI different: underneath the personal layer is something more fundamental.
 
 ---
 
 ## What is PAI?
 
-**PAI (Personal AI Infrastructure)** is a framework for building your own AI-powered operating system. It's built on top of AI coding agents like Claude Code, but personalized to *you* - your goals, your workflows, your context.
+**PAI (Personal AI Infrastructure)** started as a framework for building personalized AI assistants. But in building it, we noticed something.
 
-When you build a PAI system, you're creating what I call your own "Kai" - a personalized AI assistant that knows your preferences, remembers your history, and has specialized skills for the things you do most.
+Every goal—whether it's fixing a bug, writing a book, building a company, or figuring out what to do with your life—follows the same basic structure. There's where you are. There's where you want to be. And there's the process of getting there.
 
-**PAI is:**
-- **A philosophy** - The 14 Founding Principles that guide how to build AI systems
-- **An architecture** - Skills, Hooks, History, Agents, and MCP integrations
-- **A community** - Open-source packs that anyone can install or contribute
+We didn't invent this pattern. Evolution uses it. Science uses it. Every successful human endeavor uses it. We just made it explicit and built tools around it.
+
+**PAI is three things:**
+- **A universal pattern** - Two nested loops that apply to any goal, at any scale
+- **Personal infrastructure** - Skills, memory, and context that make AI actually useful for *your* life
+- **Open-source packs** - Battle-tested capabilities anyone can install or contribute
+
+---
+
+## The Two Loops
+
+At the foundation of PAI is a simple observation: all progress—personal, professional, civilizational—follows the same two nested loops.
+
+### The Outer Loop: Where You Are → Where You Want to Be
+
+[![The Universal Algorithm](./pai-outer-loop-current-to-desired.png)](./pai-outer-loop-current-to-desired.png)
+
+This is it. The whole game. You have a current state. You have a desired state. Everything else is just figuring out how to close the gap.
+
+This pattern works at every scale:
+- **Fixing a typo** - Current: wrong word. Desired: right word.
+- **Learning a skill** - Current: can't do it. Desired: can do it.
+- **Building a company** - Current: idea. Desired: profitable business.
+- **Human flourishing** - Current: wherever you are. Desired: the best version of your life.
+
+The pattern doesn't change. Only the scale does.
+
+### The Inner Loop: The Scientific Method
+
+[![The Inner Loop](./pai-inner-loop-7-phases.png)](./pai-inner-loop-7-phases.png)
+
+*How* do you actually move from current to desired? Through iteration. Specifically, through the scientific method—the most reliable process humans have ever discovered for making progress.
+
+PAI implements this as a 7-phase cycle that every workflow follows:
+
+| Phase | What You Do |
+|-------|-------------|
+| **OBSERVE** | Look around. Gather context. Understand where you actually are. |
+| **THINK** | Generate ideas. What might work? Come up with hypotheses. |
+| **PLAN** | Pick an approach. Design the experiment. |
+| **BUILD** | Define what success looks like. How will you know if it worked? |
+| **EXECUTE** | Do the thing. Run the plan. |
+| **VERIFY** | Check the results against your criteria. Did it work? |
+| **LEARN** | Harvest insights. What did you learn? Then iterate or complete. |
+
+The crucial insight: **verifiability is everything**. If you can't tell whether you succeeded, you can't improve. Most people skip the VERIFY step. They try things, sort of check if it worked, and move on. The scientific method's power comes from actually measuring results and learning from them—especially from failures.
+
+Every PAI skill, every workflow, every task implements these two loops. The outer loop defines *what* you're pursuing. The inner loop defines *how* you pursue it. Together, they're a universal engine for making progress on anything.
+
+### Where Are You on the Journey?
+
+To understand your current capabilities and what to build next, see the **[Personal AI Maturity Model (PAIMM)](https://danielmiessler.com/blog/personal-ai-maturity-model)**—a 9-tier progression from basic chatbots to a full AI companion that knows you, remembers everything, and actively helps you pursue your goals.
 
 ---
 
