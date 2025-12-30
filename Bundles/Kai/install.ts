@@ -442,25 +442,25 @@ async function main() {
 
     // Create directory structure
     console.log("Creating directory structure...");
-    await $`mkdir -p ${claudeDir}/Skills/CORE/Workflows`;
-    await $`mkdir -p ${claudeDir}/Skills/CORE/Tools`;
-    await $`mkdir -p ${claudeDir}/History/{Sessions,Learnings,Research,Decisions}`;
+    await $`mkdir -p ${claudeDir}/skills/CORE/workflows`;
+    await $`mkdir -p ${claudeDir}/skills/CORE/tools`;
+    await $`mkdir -p ${claudeDir}/history/{sessions,learnings,research,decisions}`;
     await $`mkdir -p ${claudeDir}/hooks/lib`;
-    await $`mkdir -p ${claudeDir}/Tools`;
+    await $`mkdir -p ${claudeDir}/tools`;
     await $`mkdir -p ${claudeDir}/voice`;
 
     // Generate files
     console.log("Generating SKILL.md...");
     const skillMd = generateSkillMd(config);
-    await Bun.write(`${claudeDir}/Skills/CORE/SKILL.md`, skillMd);
+    await Bun.write(`${claudeDir}/skills/CORE/SKILL.md`, skillMd);
 
     console.log("Generating Contacts.md...");
     const contactsMd = generateContactsMd(config);
-    await Bun.write(`${claudeDir}/Skills/CORE/Contacts.md`, contactsMd);
+    await Bun.write(`${claudeDir}/skills/CORE/Contacts.md`, contactsMd);
 
     console.log("Generating CoreStack.md...");
     const coreStackMd = generateCoreStackMd(config);
-    await Bun.write(`${claudeDir}/Skills/CORE/CoreStack.md`, coreStackMd);
+    await Bun.write(`${claudeDir}/skills/CORE/CoreStack.md`, coreStackMd);
 
     // Create .env file
     console.log("Creating .env file...");
@@ -526,9 +526,9 @@ Your Kai system is configured:
   🔊 Voice: ${config.elevenLabsApiKey ? "Enabled" : "Disabled"}
 
 Files created:
-  - ~/.claude/Skills/CORE/SKILL.md
-  - ~/.claude/Skills/CORE/Contacts.md
-  - ~/.claude/Skills/CORE/CoreStack.md
+  - ~/.claude/skills/CORE/SKILL.md
+  - ~/.claude/skills/CORE/Contacts.md
+  - ~/.claude/skills/CORE/CoreStack.md
   - ~/.claude/.env
 
 Next steps:

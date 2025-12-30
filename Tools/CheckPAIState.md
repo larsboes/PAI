@@ -75,15 +75,15 @@ ls -la $PAI_DIR/hooks/capture-all-events.ts 2>/dev/null
 
 ```bash
 # Check for history directory structure
-ls -la $PAI_DIR/History/ 2>/dev/null
+ls -la $PAI_DIR/history/ 2>/dev/null
 
 # Check for raw event logs
-ls -la $PAI_DIR/History/raw-outputs/ 2>/dev/null
+ls -la $PAI_DIR/history/raw-outputs/ 2>/dev/null
 
 # Check today's event file exists (if system is active)
 TODAY=$(date +%Y-%m-%d)
 MONTH=$(date +%Y-%m)
-ls -la "$PAI_DIR/History/raw-outputs/$MONTH/${TODAY}_all-events.jsonl" 2>/dev/null
+ls -la "$PAI_DIR/history/raw-outputs/$MONTH/${TODAY}_all-events.jsonl" 2>/dev/null
 ```
 
 **Health indicators:**
@@ -141,7 +141,7 @@ curl -s http://localhost:4000/health 2>/dev/null || echo "Observability server n
 curl -s http://localhost:5172 2>/dev/null || echo "Observability dashboard not running"
 
 # Check for observability installation
-ls -la $PAI_DIR/Observability/ 2>/dev/null
+ls -la $PAI_DIR/observability/ 2>/dev/null
 ```
 
 **Health indicators:**

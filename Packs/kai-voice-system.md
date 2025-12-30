@@ -367,8 +367,8 @@ else
 fi
 
 # Check core install (REQUIRED - includes skills and identity)
-if [ -d "$PAI_CHECK/Skills" ] && [ -f "$PAI_CHECK/Skills/CORE/SKILL.md" ]; then
-  echo "✓ kai-core-install is installed (Skills + CORE skill)"
+if [ -d "$PAI_CHECK/skills" ] && [ -f "$PAI_CHECK/skills/CORE/SKILL.md" ]; then
+  echo "✓ kai-core-install is installed (skills + CORE skill)"
 else
   echo "❌ kai-core-install NOT installed - REQUIRED! Install it first."
 fi

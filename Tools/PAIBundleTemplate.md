@@ -348,7 +348,7 @@ export PAI_DIR="$HOME/.config/pai"
 export DA="YourAIName"
 
 # 2. Create directories
-mkdir -p $PAI_DIR/{hooks,History,Skills,Tools}
+mkdir -p $PAI_DIR/{hooks,history,skills,tools}
 
 # 3. Install each pack in order (give to your AI)
 ```

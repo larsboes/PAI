@@ -60,12 +60,12 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| CORE skill | `Skills/CORE/SKILL.md` | Main identity and routing hub |
-| Skill system docs | `Skills/CORE/SkillSystem.md` | Skill routing architecture |
-| Architecture tracker | `Skills/CORE/Architecture.md` | Auto-generated system status |
+| CORE skill | `skills/CORE/SKILL.md` | Main identity and routing hub |
+| Skill system docs | `skills/CORE/SkillSystem.md` | Skill routing architecture |
+| Architecture tracker | `skills/CORE/Architecture.md` | Auto-generated system status |
 | Architecture tool | `Tools/PaiArchitecture.ts` | Generate architecture tracking |
-| CreateSkill templates | `Skills/CreateSkill/` | Templates for new skills |
-| Identity & Principles | `Skills/CORE/Constitution.md` | 14 founding principles |
+| CreateSkill templates | `skills/CreateSkill/` | Templates for new skills |
+| Identity & Principles | `skills/CORE/Constitution.md` | 14 founding principles |
 
 **Summary:**
 - **Files created:** 10+ (skill files, templates, tools)
@@ -251,7 +251,7 @@ description: Visual content system. USE WHEN art, header images, visualizations,
 ### Layer 3: Context Files (On-Demand)
 
 ```
-Skills/Art/
+skills/Art/
 ├── SKILL.md              # Routing + quick ref
 ├── Aesthetic.md          # Context: design philosophy
 ├── ColorPalette.md       # Context: brand colors
@@ -261,7 +261,7 @@ Skills/Art/
 ### Layer 4: Workflows (Explicit Procedures)
 
 ```
-Skills/Art/Workflows/
+skills/Art/Workflows/
 ├── Essay.md              # How to create blog headers
 ├── CreatePAIPackIcon.md  # How to create PAI icons
 └── TechnicalDiagrams.md  # How to create diagrams
@@ -270,7 +270,7 @@ Skills/Art/Workflows/
 ### Layer 5: Tools (Deterministic CLI Programs)
 
 ```
-Skills/Art/Tools/
+skills/Art/Tools/
 ├── Generate.ts           # Image generation CLI
 └── Generate.help.md      # Tool documentation
 ```
@@ -380,7 +380,7 @@ The PAI Architecture system provides visibility into your installation:
 
 ## Auto-Generated Architecture.md
 
-The `PaiArchitecture.ts` tool generates `$PAI_DIR/Skills/CORE/Architecture.md` with:
+The `PaiArchitecture.ts` tool generates `$PAI_DIR/skills/CORE/Architecture.md` with:
 
 ```markdown
 # PAI Architecture
@@ -465,11 +465,11 @@ fi
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
 
 # Check for existing Skills directory
-if [ -d "$PAI_CHECK/Skills" ]; then
-  echo "⚠️  Skills directory EXISTS at: $PAI_CHECK/Skills"
-  ls -la "$PAI_CHECK/Skills" 2>/dev/null
+if [ -d "$PAI_CHECK/skills" ]; then
+  echo "⚠️  Skills directory EXISTS at: $PAI_CHECK/skills"
+  ls -la "$PAI_CHECK/skills" 2>/dev/null
 
-  if [ -d "$PAI_CHECK/Skills/CORE" ]; then
+  if [ -d "$PAI_CHECK/skills/CORE" ]; then
     echo ""
     echo "⚠️  CORE skill directory exists - will merge/update"
   fi
@@ -484,10 +484,10 @@ fi
 BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
 
-if [ -d "$PAI_CHECK/Skills/CORE" ]; then
-  mkdir -p "$BACKUP_DIR/Skills"
-  cp -r "$PAI_CHECK/Skills/CORE" "$BACKUP_DIR/Skills/CORE"
-  echo "✓ Backed up CORE skill to $BACKUP_DIR/Skills/CORE"
+if [ -d "$PAI_CHECK/skills/CORE" ]; then
+  mkdir -p "$BACKUP_DIR/skills"
+  cp -r "$PAI_CHECK/skills/CORE" "$BACKUP_DIR/skills/CORE"
+  echo "✓ Backed up CORE skill to $BACKUP_DIR/skills/CORE"
 fi
 ```
 
@@ -497,10 +497,10 @@ fi
 
 ```bash
 # Create the Skills directory
-mkdir -p $PAI_DIR/Skills/CORE/Workflows
-mkdir -p $PAI_DIR/Skills/CORE/Tools
-mkdir -p $PAI_DIR/Skills/CreateSkill/Workflows
-mkdir -p $PAI_DIR/Skills/CreateSkill/Tools
+mkdir -p $PAI_DIR/skills/CORE/Workflows
+mkdir -p $PAI_DIR/skills/CORE/Tools
+mkdir -p $PAI_DIR/skills/CreateSkill/Workflows
+mkdir -p $PAI_DIR/skills/CreateSkill/Tools
 mkdir -p $PAI_DIR/Tools
 ```
 
@@ -508,7 +508,7 @@ mkdir -p $PAI_DIR/Tools
 
 ## Step 2: Create SkillSystem.md
 
-Save the following to `$PAI_DIR/Skills/CORE/SkillSystem.md`:
+Save the following to `$PAI_DIR/skills/CORE/SkillSystem.md`:
 
 ```markdown
 # Custom Skill System
@@ -618,7 +618,7 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 
 const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
-const INDEX_FILE = join(PAI_DIR, 'Skills', 'skill-index.json');
+const INDEX_FILE = join(PAI_DIR, 'skills', 'skill-index.json');
 
 interface SkillEntry {
   name: string;
@@ -711,7 +711,7 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 
 const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
-const SKILLS_DIR = join(PAI_DIR, 'Skills');
+const SKILLS_DIR = join(PAI_DIR, 'skills');
 const OUTPUT_FILE = join(SKILLS_DIR, 'skill-index.json');
 
 const ALWAYS_LOADED_SKILLS = ['CORE', 'Development', 'Research'];
@@ -827,9 +827,9 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 
 const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
-const ARCHITECTURE_FILE = join(PAI_DIR, 'Skills', 'CORE', 'PaiArchitecture.md');
+const ARCHITECTURE_FILE = join(PAI_DIR, 'skills', 'CORE', 'PaiArchitecture.md');
 const BUNDLES_FILE = join(PAI_DIR, '.installed-bundles.json');
-const UPGRADES_FILE = join(PAI_DIR, 'History', 'Upgrades.jsonl');
+const UPGRADES_FILE = join(PAI_DIR, 'history', 'Upgrades.jsonl');
 
 interface PackInfo {
   name: string;
@@ -852,7 +852,7 @@ interface UpgradeEntry {
 
 async function detectInstalledPacks(): Promise<PackInfo[]> {
   const packs: PackInfo[] = [];
-  const skillsDir = join(PAI_HOME, 'Skills');
+  const skillsDir = join(PAI_HOME, 'skills');
 
   if (!existsSync(skillsDir)) return packs;
 
@@ -912,12 +912,12 @@ async function checkSystemHealth(): Promise<Record<string, string>> {
   health['History System'] = existsSync(historyDir) ? '✓ Healthy' : '✗ Not installed';
 
   // Check skills
-  const skillsDir = join(PAI_HOME, 'Skills');
+  const skillsDir = join(PAI_HOME, 'skills');
   if (existsSync(skillsDir)) {
     const skills = (await readdir(skillsDir)).filter(f => !f.startsWith('.') && !f.endsWith('.json'));
-    health['Skills'] = `✓ ${skills.length} loaded`;
+    health['skills'] = `✓ ${skills.length} loaded`;
   } else {
-    health['Skills'] = '✗ Not installed';
+    health['skills'] = '✗ Not installed';
   }
 
   return health;
@@ -974,7 +974,7 @@ async function logUpgrade(description: string, type: string = 'pack'): Promise<v
     description
   };
 
-  const dir = join(PAI_HOME, 'History');
+  const dir = join(PAI_HOME, 'history');
   if (!existsSync(dir)) {
     const { mkdir } = await import('fs/promises');
     await mkdir(dir, { recursive: true });
@@ -1027,7 +1027,7 @@ main().catch(console.error);
 
 ## Step 6: Create the CORE Skill
 
-Save to `$PAI_DIR/Skills/CORE/SKILL.md`:
+Save to `$PAI_DIR/skills/CORE/SKILL.md`:
 
 **NOTE:** Placeholders in `[BRACKETS]` should be filled in during installation.
 
@@ -1041,39 +1041,13 @@ description: Personal AI Infrastructure core. AUTO-LOADS at session start. USE W
 
 **Auto-loads at session start.** This skill defines your AI's identity, response format, and core operating principles.
 
-## Workflow Routing
-
-| Workflow | Trigger | File |
-|----------|---------|------|
-| **UpdateDocumentation** | "update architecture", "refresh PAI state", after pack/bundle install | `Workflows/UpdateDocumentation.md` |
-| **UpdateIdentity** | "update identity", "change personality" | `Workflows/UpdateIdentity.md` |
-| **AddContact** | "add contact", "new contact" | `Workflows/AddContact.md` |
-| **UpdateAssets** | "update assets", "add property" | `Workflows/UpdateAssets.md` |
-
 ## Examples
 
-**Example 1: Check contact information**
+**Example: Check contact information**
 \`\`\`
 User: "What's Angela's email?"
 → Reads Contacts.md
 → Returns contact information
-\`\`\`
-
-**Example 2: Refresh architecture tracking**
-\`\`\`
-User: "Update my PAI architecture"
-→ Invokes UpdateDocumentation workflow
-→ Runs PaiArchitecture.ts generate
-→ Logs upgrade if specified
-→ Refreshes PaiArchitecture.md with current state
-\`\`\`
-
-**Example 3: After installing a pack**
-\`\`\`
-AI: [Completes kai-voice-system installation]
-→ Automatically invokes UpdateDocumentation workflow
-→ Logs "Installed kai-voice-system v1.0.0"
-→ Regenerates Architecture.md with new pack
 \`\`\`
 
 ---
@@ -1154,7 +1128,7 @@ See the full templates in the kai-identity pack documentation. The key files are
 
 ## Step 7.1: Create UpdateDocumentation Workflow
 
-Save to `$PAI_DIR/Skills/CORE/Workflows/UpdateDocumentation.md`:
+Save to `$PAI_DIR/skills/CORE/Workflows/UpdateDocumentation.md`:
 
 ```markdown
 # UpdateDocumentation Workflow
@@ -1253,7 +1227,7 @@ bun run $PAI_DIR/Tools/PaiArchitecture.ts generate
 
 ## Step 8: Create the CreateSkill Meta-Skill
 
-Save to `$PAI_DIR/Skills/CreateSkill/SKILL.md`:
+Save to `$PAI_DIR/skills/CreateSkill/SKILL.md`:
 
 ```markdown
 ---
@@ -1267,7 +1241,7 @@ MANDATORY skill creation framework for ALL skill creation requests.
 
 ## Authoritative Source
 
-**Before creating ANY skill, READ:** `$PAI_DIR/Skills/CORE/SkillSystem.md`
+**Before creating ANY skill, READ:** `$PAI_DIR/skills/CORE/SkillSystem.md`
 
 ## Workflow Routing
 
@@ -1342,7 +1316,7 @@ After installation, verify:
 
 ```bash
 # Check directory structure
-ls $PAI_DIR/Skills/
+ls $PAI_DIR/skills/
 # Should show: CORE/ CreateSkill/ skill-index.json
 
 ls $PAI_DIR/Tools/
@@ -1355,7 +1329,7 @@ bun run $PAI_DIR/Tools/SkillSearch.ts --list
 bun run $PAI_DIR/Tools/PaiArchitecture.ts status
 
 # Verify CORE skill content
-cat $PAI_DIR/Skills/CORE/SKILL.md | head -20
+cat $PAI_DIR/skills/CORE/SKILL.md | head -20
 ```
 
 ---
@@ -1376,7 +1350,7 @@ cat $PAI_DIR/Skills/CORE/SKILL.md | head -20
 ### Architecture Not Generating
 
 1. Check PaiArchitecture.ts exists in Tools/
-2. Verify write permissions to Skills/CORE/
+2. Verify write permissions to skills/CORE/
 3. Run with explicit PAI_DIR: `PAI_DIR=~/.config/pai bun run ...`
 
 ---
@@ -1389,7 +1363,7 @@ cat $PAI_DIR/Skills/CORE/SKILL.md | head -20
 
 The CORE skill includes a placeholder identity. The most valuable customization is filling this in to create a consistent, personalized AI assistant.
 
-**What to Customize:** `$PAI_DIR/Skills/CORE/SKILL.md`
+**What to Customize:** `$PAI_DIR/skills/CORE/SKILL.md`
 
 **Why:** A well-defined personality creates consistent, predictable interactions. When your AI knows who it is, how formal to be, and what your preferences are, every response feels coherent and familiar.
 
@@ -1448,7 +1422,7 @@ The CORE skill includes a placeholder identity. The most valuable customization 
 
 **Example: Add Contacts**
 
-Create or edit `$PAI_DIR/Skills/CORE/Contacts.md`:
+Create or edit `$PAI_DIR/skills/CORE/Contacts.md`:
 
 ```markdown
 # Contacts
@@ -1461,7 +1435,7 @@ Create or edit `$PAI_DIR/Skills/CORE/Contacts.md`:
 
 **Example: Define Stack Preferences**
 
-Create or edit `$PAI_DIR/Skills/CORE/CoreStack.md`:
+Create or edit `$PAI_DIR/skills/CORE/CoreStack.md`:
 
 ```markdown
 # Technology Stack Preferences

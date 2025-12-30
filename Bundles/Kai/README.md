@@ -86,9 +86,9 @@ ls -la ~/.claude/
 
 # Expected directories:
 # hooks/       - Event-driven automation
-# History/     - Sessions, Learnings, Research, Decisions
-# Skills/      - CORE and other skills
-# Tools/       - CLI utilities
+# history/     - Sessions, Learnings, Research, Decisions
+# skills/      - CORE and other skills
+# tools/       - CLI utilities
 # voice/       - Voice server files (if installed)
 
 # Check hooks are registered

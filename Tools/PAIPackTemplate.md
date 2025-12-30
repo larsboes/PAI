@@ -114,7 +114,7 @@ Every pack MUST have a 256x256 transparent PNG icon immediately after the frontm
 When generating icons, you MUST use the `--remove-bg` flag to ensure actual transparency:
 
 ```bash
-bun run ~/.claude/Skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[ICON_DESCRIPTION], simple flat icon design, 256x256 pixels. COLOR PALETTE: Background solid dark (#0a0a0f), Primary electric blue (#4a90d9), Accent purple (#8b5cf6). Simple enough to read at 64x64." \
   --size 1K \

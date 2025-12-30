@@ -835,9 +835,9 @@ async function main() {
     // 2. Ensure required directories exist
     const requiredDirs = [
       join(paiDir, 'hooks', 'lib'),
-      join(paiDir, 'History', 'Sessions'),
-      join(paiDir, 'History', 'Learnings'),
-      join(paiDir, 'History', 'Research'),
+      join(paiDir, 'history', 'sessions'),
+      join(paiDir, 'history', 'learnings'),
+      join(paiDir, 'history', 'research'),
     ];
 
     for (const dir of requiredDirs) {

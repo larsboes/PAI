@@ -44,12 +44,12 @@ Please follow the installation instructions below to integrate this pack into yo
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| Agents skill | `Skills/Agents/SKILL.md` | Routing and agent definitions |
-| Agent factory | `Skills/Agents/Tools/AgentFactory.ts` | Dynamic agent composition |
-| Trait definitions | `Skills/Agents/Data/Traits.yaml` | Expertise, personality, approach traits |
-| Voice mapping | `Skills/Agents/Data/VoiceMapping.yaml` | Personality to ElevenLabs voice mapping |
-| Create agent | `Skills/Agents/Workflows/CreateCustomAgent.md` | Custom agent workflow |
-| List traits | `Skills/Agents/Workflows/ListTraits.md` | Show available traits |
+| Agents skill | `skills/Agents/SKILL.md` | Routing and agent definitions |
+| Agent factory | `skills/Agents/Tools/AgentFactory.ts` | Dynamic agent composition |
+| Trait definitions | `skills/Agents/Data/Traits.yaml` | Expertise, personality, approach traits |
+| Voice mapping | `skills/Agents/Data/VoiceMapping.yaml` | Personality to ElevenLabs voice mapping |
+| Create agent | `skills/Agents/Workflows/CreateCustomAgent.md` | Custom agent workflow |
+| List traits | `skills/Agents/Workflows/ListTraits.md` | Show available traits |
 
 **Summary:**
 - **Files created:** 8+ (skill, tool, workflows, data)

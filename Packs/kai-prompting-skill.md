@@ -53,15 +53,15 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| Prompting skill | `Skills/Prompting/SKILL.md` | Routing and quick reference |
-| Standards guide | `Skills/Prompting/Standards.md` | Claude 4.x best practices |
-| Roster template | `Skills/Prompting/Templates/Primitives/Roster.hbs` | Agent/skill definitions |
-| Voice template | `Skills/Prompting/Templates/Primitives/Voice.hbs` | Personality calibration |
-| Structure template | `Skills/Prompting/Templates/Primitives/Structure.hbs` | Workflow patterns |
-| Briefing template | `Skills/Prompting/Templates/Primitives/Briefing.hbs` | Agent context handoff |
-| Gate template | `Skills/Prompting/Templates/Primitives/Gate.hbs` | Validation checklists |
-| Render tool | `Skills/Prompting/Tools/RenderTemplate.ts` | Template rendering CLI |
-| Validate tool | `Skills/Prompting/Tools/ValidateTemplate.ts` | Template validation |
+| Prompting skill | `skills/Prompting/SKILL.md` | Routing and quick reference |
+| Standards guide | `skills/Prompting/Standards.md` | Claude 4.x best practices |
+| Roster template | `skills/Prompting/Templates/Primitives/Roster.hbs` | Agent/skill definitions |
+| Voice template | `skills/Prompting/Templates/Primitives/Voice.hbs` | Personality calibration |
+| Structure template | `skills/Prompting/Templates/Primitives/Structure.hbs` | Workflow patterns |
+| Briefing template | `skills/Prompting/Templates/Primitives/Briefing.hbs` | Agent context handoff |
+| Gate template | `skills/Prompting/Templates/Primitives/Gate.hbs` | Validation checklists |
+| Render tool | `skills/Prompting/Tools/RenderTemplate.ts` | Template rendering CLI |
+| Validate tool | `skills/Prompting/Tools/ValidateTemplate.ts` | Template validation |
 
 **Summary:**
 - **Files created:** 12+ (skill, standards, templates, tools)
@@ -139,7 +139,7 @@ Five core primitives that cover 90% of prompt composition needs:
 ## Component Overview
 
 ```
-$PAI_DIR/Skills/Prompting/
+$PAI_DIR/skills/Prompting/
 ├── SKILL.md              # Skill routing and overview
 ├── Standards.md          # Complete prompt engineering guide
 ├── Templates/
@@ -555,17 +555,17 @@ gate:
 ## Step 1: Create Directory Structure
 
 ```bash
-mkdir -p $PAI_DIR/Skills/Prompting/Templates/Primitives
-mkdir -p $PAI_DIR/Skills/Prompting/Templates/Data/Examples
-mkdir -p $PAI_DIR/Skills/Prompting/Templates/Compiled
-mkdir -p $PAI_DIR/Skills/Prompting/Tools
+mkdir -p $PAI_DIR/skills/Prompting/Templates/Primitives
+mkdir -p $PAI_DIR/skills/Prompting/Templates/Data/Examples
+mkdir -p $PAI_DIR/skills/Prompting/Templates/Compiled
+mkdir -p $PAI_DIR/skills/Prompting/Tools
 ```
 
 ---
 
 ## Step 2: Create SKILL.md
 
-Save to `$PAI_DIR/Skills/Prompting/SKILL.md`:
+Save to `$PAI_DIR/skills/Prompting/SKILL.md`:
 
 ```markdown
 ---
@@ -616,7 +616,7 @@ Five core primitives for programmatic prompt generation:
 
 **RenderTemplate.ts** - Core rendering engine
 \`\`\`bash
-bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
+bun run $PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts \
   --template Primitives/Briefing.hbs \
   --data path/to/data.yaml \
   --output path/to/output.md
@@ -624,7 +624,7 @@ bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
 
 **ValidateTemplate.ts** - Template syntax checker
 \`\`\`bash
-bun run $PAI_DIR/Skills/Prompting/Tools/ValidateTemplate.ts \
+bun run $PAI_DIR/skills/Prompting/Tools/ValidateTemplate.ts \
   --template Primitives/Briefing.hbs
 \`\`\`
 
@@ -669,7 +669,7 @@ User: "Check my new template for errors"
 
 ## Step 3: Create Standards.md
 
-Save to `$PAI_DIR/Skills/Prompting/Standards.md`:
+Save to `$PAI_DIR/skills/Prompting/Standards.md`:
 
 ```markdown
 ---
@@ -832,7 +832,7 @@ Focus on high-value tokens that drive desired outcomes.
 
 ## Step 4: Create RenderTemplate.ts
 
-Save to `$PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts`:
+Save to `$PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts`:
 
 ```typescript
 #!/usr/bin/env bun
@@ -1110,7 +1110,7 @@ if (import.meta.main) {
 
 ## Step 5: Create ValidateTemplate.ts
 
-Save to `$PAI_DIR/Skills/Prompting/Tools/ValidateTemplate.ts`:
+Save to `$PAI_DIR/skills/Prompting/Tools/ValidateTemplate.ts`:
 
 ```typescript
 #!/usr/bin/env bun
@@ -1335,7 +1335,7 @@ if (import.meta.main) {
 
 ### Roster.hbs
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Roster.hbs`:
+Save to `$PAI_DIR/skills/Prompting/Templates/Primitives/Roster.hbs`:
 
 ```handlebars
 {{!--
@@ -1392,7 +1392,7 @@ Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Roster.hbs`:
 
 ### Briefing.hbs
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Briefing.hbs`:
+Save to `$PAI_DIR/skills/Prompting/Templates/Primitives/Briefing.hbs`:
 
 ```handlebars
 {{!--
@@ -1478,7 +1478,7 @@ You are **{{agent.name}}**{{#if agent.personality.perspective}}, and your perspe
 
 ### Structure.hbs
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Structure.hbs`:
+Save to `$PAI_DIR/skills/Prompting/Templates/Primitives/Structure.hbs`:
 
 ```handlebars
 {{!--
@@ -1537,7 +1537,7 @@ Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Structure.hbs`:
 
 ### Voice.hbs
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Voice.hbs`:
+Save to `$PAI_DIR/skills/Prompting/Templates/Primitives/Voice.hbs`:
 
 ```handlebars
 {{!--
@@ -1579,7 +1579,7 @@ Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Voice.hbs`:
 
 ### Gate.hbs
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Gate.hbs`:
+Save to `$PAI_DIR/skills/Prompting/Templates/Primitives/Gate.hbs`:
 
 ```handlebars
 {{!--
@@ -1636,7 +1636,7 @@ Save to `$PAI_DIR/Skills/Prompting/Templates/Primitives/Gate.hbs`:
 
 ## Step 7: Create Templates README
 
-Save to `$PAI_DIR/Skills/Prompting/Templates/README.md`:
+Save to `$PAI_DIR/skills/Prompting/Templates/README.md`:
 
 ```markdown
 # PAI Templating System
@@ -1680,7 +1680,7 @@ Handlebars notation (Anthropic's official syntax):
 ### Basic Rendering
 
 ```bash
-bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
+bun run $PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts \
   --template Primitives/Roster.hbs \
   --data Data/Examples/Agents.yaml \
   --output Compiled/AgentRoster.md
@@ -1689,7 +1689,7 @@ bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
 ### Preview Without Writing
 
 ```bash
-bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
+bun run $PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts \
   --template Primitives/Briefing.hbs \
   --data Data/Examples/Briefing.yaml \
   --preview
@@ -1709,7 +1709,7 @@ bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
 ## Step 8: Install Dependencies
 
 ```bash
-cd $PAI_DIR/Skills/Prompting/Tools
+cd $PAI_DIR/skills/Prompting/Tools
 bun init -y
 bun add handlebars yaml
 ```
@@ -1739,10 +1739,10 @@ After installation, verify:
 
 ```bash
 # Check directory structure
-ls $PAI_DIR/Skills/Prompting/
+ls $PAI_DIR/skills/Prompting/
 # Should show: SKILL.md Standards.md Templates/ Tools/
 
-ls $PAI_DIR/Skills/Prompting/Templates/Primitives/
+ls $PAI_DIR/skills/Prompting/Templates/Primitives/
 # Should show: Roster.hbs Voice.hbs Structure.hbs Briefing.hbs Gate.hbs
 
 # Test template rendering
@@ -1759,14 +1759,14 @@ echo 'agents:
         - "Thorough"
         - "Precise"' > /tmp/test-agents.yaml
 
-bun run $PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts \
-  --template $PAI_DIR/Skills/Prompting/Templates/Primitives/Roster.hbs \
+bun run $PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts \
+  --template $PAI_DIR/skills/Prompting/Templates/Primitives/Roster.hbs \
   --data /tmp/test-agents.yaml \
   --preview
 
 # Validate a template
-bun run $PAI_DIR/Skills/Prompting/Tools/ValidateTemplate.ts \
-  --template $PAI_DIR/Skills/Prompting/Templates/Primitives/Briefing.hbs
+bun run $PAI_DIR/skills/Prompting/Tools/ValidateTemplate.ts \
+  --template $PAI_DIR/skills/Prompting/Templates/Primitives/Briefing.hbs
 ```
 
 ---
@@ -1814,7 +1814,7 @@ Handlebars.registerHelper('myHelper', (value: string) => {
 
 ### Agents Skill
 ```typescript
-import { renderTemplate } from '$PAI_DIR/Skills/Prompting/Tools/RenderTemplate.ts';
+import { renderTemplate } from '$PAI_DIR/skills/Prompting/Tools/RenderTemplate.ts';
 
 const prompt = renderTemplate({
   templatePath: 'Primitives/Briefing.hbs',

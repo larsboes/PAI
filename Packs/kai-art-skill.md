@@ -47,12 +47,12 @@ Please follow the installation instructions below to integrate this pack into yo
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| Art skill | `Skills/Art/SKILL.md` | Routing and quick reference |
-| Aesthetic config | `Skills/Art/Aesthetic.md` | Style preferences and palette |
-| Generate tool | `Skills/Art/Tools/Generate.ts` | Multi-model image generation CLI |
-| Technical diagrams | `Skills/Art/Workflows/TechnicalDiagrams.md` | Architecture diagram workflow |
-| Essay headers | `Skills/Art/Workflows/Essay.md` | Blog header image workflow |
-| Comics workflow | `Skills/Art/Workflows/Comics.md` | Sequential panel generation |
+| Art skill | `skills/Art/SKILL.md` | Routing and quick reference |
+| Aesthetic config | `skills/Art/Aesthetic.md` | Style preferences and palette |
+| Generate tool | `skills/Art/Tools/Generate.ts` | Multi-model image generation CLI |
+| Technical diagrams | `skills/Art/Workflows/TechnicalDiagrams.md` | Architecture diagram workflow |
+| Essay headers | `skills/Art/Workflows/Essay.md` | Blog header image workflow |
+| Comics workflow | `skills/Art/Workflows/Comics.md` | Sequential panel generation |
 
 **Summary:**
 - **Files created:** 8+ (skill, tool, workflows)
@@ -184,10 +184,10 @@ echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
 
 # 2. Check for existing Skills directory
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
-if [ -d "$PAI_CHECK/Skills/Art" ]; then
-  echo "WARNING: Art skill already exists at: $PAI_CHECK/Skills/Art"
+if [ -d "$PAI_CHECK/skills/Art" ]; then
+  echo "WARNING: Art skill already exists at: $PAI_CHECK/skills/Art"
   echo "Contents:"
-  ls -la "$PAI_CHECK/Skills/Art" 2>/dev/null || echo "  (empty)"
+  ls -la "$PAI_CHECK/skills/Art" 2>/dev/null || echo "  (empty)"
 else
   echo "OK: No existing Art skill (clean install)"
 fi
@@ -214,10 +214,10 @@ echo "API Key Status:"
 ```bash
 # Create timestamped backup if Art skill exists
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
-if [ -d "$PAI_CHECK/Skills/Art" ]; then
+if [ -d "$PAI_CHECK/skills/Art" ]; then
   BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
   mkdir -p "$BACKUP_DIR"
-  cp -r "$PAI_CHECK/Skills/Art" "$BACKUP_DIR/Art"
+  cp -r "$PAI_CHECK/skills/Art" "$BACKUP_DIR/Art"
   echo "Backed up existing Art skill to: $BACKUP_DIR/Art"
 fi
 ```
@@ -230,12 +230,12 @@ fi
 PAI_DIR="${PAI_DIR:-$HOME/.config/pai}"
 
 # Create Art skill directories
-mkdir -p "$PAI_DIR/Skills/Art/Workflows"
-mkdir -p "$PAI_DIR/Skills/Art/Tools"
+mkdir -p "$PAI_DIR/skills/Art/Workflows"
+mkdir -p "$PAI_DIR/skills/Art/Tools"
 
 # Verify structure
 echo "Created directories:"
-ls -la "$PAI_DIR/Skills/Art/"
+ls -la "$PAI_DIR/skills/Art/"
 ```
 
 ---
@@ -243,7 +243,7 @@ ls -la "$PAI_DIR/Skills/Art/"
 ### Step 2: Create SKILL.md (Routing File)
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/SKILL.md" << 'SKILL_EOF'
+cat > "$PAI_DIR/skills/Art/SKILL.md" << 'SKILL_EOF'
 ---
 name: Art
 description: Visual content generation with Excalidraw hand-drawn aesthetic. USE WHEN user wants diagrams, visualizations, comics, or editorial illustrations.
@@ -279,7 +279,7 @@ Route to the appropriate workflow based on the request:
 - Consistent hand-lettered typography style
 - Dark mode backgrounds with bright accents
 
-**Full aesthetic documentation:** `$PAI_DIR/Skills/Art/Aesthetic.md`
+**Full aesthetic documentation:** `$PAI_DIR/skills/Art/Aesthetic.md`
 
 ---
 
@@ -302,7 +302,7 @@ Route to the appropriate workflow based on the request:
 **Default model:** nano-banana-pro (Gemini 3 Pro)
 
 ```bash
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[PROMPT]" \
   --size 2K \
@@ -349,7 +349,7 @@ echo "Created SKILL.md"
 ### Step 3: Create Aesthetic.md (Color and Style Reference)
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/Aesthetic.md" << 'AESTHETIC_EOF'
+cat > "$PAI_DIR/skills/Art/Aesthetic.md" << 'AESTHETIC_EOF'
 # Art Skill Aesthetic
 
 **Excalidraw Hand-Drawn** - Tech-forward dark-mode aesthetic for professional visual content.
@@ -515,7 +515,7 @@ echo "Created Aesthetic.md"
 ### Step 4: Create TechnicalDiagrams.md Workflow
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/Workflows/TechnicalDiagrams.md" << 'TECHDIAGRAM_EOF'
+cat > "$PAI_DIR/skills/Art/Workflows/TechnicalDiagrams.md" << 'TECHDIAGRAM_EOF'
 # Technical Diagram Workflow
 
 **Clean Excalidraw-style technical diagrams with dark-mode aesthetic.**
@@ -663,7 +663,7 @@ EXCALIDRAW CHARACTERISTICS:
 ## Generate Command
 
 ```bash
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
@@ -713,7 +713,7 @@ echo "Created TechnicalDiagrams.md"
 ### Step 5: Create Essay.md Workflow
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/Workflows/Essay.md" << 'ESSAY_EOF'
+cat > "$PAI_DIR/skills/Art/Workflows/Essay.md" << 'ESSAY_EOF'
 # Editorial Illustration Workflow
 
 **Hand-drawn Excalidraw-style illustrations for blog headers and editorial content.**
@@ -826,7 +826,7 @@ CRITICAL:
 ### Step 4: Execute Generation
 
 ```bash
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
@@ -837,7 +837,7 @@ bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
 **For blog headers that need thumbnails:**
 
 ```bash
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
@@ -902,7 +902,7 @@ echo "Created Essay.md"
 ### Step 6: Create Comics.md Workflow
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/Workflows/Comics.md" << 'COMICS_EOF'
+cat > "$PAI_DIR/skills/Art/Workflows/Comics.md" << 'COMICS_EOF'
 # Editorial Comics Workflow
 
 **Sequential panel storytelling with sophisticated hand-drawn aesthetic.**
@@ -1078,7 +1078,7 @@ CRITICAL:
 ### Step 5: Execute Generation
 
 ```bash
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
@@ -1143,7 +1143,7 @@ echo "Created Comics.md"
 ### Step 7: Create Generate.ts Tool
 
 ```bash
-cat > "$PAI_DIR/Skills/Art/Tools/Generate.ts" << 'GENERATE_EOF'
+cat > "$PAI_DIR/skills/Art/Tools/Generate.ts" << 'GENERATE_EOF'
 #!/usr/bin/env bun
 
 /**
@@ -1331,8 +1331,8 @@ ENVIRONMENT VARIABLES:
   REMOVEBG_API_KEY     Required for --remove-bg
 
 MORE INFO:
-  Documentation: \${PAI_DIR}/Skills/Art/README.md
-  Source: \${PAI_DIR}/Skills/Art/Tools/Generate.ts
+  Documentation: \${PAI_DIR}/skills/Art/README.md
+  Source: \${PAI_DIR}/skills/Art/Tools/Generate.ts
 `);
   process.exit(0);
 }
@@ -1754,12 +1754,12 @@ echo ""
 
 # Check files
 echo "Files:"
-[ -f "$PAI_DIR/Skills/Art/SKILL.md" ] && echo "  [OK] SKILL.md" || echo "  [MISSING] SKILL.md"
-[ -f "$PAI_DIR/Skills/Art/Aesthetic.md" ] && echo "  [OK] Aesthetic.md" || echo "  [MISSING] Aesthetic.md"
-[ -f "$PAI_DIR/Skills/Art/Workflows/TechnicalDiagrams.md" ] && echo "  [OK] TechnicalDiagrams.md" || echo "  [MISSING] TechnicalDiagrams.md"
-[ -f "$PAI_DIR/Skills/Art/Workflows/Essay.md" ] && echo "  [OK] Essay.md" || echo "  [MISSING] Essay.md"
-[ -f "$PAI_DIR/Skills/Art/Workflows/Comics.md" ] && echo "  [OK] Comics.md" || echo "  [MISSING] Comics.md"
-[ -f "$PAI_DIR/Skills/Art/Tools/Generate.ts" ] && echo "  [OK] Generate.ts" || echo "  [MISSING] Generate.ts"
+[ -f "$PAI_DIR/skills/Art/SKILL.md" ] && echo "  [OK] SKILL.md" || echo "  [MISSING] SKILL.md"
+[ -f "$PAI_DIR/skills/Art/Aesthetic.md" ] && echo "  [OK] Aesthetic.md" || echo "  [MISSING] Aesthetic.md"
+[ -f "$PAI_DIR/skills/Art/Workflows/TechnicalDiagrams.md" ] && echo "  [OK] TechnicalDiagrams.md" || echo "  [MISSING] TechnicalDiagrams.md"
+[ -f "$PAI_DIR/skills/Art/Workflows/Essay.md" ] && echo "  [OK] Essay.md" || echo "  [MISSING] Essay.md"
+[ -f "$PAI_DIR/skills/Art/Workflows/Comics.md" ] && echo "  [OK] Comics.md" || echo "  [MISSING] Comics.md"
+[ -f "$PAI_DIR/skills/Art/Tools/Generate.ts" ] && echo "  [OK] Generate.ts" || echo "  [MISSING] Generate.ts"
 
 echo ""
 echo "API Keys (check $PAI_DIR/.env):"
@@ -1770,7 +1770,7 @@ echo "API Keys (check $PAI_DIR/.env):"
 
 echo ""
 echo "Test CLI tool:"
-bun run "$PAI_DIR/Skills/Art/Tools/Generate.ts" --help | head -5
+bun run "$PAI_DIR/skills/Art/Tools/Generate.ts" --help | head -5
 
 echo ""
 echo "Installation complete!"
@@ -1801,7 +1801,7 @@ The Art Skill activates based on user requests:
 # User: "create a diagram showing how authentication works"
 
 # Skill routes to TechnicalDiagrams workflow, which constructs prompt:
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "Clean Excalidraw-style technical diagram on dark background #0a0a0f. Title: 'Authentication Flow'. Shows: User -> Login Form -> Auth Service -> Token -> Protected Resource. Hand-drawn style, PAI Blue #4a90d9 for key components, Cyan #22d3ee for arrows. Include insight callout '*tokens expire after 24h*' in blue." \
   --size 2K \
@@ -1814,7 +1814,7 @@ bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
 ```bash
 # User: "create a header image for my post about AI agents"
 
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "Hand-drawn Excalidraw-style illustration on dark background #0a0a0f. Subject: Multiple AI agents working together, represented as geometric angular figures collaborating. Style: gestural hand-drawn lines, professional editorial quality. Colors: White #e5e7eb linework, PAI Blue #4a90d9 accents, Cyan #22d3ee for connections. Subjects fill the frame, minimalist composition." \
   --size 2K \
@@ -1828,7 +1828,7 @@ bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
 ```bash
 # User: "create a comic showing the difference between manual and automated testing"
 
-bun run $PAI_DIR/Skills/Art/Tools/Generate.ts \
+bun run $PAI_DIR/skills/Art/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "Hand-drawn editorial comic strip, 3 panels horizontal, dark background. Panel 1: Developer manually clicking through app, exhausted (PAI Blue accent). Panel 2: Same developer writing test script, focused. Panel 3: Tests running automatically while developer relaxes. Planeform character design - angular, adult proportions, minimal faces. New Yorker sophistication, NOT cartoonish." \
   --size 2K \
@@ -1863,7 +1863,7 @@ export PAI_DIR="$HOME/.config/pai"      # Custom PAI directory
 
 The single most valuable customization for this pack is to have an extended conversation with your AI about your personal aesthetic preferences, then capture that in `Aesthetic.md`. This transforms the Art Skill from a generic tool into one that produces images reflecting YOUR unique visual taste.
 
-**What to Customize:** `$PAI_DIR/Skills/Art/Aesthetic.md`
+**What to Customize:** `$PAI_DIR/skills/Art/Aesthetic.md`
 
 **Why:** The default Aesthetic.md contains a generic Excalidraw-style dark-mode palette. By investing 15-30 minutes in an aesthetic exploration conversation, every image generated will feel like YOUR work, not generic AI output. This is the difference between "usable" and "perfectly on-brand."
 
@@ -1936,7 +1936,7 @@ Edit `Aesthetic.md` to replace the default palette:
 
 **Example: Adding a Custom Workflow**
 
-Create `$PAI_DIR/Skills/Art/Workflows/Infographics.md` for a specific content type you create often:
+Create `$PAI_DIR/skills/Art/Workflows/Infographics.md` for a specific content type you create often:
 
 ```markdown
 # Infographic Workflow
