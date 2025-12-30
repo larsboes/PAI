@@ -59,10 +59,11 @@ While you can install packs individually, bundles provide:
 3. Say: "Install this bundle into my system"
 
 Your AI will:
-- Install packs in the correct order
-- Configure dependencies between packs
-- Verify each pack works
-- Validate the bundle as a whole
+- **Analyze first** - Review all packs that need to be installed and their dependencies
+- **Run the wizard** - If the bundle includes a setup wizard, walk you through it to collect personalization data (AI name, personality, contacts, technical preferences, etc.)
+- **Install in order** - Install packs in the correct sequence based on dependencies
+- **Configure connections** - Set up integrations between packs
+- **Verify installation** - Confirm each pack works and validate the bundle as a whole
 
 ### Option 2: Manual Installation
 
