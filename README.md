@@ -553,7 +553,7 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 
 ## ❓ FAQ
 
-### What makes PAI better than Claude Code or other agentic AI systems?
+### Isn't Claude Code and other agentic systems already pretty good? What makes this an upgrade over them?
 
 PAI isn't a replacement for Claude Code—it's what you build *on top of it*. Claude Code (and systems like Cursor, Windsurf, OpenCode) gives you an AI that can read files, write code, and execute commands. But they're generic. They don't know your goals, your preferred workflows, your history, or your specific context.
 
