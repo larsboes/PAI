@@ -22,7 +22,7 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [Quick Start](#-quick-start) · [14 Principles](#the-14-founding-principles)
+**Getting Started:** [What is PAI?](#what-is-pai) · [Quick Start](#-quick-start) · [15 Principles](#the-15-founding-principles)
 
 **Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
 
@@ -111,7 +111,7 @@ To understand your current capabilities and what to build next, see the **[Perso
 
 ---
 
-## The 14 Founding Principles
+## The 15 Founding Principles
 
 These principles guide how PAI systems are designed and built:
 
@@ -119,59 +119,62 @@ These principles guide how PAI systems are designed and built:
 
 **[Read the full breakdown of each principle →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
 
-#### 1. Clear Thinking + Prompting is King
+#### 1. Pursuit of the Foundational Algorithm
+All progress follows the same universal pattern: **Current State → Desired State** via verifiable iteration. This is the outer loop. The inner loop is the 7-phase scientific method (OBSERVE → THINK → PLAN → BUILD → EXECUTE → VERIFY → LEARN). The critical insight: verifiability is everything. If you can't measure whether you reached the desired state, you're just guessing.
+
+#### 2. Clear Thinking + Prompting is King
 [![Clear Thinking](https://danielmiessler.com/images/pai-principle-01-clear-thinking.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Good prompts come from clear thinking about what you actually need. Spend more time clarifying the problem than writing the prompt.
 
-#### 2. Scaffolding > Model
+#### 3. Scaffolding > Model
 [![Scaffolding](https://danielmiessler.com/images/pai-principle-02-scaffolding.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 The system architecture matters more than which model you use. Good scaffolding makes even smaller models perform well.
 
-#### 3. As Deterministic as Possible
+#### 4. As Deterministic as Possible
 [![Deterministic](https://danielmiessler.com/images/pai-principle-03-deterministic.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 AI is probabilistic, but your infrastructure shouldn't be. Use templates and consistent patterns.
 
-#### 4. Code Before Prompts
+#### 5. Code Before Prompts
 [![Code Before Prompts](https://danielmiessler.com/images/pai-principle-04-code-before-prompts.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 If you can solve it with a bash script, don't use AI. Only use AI for the parts that actually need intelligence.
 
-#### 5. Spec / Test / Evals First
+#### 6. Spec / Test / Evals First
 [![Spec Test Evals](https://danielmiessler.com/images/pai-principle-05-spec-test-evals.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Before building anything complex, write specifications and tests. Use evals to measure if the system is actually working.
 
-#### 6. UNIX Philosophy (Modular Tooling)
+#### 7. UNIX Philosophy (Modular Tooling)
 [![UNIX Philosophy](https://danielmiessler.com/images/pai-principle-06-unix-philosophy.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Do one thing well. Make tools composable. Use text interfaces.
 
-#### 7. ENG / SRE Principles
+#### 8. ENG / SRE Principles
 [![ENG SRE Principles](https://danielmiessler.com/images/pai-principle-07-eng-sre.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Treat your AI infrastructure like production software: version control, automation, monitoring, rollback plans.
 
-#### 8. CLI as Interface
+#### 9. CLI as Interface
 [![CLI Interface](https://danielmiessler.com/images/pai-principle-08-cli-interface.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Command-line interfaces are faster, more scriptable, and more reliable than GUIs.
 
-#### 9. Goal → Code → CLI → Prompts → Agents
+#### 10. Goal → Code → CLI → Prompts → Agents
 [![Goal to Agents](https://danielmiessler.com/images/pai-principle-09-goal-to-agents.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 The decision hierarchy: clarify the goal first, then try code, then CLI tools, then prompts, and only then agents.
 
-#### 10. Meta / Self Update System
+#### 11. Meta / Self Update System
 [![Meta Update](https://danielmiessler.com/images/pai-principle-10-meta-update.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 The system should be able to modify itself. Encode learnings so you never forget.
 
-#### 11. Custom Skill Management
+#### 12. Custom Skill Management
 [![Skill Management](https://danielmiessler.com/images/pai-principle-11-skill-management.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Skills are the foundation of personalization - modular capabilities that route intelligently.
 
-#### 12. Custom History System
+#### 13. Custom History System
 [![History System](https://danielmiessler.com/images/pai-principle-12-history-system.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Everything worth knowing gets captured. History feeds back into context for future sessions.
 
-#### 13. Custom Agent Personalities / Voices
+#### 14. Custom Agent Personalities / Voices
 [![Agent Personalities](https://danielmiessler.com/images/pai-principle-13-agent-personalities.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 Different work needs different approaches. Specialized agents with unique personalities and voices.
 
-#### 14. Science as Cognitive Loop
+#### 15. Science as Cognitive Loop
 The meta-principle: Hypothesis → Experiment → Measure → Iterate. Every decision follows this pattern.
 
 ---
