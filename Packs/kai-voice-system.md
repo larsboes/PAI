@@ -1,7 +1,7 @@
 ---
 name: Kai Voice System
-pack-id: danielmiessler-kai-voice-system-core-v1.1.0
-version: 1.1.0
+pack-id: danielmiessler-kai-voice-system-core-v2.0.0
+version: 2.0.0
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
@@ -14,7 +14,7 @@ keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, perso
 ---
 
 <p align="center">
-  <img src="icons/kai-voice-system.png" alt="Kai Voice System" width="256">
+  <img src="icons/kai-voice-system-v2.png" alt="Kai Voice System" width="256">
 </p>
 
 # Kai Voice System (kai-voice-system)
