@@ -826,10 +826,10 @@ import { readdir, readFile, writeFile, appendFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-const PAI_HOME = process.env.PAI_HOME || process.env.PAI_DIR || join(process.env.HOME || '', '.config/pai');
-const ARCHITECTURE_FILE = join(PAI_HOME, 'Skills', 'CORE', 'PaiArchitecture.md');
-const BUNDLES_FILE = join(PAI_HOME, '.installed-bundles.json');
-const UPGRADES_FILE = join(PAI_HOME, 'History', 'upgrades.jsonl');
+const PAI_DIR = process.env.PAI_DIR || process.env.PAI_HOME || join(process.env.HOME || '', '.claude');
+const ARCHITECTURE_FILE = join(PAI_DIR, 'Skills', 'CORE', 'PaiArchitecture.md');
+const BUNDLES_FILE = join(PAI_DIR, '.installed-bundles.json');
+const UPGRADES_FILE = join(PAI_DIR, 'History', 'Upgrades.jsonl');
 
 interface PackInfo {
   name: string;
