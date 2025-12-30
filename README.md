@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-8-purple?style=for-the-badge)](Packs/)
 [![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
@@ -727,7 +727,7 @@ If you find it valuable:
 ## 📜 Update History
 
 <details open>
-<summary><strong>v2.1.0 (2025-12-30) — Pack Expansion & Polish</strong></summary>
+<summary><strong>v2.0.1 (2025-12-30) — Pack Expansion & Polish</strong></summary>
 
 <br/>
 
@@ -751,9 +751,9 @@ If you find it valuable:
 - Added Tools README with icons and descriptions
 - Moved templates and diagnostic tools to centralized location
 
-**What's Different from v2.0?**
+**What's New Since v2.0.0?**
 
-v2.0 launched the Packs system. v2.1 expands and polishes it:
+v2.0.0 launched the Packs system. v2.0.1 adds:
 - 8 feature packs now available with improved documentation
 - Better installation experience with clearer wizards
 - Unified authentication pattern (no more scattered .env files)
