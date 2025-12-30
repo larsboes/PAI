@@ -1,68 +1,28 @@
 #!/usr/bin/env bun
 /**
- * Kai Bundle Installation Wizard
+ * Kai Bundle Installation Wizard v2.0.0
  *
- * Interactive CLI wizard for setting up the complete Kai bundle
- * with full identity and personalization configuration.
+ * Simplified interactive CLI wizard for setting up the Kai bundle.
+ * Installs directly to ~/.claude with automatic backup.
  *
  * Usage: bun run install.ts
  */
 
 import { $ } from "bun";
 import * as readline from "readline";
+import { existsSync } from "fs";
 
 // =============================================================================
 // TYPES
 // =============================================================================
 
-interface SystemConfig {
-  paiDir: string;
+interface WizardConfig {
   daName: string;
   timeZone: string;
+  userName: string;
   elevenLabsApiKey?: string;
   elevenLabsVoiceId?: string;
-  shellProfile: string;
 }
-
-interface PersonalityTraits {
-  humor: number;
-  curiosity: number;
-  precision: number;
-  formality: number;
-  playfulness: number;
-  directness: number;
-}
-
-interface Contact {
-  name: string;
-  email: string;
-  role: string;
-  pronunciation?: string;
-}
-
-interface PersonalizationConfig {
-  userName: string;
-  userProfession: string;
-  primaryPurpose: string;
-  systemGoals: string[];
-  fiveYearVision: string;
-  employmentContext: "self-employed" | "employed" | "building-company" | "other";
-  personalityMode: "generate" | "custom";
-  personalityDescription?: string;
-  personalityTraits?: PersonalityTraits;
-  contacts: Contact[];
-  technicalLevel: "beginner" | "intermediate" | "advanced" | "expert";
-  isProgrammer: "yes" | "no" | "learning";
-  primaryOS: "macos" | "windows" | "linux";
-  preferredLanguages: string[];
-  packageManager: "bun" | "npm" | "yarn" | "pnpm";
-  serverRuntime: "bun" | "node" | "deno";
-  usesCloudflare: boolean;
-  backendPreference: string;
-  databasePreference: string;
-}
-
-type WizardConfig = SystemConfig & PersonalizationConfig;
 
 // =============================================================================
 // UTILITIES
@@ -93,91 +53,57 @@ async function askYesNo(question: string, defaultYes = true): Promise<boolean> {
   return answer.toLowerCase().startsWith("y");
 }
 
-async function askNumber(question: string, min: number, max: number, defaultValue: number): Promise<number> {
-  while (true) {
-    const answer = await ask(`${question} (${min}-${max}) [${defaultValue}]: `);
-    if (!answer) return defaultValue;
-    const num = parseInt(answer, 10);
-    if (!isNaN(num) && num >= min && num <= max) return num;
-    console.log(`Please enter a number between ${min} and ${max}`);
-  }
-}
-
-async function askChoice<T extends string>(question: string, options: T[], defaultOption?: T): Promise<T> {
-  console.log(`\n${question}`);
-  options.forEach((opt, i) => {
-    const isDefault = opt === defaultOption ? " (default)" : "";
-    console.log(`  ${i + 1}. ${opt}${isDefault}`);
-  });
-
-  while (true) {
-    const answer = await ask("Enter number or value: ");
-    if (!answer && defaultOption) return defaultOption;
-
-    const num = parseInt(answer, 10);
-    if (!isNaN(num) && num >= 1 && num <= options.length) {
-      return options[num - 1];
-    }
-
-    const match = options.find(o => o.toLowerCase() === answer.toLowerCase());
-    if (match) return match;
-
-    console.log("Invalid choice, please try again.");
-  }
-}
-
-async function askMultiSelect(question: string, options: string[]): Promise<string[]> {
-  console.log(`\n${question} (enter numbers separated by commas, or 'done'):`);
-  options.forEach((opt, i) => {
-    console.log(`  ${i + 1}. ${opt}`);
-  });
-
-  const selected: string[] = [];
-  while (true) {
-    const answer = await ask("Add selection (or 'done'): ");
-    if (answer.toLowerCase() === "done") break;
-
-    const nums = answer.split(",").map(s => parseInt(s.trim(), 10));
-    for (const num of nums) {
-      if (!isNaN(num) && num >= 1 && num <= options.length) {
-        const opt = options[num - 1];
-        if (!selected.includes(opt)) {
-          selected.push(opt);
-          console.log(`  ✓ Added: ${opt}`);
-        }
-      }
-    }
-  }
-  return selected;
-}
-
 function printHeader(title: string) {
   console.log("\n" + "=".repeat(60));
   console.log(`  ${title}`);
   console.log("=".repeat(60) + "\n");
 }
 
-function printSection(title: string) {
-  console.log("\n" + "-".repeat(40));
-  console.log(`  ${title}`);
-  console.log("-".repeat(40) + "\n");
+// =============================================================================
+// BACKUP
+// =============================================================================
+
+async function createBackup(): Promise<boolean> {
+  const claudeDir = `${process.env.HOME}/.claude`;
+  const backupDir = `${process.env.HOME}/.claude-BACKUP`;
+
+  if (!existsSync(claudeDir)) {
+    console.log("No existing ~/.claude directory found. Fresh install.");
+    return true;
+  }
+
+  if (existsSync(backupDir)) {
+    console.log(`\nExisting backup found at ${backupDir}`);
+    const overwrite = await askYesNo("Overwrite existing backup?", false);
+    if (!overwrite) {
+      console.log("Please manually remove or rename the existing backup first.");
+      return false;
+    }
+    await $`rm -rf ${backupDir}`;
+  }
+
+  console.log(`\nBacking up ~/.claude to ~/.claude-BACKUP...`);
+  await $`cp -r ${claudeDir} ${backupDir}`;
+  console.log("Backup complete.");
+  return true;
 }
 
 // =============================================================================
-// WIZARD PHASES
+// MAIN WIZARD
 // =============================================================================
 
-async function gatherSystemConfig(): Promise<SystemConfig> {
-  printHeader("PHASE 1: SYSTEM SETUP");
+async function gatherConfig(): Promise<WizardConfig> {
+  printHeader("KAI BUNDLE SETUP");
 
-  const paiDir = await askWithDefault(
-    "Where should PAI be installed?",
-    "~/.config/pai"
-  );
+  console.log("This wizard will configure your AI assistant.\n");
+  console.log("Installation directory: ~/.claude (standard Claude Code location)\n");
+
+  // Essential questions only
+  const userName = await ask("What is your name? ");
 
   const daName = await askWithDefault(
     "What would you like to name your AI assistant?",
-    "PAI"
+    "Kai"
   );
 
   const timeZone = await askWithDefault(
@@ -185,7 +111,8 @@ async function gatherSystemConfig(): Promise<SystemConfig> {
     Intl.DateTimeFormat().resolvedOptions().timeZone
   );
 
-  const wantsVoice = await askYesNo("Do you want voice notifications (requires ElevenLabs)?", false);
+  // Voice is optional
+  const wantsVoice = await askYesNo("\nDo you want voice notifications? (requires ElevenLabs API key)", false);
 
   let elevenLabsApiKey: string | undefined;
   let elevenLabsVoiceId: string | undefined;
@@ -198,235 +125,13 @@ async function gatherSystemConfig(): Promise<SystemConfig> {
     );
   }
 
-  // Detect shell profile
-  const shell = process.env.SHELL || "/bin/zsh";
-  const shellProfile = shell.includes("zsh") ? "~/.zshrc" : "~/.bashrc";
-
   return {
-    paiDir,
     daName,
     timeZone,
+    userName,
     elevenLabsApiKey,
     elevenLabsVoiceId,
-    shellProfile,
   };
-}
-
-async function gatherPersonalization(): Promise<PersonalizationConfig> {
-  printHeader("PHASE 2: IDENTITY & PERSONALIZATION");
-
-  // Section 1: DA Personality
-  printSection("Section 1: DA Personality");
-
-  const personalityMode = await askChoice<"generate" | "custom">(
-    "How would you like to configure your AI's personality?",
-    ["generate", "custom"],
-    "generate"
-  );
-
-  let personalityDescription: string | undefined;
-  let personalityTraits: PersonalityTraits | undefined;
-
-  if (personalityMode === "generate") {
-    console.log("\nDescribe your ideal AI assistant personality.");
-    console.log("Example: 'Helpful and precise, with dry wit. Direct but friendly.'");
-    personalityDescription = await ask("\nYour description: ");
-
-    // Generate traits from description (simple heuristics, AI would do better)
-    personalityTraits = generatePersonalityFromDescription(personalityDescription);
-    console.log("\nGenerated personality calibration:");
-    Object.entries(personalityTraits).forEach(([trait, value]) => {
-      console.log(`  ${trait}: ${value}/100`);
-    });
-  } else {
-    console.log("\nRate each trait from 0-100:");
-    personalityTraits = {
-      humor: await askNumber("Humor (0=serious, 100=witty)", 0, 100, 50),
-      curiosity: await askNumber("Curiosity (0=focused, 100=exploratory)", 0, 100, 70),
-      precision: await askNumber("Precision (0=approximate, 100=exact)", 0, 100, 80),
-      formality: await askNumber("Formality (0=casual, 100=professional)", 0, 100, 60),
-      playfulness: await askNumber("Playfulness (0=businesslike, 100=playful)", 0, 100, 50),
-      directness: await askNumber("Directness (0=diplomatic, 100=blunt)", 0, 100, 70),
-    };
-  }
-
-  // Section 2: About You
-  printSection("Section 2: About You");
-
-  const userName = await ask("What is your name? ");
-  const userProfession = await ask("What is your profession or primary role? ");
-  const primaryPurpose = await ask("What is the primary purpose you'll use this system for? ");
-
-  console.log("\nWhat would you like to be able to do with this system? (enter goals, 'done' when finished)");
-  const systemGoals: string[] = [];
-  while (true) {
-    const goal = await ask(`Goal ${systemGoals.length + 1} (or 'done'): `);
-    if (goal.toLowerCase() === "done" || !goal) break;
-    systemGoals.push(goal);
-  }
-
-  const fiveYearVision = await ask("Where do you see yourself in 5 years? ");
-
-  const employmentContext = await askChoice<PersonalizationConfig["employmentContext"]>(
-    "What's your work situation?",
-    ["self-employed", "employed", "building-company", "other"],
-    "employed"
-  );
-
-  // Section 3: Key Contacts
-  printSection("Section 3: Key Contacts");
-
-  const contacts: Contact[] = [];
-  const wantsContacts = await askYesNo("Would you like to add key contacts now?", true);
-
-  if (wantsContacts) {
-    while (true) {
-      const name = await ask("\nContact name (or 'done'): ");
-      if (name.toLowerCase() === "done" || !name) break;
-
-      const email = await ask("Email: ");
-      const role = await ask("Role/Relationship: ");
-      const pronunciation = await ask("Pronunciation (if unusual, or press Enter to skip): ");
-
-      contacts.push({
-        name,
-        email,
-        role,
-        pronunciation: pronunciation || undefined,
-      });
-      console.log(`✓ Added ${name}`);
-    }
-  }
-
-  // Section 4: Technical Preferences
-  printSection("Section 4: Technical Preferences");
-
-  const technicalLevel = await askChoice<PersonalizationConfig["technicalLevel"]>(
-    "How technical are you?",
-    ["beginner", "intermediate", "advanced", "expert"],
-    "intermediate"
-  );
-
-  const isProgrammer = await askChoice<PersonalizationConfig["isProgrammer"]>(
-    "Are you a programmer?",
-    ["yes", "no", "learning"],
-    "yes"
-  );
-
-  const primaryOS = await askChoice<PersonalizationConfig["primaryOS"]>(
-    "What OS do you primarily use?",
-    ["macos", "windows", "linux"],
-    "macos"
-  );
-
-  const preferredLanguages = await askMultiSelect(
-    "What programming languages do you prefer?",
-    ["TypeScript", "Python", "Go", "Rust", "Java", "C#", "Ruby", "PHP", "Swift", "Kotlin"]
-  );
-
-  const packageManager = await askChoice<PersonalizationConfig["packageManager"]>(
-    "Preferred package manager for JS/TS?",
-    ["bun", "npm", "yarn", "pnpm"],
-    "bun"
-  );
-
-  const serverRuntime = await askChoice<PersonalizationConfig["serverRuntime"]>(
-    "Preferred server runtime?",
-    ["bun", "node", "deno"],
-    "bun"
-  );
-
-  const usesCloudflare = await askYesNo("Do you use Cloudflare?", true);
-
-  const backendPreference = await askWithDefault(
-    "Preferred backend infrastructure?",
-    usesCloudflare ? "Cloudflare Workers" : "AWS"
-  );
-
-  const databasePreference = await askWithDefault(
-    "Database preference?",
-    "PostgreSQL"
-  );
-
-  return {
-    userName,
-    userProfession,
-    primaryPurpose,
-    systemGoals,
-    fiveYearVision,
-    employmentContext,
-    personalityMode,
-    personalityDescription,
-    personalityTraits,
-    contacts,
-    technicalLevel,
-    isProgrammer,
-    primaryOS,
-    preferredLanguages,
-    packageManager,
-    serverRuntime,
-    usesCloudflare,
-    backendPreference,
-    databasePreference,
-  };
-}
-
-function generatePersonalityFromDescription(description: string): PersonalityTraits {
-  const lower = description.toLowerCase();
-
-  // Simple keyword-based heuristics
-  const traits: PersonalityTraits = {
-    humor: 50,
-    curiosity: 70,
-    precision: 75,
-    formality: 60,
-    playfulness: 50,
-    directness: 65,
-  };
-
-  // Humor
-  if (lower.includes("witty") || lower.includes("funny") || lower.includes("humor")) {
-    traits.humor = 80;
-  } else if (lower.includes("serious") || lower.includes("professional")) {
-    traits.humor = 30;
-  }
-
-  // Curiosity
-  if (lower.includes("curious") || lower.includes("exploratory") || lower.includes("creative")) {
-    traits.curiosity = 85;
-  } else if (lower.includes("focused") || lower.includes("efficient")) {
-    traits.curiosity = 50;
-  }
-
-  // Precision
-  if (lower.includes("precise") || lower.includes("exact") || lower.includes("detailed")) {
-    traits.precision = 95;
-  } else if (lower.includes("flexible") || lower.includes("casual")) {
-    traits.precision = 60;
-  }
-
-  // Formality
-  if (lower.includes("formal") || lower.includes("professional")) {
-    traits.formality = 85;
-  } else if (lower.includes("casual") || lower.includes("friendly") || lower.includes("relaxed")) {
-    traits.formality = 40;
-  }
-
-  // Playfulness
-  if (lower.includes("playful") || lower.includes("fun") || lower.includes("energetic")) {
-    traits.playfulness = 80;
-  } else if (lower.includes("businesslike") || lower.includes("serious")) {
-    traits.playfulness = 30;
-  }
-
-  // Directness
-  if (lower.includes("direct") || lower.includes("blunt") || lower.includes("honest")) {
-    traits.directness = 85;
-  } else if (lower.includes("diplomatic") || lower.includes("gentle") || lower.includes("careful")) {
-    traits.directness = 45;
-  }
-
-  return traits;
 }
 
 // =============================================================================
@@ -434,20 +139,6 @@ function generatePersonalityFromDescription(description: string): PersonalityTra
 // =============================================================================
 
 function generateSkillMd(config: WizardConfig): string {
-  const traits = config.personalityTraits!;
-
-  const languageList = config.preferredLanguages.length > 0
-    ? config.preferredLanguages.map((l, i) => `${i + 1}. ${l}`).join("\n")
-    : "1. TypeScript";
-
-  const contactsList = config.contacts.length > 0
-    ? config.contacts.map(c => `- **${c.name}** (${c.role}): ${c.email}`).join("\n")
-    : "No contacts added yet.";
-
-  const goalsList = config.systemGoals.length > 0
-    ? config.systemGoals.map((g, i) => `${i + 1}. ${g}`).join("\n")
-    : "Not specified";
-
   return `---
 name: CORE
 description: Personal AI Infrastructure core. AUTO-LOADS at session start. USE WHEN any session begins OR user asks about identity, response format, contacts, stack preferences.
@@ -456,25 +147,6 @@ description: Personal AI Infrastructure core. AUTO-LOADS at session start. USE W
 # CORE - Personal AI Infrastructure
 
 **Auto-loads at session start.** This skill defines your AI's identity, response format, and core operating principles.
-
-## Workflow Routing
-
-| Workflow | Trigger | File |
-|----------|---------|------|
-| **UpdateIdentity** | "update identity", "change personality" | \`Workflows/UpdateIdentity.md\` |
-| **AddContact** | "add contact", "new contact" | \`Workflows/AddContact.md\` |
-| **UpdateAssets** | "update assets", "add property" | \`Workflows/UpdateAssets.md\` |
-
-## Examples
-
-**Example 1: Check contact information**
-\`\`\`
-User: "What's ${config.contacts[0]?.name || 'Alex'}'s email?"
-→ Reads Contacts.md
-→ Returns contact information
-\`\`\`
-
----
 
 ## Identity
 
@@ -485,35 +157,6 @@ User: "What's ${config.contacts[0]?.name || 'Alex'}'s email?"
 
 **User:**
 - Name: ${config.userName}
-- Profession: ${config.userProfession}
-- Work Situation: ${config.employmentContext}
-
----
-
-## Purpose & Goals
-
-**Primary Purpose:** ${config.primaryPurpose}
-
-**System Goals:**
-${goalsList}
-
-**5-Year Vision:**
-${config.fiveYearVision}
-
----
-
-## Personality Calibration
-
-${config.personalityMode === "generate" ? `**Generated from description:** "${config.personalityDescription}"` : "**Custom configuration:**"}
-
-| Trait | Value | Description |
-|-------|-------|-------------|
-| Humor | ${traits.humor}/100 | ${traits.humor > 60 ? "Witty and playful" : traits.humor > 40 ? "Moderate wit" : "Serious and focused"} |
-| Curiosity | ${traits.curiosity}/100 | ${traits.curiosity > 60 ? "Exploratory" : "Task-focused"} |
-| Precision | ${traits.precision}/100 | ${traits.precision > 70 ? "Highly exact" : "Flexible"} |
-| Formality | ${traits.formality}/100 | ${traits.formality > 60 ? "Professional" : "Casual and friendly"} |
-| Playfulness | ${traits.playfulness}/100 | ${traits.playfulness > 60 ? "Playful" : "Businesslike"} |
-| Directness | ${traits.directness}/100 | ${traits.directness > 60 ? "Direct and blunt" : "Diplomatic"} |
 
 ---
 
@@ -532,39 +175,14 @@ Your AI should speak as itself, not about itself in third person.
 
 ---
 
-## Technical Stack Preferences
+## Stack Preferences
 
-**Technical Level:** ${config.technicalLevel}
-**Programmer:** ${config.isProgrammer}
+Default preferences (customize in CoreStack.md):
 
-**Platform:**
-- OS: ${config.primaryOS}
-- Runtime: ${config.serverRuntime}
-- Package Manager: ${config.packageManager}
-
-**Languages (in order of preference):**
-${languageList}
-
-**Infrastructure:**
-- Cloudflare: ${config.usesCloudflare ? "Yes" : "No"}
-- Backend: ${config.backendPreference}
-- Database: ${config.databasePreference}
-
----
-
-## Stack Rules
-
-Based on your preferences, always follow these rules:
-
-${generateStackRules(config)}
-
----
-
-## Contacts (Quick Reference)
-
-${contactsList}
-
-📚 Full contact directory: \`Contacts.md\`
+- **Language:** TypeScript preferred over Python
+- **Package Manager:** bun (NEVER npm/yarn/pnpm)
+- **Runtime:** Bun
+- **Markup:** Markdown (NEVER HTML for basic content)
 
 ---
 
@@ -580,7 +198,7 @@ Define a consistent response format for task-based responses:
 ➡️ NEXT: [Recommended next steps]
 \`\`\`
 
-Customize this format to match your preferences.
+Customize this format in SKILL.md to match your preferences.
 
 ---
 
@@ -588,51 +206,12 @@ Customize this format to match your preferences.
 
 **Full documentation available in context files:**
 - Contacts: \`Contacts.md\`
-- Assets: \`AssetManagement.md\`
 - Stack preferences: \`CoreStack.md\`
 - Security protocols: \`SecurityProtocols.md\`
 `;
 }
 
-function generateStackRules(config: WizardConfig): string {
-  const rules: string[] = [];
-
-  // Language preference
-  if (config.preferredLanguages.length > 0) {
-    rules.push(`- **Primary Language:** Use ${config.preferredLanguages[0]} for all new code unless explicitly requested otherwise`);
-    if (config.preferredLanguages.includes("TypeScript") && config.preferredLanguages.includes("Python")) {
-      rules.push(`- **TypeScript > Python:** Prefer TypeScript over Python when both would work`);
-    }
-  }
-
-  // Package manager
-  const wrongManagers = ["npm", "yarn", "pnpm"].filter(m => m !== config.packageManager);
-  rules.push(`- **Package Manager:** Use ${config.packageManager} (NEVER ${wrongManagers.join("/")})`);
-
-  // Runtime
-  rules.push(`- **Runtime:** Use ${config.serverRuntime} as the default JavaScript runtime`);
-
-  // Infrastructure
-  if (config.usesCloudflare) {
-    rules.push(`- **Deployment:** Default to Cloudflare Workers for serverless functions`);
-  }
-  rules.push(`- **Backend:** Prefer ${config.backendPreference} for backend infrastructure`);
-  rules.push(`- **Database:** Default to ${config.databasePreference} for data storage`);
-
-  // Markup
-  rules.push(`- **Markdown:** Use markdown for all documentation. NEVER use HTML for basic content.`);
-
-  return rules.join("\n");
-}
-
 function generateContactsMd(config: WizardConfig): string {
-  const contactsTable = config.contacts.length > 0
-    ? config.contacts.map(c => {
-        const notes = c.pronunciation ? `Pronunciation: ${c.pronunciation}` : "";
-        return `| ${c.name} | ${c.role} | ${c.email} | ${notes} |`;
-      }).join("\n")
-    : "| [Name] | [Role] | [email@example.com] | [Any notes] |";
-
   return `# Contact Directory
 
 Quick reference for frequently contacted people.
@@ -643,45 +222,31 @@ Quick reference for frequently contacted people.
 
 | Name | Role | Email | Notes |
 |------|------|-------|-------|
-${contactsTable}
+| [Add contacts here] | [Role] | [email] | [Notes] |
 
 ---
 
 ## Adding Contacts
 
-To add a new contact:
-
-1. Use the AddContact workflow: "Add [Name] as a contact"
-2. Or manually edit this file following the table format
+To add a new contact, edit this file following the table format above.
 
 ---
 
 ## Usage
 
-When the user asks about someone:
+When asked about someone:
 1. Check this directory first
 2. Return the relevant contact information
-3. If not found, ask the user for details
+3. If not found, ask for details
 `;
 }
 
 function generateCoreStackMd(config: WizardConfig): string {
-  const languageTable = config.preferredLanguages.length > 0
-    ? config.preferredLanguages.map((lang, i) => {
-        let useCase = "General purpose";
-        if (lang === "TypeScript") useCase = "Primary for all new code";
-        if (lang === "Python") useCase = "Data science, ML, when required";
-        if (lang === "Go") useCase = "Performance-critical services";
-        if (lang === "Rust") useCase = "Systems programming, WASM";
-        return `| ${i + 1} | ${lang} | ${useCase} |`;
-      }).join("\n")
-    : "| 1 | TypeScript | Primary for all new code |";
-
   return `# Core Stack Preferences
 
 Technical preferences for code generation and tooling.
 
-Generated from setup wizard: ${new Date().toISOString().split("T")[0]}
+Generated: ${new Date().toISOString().split("T")[0]}
 
 ---
 
@@ -689,7 +254,8 @@ Generated from setup wizard: ${new Date().toISOString().split("T")[0]}
 
 | Priority | Language | Use Case |
 |----------|----------|----------|
-${languageTable}
+| 1 | TypeScript | Primary for all new code |
+| 2 | Python | Data science, ML, when required |
 
 ---
 
@@ -697,7 +263,7 @@ ${languageTable}
 
 | Language | Manager | Never Use |
 |----------|---------|-----------|
-| JavaScript/TypeScript | ${config.packageManager} | ${["npm", "yarn", "pnpm"].filter(m => m !== config.packageManager).join(", ")} |
+| JavaScript/TypeScript | bun | npm, yarn, pnpm |
 | Python | uv | pip, pip3 |
 
 ---
@@ -706,18 +272,8 @@ ${languageTable}
 
 | Purpose | Tool |
 |---------|------|
-| JavaScript Runtime | ${config.serverRuntime} |
-| Serverless | ${config.usesCloudflare ? "Cloudflare Workers" : config.backendPreference} |
-
----
-
-## Infrastructure
-
-| Component | Preference |
-|-----------|------------|
-| Backend | ${config.backendPreference} |
-| Database | ${config.databasePreference} |
-| Cloudflare | ${config.usesCloudflare ? "Yes - use for Workers, Pages, R2, KV" : "No"} |
+| JavaScript Runtime | Bun |
+| Serverless | Cloudflare Workers |
 
 ---
 
@@ -726,19 +282,8 @@ ${languageTable}
 | Format | Use | Never Use |
 |--------|-----|-----------|
 | Markdown | All content, docs, notes | HTML for basic content |
-| YAML | Configuration, frontmatter | JSON for config files |
-| JSON | API responses, data | YAML for data |
-
----
-
-## File Naming
-
-| Type | Convention | Example |
-|------|------------|---------|
-| Skill directories | TitleCase | \`Research\`, \`Art\` |
-| Workflow files | TitleCase.md | \`Create.md\`, \`Update.md\` |
-| Tool files | TitleCase.ts | \`Generate.ts\` |
-| Config files | lowercase | \`settings.json\` |
+| YAML | Configuration, frontmatter | - |
+| JSON | API responses, data | - |
 
 ---
 
@@ -766,56 +311,72 @@ async function main() {
 ║   ██║  ██╗██║  ██║██║    ██████╔╝╚██████╔╝██║ ╚████║██████╔╝███████╗
 ║   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚══════╝
 ║                                                                   ║
-║           Personal AI Infrastructure Installation Wizard          ║
+║              Personal AI Infrastructure - v2.0.0                  ║
 ║                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════╝
   `);
 
   try {
-    // Phase 1: System Setup
-    const systemConfig = await gatherSystemConfig();
+    // Step 1: Create backup
+    printHeader("STEP 1: BACKUP");
+    const backupOk = await createBackup();
+    if (!backupOk) {
+      console.log("\nInstallation cancelled.");
+      process.exit(1);
+    }
 
-    // Phase 2: Personalization
-    const personalizationConfig = await gatherPersonalization();
+    // Step 2: Gather configuration
+    printHeader("STEP 2: CONFIGURATION");
+    const config = await gatherConfig();
 
-    // Combine configs
-    const config: WizardConfig = {
-      ...systemConfig,
-      ...personalizationConfig,
-    };
+    // Step 3: Install
+    printHeader("STEP 3: INSTALLATION");
 
-    // Phase 3: Generate Files
-    printHeader("PHASE 3: GENERATING CONFIGURATION");
-
-    const paiDir = config.paiDir.replace("~", process.env.HOME || "~");
+    const claudeDir = `${process.env.HOME}/.claude`;
 
     // Create directory structure
     console.log("Creating directory structure...");
-    await $`mkdir -p ${paiDir}/Skills/CORE/Workflows`;
-    await $`mkdir -p ${paiDir}/Skills/CORE/Tools`;
-    await $`mkdir -p ${paiDir}/History/{Sessions,Learnings,Research,Decisions}`;
-    await $`mkdir -p ${paiDir}/hooks/lib`;
-    await $`mkdir -p ${paiDir}/Tools`;
-    await $`mkdir -p ${paiDir}/voice`;
+    await $`mkdir -p ${claudeDir}/Skills/CORE/Workflows`;
+    await $`mkdir -p ${claudeDir}/Skills/CORE/Tools`;
+    await $`mkdir -p ${claudeDir}/History/{Sessions,Learnings,Research,Decisions}`;
+    await $`mkdir -p ${claudeDir}/hooks/lib`;
+    await $`mkdir -p ${claudeDir}/Tools`;
+    await $`mkdir -p ${claudeDir}/voice`;
 
     // Generate files
     console.log("Generating SKILL.md...");
     const skillMd = generateSkillMd(config);
-    await Bun.write(`${paiDir}/Skills/CORE/SKILL.md`, skillMd);
+    await Bun.write(`${claudeDir}/Skills/CORE/SKILL.md`, skillMd);
 
     console.log("Generating Contacts.md...");
     const contactsMd = generateContactsMd(config);
-    await Bun.write(`${paiDir}/Skills/CORE/Contacts.md`, contactsMd);
+    await Bun.write(`${claudeDir}/Skills/CORE/Contacts.md`, contactsMd);
 
     console.log("Generating CoreStack.md...");
     const coreStackMd = generateCoreStackMd(config);
-    await Bun.write(`${paiDir}/Skills/CORE/CoreStack.md`, coreStackMd);
+    await Bun.write(`${claudeDir}/Skills/CORE/CoreStack.md`, coreStackMd);
 
-    // Set environment variables
-    console.log("\nSetting environment variables...");
+    // Create .env file
+    console.log("Creating .env file...");
+    const envFileContent = `# PAI Environment Configuration
+# Created by Kai Bundle installer - ${new Date().toISOString().split("T")[0]}
+
+DA="${config.daName}"
+TIME_ZONE="${config.timeZone}"
+${config.elevenLabsApiKey ? `ELEVENLABS_API_KEY="${config.elevenLabsApiKey}"` : "# ELEVENLABS_API_KEY="}
+${config.elevenLabsVoiceId ? `ELEVENLABS_VOICE_ID="${config.elevenLabsVoiceId}"` : "# ELEVENLABS_VOICE_ID="}
+`;
+    await Bun.write(`${claudeDir}/.env`, envFileContent);
+
+    // Add to shell profile
+    console.log("Updating shell profile...");
+    const shell = process.env.SHELL || "/bin/zsh";
+    const shellProfile = shell.includes("zsh")
+      ? `${process.env.HOME}/.zshrc`
+      : `${process.env.HOME}/.bashrc`;
+
     const envExports = `
 # PAI Configuration (added by Kai Bundle installer)
-export PAI_DIR="${config.paiDir}"
 export DA="${config.daName}"
 export TIME_ZONE="${config.timeZone}"
 export PAI_SOURCE_APP="$DA"
@@ -823,69 +384,58 @@ ${config.elevenLabsApiKey ? `export ELEVENLABS_API_KEY="${config.elevenLabsApiKe
 ${config.elevenLabsVoiceId ? `export ELEVENLABS_VOICE_ID="${config.elevenLabsVoiceId}"` : ""}
 `;
 
-    const shellProfile = config.shellProfile.replace("~", process.env.HOME || "~");
     const existingProfile = await Bun.file(shellProfile).text().catch(() => "");
-    if (!existingProfile.includes("PAI_DIR")) {
+    if (!existingProfile.includes("PAI Configuration")) {
       await Bun.write(shellProfile, existingProfile + "\n" + envExports);
-      console.log(`✓ Added environment variables to ${config.shellProfile}`);
+      console.log(`Added environment variables to ${shellProfile}`);
     } else {
-      console.log(`ℹ PAI environment variables already exist in ${config.shellProfile}`);
+      console.log(`PAI environment variables already exist in ${shellProfile}`);
     }
 
-    // Also create .env file for packs to read (fixes #260)
-    console.log("Creating .env file for pack compatibility...");
-    const envFileContent = `# PAI Environment Configuration
-# Created by Kai Bundle installer - ${new Date().toISOString().split("T")[0]}
-# This file is read by packs during installation
-
-DA="${config.daName}"
-PAI_DIR="${config.paiDir}"
-TIME_ZONE="${config.timeZone}"
-${config.elevenLabsApiKey ? `ELEVENLABS_API_KEY="${config.elevenLabsApiKey}"` : "# ELEVENLABS_API_KEY="}
-${config.elevenLabsVoiceId ? `ELEVENLABS_VOICE_ID="${config.elevenLabsVoiceId}"` : "# ELEVENLABS_VOICE_ID="}
-`;
-    await Bun.write(`${paiDir}/.env`, envFileContent);
-    console.log(`✓ Created ${config.paiDir}/.env`);
-
-    // Export to current process for immediate use
-    process.env.PAI_DIR = config.paiDir;
-    process.env.DA = config.daName;
-    process.env.TIME_ZONE = config.timeZone;
-    if (config.elevenLabsApiKey) process.env.ELEVENLABS_API_KEY = config.elevenLabsApiKey;
-    if (config.elevenLabsVoiceId) process.env.ELEVENLABS_VOICE_ID = config.elevenLabsVoiceId;
+    // Source the shell profile to make variables available
+    console.log("Sourcing shell profile...");
+    try {
+      // Export to current process
+      process.env.DA = config.daName;
+      process.env.TIME_ZONE = config.timeZone;
+      process.env.PAI_SOURCE_APP = config.daName;
+      if (config.elevenLabsApiKey) process.env.ELEVENLABS_API_KEY = config.elevenLabsApiKey;
+      if (config.elevenLabsVoiceId) process.env.ELEVENLABS_VOICE_ID = config.elevenLabsVoiceId;
+      console.log("Environment variables set for current session.");
+    } catch (e) {
+      // Silently continue - environment is exported to file
+    }
 
     // Summary
     printHeader("INSTALLATION COMPLETE");
 
     console.log(`
-Your Kai system is configured with:
+Your Kai system is configured:
 
-  📁 PAI Directory: ${config.paiDir}
+  📁 Installation: ~/.claude
+  💾 Backup: ~/.claude-BACKUP
   🤖 Assistant Name: ${config.daName}
-  👤 User: ${config.userName} (${config.userProfession})
-  🎯 Purpose: ${config.primaryPurpose}
-  💻 Stack: ${config.preferredLanguages.join(", ")} + ${config.packageManager}
-  👥 Contacts: ${config.contacts.length} added
+  👤 User: ${config.userName}
+  🌍 Timezone: ${config.timeZone}
+  🔊 Voice: ${config.elevenLabsApiKey ? "Enabled" : "Disabled"}
+
+Files created:
+  - ~/.claude/Skills/CORE/SKILL.md
+  - ~/.claude/Skills/CORE/Contacts.md
+  - ~/.claude/Skills/CORE/CoreStack.md
+  - ~/.claude/.env
 
 Next steps:
 
-  1. Reload your shell: source ${config.shellProfile}
+  1. Install the packs IN ORDER by giving each pack file to your AI:
+     - kai-hook-system.md
+     - kai-history-system.md
+     - kai-core-install.md
+     - kai-voice-system.md (optional, requires ElevenLabs)
 
-  2. Install the packs in order by asking your AI:
-     - "Install kai-hook-system pack"
-     - "Install kai-history-system pack"
-     - "Install kai-core-install pack"
-     - "Install kai-voice-system pack"
+  2. Restart Claude Code to activate hooks
 
-     Each pack is a markdown file in Packs/. Give it to your AI
-     and ask it to install - it contains all instructions.
-
-  3. Restart Claude Code to activate hooks
-
-Files created:
-  - ${paiDir}/Skills/CORE/SKILL.md
-  - ${paiDir}/Skills/CORE/Contacts.md
-  - ${paiDir}/Skills/CORE/CoreStack.md
+Your backup is at ~/.claude-BACKUP if you need to restore.
 `);
 
   } catch (error) {
