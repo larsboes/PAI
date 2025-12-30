@@ -22,7 +22,13 @@
 
 <br/>
 
-[**Browse Packs**](#-available-packs) · [**Browse Bundles**](#-available-bundles) · [**Quick Start**](#-quick-start) · [**Principles**](#the-14-founding-principles) · [**Community**](#-community)
+**Getting Started:** [What is PAI?](#what-is-pai) · [Quick Start](#-quick-start) · [14 Principles](#the-14-founding-principles)
+
+**Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
+
+**Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
+
+**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [Roadmap](#-roadmap)
 
 <br/>
 

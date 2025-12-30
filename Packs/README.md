@@ -31,7 +31,7 @@ The old approach was "here's my whole system—clone it and customize." That cre
 ## System Architecture
 
 <p align="center">
-  <img src="icons/pai-system-architecture.png" alt="PAI System Architecture" width="800">
+  <img src="icons/pai-system-architecture-v2.png" alt="PAI System Architecture" width="800">
 </p>
 
 **PAI organizes capabilities in a clear hierarchy:**
@@ -73,6 +73,7 @@ Each pack is a single markdown file containing everything needed to go from zero
 | [**kai-skill-system**](kai-skill-system.md) | 1.0.0 | Routing | [Kai](../Bundles/Kai/) | Capability routing through standardized SKILL.md format with dynamic loading |
 | [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | [Kai](../Bundles/Kai/) | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
 | [**kai-identity**](kai-identity.md) | 1.0.0 | Personality | [Kai](../Bundles/Kai/) | Personal AI identity with response format, calibration, constitution, and 14 principles |
+| [**kai-observability-server**](kai-observability-server.md) | 1.0.0 | Observability | [Kai](../Bundles/Kai/) | Real-time multi-agent monitoring dashboard with WebSocket streaming |
 
 ---
 
@@ -81,11 +82,12 @@ Each pack is a single markdown file containing everything needed to go from zero
 Packs have dependencies. Install in this order:
 
 ```
-1. kai-hook-system     ← Foundation (no dependencies)
-2. kai-history-system  ← Depends on hooks
-3. kai-skill-system    ← Depends on hooks, history
-4. kai-voice-system    ← Depends on hooks, skills
-5. kai-identity        ← Depends on all above
+1. kai-hook-system            ← Foundation (no dependencies)
+2. kai-history-system         ← Depends on hooks
+3. kai-observability-server   ← Depends on hooks
+4. kai-skill-system           ← Depends on hooks, history
+5. kai-voice-system           ← Depends on hooks, skills
+6. kai-identity               ← Depends on all above
 ```
 
 **Or install the complete [Kai Bundle](../Bundles/Kai/)** which handles ordering automatically.
@@ -121,6 +123,7 @@ Open any pack file and follow the "Installation" section step by step.
 |----------|---------|----------|
 | **Foundation** | Core infrastructure that other packs depend on | Hook System |
 | **Infrastructure** | Systems that run automatically in the background | History System |
+| **Observability** | Real-time monitoring and debugging tools | Observability Server |
 | **Routing** | Intent detection and capability dispatch | Skill System |
 | **Notifications** | User feedback and accessibility | Voice System |
 | **Personality** | Identity, response format, principles | Identity |
