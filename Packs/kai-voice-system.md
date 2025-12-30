@@ -1,7 +1,7 @@
 ---
 name: Kai Voice System
-pack-id: danielmiessler-kai-voice-system-core-v2.0.0
-version: 2.0.0
+pack-id: danielmiessler-kai-voice-system-core-v1.1.0
+version: 1.1.0
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
@@ -42,6 +42,8 @@ This Pack adds voice notifications to your AI infrastructure. The Kai Voice Syst
 When tasks complete, you hear the results. When agents finish work, they announce themselves. This transforms AI from a silent tool into an audible assistant.
 
 Please follow the installation instructions below to integrate this Pack into your infrastructure.
+
+**Quick Navigation:** [What's Included](#whats-included) | [The Problem](#the-concept-andor-problem) | [The Solution](#the-solution) | [Installation](#installation) | [Troubleshooting](#troubleshooting) | [Configuration](#configuration) | [Changelog](#changelog)
 
 ---
 
@@ -2781,8 +2783,9 @@ If the voice server is offline:
 
 ## Changelog
 
-### 1.1.0 - 2025-12-29
+### 1.1.0 - 2025-12-29 (Updated 2025-12-30)
 - **END-TO-END COMPLETE RELEASE**
+- Updated pack icon with new Kai Voice System design (cache-busted filename)
 - Added complete voice server implementation (server.ts)
 - Added server management scripts (install.sh, start.sh, stop.sh, restart.sh, status.sh)
 - Added macOS LaunchAgent auto-start configuration

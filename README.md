@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-2.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-8-purple?style=for-the-badge)](Packs/)
 [![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
@@ -28,7 +28,7 @@
 
 **Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
 
-**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [Roadmap](#-roadmap)
+**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [Roadmap](#-roadmap) · [Updates](#-update-history)
 
 <br/>
 
@@ -727,6 +727,41 @@ If you find it valuable:
 ## 📜 Update History
 
 <details open>
+<summary><strong>v2.1.0 (2025-12-30) — Pack Expansion & Polish</strong></summary>
+
+<br/>
+
+**New Packs Released**
+- **Kai Prompting Skill** (v1.0.0) - Meta-prompting system with templates, standards, and dynamic prompt generation
+- **Kai Agents Skill** (v1.0.0) - Dynamic agent composition with personality mapping and parallel orchestration
+
+**Pack Updates**
+- **Kai Voice System** - New pack icon with refined design (cache-busted for immediate updates)
+- **Kai Art Pack** (v1.1.0) - Multi-reference image support for complex visual compositions
+
+**Documentation & Quality**
+- Standardized authentication to single `$PAI_DIR/.env` location across all packs
+- Enhanced wizard clarity for installation flows (addressing #259, #260, #261)
+- Safer verification patterns for security hooks
+- Consistency pass across all pack documentation
+- Updated pack manifests with accurate dependencies
+
+**Infrastructure**
+- Reorganized Tools directory with AI usage guide
+- Added Tools README with icons and descriptions
+- Moved templates and diagnostic tools to centralized location
+
+**What's Different from v2.0?**
+
+v2.0 launched the Packs system. v2.1 expands and polishes it:
+- 8 feature packs now available with improved documentation
+- Better installation experience with clearer wizards
+- Unified authentication pattern (no more scattered .env files)
+- Professional pack icons for visual consistency
+
+</details>
+
+<details>
 <summary><strong>v2.0.0 (2025-12-28) — PAI Packs System Launch</strong></summary>
 
 <br/>
