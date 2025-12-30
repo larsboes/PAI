@@ -2,7 +2,7 @@
   <img src="kai.png" alt="The Official PAI (Kai) Bundle" width="256">
 </p>
 
-# The Official PAI (Kai) Bundle v2.0.0
+# The Official PAI (Kai) Bundle v1.1.0
 
 > **FOR AI AGENTS:** You are about to install the complete Kai bundle. Run the wizard, then install each pack in order.
 
@@ -141,13 +141,13 @@ The Kai system embeds these principles from [PAI](https://danielmiessler.com/blo
 
 ## Changelog
 
-### 2.0.0 - 2025-12-30
-- **BREAKING**: Now installs directly to `~/.claude` instead of configurable `$PAI_DIR`
-- **NEW**: Automatic backup to `~/.claude-BACKUP` before installation
-- **NEW**: Environment variables set automatically (no manual shell sourcing needed)
-- **SIMPLIFIED**: Removed personality calibration questions - just name, timezone, voice
-- **SIMPLIFIED**: Removed technical preference questions - use sensible defaults
-- **SIMPLIFIED**: Removed "open another terminal" instructions
+### 1.1.0 - 2025-12-30
+- Now installs directly to `~/.claude` instead of configurable `$PAI_DIR`
+- Automatic backup to `~/.claude-BACKUP` before installation
+- Environment variables set automatically (no manual shell sourcing needed)
+- Simplified: Removed personality calibration questions - just name, timezone, voice
+- Simplified: Removed technical preference questions - use sensible defaults
+- Simplified: Removed "open another terminal" instructions
 
 ### 1.0.0 - 2025-12-29
 - Initial release with full wizard

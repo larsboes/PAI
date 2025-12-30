@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Kai Bundle Installation Wizard v2.0.0
+ * Kai Bundle Installation Wizard v1.1.0
  *
  * Simplified interactive CLI wizard for setting up the Kai bundle.
  * Installs directly to ~/.claude with automatic backup.
@@ -311,7 +311,7 @@ async function main() {
 ║   ██║  ██╗██║  ██║██║    ██████╔╝╚██████╔╝██║ ╚████║██████╔╝███████╗
 ║   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚══════╝
 ║                                                                   ║
-║              Personal AI Infrastructure - v2.0.0                  ║
+║              Personal AI Infrastructure - v1.1.0                  ║
 ║                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════╝
   `);
