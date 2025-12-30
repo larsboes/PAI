@@ -567,6 +567,19 @@ PAI provides the scaffolding to make that generic AI *yours*:
 
 Think of it this way: Claude Code is the engine. PAI is everything else that makes it *your* car—the custom seat position, the saved radio stations, the GPS with your home address, the toolbox in the trunk.
 
+### Do I need to install everything?
+
+No—and that's the point. The mistake of PAI v1 (and many other agentic systems) was trying to install everything all at once in an all-or-nothing fashion. That creates fragile systems where one broken piece takes down the whole thing.
+
+PAI v2 is modular by design:
+
+- **Packs are independent** — Install one, install ten, install none. Each pack is self-contained.
+- **Start small** — Begin with the Hook System, add History when you want persistence, add Skills when you need routing
+- **No dependencies on the whole** — Each pack declares its dependencies explicitly. You install exactly what you need.
+- **Incremental adoption** — Use PAI alongside your existing setup. Migrate at your own pace.
+
+The best way to start: pick ONE pack that solves a problem you have today. Install it. Use it. Then decide if you want more.
+
 ### What's the difference between PAI and Anthropic's plugin system?
 
 Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your AI can use. It's powerful and PAI actually uses it under the hood.
