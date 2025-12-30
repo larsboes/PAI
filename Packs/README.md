@@ -84,6 +84,8 @@ For example, the Art Skill pack recommends having an extended conversation with 
 | [**kai-voice-system**](kai-voice-system.md) | 1.1.0 | Notifications | [Kai](../Bundles/Kai/) | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
 | [**kai-observability-server**](kai-observability-server.md) | 1.0.0 | Observability | [Kai](../Bundles/Kai/) | Real-time multi-agent monitoring dashboard with WebSocket streaming |
 | [**kai-art-skill**](kai-art-skill.md) | 1.0.0 | Creativity | [Kai](../Bundles/Kai/) | Visual content generation with Excalidraw hand-drawn aesthetic - diagrams, comics, illustrations |
+| [**kai-agents-skill**](kai-agents-skill.md) | 1.0.0 | Delegation | [Kai](../Bundles/Kai/) | Dynamic agent composition - create custom agents with unique personalities, voices, and trait combinations |
+| [**kai-prompting-skill**](kai-prompting-skill.md) | 1.0.0 | Methodology | [Kai](../Bundles/Kai/) | Meta-prompting system with Handlebars templates, Claude 4.x best practices, and the Ultimate Prompt Template |
 
 ---
 
@@ -94,9 +96,12 @@ Packs have dependencies. Install in this order:
 ```
 1. kai-hook-system            ← Foundation (no dependencies)
 2. kai-history-system         ← Depends on hooks
-3. kai-core-install           ← Depends on hooks, history (NEW - replaces skill-system + identity)
-4. kai-voice-system           ← Depends on hooks, core-install
-5. kai-observability-server   ← Optional, depends on hooks
+3. kai-core-install           ← Depends on hooks, history
+4. kai-prompting-skill        ← Depends on core-install
+5. kai-voice-system           ← Depends on hooks, core-install
+6. kai-agents-skill           ← Depends on core-install, optional voice-system
+7. kai-art-skill              ← Depends on core-install
+8. kai-observability-server   ← Optional, depends on hooks
 ```
 
 **Or install the complete [Kai Bundle](../Bundles/Kai/)** which handles ordering automatically.
@@ -152,6 +157,9 @@ See [.env.example](../.env.example) for the complete list of supported variables
 | **Routing** | Intent detection and capability dispatch | Skill System |
 | **Notifications** | User feedback and accessibility | Voice System |
 | **Personality** | Identity, response format, principles | Identity |
+| **Delegation** | Agent orchestration and parallel execution | Agents Skill |
+| **Creativity** | Visual and creative content generation | Art Skill |
+| **Methodology** | Prompt engineering and meta-prompting | Prompting Skill |
 
 ---
 
