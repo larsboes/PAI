@@ -462,17 +462,57 @@ async function main() {
     const coreStackMd = generateCoreStackMd(config);
     await Bun.write(`${claudeDir}/skills/CORE/CoreStack.md`, coreStackMd);
 
-    // Create .env file
+    // Create .env file (no quotes around values - .env format standard)
     console.log("Creating .env file...");
     const envFileContent = `# PAI Environment Configuration
 # Created by Kai Bundle installer - ${new Date().toISOString().split("T")[0]}
 
-DA="${config.daName}"
-TIME_ZONE="${config.timeZone}"
-${config.elevenLabsApiKey ? `ELEVENLABS_API_KEY="${config.elevenLabsApiKey}"` : "# ELEVENLABS_API_KEY="}
-${config.elevenLabsVoiceId ? `ELEVENLABS_VOICE_ID="${config.elevenLabsVoiceId}"` : "# ELEVENLABS_VOICE_ID="}
+DA=${config.daName}
+TIME_ZONE=${config.timeZone}
+${config.elevenLabsApiKey ? `ELEVENLABS_API_KEY=${config.elevenLabsApiKey}` : "# ELEVENLABS_API_KEY="}
+${config.elevenLabsVoiceId ? `ELEVENLABS_VOICE_ID=${config.elevenLabsVoiceId}` : "# ELEVENLABS_VOICE_ID="}
 `;
     await Bun.write(`${claudeDir}/.env`, envFileContent);
+
+    // Create settings.json with environment variables for Claude Code
+    // This ensures env vars are available immediately without shell sourcing
+    console.log("Creating settings.json...");
+    const settingsJson: Record<string, unknown> = {
+      env: {
+        DA: config.daName,
+        TIME_ZONE: config.timeZone,
+        PAI_DIR: claudeDir,
+        PAI_SOURCE_APP: config.daName,
+      },
+    };
+    if (config.elevenLabsApiKey) {
+      (settingsJson.env as Record<string, string>).ELEVENLABS_API_KEY = config.elevenLabsApiKey;
+    }
+    if (config.elevenLabsVoiceId) {
+      (settingsJson.env as Record<string, string>).ELEVENLABS_VOICE_ID = config.elevenLabsVoiceId;
+    }
+
+    // Check for existing settings.json and merge if present
+    const settingsPath = `${claudeDir}/settings.json`;
+    let existingSettings: Record<string, unknown> = {};
+    try {
+      const existingContent = await Bun.file(settingsPath).text();
+      existingSettings = JSON.parse(existingContent);
+    } catch {
+      // No existing settings.json, start fresh
+    }
+
+    // Merge env vars (preserve other settings like hooks)
+    const mergedSettings = {
+      ...existingSettings,
+      env: {
+        ...(existingSettings.env as Record<string, string> || {}),
+        ...(settingsJson.env as Record<string, string>),
+      },
+    };
+
+    await Bun.write(settingsPath, JSON.stringify(mergedSettings, null, 2) + "\n");
+    console.log("✓ Created settings.json with environment variables");
 
     // Add to shell profile
     console.log("Updating shell profile...");
@@ -530,6 +570,7 @@ Files created:
   - ~/.claude/skills/CORE/Contacts.md
   - ~/.claude/skills/CORE/CoreStack.md
   - ~/.claude/.env
+  - ~/.claude/settings.json (env vars for Claude Code)
 
 Next steps:
 
