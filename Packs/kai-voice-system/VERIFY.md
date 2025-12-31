@@ -1,5 +1,26 @@
 # Kai Voice System - Verification Checklist
 
+## 🚨 Platform Verification (FIRST)
+
+> **FOR AI AGENTS:** Run this check FIRST. If the OS check fails, the installation is NOT valid.
+
+```bash
+OS_TYPE="$(uname -s)"
+if [ "$OS_TYPE" = "Darwin" ]; then
+  echo "✓ Platform: macOS - fully supported"
+elif [ "$OS_TYPE" = "Linux" ]; then
+  echo "⚠️  Platform: Linux - requires code modifications"
+  echo "   Verify that afplay calls have been replaced with aplay/paplay/mpv"
+else
+  echo "❌ Platform: $OS_TYPE - NOT SUPPORTED"
+  echo "   Installation cannot be verified on this platform"
+fi
+```
+
+**If OS is not macOS:** User must confirm they have modified the audio playback commands.
+
+---
+
 ## Mandatory Completion Checklist
 
 **IMPORTANT:** All items must be verified before considering this pack installed.

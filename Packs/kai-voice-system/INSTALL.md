@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
-- **macOS**: Uses `afplay` for audio playback (Linux users need modification)
+- **macOS REQUIRED**: Uses `afplay` for audio playback (see platform note below)
 - **ElevenLabs account**: Sign up at [elevenlabs.io](https://elevenlabs.io)
 - **Required PAI Packs** (install these first):
   - `kai-hook-system` - Foundation hook infrastructure
@@ -11,9 +11,79 @@
 
 ---
 
+## 🚨 CRITICAL: Platform Compatibility Check
+
+> **FOR AI AGENTS:** You MUST run this check FIRST. If the user is on Linux or Windows, STOP and inform them before proceeding.
+
+### Step 0.0: Operating System Check (MANDATORY)
+
+```bash
+OS_TYPE="$(uname -s)"
+echo "Detected OS: $OS_TYPE"
+
+if [ "$OS_TYPE" = "Darwin" ]; then
+  echo "✓ macOS detected - Voice system is fully supported"
+elif [ "$OS_TYPE" = "Linux" ]; then
+  echo ""
+  echo "⚠️  WARNING: Linux detected"
+  echo ""
+  echo "The Kai Voice System currently requires macOS because:"
+  echo "  1. Uses 'afplay' for audio playback (macOS built-in)"
+  echo "  2. Uses LaunchAgent for auto-start (macOS only)"
+  echo ""
+  echo "Linux alternatives (requires code modification):"
+  echo "  - Replace 'afplay' with 'aplay', 'paplay', or 'mpv'"
+  echo "  - Replace LaunchAgent with systemd service"
+  echo ""
+  echo "Do you want to proceed anyway? (You'll need to modify the code)"
+  echo "If proceeding, you MUST manually replace audio playback commands."
+else
+  echo ""
+  echo "❌ UNSUPPORTED: $OS_TYPE detected"
+  echo "The Kai Voice System only supports macOS (and Linux with modifications)."
+  echo "Windows is not currently supported."
+fi
+```
+
+**AI Agent Instructions:**
+- If OS is macOS → Proceed with installation
+- If OS is Linux → Warn user, get explicit confirmation, note they must modify `afplay` calls
+- If OS is Windows → STOP, do not proceed, inform user it's unsupported
+
+---
+
+## Pre-Installation: Port Configuration
+
+### Step 0.1: Choose Voice Server Port
+
+The default port is **8888**. If this port is in use, choose an alternative.
+
+```bash
+# Check if default port 8888 is available
+if lsof -i :8888 > /dev/null 2>&1; then
+  echo "⚠️  Port 8888 is IN USE"
+  lsof -i :8888 | head -5
+  echo ""
+  echo "Options:"
+  echo "  1. Stop the service using port 8888"
+  echo "  2. Use a different port (set VOICE_SERVER_PORT in .env)"
+else
+  echo "✓ Port 8888 is available"
+fi
+```
+
+**To use a custom port:** Add to `$PAI_DIR/.env`:
+```bash
+VOICE_SERVER_PORT=8889  # or any available port
+```
+
+The voice server and hooks will automatically use this port if set.
+
+---
+
 ## Pre-Installation: System Analysis
 
-### Step 0.1: Verify Required Dependencies
+### Step 0.2: Verify Required Dependencies
 
 ```bash
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
@@ -43,7 +113,7 @@ else
 fi
 ```
 
-### Step 0.2: Check for Existing Voice System
+### Step 0.3: Check for Existing Voice System
 
 ```bash
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
@@ -63,7 +133,7 @@ else
 fi
 ```
 
-### Step 0.3: Stop Existing Voice Server (If Running)
+### Step 0.4: Stop Existing Voice Server (If Running)
 
 ```bash
 # Stop any running voice server

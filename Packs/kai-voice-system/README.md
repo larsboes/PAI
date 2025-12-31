@@ -1,12 +1,12 @@
 ---
 name: Kai Voice System
-pack-id: danielmiessler-kai-voice-system-core-v1.1.0
-version: 1.1.0
+pack-id: danielmiessler-kai-voice-system-core-v1.2.0
+version: 1.2.0
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
 purpose-type: [notifications, accessibility, automation]
-platform: claude-code
+platform: macos (linux with modifications)
 dependencies:
   - kai-hook-system (required) - Hooks trigger voice notifications
   - kai-core-install (required) - Skills, identity, and response format drive voice output
@@ -20,6 +20,18 @@ keywords: [voice, tts, elevenlabs, notifications, prosody, speech, agents, perso
 # Kai Voice System (kai-voice-system)
 
 > Voice notification system with natural speech synthesis and personality-driven delivery
+
+## 🚨 Platform Requirements
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| **macOS** | ✅ Fully Supported | Uses `afplay` (built-in) for audio playback |
+| **Linux** | ⚠️ Requires Modification | Must replace `afplay` with `aplay`, `paplay`, or `mpv` |
+| **Windows** | ❌ Not Supported | No current implementation |
+
+**Before installing:** The installation guide will check your OS and warn you if modifications are needed.
+
+---
 
 ## What This Pack Provides
 
