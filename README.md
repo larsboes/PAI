@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.0-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-2.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-8-purple?style=for-the-badge)](Packs/)
 [![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
@@ -833,6 +833,39 @@ If you find it valuable:
 ## 📜 Update History
 
 <details open>
+<summary><strong>v2.1.0 (2025-12-31) — Directory-Based Pack Structure</strong></summary>
+
+<br/>
+
+**Major Pack Format Change**
+- All 8 packs migrated from single markdown files to directory-based structure
+- New pack format: `README.md`, `INSTALL.md`, `VERIFY.md`, and `src/` directory
+- Source code now lives in real files (.ts, .yaml, .hbs) instead of embedded in markdown
+
+**Why This Matters**
+- Solves token limit issues (single files exceeded 28k tokens vs 25k limit)
+- Real code files can be linted, tested, and validated
+- AI agents copy actual files instead of extracting from markdown blocks
+- Eliminates "helpful simplification" where AI would reduce code complexity
+
+**Updated Documentation**
+- Packs/README.md updated with v2.0 structure documentation
+- Bundles/README.md updated with new pack format description
+- Bundles/Kai/README.md bumped to v2.0.0 with directory references
+
+**What Changed Per Pack**
+Each pack directory now contains:
+```
+pack-name/
+├── README.md      # Overview, architecture, what it solves
+├── INSTALL.md     # Step-by-step installation instructions
+├── VERIFY.md      # Mandatory verification checklist
+└── src/           # Actual source code files
+```
+
+</details>
+
+<details>
 <summary><strong>v2.0.1 (2025-12-30) — Pack Expansion & Polish</strong></summary>
 
 <br/>
