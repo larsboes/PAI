@@ -1073,6 +1073,10 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 
 **[IndyDevDan](https://www.youtube.com/@indydevdan)** — For great videos on meta-prompting and custom agents that have inspired parts of PAI.
 
+### Contributors
+
+**[fayerman-source](https://github.com/fayerman-source)** — Google Cloud TTS provider integration and Linux audio support for the voice system.
+
 ---
 
 <div align="center">
