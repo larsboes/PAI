@@ -71,9 +71,14 @@ AI agents systematically create "simplified" versions of pack implementations. I
 ## Quick Start
 
 ```bash
-# Run the installation wizard
+# Fresh install (with backup)
 bun run install.ts
+
+# Update existing installation (preserves config)
+bun run install.ts --update
 ```
+
+### Fresh Install
 
 The wizard will:
 1. **Detect existing AI systems** - Scans for Claude Code, Cursor, Windsurf, Cline, Aider, Continue
@@ -85,6 +90,21 @@ The wizard will:
 7. **Configure environment variables** automatically
 
 **Safety First:** The installer will not modify anything until you explicitly confirm. Your original files are always preserved in the backup.
+
+### Update Mode
+
+After pulling new changes from the repo, use `--update` to apply them without losing your configuration:
+
+```bash
+git pull
+bun run install.ts --update
+```
+
+Update mode will:
+- **Skip backup** - Your files stay in place
+- **Read existing config** - Uses your .env values as defaults
+- **Preserve customizations** - Hooks, history, and personal settings untouched
+- **Update infrastructure** - Only refreshes core skill files
 
 ---
 
