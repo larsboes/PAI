@@ -284,10 +284,70 @@ cat > ~/Library/LaunchAgents/com.pai.voice-server.plist << 'EOF'
 EOF
 
 # Replace YOUR_USERNAME with your actual username
-sed -i '' "s/YOUR_USERNAME/$USER/g" ~/Library/LaunchAgents/com.pai.voice-server.plist
+# Fallback if USER is undefined (edge case but deterministic)
+USERNAME="${USER:-$(whoami)}"
+
+if [ "$(uname -s)" = "Darwin" ]; then
+  sed -i '' "s/YOUR_USERNAME/${USERNAME}/g" ~/Library/LaunchAgents/com.pai.voice-server.plist
+else
+  sed -i "s/YOUR_USERNAME/${USERNAME}/g" ~/Library/LaunchAgents/com.pai.voice-server.plist
+fi
 
 # Load the agent
 launchctl load ~/Library/LaunchAgents/com.pai.voice-server.plist
+```
+
+### Linux (systemd user service)
+
+**Note:** Requires systemd (most modern distros have it)
+**WSL2 users:** Run `sudo systemctl enable --now systemd` first if systemd isn't enabled
+
+```bash
+mkdir -p ~/.config/systemd/user
+mkdir -p ~/.config/pai/voice-server  # Ensure log directory exists
+
+cat > ~/.config/systemd/user/pai-voice-server.service << 'EOF'
+[Unit]
+Description=PAI Voice Server
+After=network.target
+
+[Service]
+Type=simple
+# Use %h for home directory (systemd variable expansion)
+WorkingDirectory=%h/.config/pai/voice-server
+# Ensure log directory exists before starting
+ExecStartPre=/bin/mkdir -p %h/.config/pai/voice-server
+# Run server.ts from working directory
+ExecStart=%h/.bun/bin/bun run server.ts
+Restart=on-failure
+RestartSec=5
+# Logging
+StandardOutput=append:%h/.config/pai/voice-server/voice-server.log
+StandardError=append:%h/.config/pai/voice-server/voice-server.log
+# Environment (bun needs to find node_modules if any)
+Environment=PATH=%h/.bun/bin:/usr/local/bin:/usr/bin
+
+[Install]
+WantedBy=default.target
+EOF
+
+# Enable linger so service survives logout
+loginctl enable-linger $USER
+
+# Reload, enable, and start
+systemctl --user daemon-reload
+systemctl --user enable pai-voice-server.service
+systemctl --user start pai-voice-server.service
+
+# Verify it's running
+systemctl --user status pai-voice-server.service
+
+# Test the server responds
+curl http://localhost:8888/health
+
+echo "✓ Voice server will auto-start on boot"
+echo "  Control: systemctl --user {start|stop|restart|status} pai-voice-server.service"
+echo "  Logs: journalctl --user -u pai-voice-server.service -f"
 ```
 
 ---

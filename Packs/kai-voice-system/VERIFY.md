@@ -8,16 +8,20 @@
 OS_TYPE="$(uname -s)"
 if [ "$OS_TYPE" = "Darwin" ]; then
   echo "✓ Platform: macOS - fully supported"
+  echo "   Audio: afplay (built-in)"
 elif [ "$OS_TYPE" = "Linux" ]; then
-  echo "⚠️  Platform: Linux - requires code modifications"
-  echo "   Verify that afplay calls have been replaced with aplay/paplay/mpv"
+  echo "✓ Platform: Linux - fully supported"
+  echo "   Audio: mpg123 (preferred) or mpv"
+  if ! command -v mpg123 &> /dev/null && ! command -v mpv &> /dev/null; then
+    echo "   ⚠️  No audio player found. Install: sudo apt install mpg123"
+  fi
 else
   echo "❌ Platform: $OS_TYPE - NOT SUPPORTED"
   echo "   Installation cannot be verified on this platform"
 fi
 ```
 
-**If OS is not macOS:** User must confirm they have modified the audio playback commands.
+**Cross-platform note:** Voice server auto-detects audio players (macOS: afplay, Linux: mpg123/mpv).
 
 ---
 
