@@ -5,7 +5,12 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Ensure bun is in PATH
-export PATH="$HOME/.bun/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+# Only add Homebrew path if it exists (macOS-specific)
+if [ -d "/opt/homebrew/bin" ]; then
+  export PATH="$HOME/.bun/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+else
+  export PATH="$HOME/.bun/bin:/usr/local/bin:$PATH"
+fi
 
 case "${1:-}" in
     start)
