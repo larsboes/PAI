@@ -7,7 +7,7 @@ import { join } from 'path';
 import { homedir } from 'os';
 
 interface SessionData {
-  conversation_id: string;
+  session_id: string;
   timestamp: string;
   [key: string]: any;
 }
@@ -103,7 +103,7 @@ async function main() {
     const timestamp = now.toISOString().replace(/[-:]/g, '').split('.')[0];
     const yearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
 
-    const sessionInfo = await analyzeSession(data.conversation_id, yearMonth);
+    const sessionInfo = await analyzeSession(data.session_id, yearMonth);
     const filename = `${timestamp}_SESSION_${sessionInfo.focus}.md`;
 
     const sessionDir = join(historyDir, 'sessions', yearMonth);
@@ -114,13 +114,13 @@ async function main() {
     const sessionDoc = `---
 capture_type: SESSION
 timestamp: ${getLocalTimestamp()}
-session_id: ${data.conversation_id}
+session_id: ${data.session_id}
 executor: main
 ---
 
 # Session: ${sessionInfo.focus}
 
-**Session ID:** ${data.conversation_id}
+**Session ID:** ${data.session_id}
 **Ended:** ${getLocalTimestamp()}
 
 ---

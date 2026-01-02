@@ -86,7 +86,7 @@ interface ExistingConfig {
 }
 
 async function readExistingConfig(): Promise<ExistingConfig> {
-  const claudeDir = `${process.env.HOME}/.claude`;
+  const claudeDir = process.env.PAI_DIR || `${process.env.HOME}/.claude`;
   const config: ExistingConfig = {};
 
   // Try to read from .env file
