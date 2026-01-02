@@ -120,7 +120,7 @@ These principles guide how PAI systems are designed and built:
 **[Read the full breakdown of each principle →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
 
 #### 1. The Foundational Algorithm
-[![Foundational Algorithm](./pai-foundational-algorithm.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
+[![Foundational Algorithm](./pai-foundational-algorithm-v3.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
 PAI is built around a universal pattern: **Current State → Desired State** via verifiable iteration. This is the outer loop. The inner loop is the 7-phase scientific method (OBSERVE → THINK → PLAN → BUILD → EXECUTE → VERIFY → LEARN). The critical insight: verifiability is everything. If you can't measure whether you reached the desired state, you're just guessing.
 
 #### 2. Clear Thinking + Prompting is King
