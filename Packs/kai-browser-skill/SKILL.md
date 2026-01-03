@@ -9,150 +9,143 @@ description: Code-first browser automation and web verification. USE WHEN browse
 
 ---
 
-## 🔌 File-Based MCP
+## File-Based MCP
 
-This skill is a **file-based MCP** - a code-first API wrapper that replaces token-heavy MCP protocol calls.
+This skill is a **file-based MCP** - pre-written code that executes existing scripts, NOT generates new code.
 
 **Why file-based?** Filter data in code BEFORE returning to model context = 99%+ token savings.
 
-**Architecture:** See `$PAI_DIR/skills/CORE/SYSTEM/DOCUMENTATION/FileBasedMCPs.md`
-
 ---
 
-## Quick Start
+## STOP - CLI First, Always
+
+### The Wrong Pattern
+
+**DO NOT write new TypeScript code for simple browser tasks:**
 
 ```typescript
+// WRONG - Writing new code defeats the purpose of file-based MCPs
 import { PlaywrightBrowser } from '$PAI_DIR/skills/Browser/index.ts'
-
 const browser = new PlaywrightBrowser()
-await browser.launch()
+await browser.launch({ headless: true })
 await browser.navigate('https://example.com')
-await browser.screenshot({ path: 'screenshot.png' })
+await browser.screenshot({ path: '/tmp/shot.png' })
 await browser.close()
 ```
 
-**Why This Approach:**
-- MCP loads ~13,700 tokens at startup
-- Code-first loads ~50-200 tokens per operation
-- Full Playwright API access, not limited to 21 MCP tools
+**Problems with this approach:**
+- You're writing 5+ lines of boilerplate every time
+- You manage browser lifecycle manually
+- You duplicate what the CLI already does
+- You're generating new code instead of executing existing code
+
+### The Right Pattern
+
+**USE the CLI tool - it executes pre-written code:**
+
+```bash
+# RIGHT - One command, zero boilerplate
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot https://example.com /tmp/shot.png
+```
+
+**Benefits:**
+- One command, instant execution
+- Lifecycle handled automatically
+- Error handling built-in
+- TRUE file-based MCP pattern
 
 ---
 
-## Voice Notification
+## CLI Commands (Primary Interface)
 
-**When executing a Browser workflow, do BOTH:**
+**Location:** `$PAI_DIR/skills/Browser/Tools/Browse.ts`
 
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the Browser workflow"}' \
-     > /dev/null 2>&1 &
-   ```
+### screenshot - Take a screenshot
 
-2. **Output text notification**:
-   ```
-   Running the **Browser** workflow...
-   ```
+```bash
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot <url> [output-path]
+```
+
+**Examples:**
+```bash
+# Screenshot to default location
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot https://danielmiessler.com
+
+# Screenshot to specific file
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot https://example.com /tmp/example.png
+```
+
+### verify - Check element exists
+
+```bash
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify <url> <selector>
+```
+
+**Examples:**
+```bash
+# Verify body exists
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify https://example.com "body"
+
+# Verify specific element
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify https://danielmiessler.com "h1"
+
+# Verify by CSS selector
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify https://example.com ".main-content"
+```
+
+### open - Open URL in visible browser
+
+```bash
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts open <url>
+```
+
+**Examples:**
+```bash
+# Open site for manual inspection
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts open https://danielmiessler.com
+```
 
 ---
 
-## Workflow Routing
+## Decision Tree: When to Use What
 
-| Trigger | Workflow |
-|---------|----------|
-| Navigate to URL, take screenshot | `Workflows/Screenshot.md` |
-| Verify page loads correctly | `Workflows/VerifyPage.md` |
-| Fill forms, interact with page | `Workflows/Interact.md` |
-| Extract page content | `Workflows/Extract.md` |
-
----
-
-## API Reference
-
-### Navigation
-```typescript
-await browser.launch(options?)      // Start browser
-await browser.navigate(url)         // Go to URL
-await browser.goBack()              // History back
-await browser.goForward()           // History forward
-await browser.reload()              // Refresh
-browser.getUrl()                    // Current URL
-await browser.getTitle()            // Page title
-await browser.close()               // Shut down browser
+```
+                    What are you trying to do?
+                              |
+           ┌──────────────────┴──────────────────┐
+           ▼                                     ▼
+    ┌─────────────┐                      ┌─────────────┐
+    │   SIMPLE    │                      │   COMPLEX   │
+    │ Single task │                      │ Multi-step  │
+    └─────────────┘                      └─────────────┘
+           │                                     │
+           ▼                                     ▼
+    ┌─────────────┐                      ┌─────────────┐
+    │ • Screenshot│                      │ • Form fill │
+    │ • Verify    │                      │ • Auth flow │
+    │ • Open URL  │                      │ • Conditionals│
+    └─────────────┘                      └─────────────┘
+           │                                     │
+           ▼                                     ▼
+    ┌─────────────┐                      ┌─────────────┐
+    │ USE CLI     │                      │ USE WORKFLOW│
+    │ Browse.ts   │                      │ or API      │
+    └─────────────┘                      └─────────────┘
 ```
 
-### Capture
-```typescript
-await browser.screenshot({ path, fullPage, selector })
-await browser.getVisibleText(selector?)
-await browser.getVisibleHtml({ removeScripts, minify })
-await browser.savePdf(path, { format })
-await browser.getAccessibilityTree()
-```
+### Quick Reference
 
-### Network Monitoring
-```typescript
-browser.getNetworkLogs(options?)    // Get all network requests/responses
-browser.getNetworkStats()           // Get summary statistics
-browser.clearNetworkLogs()          // Clear captured logs
-```
+| Task | Use CLI? | Use TypeScript? |
+|------|----------|-----------------|
+| Take screenshot | YES | NO |
+| Verify element exists | YES | NO |
+| Open page visually | YES | NO |
+| Fill multi-field form | NO | YES (Workflow) |
+| Authentication flow | NO | YES (Workflow) |
+| Conditional logic | NO | YES (API) |
+| Multi-step interaction | NO | YES (Workflow) |
 
-### Dialog Handling
-```typescript
-browser.setDialogHandler(auto, response?)   // Configure auto-handling
-browser.getPendingDialog()                   // Get current dialog info
-await browser.handleDialog(action, promptText?)  // Handle dialog manually
-```
-
-### Tab Management
-```typescript
-browser.getTabs()                   // List all open tabs
-await browser.newTab(url?)          // Open new tab
-await browser.switchTab(index)      // Switch to tab by index
-await browser.closeTab()            // Close current tab
-```
-
-### Interaction
-```typescript
-await browser.click(selector)
-await browser.hover(selector)
-await browser.fill(selector, value)
-await browser.type(selector, text, delay?)
-await browser.select(selector, value)
-await browser.pressKey(key, selector?)
-await browser.drag(source, target)
-await browser.uploadFile(selector, path)
-```
-
-### Waiting
-```typescript
-await browser.waitForSelector(selector, { state, timeout })
-await browser.waitForText(text, { state, timeout })
-await browser.waitForNavigation({ url, timeout })
-await browser.waitForNetworkIdle(timeout?)
-await browser.wait(ms)
-await browser.waitForResponse(urlPattern)
-```
-
-### JavaScript
-```typescript
-await browser.evaluate(script)
-browser.getConsoleLogs({ type, search, limit, clear })
-await browser.setUserAgent(ua)
-```
-
-### Viewport
-```typescript
-await browser.resize(width, height)
-await browser.setDevice('iPhone 14')
-```
-
-### iFrame
-```typescript
-await browser.iframeClick(iframeSelector, elementSelector)
-await browser.iframeFill(iframeSelector, elementSelector, value)
-```
+**The Rule:** Can you describe it in ONE action? (screenshot, verify, open) → CLI
 
 ---
 
@@ -160,135 +153,114 @@ await browser.iframeFill(iframeSelector, elementSelector, value)
 
 **The Browser skill is MANDATORY for VERIFY phase of web changes.**
 
+### Using CLI for Verification
+
 Before claiming ANY web change is "live" or "working":
 
-1. Launch browser
-2. Navigate to the EXACT URL
-3. Verify the EXACT element that changed
-4. Take screenshot as evidence
-5. Close browser
+```bash
+# 1. Take screenshot of the changed page
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot https://example.com/changed-page /tmp/verify.png
 
-```typescript
-// VERIFY Phase Pattern
-import { PlaywrightBrowser } from '$PAI_DIR/skills/Browser/index.ts'
+# 2. Verify the specific element that changed
+bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify https://example.com/changed-page ".changed-element"
+```
 
-const browser = new PlaywrightBrowser()
-await browser.launch({ headless: true })
-await browser.navigate('https://example.com/changed-page')
-await browser.waitForSelector('.changed-element')
-const text = await browser.getVisibleText('.changed-element')
-await browser.screenshot({ path: '/tmp/verify.png' })
-await browser.close()
-
-console.log(`Verified: "${text}"`)
+**Then use the Read tool to view the screenshot:**
+```
+Read /tmp/verify.png
 ```
 
 **If you haven't LOOKED at the rendered page, you CANNOT claim it works.**
 
 ---
 
-## CLI Tool
+## Workflow Routing
 
-**Location:** `Tools/Browse.ts`
+For complex, multi-step tasks, use the pre-built workflows:
 
-```bash
-# Open URL in visible browser
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts open <url>
+| Trigger | Workflow |
+|---------|----------|
+| Fill forms, interact with page | `Workflows/Interact.md` |
+| Extract page content | `Workflows/Extract.md` |
+| Complex verification sequence | `Workflows/VerifyPage.md` |
+| Screenshot with custom options | `Workflows/Screenshot.md` |
 
-# Take screenshot
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot <url> [path]
-
-# Verify element exists
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify <url> <selector>
-```
-
-**Examples:**
-```bash
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts open https://danielmiessler.com
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot https://example.com /tmp/shot.png
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify https://example.com "body"
-```
+**Workflows use the TypeScript API internally but are pre-written.**
 
 ---
 
-## Examples
+## Advanced: TypeScript API
 
-### Verify Page Loads
+**Only use this for custom automation that CLI cannot handle.**
 
-```bash
-bun $PAI_DIR/skills/Browser/examples/verify-page.ts https://danielmiessler.com
-```
+Before using this API, ask yourself:
+1. Did I check if CLI can do this? (screenshot/verify/open)
+2. Is this a multi-step workflow? (not just one action)
+3. Do I need conditional logic between actions?
 
-### Take Screenshot
+**If you answered NO to all, use the CLI instead.**
 
-```bash
-bun $PAI_DIR/skills/Browser/examples/screenshot.ts https://example.com screenshot.png
-```
-
-### Fill Form
+### Quick Start (Advanced Users Only)
 
 ```typescript
+import { PlaywrightBrowser } from '$PAI_DIR/skills/Browser/index.ts'
+
 const browser = new PlaywrightBrowser()
-await browser.launch()
-await browser.navigate('https://example.com/form')
-await browser.fill('#email', 'test@example.com')
-await browser.fill('#password', 'secret')
-await browser.click('button[type="submit"]')
-await browser.waitForNavigation()
+await browser.launch({ headless: true })
+await browser.navigate('https://example.com')
+// ... custom logic here ...
 await browser.close()
 ```
 
+### API Reference
+
+**Navigation:**
+- `launch(options?)` - Start browser
+- `navigate(url)` - Go to URL
+- `goBack()` / `goForward()` - History navigation
+- `reload()` - Refresh page
+- `close()` - Shut down browser
+
+**Capture:**
+- `screenshot({ path, fullPage, selector })` - Take screenshot
+- `getVisibleText(selector?)` - Extract text
+- `getVisibleHtml(options)` - Get HTML
+- `savePdf(path)` - Export PDF
+- `getAccessibilityTree()` - A11y snapshot
+
+**Interaction:**
+- `click(selector)` - Click element
+- `fill(selector, value)` - Fill input
+- `type(selector, text, delay?)` - Type with delay
+- `select(selector, value)` - Select dropdown
+- `pressKey(key)` - Keyboard input
+- `hover(selector)` - Mouse hover
+- `drag(source, target)` - Drag and drop
+- `uploadFile(selector, path)` - File upload
+
+**Waiting:**
+- `waitForSelector(selector, options)` - Wait for element
+- `waitForText(text, options)` - Wait for text
+- `waitForNavigation(options)` - Wait for page load
+- `waitForNetworkIdle(timeout?)` - Wait for idle
+- `wait(ms)` - Fixed delay
+
+**JavaScript:**
+- `evaluate(script)` - Run JS
+- `getConsoleLogs(options)` - Get console output
+- `setUserAgent(ua)` - Change user agent
+
+**Viewport:**
+- `resize(width, height)` - Set size
+- `setDevice(name)` - Emulate device
+
 ---
 
-## Alternative Implementations (Reference Only)
-
-### Option A: Playwright MCP (Microsoft Official)
-```bash
-# npx @playwright/mcp@latest
-# 25K GitHub stars, uses accessibility tree
-# Pro: Official Microsoft support, well-maintained
-# Con: 13,700 tokens at startup
-```
-
-### Option B: Chrome DevTools MCP (Google Official)
-```bash
-# npx @anthropic/chrome-devtools-mcp
-# Best debugging capabilities, CDP protocol
-# Pro: Deep browser internals access
-# Con: Chrome-only, complex setup
-```
-
-### Option C: claude --chrome (Native Anthropic)
-```bash
-# claude --chrome
-# Simplest option - built into Claude Code
-# Pro: Zero configuration, native integration
-# Con: Limited API compared to Playwright
-```
-
-### Option D: Stagehand (Browserbase)
-```bash
-# npx stagehand
-# 19.9K stars, won Anthropic hackathon
-# Pro: AI-native actions (act, extract, observe)
-# Con: Emerging, less mature than Playwright
-```
-
----
-
-## Token Savings Comparison
+## Token Savings
 
 | Approach | Tokens | Notes |
 |----------|--------|-------|
 | Playwright MCP | ~13,700 | Loaded at startup, always |
-| Code-first | ~50-200 | Only what you use |
-| **Savings** | **99%+** | Per operation |
-
----
-
-## Full Documentation
-
-**CLI Tool:** `Tools/Browse.ts`
-**Implementation:** `README.md`
-**API Reference:** `index.ts`
-**Examples:** `examples/`
+| CLI tool | ~0 | Executes pre-written code |
+| TypeScript API | ~50-200 | Only what you write |
+| **CLI Savings** | **99%+** | Compared to MCP |

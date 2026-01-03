@@ -1,7 +1,7 @@
 ---
 name: Kai Browser Skill
-pack-id: danielmiessler-kai-browser-skill-v1.0.0
-version: 1.0.0
+pack-id: danielmiessler-kai-browser-skill-v1.1.0
+version: 1.1.0
 author: danielmiessler
 description: Code-first browser automation replacing Playwright MCP with 99% token savings. Navigate, screenshot, interact, and verify web pages.
 type: skill
@@ -355,6 +355,14 @@ await browser.screenshot({
 ---
 
 ## Changelog
+
+### v1.1.0 (2026-01-03)
+- **CLI-first redesign** - Documentation now emphasizes CLI tool over TypeScript API
+- Added "STOP - CLI First, Always" anti-pattern section
+- Added decision tree for CLI vs TypeScript routing
+- VERIFY phase examples now use CLI commands
+- TypeScript API renamed to "Advanced" and moved to bottom
+- Clearer guidance on when to use each approach
 
 ### v1.0.0 (2026-01-03)
 - Initial release
