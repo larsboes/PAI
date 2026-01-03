@@ -12,7 +12,7 @@ keywords: [browser, playwright, automation, screenshot, web-testing, verificatio
 ---
 
 <p align="center">
-  <img src="icons/kai-browser-skill.png" alt="Kai Browser Skill" width="256">
+  <img src="kai-browser-skill/icons/kai-browser-skill.png" alt="Kai Browser Skill" width="256">
 </p>
 
 # Kai Browser Skill (kai-browser-skill)
