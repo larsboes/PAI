@@ -97,6 +97,8 @@ Please follow the installation instructions below to integrate this Pack into yo
 
 ## The Concept and/or Problem
 
+> **Reference:** Anthropic's engineering blog post [Code execution with MCP: Building more efficient agents](https://www.anthropic.com/engineering/code-execution-with-mcp) details how file-based MCPs can reduce token usage by 98%+.
+
 AI agents need browser automation for:
 
 - Verifying web deployments actually work
@@ -141,7 +143,7 @@ For a session with 5 screenshots:
 
 ## The Solution
 
-**File-based MCP** - code-first execution with on-demand loading:
+**File-based MCP** - code-first execution with on-demand loading, as described in [Anthropic's MCP code execution approach](https://www.anthropic.com/engineering/code-execution-with-mcp):
 
 ```typescript
 import { PlaywrightBrowser } from '$PAI_DIR/skills/Browser/index.ts'
