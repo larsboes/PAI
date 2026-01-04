@@ -2,6 +2,22 @@
 
 **Creates custom agents with unique personalities and voice IDs using AgentFactory.**
 
+---
+
+## Pre-flight Checklist (MANDATORY)
+
+**STOP! Before proceeding, you MUST complete this checklist:**
+
+- [ ] I understand I must run `AgentFactory.ts` via Bash
+- [ ] I will NOT manually compose prompts from Traits.yaml
+- [ ] I will capture JSON output and use the `prompt` field verbatim
+- [ ] I will use `subagent_type: "general-purpose"` (NEVER "Intern")
+- [ ] Each agent will have DIFFERENT trait combinations
+
+**⚠️ VIOLATION: If you skip AgentFactory, you are NOT creating custom agents.**
+
+---
+
 ## When to Use
 
 User says:
@@ -20,12 +36,36 @@ Extract from user's request:
 - What's the task?
 - Are specific traits mentioned?
 
-### Step 2: Run AgentFactory for EACH Agent with DIFFERENT Traits
+### Step 1.5: Choose Traits (RECOMMENDED) or Infer from Task
 
-**CRITICAL: Each agent MUST have different trait combinations for unique voices.**
+**⚠️ RECOMMENDED: Use explicit `--traits` for precise control**
+
+Trait inference is convenient but may produce unexpected results for ambiguous tasks.
+
+| Approach | Precision | Example |
+|----------|-----------|---------|
+| **Explicit** ✅ | High - you control exactly which traits | `--traits "technical,meticulous,systematic"` |
+| **Inference** ⚠️ | Low - keywords may match wrong expertise | `--task "TypeScript transformation"` (might infer wrong traits) |
+
+**When to use explicit traits:**
+- Technical/programming tasks (avoid false matches with legal/medical)
+- When you need specific personality/approach combinations
+- When voice diversity matters
+
+**When inference is OK:**
+- Task description has very clear domain keywords
+- You're comfortable with defaults (analytical + thorough)
+
+**Pro tip:** Run `bun run AgentFactory.ts --list` to see all available traits before choosing.
+
+### Step 2: Run AgentFactory for EACH Agent (MANDATORY)
+
+**⚠️ THIS STEP IS NOT OPTIONAL - YOU MUST EXECUTE AGENTFACTORY.TS VIA BASH**
+
+**RECOMMENDED: Use explicit `--traits` parameter**
 
 ```bash
-# Example for 3 custom research agents:
+# REQUIRED: Run for EACH agent with DIFFERENT traits
 
 # Agent 1 - Enthusiastic Explorer
 bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
@@ -45,6 +85,27 @@ bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
   --task "Research quantum computing" \
   --output json
 ```
+
+**Alternative (inference - less precise):**
+```bash
+# AgentFactory will infer traits from task description
+bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+  --task "Research quantum computing with enthusiastic exploration" \
+  --output json
+```
+
+**What AgentFactory returns (JSON output):**
+```json
+{
+  "name": "Research Specialist Enthusiastic Exploratory",
+  "traits": ["research", "enthusiastic", "exploratory"],
+  "voice": "Energetic",
+  "voice_id": "muSxG4dqYjBCkbpXqbEl",
+  "prompt": "... full agent prompt ..."
+}
+```
+
+**You MUST use the `prompt` field from this output in your Task call.**
 
 ### Step 3: Launch Agents in Parallel
 

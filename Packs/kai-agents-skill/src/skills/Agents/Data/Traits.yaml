@@ -99,6 +99,28 @@ expertise:
       - database
       - infrastructure
       - software
+      - script
+      - bash
+      - shell
+      - POSIX
+      - programming
+      - TypeScript
+      - JavaScript
+      - Python
+      - Java
+      - Rust
+      - Go
+      - error
+      - development
+      - transform
+      - conversion
+      - CLI
+      - function
+      - class
+      - module
+      - procedure
+      - refactor
+      - test
 
   research:
     name: "Research Specialist"
