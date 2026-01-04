@@ -10,7 +10,12 @@
  *   bun run AgentFactory.ts --traits "security,skeptical,thorough"
  *   bun run AgentFactory.ts --list
  *
- * @version 1.0.0
+ * @version 1.1.0
+ *
+ * Changelog v1.1.0:
+ * - Expanded technical keywords (bash, TypeScript, POSIX, error handling, etc.)
+ * - Improved error messages showing available traits on invalid input
+ * - Fixed: Explicit --traits now override inference (no longer merge)
  */
 
 import { parseArgs } from "util";
@@ -295,11 +300,10 @@ EXAMPLES:
 
   if (values.traits) {
     traitKeys = values.traits.split(",").map((t) => t.trim().toLowerCase());
-  }
-
-  if (values.task) {
+  } else if (values.task) {
+    // Only infer from task if explicit traits NOT provided
     const inferred = inferTraitsFromTask(values.task, traits);
-    traitKeys = [...new Set([...traitKeys, ...inferred])];
+    traitKeys = [...new Set(inferred)];
   }
 
   if (traitKeys.length === 0) {
@@ -314,7 +318,12 @@ EXAMPLES:
   ];
   const invalidTraits = traitKeys.filter((t) => !allTraitKeys.includes(t));
   if (invalidTraits.length > 0) {
-    console.error(`Error: Unknown traits: ${invalidTraits.join(", ")}`);
+    console.error(`Error: Unknown traits: ${invalidTraits.join(", ")}\n`);
+    console.error("Available traits:");
+    console.error("  EXPERTISE:   " + Object.keys(traits.expertise).join(", "));
+    console.error("  PERSONALITY: " + Object.keys(traits.personality).join(", "));
+    console.error("  APPROACH:    " + Object.keys(traits.approach).join(", "));
+    console.error('\nRun with --list to see full trait descriptions');
     process.exit(1);
   }
 
