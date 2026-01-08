@@ -91,6 +91,8 @@ The crucial insight: **verifiability is everything**. Most people skip VERIFY. T
 
 Every PAI skill, every workflow, every task implements this algorithm.
 
+> **Coming Soon:** The Universal Algorithm will be released as a standalone Skill Pack with full tooling—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking. It will be included in the Kai Bundle.
+
 ### Where Are You on the Journey?
 
 See the **[Personal AI Maturity Model (PAIMM)](https://danielmiessler.com/blog/personal-ai-maturity-model)**—a 9-tier progression from basic chatbots to a full AI companion.
