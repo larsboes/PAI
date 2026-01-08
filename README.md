@@ -22,13 +22,13 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Quick Start](#-quick-start)
+**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Packs & Bundles](#packs--bundles) · [Quick Start](#-quick-start)
 
-**Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [AI Installation](#ai-first-installation-philosophy) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
+**Installation:** [AI-First Philosophy](#ai-first-installation-philosophy) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles)
 
 **Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
 
-**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [Roadmap](#-roadmap) · [Updates](#-update-history)
+**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [v1 → v2 Journey](#the-journey-pai-v1x--v20) · [Updates](#-update-history)
 
 <br/>
 
@@ -123,45 +123,16 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 
 ---
 
-## The Journey: PAI v1.x → v2.0
+## Packs & Bundles
 
-**PAI v1.x** attempted to mirror my entire personal AI system (Kai) as an installable template. The idea was simple: "Here's everything I built - clone it and customize."
+PAI capabilities are distributed as **Packs**—self-contained, AI-installable modules that add specific capabilities to your system.
 
-**The problem:** It didn't work. The system was a Jenga tower of interconnected dependencies. Change one piece, and three others broke. Users couldn't easily adopt parts without understanding the whole. Updates were a nightmare because everything was coupled.
+- **Packs** are individual capabilities (e.g., History System, Voice Notifications, Browser Automation)
+- **Bundles** are curated collections of packs that work together (e.g., the Kai Bundle)
 
-**PAI v2.0** takes a fundamentally different approach: **modular packs**.
+Each pack includes everything needed: code, workflows, installation instructions, and verification tests. Your AI reads the pack and installs it into your system—no manual copying required.
 
-Instead of "here's my whole system," it's "here are battle-tested capabilities you can install independently." Each pack is:
-- **Self-contained** - Works without understanding the rest of the system
-- **Independently installable** - Add what you need, skip what you don't
-- **Platform-agnostic** - Works with Claude Code, OpenCode, or custom systems
-- **AI-installable** - Your AI can read the pack and set it up for you
-
-The packs are extracted from Kai - real capabilities that have been running in production. They're not theoretical examples. They're the actual tools and systems I use daily, packaged for others to adopt.
-
----
-
-<div align="center">
-
-# PAI v2.0: PAI Packs
-
-</div>
-
-**PAI Packs** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix - each pack is a complete, tested capability that you can download into your system.
-
-**PAI Packs provide** self-contained bundles with everything your AI needs to implement a specific capability:
-
-- **The problem** being solved
-- **The solution** and how it works
-- **All code** (tools, CLIs, scripts)
-- **Workflows** (step-by-step processes)
-- **Context files** (guidelines, aesthetics, specifications)
-- **Examples** and usage patterns
-- **Installation instructions** (for both AI and manual)
-- **Testing procedures**
-- **Troubleshooting guides**
-
-**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
+**[Browse Available Packs →](#-available-packs)** · **[Browse Bundles →](#-available-bundles)**
 
 ---
 
@@ -894,6 +865,44 @@ If you find it valuable:
 - [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things) — The vision behind PAI
 - [AI's Predictable Path: 7 Components](https://danielmiessler.com/blog/ai-predictable-path-7-components-2024) — Visual walkthrough of where AI is heading
 - [Building a Personal AI Infrastructure](https://danielmiessler.com/blog/personal-ai-infrastructure) — Full PAI walkthrough with examples
+
+---
+
+## The Journey: PAI v1.x → v2.0
+
+**PAI v1.x** attempted to mirror my entire personal AI system (Kai) as an installable template. The idea was simple: "Here's everything I built - clone it and customize."
+
+**The problem:** It didn't work. The system was a Jenga tower of interconnected dependencies. Change one piece, and three others broke. Users couldn't easily adopt parts without understanding the whole. Updates were a nightmare because everything was coupled.
+
+**PAI v2.0** takes a fundamentally different approach: **modular packs**.
+
+Instead of "here's my whole system," it's "here are battle-tested capabilities you can install independently." Each pack is:
+- **Self-contained** - Works without understanding the rest of the system
+- **Independently installable** - Add what you need, skip what you don't
+- **Platform-agnostic** - Works with Claude Code, OpenCode, or custom systems
+- **AI-installable** - Your AI can read the pack and set it up for you
+
+The packs are extracted from Kai—real capabilities that have been running in production. They're not theoretical examples. They're the actual tools and systems I use daily, packaged for others to adopt.
+
+---
+
+## Deep Dive: How PAI Packs Work
+
+**PAI Packs** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix—each pack is a complete, tested capability that you can download into your system.
+
+**Each pack provides** everything your AI needs to implement a specific capability:
+
+- **The problem** being solved
+- **The solution** and how it works
+- **All code** (tools, CLIs, scripts)
+- **Workflows** (step-by-step processes)
+- **Context files** (guidelines, aesthetics, specifications)
+- **Examples** and usage patterns
+- **Installation instructions** (for both AI and manual)
+- **Testing procedures**
+- **Troubleshooting guides**
+
+**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
 
 ---
 
