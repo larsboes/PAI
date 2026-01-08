@@ -168,15 +168,15 @@ PAI System
 
 | Pack | Version | Category | Description |
 |------|---------|----------|-------------|
-| [**kai-hook-system**](kai-hook-system/) | 1.0.0 | Foundation | Event-driven automation framework - the foundation for all hook-based capabilities |
-| [**kai-history-system**](kai-history-system/) | 1.0.0 | Infrastructure | Granular context-tracking that captures all work, decisions, and learnings automatically |
-| [**kai-core-install**](kai-core-install/) | 1.0.0 | Core | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
-| [**kai-voice-system**](kai-voice-system/) | 1.1.0 | Notifications | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
-| [**kai-observability-server**](kai-observability-server/) | 1.0.0 | Observability | Real-time multi-agent monitoring dashboard with WebSocket streaming |
-| [**kai-art-skill**](kai-art-skill/) | 1.0.0 | Creativity | Visual content generation with Excalidraw hand-drawn aesthetic - diagrams, comics, illustrations |
-| [**kai-agents-skill**](kai-agents-skill/) | 1.0.0 | Delegation | Dynamic agent composition - create custom agents with unique personalities, voices, and trait combinations |
-| [**kai-prompting-skill**](kai-prompting-skill/) | 1.0.0 | Methodology | Meta-prompting system with Handlebars templates, Claude 4.x best practices, and the Ultimate Prompt Template |
-| [**kai-browser-skill**](kai-browser-skill/) | 1.2.0 | Automation | Debug-first browser automation with Playwright - always-on diagnostics, session auto-start, 99% token savings |
+| [**pai-hook-system**](pai-hook-system/) | 1.0.0 | Foundation | Event-driven automation framework - the foundation for all hook-based capabilities |
+| [**pai-history-system**](pai-history-system/) | 1.0.0 | Infrastructure | Granular context-tracking that captures all work, decisions, and learnings automatically |
+| [**pai-core-install**](pai-core-install/) | 1.0.0 | Core | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
+| [**pai-voice-system**](pai-voice-system/) | 1.1.0 | Notifications | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
+| [**pai-observability-server**](pai-observability-server/) | 1.0.0 | Observability | Real-time multi-agent monitoring dashboard with WebSocket streaming |
+| [**pai-art-skill**](pai-art-skill/) | 1.0.0 | Creativity | Visual content generation with Excalidraw hand-drawn aesthetic - diagrams, comics, illustrations |
+| [**pai-agents-skill**](pai-agents-skill/) | 1.0.0 | Delegation | Dynamic agent composition - create custom agents with unique personalities, voices, and trait combinations |
+| [**pai-prompting-skill**](pai-prompting-skill/) | 1.0.0 | Methodology | Meta-prompting system with Handlebars templates, Claude 4.x best practices, and the Ultimate Prompt Template |
+| [**pai-browser-skill**](pai-browser-skill/) | 1.2.0 | Automation | Debug-first browser automation with Playwright - always-on diagnostics, session auto-start, 99% token savings |
 
 ---
 
@@ -185,15 +185,15 @@ PAI System
 Packs have dependencies. Install in this order:
 
 ```
-1. kai-hook-system            ← Foundation (no dependencies)
-2. kai-history-system         ← Depends on hooks
-3. kai-core-install           ← Depends on hooks, history
-4. kai-prompting-skill        ← Depends on core-install
-5. kai-voice-system           ← Depends on hooks, core-install
-6. kai-agents-skill           ← Depends on core-install, optional voice-system
-7. kai-art-skill              ← Depends on core-install
-8. kai-browser-skill          ← Optional, standalone (only needs Bun + Playwright)
-9. kai-observability-server   ← Optional, depends on hooks
+1. pai-hook-system            ← Foundation (no dependencies)
+2. pai-history-system         ← Depends on hooks
+3. pai-core-install           ← Depends on hooks, history
+4. pai-prompting-skill        ← Depends on core-install
+5. pai-voice-system           ← Depends on hooks, core-install
+6. pai-agents-skill           ← Depends on core-install, optional voice-system
+7. pai-art-skill              ← Depends on core-install
+8. pai-browser-skill          ← Optional, standalone (only needs Bun + Playwright)
+9. pai-observability-server   ← Optional, depends on hooks
 ```
 
 **Or install the complete [Kai Bundle](../Bundles/Kai/)** which handles ordering automatically.
@@ -207,7 +207,7 @@ Packs have dependencies. Install in this order:
 Give the pack directory to your AI agent:
 
 ```
-Install the kai-hook-system pack from PAI/Packs/kai-hook-system/.
+Install the pai-hook-system pack from PAI/Packs/pai-hook-system/.
 Use PAI_DIR="~/.config/pai" and DA="MyAI".
 ```
 
@@ -290,7 +290,7 @@ Every pack in this directory must be:
 
 If you have existing single-file packs:
 
-1. Create directory with pack name (e.g., `kai-hook-system/`)
+1. Create directory with pack name (e.g., `pai-hook-system/`)
 2. Extract frontmatter and overview sections to `README.md`
 3. Extract installation steps to `INSTALL.md`
 4. Extract verification steps to `VERIFY.md`

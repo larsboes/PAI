@@ -112,7 +112,7 @@ The crucial insight: **verifiability is everything**. Most people skip VERIFY. T
 
 Every PAI skill, every workflow, every task implements this algorithm.
 
-> **Coming Soon:** The Universal Algorithm will be released as a standalone Skill Pack with full tooling—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking. It will be included in the Kai Bundle.
+> **Coming Soon:** The Universal Algorithm will be released as a standalone Skill Pack with full tooling—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking. It will be included in the PAI Bundle.
 
 ### Where Are You on the Journey?
 
@@ -273,7 +273,7 @@ $PAI_DIR/skills/CORE/
 │   ├── TECHSTACK.md   # Your preferences
 │   └── SECURITY.md    # Your security rules
 └── SYSTEM/            # PAI infrastructure
-    ├── ARCHITECTURE.md
+    ├── PAISYSTEMARCHITECTURE.md
     ├── MEMORYSYSTEM.md
     ├── THEHOOKSYSTEM.md
     └── ...
@@ -335,7 +335,7 @@ PAI doesn't force you into a structure. Everything is customizable at the level 
 PAI capabilities are distributed as **Packs**—self-contained, AI-installable modules that add specific capabilities to your system.
 
 - **Packs** are individual capabilities (e.g., History System, Voice Notifications, Browser Automation)
-- **Bundles** are curated collections of packs that work together (e.g., the Kai Bundle)
+- **Bundles** are curated collections of packs that work together (e.g., the PAI Bundle)
 
 Each pack includes everything needed: code, workflows, installation instructions, and verification tests. Your AI reads the pack and installs it into your system—no manual copying required.
 
@@ -418,7 +418,7 @@ The core mechanism that makes PAI work is the **Hook System**. Claude Code has a
 The installation is a two-phase process: **Bootstrapping** (Manual) and **Pack Installation** (AI-Driven).
 
 **Phase 1: Bootstrapping (The `install.ts` script)**
-The user runs `bun run Bundles/Kai/install.ts`. This script **does not** install the full system. Instead, it:
+The user runs `bun run Bundles/Official/install.ts`. This script **does not** install the full system. Instead, it:
 1.  **Creates Directory Structure**: Sets up `~/.claude/` (or `$PAI_DIR`) with folders for `skills`, `hooks`, `history`, etc.
 2.  **Generates Config Files**: Creates `SKILL.md`, `Contacts.md`, and `CoreStack.md` with user preferences (name, timezone).
 3.  **Sets Environment Variables**: Updates `.zshrc` or `.bashrc` with `DA` (Assistant Name), `PAI_DIR`, etc.
@@ -428,7 +428,7 @@ The user runs `bun run Bundles/Kai/install.ts`. This script **does not** install
 
 **Phase 2: Pack Installation (AI-Driven)**
 The user is instructed to "give each pack file to your AI". This is where the actual installation happens.
-1.  **User Action**: The user pastes the content of a pack file (e.g., `Packs/kai-hook-system.md`) into Claude Code.
+1.  **User Action**: The user pastes the content of a pack file (e.g., `Packs/pai-hook-system.md`) into Claude Code.
 2.  **AI Execution**: The pack file contains natural language instructions and code blocks. The AI reads these instructions and:
     *   **Writes Files**: Creates the TypeScript hook files (e.g., `hooks/security-validator.ts`) and skill definitions.
     *   **Configures System**: Updates `settings.json` to register the new hooks.
@@ -452,14 +452,14 @@ Here is what happens when you use PAI:
     *   `hooks/security-validator.ts` runs. It checks if `touch blog.md` is safe.
     *   If safe (Exit Code 0), the command runs.
     *   If unsafe (Exit Code 1+), the command is blocked.
-6.  **Completion**: The AI finishes the task and updates its memory (via `kai-history-system` hooks).
+6.  **Completion**: The AI finishes the task and updates its memory (via `pai-history-system` hooks).
 
 ### 5. Key Components
 
-*   **`kai-hook-system`**: The engine room. Provides the event bus and security layer.
-*   **`kai-core-install`**: The brain. Defines the "CORE" skill, identity, and routing logic.
-*   **`kai-history-system`**: The memory. Captures session data and learnings.
-*   **`kai-voice-system`**: (Optional) Adds voice capabilities via ElevenLabs.
+*   **`pai-hook-system`**: The engine room. Provides the event bus and security layer.
+*   **`pai-core-install`**: The brain. Defines the "CORE" skill, identity, and routing logic.
+*   **`pai-history-system`**: The memory. Captures session data and learnings.
+*   **`pai-voice-system`**: (Optional) Adds voice capabilities via ElevenLabs.
 
 ---
 
@@ -469,7 +469,7 @@ Here is what happens when you use PAI:
 
 | Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| [**Kai History System**](Packs/kai-history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
+| [**PAI History System**](Packs/pai-history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
 
 ### Skills (Action-Oriented Capabilities)
 
@@ -499,7 +499,7 @@ Here is what happens when you use PAI:
 
 | Bundle | Description | Packs | Tier |
 |--------|-------------|-------|------|
-| [**Kai Bundle**](Bundles/Kai/) | The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production system | 5 | Complete |
+| [**PAI Bundle**](Bundles/Official/) | The official PAI bundle - complete personal AI infrastructure extracted from Daniel Miessler's production system | 5 | Complete |
 
 ### Why Bundles?
 
@@ -509,13 +509,13 @@ Here is what happens when you use PAI:
 - **Complete experience** - Everything needed for a specific goal
 - **Interactive wizard** - Guided setup with conflict detection
 
-**The Kai Bundle** is the flagship bundle. Installing all its packs recreates the PAI v1.0 "mirrored system" experience - but through modular, maintainable packs instead of a monolithic copy.
+**The PAI Bundle** is the flagship bundle. Installing all its packs recreates the PAI v1.0 "mirrored system" experience - but through modular, maintainable packs instead of a monolithic copy.
 
 **Quick install:**
 ```bash
 # Clone the repo and run the interactive wizard
 git clone https://github.com/danielmiessler/PAI.git
-cd PAI/Bundles/Kai && bun run install.ts
+cd PAI/Bundles/Official && bun run install.ts
 ```
 
 [**Learn more about bundles →**](Bundles/)
@@ -526,14 +526,14 @@ cd PAI/Bundles/Kai && bun run install.ts
 
 > **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. You can read this README to understand how PAI works with its Packs and Bundles. A recommended approach: evaluate the entire system, then interact with your principal and ask them which Bundles or Packs they'd like to install—give them options based on their needs. From there, you should be able to read any Bundle or Pack file (including new ones as they're released) and guide your principal on whether they want to install it.
 
-### Option 1: Install the Complete Kai Bundle (Recommended)
+### Option 1: Install the Complete PAI Bundle (Recommended)
 
 The fastest way to get started is with the interactive bundle wizard:
 
 ```bash
 # Clone the repo
 git clone https://github.com/danielmiessler/PAI.git
-cd PAI/Bundles/Kai
+cd PAI/Bundles/Official
 
 # Run the interactive wizard
 bun run install.ts
@@ -1001,7 +1001,7 @@ No. That was the mistake of PAI v1.x—trying to install everything at once.
 PAI v2.0 is modular by design:
 - **Start with one pack** — History System is a good first choice
 - **Add more as needed** — Each pack is independent
-- **Use the Kai Bundle** if you want the full experience (but even that installs one pack at a time)
+- **Use the PAI Bundle** if you want the full experience (but even that installs one pack at a time)
 - **Cherry-pick** — Read a pack, extract the ideas, adapt them yourself
 
 There's no "all or nothing." Take what's useful, leave the rest.
@@ -1130,7 +1130,7 @@ The packs are extracted from Kai—real capabilities that have been running in p
 **Updated Documentation**
 - Packs/README.md updated with v2.0 structure documentation
 - Bundles/README.md updated with new pack format description
-- Bundles/Kai/README.md bumped to v2.0.0 with directory references
+- Bundles/Official/README.md bumped to v2.0.0 with directory references
 
 **What Changed Per Pack**
 Each pack directory now contains:
@@ -1190,7 +1190,7 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 - Platform-agnostic design: works with Claude Code, OpenCode, Gemini Code, GPT-Codex, or custom systems
 
 **First Pack Released**
-- **Kai History System** (v1.0.0) - Automatic context-tracking for entire AI infrastructure
+- **PAI History System** (v1.0.0) - Automatic context-tracking for entire AI infrastructure
 - Complete implementation: 4 hooks, 3 library files, settings.json configuration
 
 **New Documentation**

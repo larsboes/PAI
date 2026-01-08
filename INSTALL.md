@@ -94,17 +94,17 @@ Explain the concepts of Bundles and Packs:
 > Bundles are curated collections of packs that work well together. Instead of choosing packs one-by-one, a bundle gives you a complete, tested experience.
 
 **Ask: How would you like to proceed?**
-- **Install the Kai Bundle** (Recommended) — The complete PAI experience with all core capabilities
+- **Install the PAI Bundle** (Recommended) — The complete PAI experience with all core capabilities
 - **Browse individual packs** — Choose specific capabilities you want
 - **Minimal install** — Just the basics to get started
 
 ---
 
-#### Phase 4: The Kai Bundle (If Selected)
+#### Phase 4: The PAI Bundle (If Selected)
 
-If they chose the Kai Bundle, explain what's included:
+If they chose the PAI Bundle, explain what's included:
 
-**The Kai Bundle includes:**
+**The PAI Bundle includes:**
 
 | Pack | What It Does |
 |------|--------------|
@@ -114,7 +114,7 @@ If they chose the Kai Bundle, explain what's included:
 | **Voice System** | Spoken notifications via text-to-speech |
 | **Browser Skill** | Web automation for testing and verification |
 
-**Ask: Ready to install the Kai Bundle?**
+**Ask: Ready to install the PAI Bundle?**
 - Yes, install everything
 - Tell me more about each pack first
 - I want to customize which packs to include
@@ -131,11 +131,11 @@ For each pack being installed:
 4. **Confirm success** before moving to the next pack
 
 **Installation order matters.** Install in this sequence:
-1. kai-hook-system (foundation)
-2. kai-core-install (identity and routing)
-3. kai-history-system (memory)
-4. kai-voice-system (optional)
-5. kai-browser-skill (optional)
+1. pai-hook-system (foundation)
+2. pai-core-install (identity and routing)
+3. pai-history-system (memory)
+4. pai-voice-system (optional)
+5. pai-browser-skill (optional)
 
 ---
 
@@ -180,8 +180,8 @@ If you prefer to install PAI yourself without AI assistance:
 git clone https://github.com/danielmiessler/PAI.git
 cd PAI
 
-# Run the Kai Bundle installer
-cd Bundles/Kai
+# Run the PAI Bundle installer
+cd Bundles/Official
 bun run install.ts
 ```
 
@@ -197,7 +197,7 @@ Each pack in `Packs/` has its own installation:
 
 ```bash
 # Example: Install just the history system
-cd Packs/kai-history-system
+cd Packs/pai-history-system
 # Read INSTALL.md and follow instructions
 # Or give the directory to your AI
 ```
