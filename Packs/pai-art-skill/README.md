@@ -11,7 +11,11 @@ dependencies: []
 keywords: [art, visualization, diagrams, comics, excalidraw, hand-drawn, technical-diagrams, image-generation, illustrations, dark-mode]
 ---
 
-# Kai Art Skill
+<p align="center">
+  <img src="../icons/pai-art-skill.png" alt="PAI Art Skill" width="256">
+</p>
+
+# PAI Art Skill
 
 > Visual content generation system with Excalidraw hand-drawn aesthetic - technical diagrams, comics, and editorial illustrations with consistent dark-mode styling
 

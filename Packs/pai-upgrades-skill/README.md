@@ -13,6 +13,10 @@ dependencies:
 keywords: [upgrades, anthropic, claude-code, monitoring, changelog, youtube, release-notes, research, automation]
 ---
 
+<p align="center">
+  <img src="../icons/pai-upgrades-skill.png" alt="PAI Upgrades Skill" width="256">
+</p>
+
 # PAI Upgrades Skill (pai-upgrades-skill)
 
 > Stay ahead of Claude Code, MCP, and Anthropic ecosystem updates. Monitor 30+ official sources and AI development YouTube channels, then get prioritized recommendations for your system.

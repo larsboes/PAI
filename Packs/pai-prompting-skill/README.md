@@ -13,7 +13,11 @@ dependencies:
 keywords: [prompting, templates, handlebars, meta-prompting, prompt-engineering, fabric, claude-4, context-engineering, templating]
 ---
 
-# Kai Prompting Skill (pai-prompting-skill)
+<p align="center">
+  <img src="../icons/pai-prompting-skill.png" alt="PAI Prompting Skill" width="256">
+</p>
+
+# PAI Prompting Skill (pai-prompting-skill)
 
 > Prompts that write prompts. Meta-prompting enables dynamic composition where structure is fixed but content is parameterized.
 

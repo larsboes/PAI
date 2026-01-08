@@ -11,7 +11,11 @@ dependencies: [pai-hook-system]
 keywords: [observability, dashboard, monitoring, agents, websocket, streaming, events, debugging, visualization, real-time]
 ---
 
-# Kai Observability Server
+<p align="center">
+  <img src="../icons/pai-observability-server-v2.png" alt="PAI Observability Server" width="256">
+</p>
+
+# PAI Observability Server
 
 > Real-time multi-agent activity monitoring dashboard - see exactly what your AI agents are doing as they work
 

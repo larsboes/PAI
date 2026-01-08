@@ -11,7 +11,11 @@ dependencies: [danielmiessler-core-install-core-v1.0.0]
 keywords: [agents, delegation, parallel, traits, personalities, voice, composition, dynamic, factory, custom, orchestration, subagents]
 ---
 
-# Kai Agents Skill
+<p align="center">
+  <img src="../icons/agents-skill.png" alt="PAI Agents Skill" width="256">
+</p>
+
+# PAI Agents Skill
 
 > Dynamic agent composition system - create specialized agents with unique personalities and voices, composed from traits on-the-fly
 
