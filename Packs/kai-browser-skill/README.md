@@ -1,3 +1,20 @@
+---
+name: Kai Browser Skill
+pack-id: danielmiessler-browser-skill-core-v1.2.0
+version: 1.2.0
+author: danielmiessler
+description: Debug-first browser automation with always-on visibility - console/network capture by default, session auto-start, 99% token savings over MCP
+type: skill
+purpose-type: [automation, testing, verification, browser-automation]
+platform: claude-code
+dependencies: []
+keywords: [browser, playwright, automation, screenshot, web-testing, verification, debug, diagnostics, session, mcp-replacement]
+---
+
+<p align="center">
+  <img src="icons/kai-browser-skill-v3.png" alt="Kai Browser Skill" width="256">
+</p>
+
 # Browser Skill v1.2.0
 
 **Debug-first browser automation with always-on visibility.**
