@@ -46,7 +46,7 @@ The most powerful AI systems are being built inside companies for companies. The
 
 **Everyone deserves that.**
 
-PAI exists to democratize access to world-class AI infrastructure. Not a chatbot. Not a generic assistant. A *system* that helps you become your best self—one that understands your goals, remembers your context, and improves at helping *you* specifically.
+PAI exists to democratize access to world-class AI infrastructure. Not a chatbot. Not a generic assistant. A [*system* that helps you become your best self](https://danielmiessler.com/blog/personal-ai-maturity-model)—one that understands your goals, remembers your context, and improves at helping *you* specifically.
 
 This is open-source. This is free. This is for everyone.
 
