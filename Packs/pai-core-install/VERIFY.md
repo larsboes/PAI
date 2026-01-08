@@ -40,7 +40,7 @@
 - [ ] `$PAI_DIR/skills/CORE/Workflows/UpdateDocumentation.md` exists
 - [ ] `$PAI_DIR/skills/CreateSkill/SKILL.md` exists
 
-### USER/ Files (v1.1.0)
+### USER/ Files (v1.1.0, updated v1.3.0)
 
 - [ ] `$PAI_DIR/skills/CORE/USER/README.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/BASICINFO.md` exists
@@ -48,7 +48,6 @@
 - [ ] `$PAI_DIR/skills/CORE/USER/IDENTITY.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/TECHSTACKPREFERENCES.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/ASSETMANAGEMENT.md` exists
-- [ ] `$PAI_DIR/skills/CORE/USER/SECURITYSYSTEM.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/DEFINITIONS.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/CORECONTENT.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/RESUME.md` exists
@@ -57,6 +56,18 @@
 - [ ] `$PAI_DIR/skills/CORE/USER/ART.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/ABOUTME.md` exists
 - [ ] `$PAI_DIR/skills/CORE/USER/TELOS.md` exists
+
+### PAISECURITYSYSTEM/ Files (v1.3.0)
+
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/` directory exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/README.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/ARCHITECTURE.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/patterns.yaml` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/PROMPTINJECTION.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/COMMANDINJECTION.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/PROJECTRULES.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/REPOSITORIES.md` exists
+- [ ] `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/QUICKREF.md` exists
 
 ### SYSTEM/ Files (v1.1.0)
 
@@ -110,12 +121,23 @@ ls -la $PAI_DIR/Tools/
 
 ```bash
 ls $PAI_DIR/skills/CORE/USER/ | wc -l
-# Expected: 15 (files)
+# Expected: 15 (14 files + 1 directory: PAISECURITYSYSTEM/)
 
 ls $PAI_DIR/skills/CORE/USER/
 # Expected: README.md BASICINFO.md CONTACTS.md IDENTITY.md TECHSTACKPREFERENCES.md
-#           ASSETMANAGEMENT.md SECURITYSYSTEM.md DEFINITIONS.md CORECONTENT.md
+#           ASSETMANAGEMENT.md DEFINITIONS.md CORECONTENT.md PAISECURITYSYSTEM/
 #           RESUME.md REMINDERS.md ALGOPREFS.md ART.md ABOUTME.md TELOS.md
+```
+
+### Test 2b: Verify PAISECURITYSYSTEM/ Directory (v1.3.0)
+
+```bash
+ls $PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/ | wc -l
+# Expected: 8 (files)
+
+ls $PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/
+# Expected: README.md ARCHITECTURE.md patterns.yaml PROMPTINJECTION.md
+#           COMMANDINJECTION.md PROJECTRULES.md REPOSITORIES.md QUICKREF.md
 ```
 
 ### Test 3: Verify SYSTEM/ Directory
@@ -283,9 +305,18 @@ echo ""
 echo "👤 USER/ Files:"
 USER_COUNT=$(ls "$PAI_CHECK/skills/CORE/USER/" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$USER_COUNT" -ge 15 ]; then
-  echo "  ✓ USER/ directory has $USER_COUNT files (expected: 15)"
+  echo "  ✓ USER/ directory has $USER_COUNT items (expected: 15 = 14 files + 1 dir)"
 else
-  echo "  ⚠️  USER/ directory has $USER_COUNT files (expected: 15)"
+  echo "  ⚠️  USER/ directory has $USER_COUNT items (expected: 15)"
+fi
+
+# Check PAISECURITYSYSTEM/ files (v1.3.0)
+echo "🔒 PAISECURITYSYSTEM/ Files:"
+SECURITY_COUNT=$(ls "$PAI_CHECK/skills/CORE/USER/PAISECURITYSYSTEM/" 2>/dev/null | wc -l | tr -d ' ')
+if [ "$SECURITY_COUNT" -ge 8 ]; then
+  echo "  ✓ PAISECURITYSYSTEM/ directory has $SECURITY_COUNT files (expected: 8)"
+else
+  echo "  ⚠️  PAISECURITYSYSTEM/ directory has $SECURITY_COUNT files (expected: 8)"
 fi
 
 # Check SYSTEM/ files
@@ -352,11 +383,12 @@ Installation is complete when:
 
 1. ✅ All directory structure items are checked
 2. ✅ All core files are present
-3. ✅ All 15 USER/ files are present
-4. ✅ All 17 SYSTEM/ files are present
-5. ✅ All 12 MEMORY/ items present (11 directories + README.md)
-6. ✅ settings.json or settings.json.template exists
-7. ✅ All tools are installed
-8. ✅ `bun run $PAI_DIR/Tools/SkillSearch.ts --list` returns skill list
-9. ✅ `bun run $PAI_DIR/Tools/PaiArchitecture.ts check` shows healthy status
-10. ✅ Documentation headers are present in USER/ and SYSTEM/ files
+3. ✅ All 14 USER/ files are present (+ 1 PAISECURITYSYSTEM/ directory)
+4. ✅ All 8 PAISECURITYSYSTEM/ files are present
+5. ✅ All 17 SYSTEM/ files are present
+6. ✅ All 12 MEMORY/ items present (11 directories + README.md)
+7. ✅ settings.json or settings.json.template exists
+8. ✅ All tools are installed
+9. ✅ `bun run $PAI_DIR/Tools/SkillSearch.ts --list` returns skill list
+10. ✅ `bun run $PAI_DIR/Tools/PaiArchitecture.ts check` shows healthy status
+11. ✅ Documentation headers are present in USER/, PAISECURITYSYSTEM/, and SYSTEM/ files

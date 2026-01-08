@@ -167,6 +167,7 @@ fi
     {"content": "Create MEMORY/ structure", "status": "pending", "activeForm": "Creating MEMORY structure"},
     {"content": "Install settings.json template", "status": "pending", "activeForm": "Installing settings template"},
     {"content": "Install USER/ templates", "status": "pending", "activeForm": "Installing USER/ templates"},
+    {"content": "Install PAISECURITYSYSTEM/ templates", "status": "pending", "activeForm": "Installing PAISECURITYSYSTEM/ templates"},
     {"content": "Install SYSTEM/ templates", "status": "pending", "activeForm": "Installing SYSTEM/ templates"},
     {"content": "Install tools", "status": "pending", "activeForm": "Installing tools"},
     {"content": "Install CORE skill", "status": "pending", "activeForm": "Installing CORE skill"},
@@ -260,7 +261,6 @@ Copy all files from `src/skills/CORE/USER/` to `$PAI_DIR/skills/CORE/USER/`:
 | `src/skills/CORE/USER/IDENTITY.md` | `$PAI_DIR/skills/CORE/USER/IDENTITY.md` |
 | `src/skills/CORE/USER/TECHSTACKPREFERENCES.md` | `$PAI_DIR/skills/CORE/USER/TECHSTACKPREFERENCES.md` |
 | `src/skills/CORE/USER/ASSETMANAGEMENT.md` | `$PAI_DIR/skills/CORE/USER/ASSETMANAGEMENT.md` |
-| `src/skills/CORE/USER/SECURITYSYSTEM.md` | `$PAI_DIR/skills/CORE/USER/SECURITYSYSTEM.md` |
 | `src/skills/CORE/USER/DEFINITIONS.md` | `$PAI_DIR/skills/CORE/USER/DEFINITIONS.md` |
 | `src/skills/CORE/USER/CORECONTENT.md` | `$PAI_DIR/skills/CORE/USER/CORECONTENT.md` |
 | `src/skills/CORE/USER/RESUME.md` | `$PAI_DIR/skills/CORE/USER/RESUME.md` |
@@ -272,7 +272,32 @@ Copy all files from `src/skills/CORE/USER/` to `$PAI_DIR/skills/CORE/USER/`:
 
 **Mark todo as completed.**
 
-### 4.5 Install SYSTEM/ Templates
+### 4.5 Install PAISECURITYSYSTEM/ Templates (v1.3.0)
+
+**Mark todo "Install PAISECURITYSYSTEM/ templates" as in_progress.**
+
+Create the security directory and copy all files:
+
+```bash
+mkdir -p $PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM
+```
+
+Copy all files from `src/skills/CORE/USER/PAISECURITYSYSTEM/`:
+
+| Source | Destination |
+|--------|-------------|
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/README.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/README.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/ARCHITECTURE.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/ARCHITECTURE.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/patterns.yaml` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/patterns.yaml` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/PROMPTINJECTION.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/PROMPTINJECTION.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/COMMANDINJECTION.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/COMMANDINJECTION.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/PROJECTRULES.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/PROJECTRULES.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/REPOSITORIES.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/REPOSITORIES.md` |
+| `src/skills/CORE/USER/PAISECURITYSYSTEM/QUICKREF.md` | `$PAI_DIR/skills/CORE/USER/PAISECURITYSYSTEM/QUICKREF.md` |
+
+**Mark todo as completed.**
+
+### 4.6 Install SYSTEM/ Templates (renumbered)
 
 **Mark todo "Install SYSTEM/ templates" as in_progress.**
 

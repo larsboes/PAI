@@ -1,9 +1,9 @@
 ---
 name: PAI Core Install
-pack-id: danielmiessler-pai-core-install-v1.2.0
-version: 1.2.0
+pack-id: danielmiessler-pai-core-install-v1.3.0
+version: 1.3.0
 author: danielmiessler
-description: Complete PAI core installation - skill routing, identity system, USER/SYSTEM configuration, MEMORY structure, and settings template. The foundation pack that makes everything else work.
+description: Complete PAI core installation - skill routing, identity system, USER/SYSTEM configuration, MEMORY structure, security system, and settings template. The foundation pack that makes everything else work.
 type: feature
 purpose-type: [productivity, automation, development]
 platform: claude-code
@@ -59,7 +59,15 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 - **Source Annotations**: Each hook marked with source pack (pai-hook-system, pai-history-system)
 - **Environment Variables**: PAI_DIR, token limits, timeouts
 
-**Part 6: Architecture Tracking**
+**Part 6: Security System** (NEW in v1.3.0)
+- **PAISECURITYSYSTEM/ Directory**: 8-file comprehensive security architecture
+- **Three-Layer Model**: settings.json permissions → SecurityValidator hook → RecoveryJournal hook
+- **patterns.yaml**: Single source of truth for security rules (blocked, confirm, alert)
+- **Prompt Injection Defense**: Protocol for handling external content attacks
+- **Command Injection Prevention**: Shell safety and input validation patterns
+- **Repository Separation**: Private vs public repo management
+
+**Part 7: Architecture Tracking**
 - **PAI Architecture.md**: Auto-generated tracking of installed packs, bundles, plugins
 - **Upgrade History**: Running record of all changes to your PAI system
 - **System Health**: Status checks for all installed components
@@ -79,7 +87,11 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 │  │   ├── IDENTITY.md       # AI name and personality            │
 │  │   ├── TECHSTACKPREFERENCES.md  # Tech preferences            │
 │  │   ├── ASSETMANAGEMENT.md       # Digital assets              │
-│  │   ├── SECURITYSYSTEM.md        # Security protocols          │
+│  │   ├── PAISECURITYSYSTEM/       # Security architecture (v1.3.0)│
+│  │   │   ├── README.md     # Security overview                  │
+│  │   │   ├── ARCHITECTURE.md # Three-layer model                │
+│  │   │   ├── patterns.yaml # Security rules                     │
+│  │   │   └── ...           # More security docs                 │
 │  │   └── ...               # More user config                   │
 │  └── SYSTEM/               # System architecture (v1.1.0)       │
 │      ├── PAISYSTEMARCHITECTURE.md  # 15 Founding Principles     │
@@ -140,7 +152,7 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 | CreateSkill skill | `src/skills/CreateSkill/SKILL.md` | Meta-skill for creating skills |
 | UpdateDocumentation | `src/skills/CORE/Workflows/UpdateDocumentation.md` | Architecture refresh workflow |
 
-### USER/ Templates (v1.1.0)
+### USER/ Templates (v1.1.0, updated v1.3.0)
 
 | File | Purpose |
 |------|---------|
@@ -150,7 +162,6 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 | `IDENTITY.md` | AI name and personality configuration |
 | `TECHSTACKPREFERENCES.md` | Tech stack preferences |
 | `ASSETMANAGEMENT.md` | Digital assets registry |
-| `SECURITYSYSTEM.md` | Security protocols |
 | `DEFINITIONS.md` | Canonical definitions |
 | `CORECONTENT.md` | Essential content registry |
 | `RESUME.md` | Professional background |
@@ -159,6 +170,19 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 | `ART.md` | Visual style guidelines |
 | `ABOUTME.md` | Personal background |
 | `TELOS.md` | Life operating system |
+
+### PAISECURITYSYSTEM/ Templates (v1.3.0)
+
+| File | Purpose |
+|------|---------|
+| `README.md` | Security system overview and philosophy |
+| `ARCHITECTURE.md` | Three-layer security model |
+| `patterns.yaml` | Security rules (blocked, confirm, alert) |
+| `PROMPTINJECTION.md` | Prompt injection defense protocol |
+| `COMMANDINJECTION.md` | Shell safety and input validation |
+| `PROJECTRULES.md` | Project-specific security rules |
+| `REPOSITORIES.md` | Private vs public repo separation |
+| `QUICKREF.md` | Quick reference card |
 
 ### SYSTEM/ Templates (v1.1.0)
 
@@ -191,11 +215,12 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 | `PaiArchitecture.ts` | Generate architecture tracking |
 
 **Summary:**
-- **USER/ files:** 15 templates
+- **USER/ files:** 14 templates
+- **PAISECURITYSYSTEM/ files:** 8 templates (directory-based security)
 - **SYSTEM/ files:** 17 templates
 - **MEMORY/ directories:** 11 skeleton directories
 - **Config files:** 1 (settings.json.template)
-- **Total files created:** 55+
+- **Total files created:** 62+
 - **Hooks registered:** 0 (uses hook system from pai-hook-system)
 - **Dependencies:** pai-hook-system (required), pai-history-system (optional)
 
@@ -230,6 +255,17 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 - **pai-voice-system** - Response format drives voice output
 
 ## Changelog
+
+### 1.3.0 - 2026-01-08
+- **NEW: PAISECURITYSYSTEM/** - 8-file directory-based security architecture replacing SECURITYSYSTEM.md
+- Three-layer security model (settings.json → SecurityValidator → RecoveryJournal)
+- patterns.yaml for centralized security rules (blocked, confirm, alert levels)
+- Prompt injection defense protocol
+- Command injection and shell safety guide
+- Repository separation (private vs public) documentation
+- Project-specific security rules template
+- Quick reference card for common security questions
+- Removed single-file SECURITYSYSTEM.md (superseded by PAISECURITYSYSTEM/)
 
 ### 1.2.0 - 2026-01-08
 - **NEW: MEMORY/ skeleton** - 11-directory structure for session history, learnings, state
