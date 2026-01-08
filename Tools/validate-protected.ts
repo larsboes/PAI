@@ -78,6 +78,74 @@ function checkForbiddenDirectories(stagedFiles: string[], manifest: ProtectedMan
   return violations;
 }
 
+function scanAllFilesForSensitiveContent(stagedFiles: string[], manifest: ProtectedManifest): {
+  file: string;
+  violations: string[];
+}[] {
+  const results: { file: string; violations: string[] }[] = [];
+  const patternCategory = manifest.protected.protected_patterns;
+
+  if (!patternCategory || !patternCategory.patterns) {
+    return results;
+  }
+
+  const exceptions = patternCategory.exception_files || [];
+
+  for (const file of stagedFiles) {
+    // Skip exception files
+    if (exceptions.includes(file)) {
+      continue;
+    }
+
+    const fullPath = join(PAI_ROOT, file);
+
+    // Skip if file doesn't exist (might be deleted)
+    if (!existsSync(fullPath)) {
+      continue;
+    }
+
+    // Skip binary files
+    try {
+      const content = readFileSync(fullPath, 'utf-8');
+      const violations: string[] = [];
+
+      for (const pattern of patternCategory.patterns) {
+        try {
+          const regex = new RegExp(pattern, 'gi');
+          const matches = content.match(regex);
+
+          if (matches) {
+            // Get line numbers for context
+            const lines = content.split('\n');
+            const matchingLines: number[] = [];
+            lines.forEach((line, idx) => {
+              if (regex.test(line)) {
+                matchingLines.push(idx + 1);
+              }
+              regex.lastIndex = 0; // Reset regex state
+            });
+
+            const lineInfo = matchingLines.length > 0
+              ? ` (lines: ${matchingLines.slice(0, 3).join(', ')}${matchingLines.length > 3 ? '...' : ''})`
+              : '';
+            violations.push(`Sensitive pattern "${pattern}"${lineInfo}`);
+          }
+        } catch {
+          // Invalid regex, skip
+        }
+      }
+
+      if (violations.length > 0) {
+        results.push({ file, violations });
+      }
+    } catch {
+      // Binary file or read error, skip
+    }
+  }
+
+  return results;
+}
+
 function getAllProtectedFiles(manifest: ProtectedManifest): string[] {
   const files: string[] = [];
 
@@ -201,6 +269,35 @@ async function main() {
       console.log('  3. Add to .gitignore if needed\n');
       process.exit(1);
     }
+
+    // Scan ALL staged files for sensitive content
+    console.log(`\n${YELLOW}Scanning ${stagedFiles.length} staged file(s) for sensitive content...${RESET}\n`);
+    const sensitiveResults = scanAllFilesForSensitiveContent(stagedFiles, manifest);
+
+    if (sensitiveResults.length > 0) {
+      console.log(`${RED}🚫 SENSITIVE CONTENT DETECTED${RESET}\n`);
+      for (const result of sensitiveResults) {
+        console.log(`${RED}❌${RESET} ${result.file}`);
+        for (const violation of result.violations) {
+          console.log(`   ${RED}→${RESET} ${violation}`);
+        }
+      }
+      console.log('\n' + '='.repeat(60));
+      console.log(`\n${RED}🚫 COMMIT BLOCKED${RESET}\n`);
+      console.log('Files contain sensitive content that must NOT be in public PAI:');
+      console.log('  - API keys, tokens, secrets');
+      console.log('  - Personal information (emails, contacts, family)');
+      console.log('  - Customer/confidential data');
+      console.log('  - Private file paths');
+      console.log('\n' + YELLOW + 'To fix:' + RESET);
+      console.log('  1. Remove or redact the sensitive content');
+      console.log('  2. Use placeholder values (e.g., "your_api_key_here")');
+      console.log('  3. Add file to exception_files if it\'s intentional\n');
+      process.exit(1);
+    }
+
+    console.log(`${GREEN}✅ No sensitive content found in staged files${RESET}\n`);
+    console.log('='.repeat(60));
 
     filesToCheck = allProtectedFiles.filter(f => stagedFiles.includes(f));
 
