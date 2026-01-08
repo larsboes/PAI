@@ -22,7 +22,7 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [Quick Start](#-quick-start) · [15 Principles](#the-15-founding-principles)
+**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-founding-principles) · [Quick Start](#-quick-start)
 
 **Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [AI Installation](#ai-first-installation-philosophy) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
 
@@ -59,124 +59,65 @@ Every goal—whether it's fixing a bug, writing a book, building a company, or f
 We didn't invent this pattern. Evolution uses it. Science uses it. Every successful human endeavor uses it. We just made it explicit and built tools around it.
 
 **PAI is three things:**
-- **A universal pattern** - Two nested loops that apply to any goal, at any scale
+- **A universal algorithm** - Current → Ideal via verifiable iteration, at any scale
 - **Personal infrastructure** - Skills, memory, and context that make AI actually useful for *your* life
 - **Open-source packs** - Battle-tested capabilities anyone can install or contribute
 
 ---
 
-## The Two Loops
+## The Algorithm
 
-At the foundation of PAI is a simple observation: all progress—personal, professional, civilizational—follows the same two nested loops.
+At the foundation of PAI is a universal pattern: **Current State → Ideal State** via verifiable iteration.
 
-### The Outer Loop: Where You Are → Where You Want to Be
+This isn't two separate loops—it's one unified algorithm that works at every scale:
+- **Fixing a typo** — Current: wrong word. Ideal: right word.
+- **Building a feature** — Current: doesn't exist. Ideal: works, tested, deployed.
+- **Building a company** — Current: idea. Ideal: profitable business.
+- **Human flourishing** — Current: wherever you are. Ideal: the best version of your life.
 
-[![The Universal Algorithm](./pai-outer-loop-current-to-desired.png)](./pai-outer-loop-current-to-desired.png)
-
-This is it. The whole game. You have a current state. You have a desired state. Everything else is just figuring out how to close the gap.
-
-This pattern works at every scale:
-- **Fixing a typo** - Current: wrong word. Desired: right word.
-- **Learning a skill** - Current: can't do it. Desired: can do it.
-- **Building a company** - Current: idea. Desired: profitable business.
-- **Human flourishing** - Current: wherever you are. Desired: the best version of your life.
-
-The pattern doesn't change. Only the scale does.
-
-### The Inner Loop: The Scientific Method
-
-[![The Inner Loop](./pai-inner-loop-7-phases.png)](./pai-inner-loop-7-phases.png)
-
-*How* do you actually move from current to desired? Through iteration. Specifically, through the scientific method—the most reliable process humans have ever discovered for making progress.
-
-PAI implements this as a 7-phase cycle that every workflow follows:
+The algorithm has 7 phases:
 
 | Phase | What You Do |
 |-------|-------------|
-| **OBSERVE** | Look around. Gather context. Understand where you actually are. |
-| **THINK** | Generate ideas. What might work? Come up with hypotheses. |
-| **PLAN** | Pick an approach. Design the experiment. |
-| **BUILD** | Define what success looks like. How will you know if it worked? |
-| **EXECUTE** | Do the thing. Run the plan. |
-| **VERIFY** | Check the results against your criteria. Did it work? |
-| **LEARN** | Harvest insights. What did you learn? Then iterate or complete. |
+| **OBSERVE** | Gather context. Understand where you actually are. |
+| **THINK** | Generate ideas. What might work? |
+| **PLAN** | Pick an approach. Sequence the work. |
+| **BUILD** | Define success criteria. How will you know if it worked? |
+| **EXECUTE** | Do the work. |
+| **VERIFY** | Test against your criteria. Did it work? |
+| **LEARN** | Harvest insights. Iterate or complete. |
 
-The crucial insight: **verifiability is everything**. If you can't tell whether you succeeded, you can't improve. Most people skip the VERIFY step. They try things, sort of check if it worked, and move on. The scientific method's power comes from actually measuring results and learning from them—especially from failures.
+The crucial insight: **verifiability is everything**. Most people skip VERIFY. They try things, vaguely check if it worked, and move on. The algorithm's power comes from defining success criteria *before* execution and measuring against them *after*.
 
-Every PAI skill, every workflow, every task implements these two loops. The outer loop defines *what* you're pursuing. The inner loop defines *how* you pursue it. Together, they're a universal engine for making progress on anything.
+Every PAI skill, every workflow, every task implements this algorithm.
 
 ### Where Are You on the Journey?
 
-To understand your current capabilities and what to build next, see the **[Personal AI Maturity Model (PAIMM)](https://danielmiessler.com/blog/personal-ai-maturity-model)**—a 9-tier progression from basic chatbots to a full AI companion that knows you, remembers everything, and actively helps you pursue your goals.
+See the **[Personal AI Maturity Model (PAIMM)](https://danielmiessler.com/blog/personal-ai-maturity-model)**—a 9-tier progression from basic chatbots to a full AI companion.
 
 ---
 
 ## The 15 Founding Principles
 
-These principles guide how PAI systems are designed and built:
+These principles guide how PAI systems are designed and built. **[Full breakdown →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
 
-[![PAI System Principles](./pai-system-principles.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-
-**[Read the full breakdown of each principle →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
-
-#### 1. The Foundational Algorithm
-[![Foundational Algorithm](./pai-foundational-algorithm-v3.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-PAI is built around a universal pattern: **Current State → Desired State** via verifiable iteration. This is the outer loop. The inner loop is the 7-phase scientific method (OBSERVE → THINK → PLAN → BUILD → EXECUTE → VERIFY → LEARN). The critical insight: verifiability is everything. If you can't measure whether you reached the desired state, you're just guessing.
-
-#### 2. Clear Thinking + Prompting is King
-[![Clear Thinking](https://danielmiessler.com/images/pai-principle-01-clear-thinking.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Good prompts come from clear thinking about what you actually need. Spend more time clarifying the problem than writing the prompt.
-
-#### 3. Scaffolding > Model
-[![Scaffolding](https://danielmiessler.com/images/pai-principle-02-scaffolding.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-The system architecture matters more than which model you use. Good scaffolding makes even smaller models perform well.
-
-#### 4. As Deterministic as Possible
-[![Deterministic](https://danielmiessler.com/images/pai-principle-03-deterministic.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-AI is probabilistic, but your infrastructure shouldn't be. Use templates and consistent patterns.
-
-#### 5. Code Before Prompts
-[![Code Before Prompts](https://danielmiessler.com/images/pai-principle-04-code-before-prompts.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-If you can solve it with a bash script, don't use AI. Only use AI for the parts that actually need intelligence.
-
-#### 6. Spec / Test / Evals First
-[![Spec Test Evals](https://danielmiessler.com/images/pai-principle-05-spec-test-evals.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Before building anything complex, write specifications and tests. Use evals to measure if the system is actually working.
-
-#### 7. UNIX Philosophy (Modular Tooling)
-[![UNIX Philosophy](https://danielmiessler.com/images/pai-principle-06-unix-philosophy.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Do one thing well. Make tools composable. Use text interfaces.
-
-#### 8. ENG / SRE Principles
-[![ENG SRE Principles](https://danielmiessler.com/images/pai-principle-07-eng-sre.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Treat your AI infrastructure like production software: version control, automation, monitoring, rollback plans.
-
-#### 9. CLI as Interface
-[![CLI Interface](https://danielmiessler.com/images/pai-principle-08-cli-interface.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Command-line interfaces are faster, more scriptable, and more reliable than GUIs.
-
-#### 10. Goal → Code → CLI → Prompts → Agents
-[![Goal to Agents](https://danielmiessler.com/images/pai-principle-09-goal-to-agents.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-The decision hierarchy: clarify the goal first, then try code, then CLI tools, then prompts, and only then agents.
-
-#### 11. Meta / Self Update System
-[![Meta Update](https://danielmiessler.com/images/pai-principle-10-meta-update.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-The system should be able to modify itself. Encode learnings so you never forget.
-
-#### 12. Custom Skill Management
-[![Skill Management](https://danielmiessler.com/images/pai-principle-11-skill-management.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Skills are the foundation of personalization - modular capabilities that route intelligently.
-
-#### 13. Custom History System
-[![History System](https://danielmiessler.com/images/pai-principle-12-history-system.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Everything worth knowing gets captured. History feeds back into context for future sessions.
-
-#### 14. Custom Agent Personalities / Voices
-[![Agent Personalities](https://danielmiessler.com/images/pai-principle-13-agent-personalities.png)](https://danielmiessler.com/blog/personal-ai-infrastructure)
-Different work needs different approaches. Specialized agents with unique personalities and voices.
-
-#### 15. Science as Cognitive Loop
-The meta-principle: Hypothesis → Experiment → Measure → Iterate. Every decision follows this pattern.
+| # | Principle | Summary |
+|---|-----------|---------|
+| 1 | **The Algorithm** | Current → Ideal via verifiable iteration. Define success criteria before execution. |
+| 2 | **Clear Thinking First** | Good prompts come from clear thinking. Clarify the problem before writing the prompt. |
+| 3 | **Scaffolding > Model** | System architecture matters more than which model you use. |
+| 4 | **Deterministic Infrastructure** | AI is probabilistic; your infrastructure shouldn't be. Use templates and patterns. |
+| 5 | **Code Before Prompts** | If you can solve it with a bash script, don't use AI. |
+| 6 | **Spec / Test / Evals First** | Write specifications and tests before building. Measure if the system works. |
+| 7 | **UNIX Philosophy** | Do one thing well. Make tools composable. Use text interfaces. |
+| 8 | **ENG / SRE Principles** | Treat AI infrastructure like production software: version control, automation, monitoring. |
+| 9 | **CLI as Interface** | Command-line interfaces are faster, more scriptable, and more reliable than GUIs. |
+| 10 | **Goal → Code → CLI → Prompts → Agents** | The decision hierarchy: clarify goal, then code, then CLI, then prompts, then agents. |
+| 11 | **Self-Updating System** | The system should modify itself. Encode learnings so you never forget. |
+| 12 | **Skill Management** | Modular capabilities that route intelligently based on context. |
+| 13 | **History System** | Everything worth knowing gets captured. History feeds future context. |
+| 14 | **Agent Personalities** | Different work needs different approaches. Specialized agents with unique voices. |
+| 15 | **Science as Meta-Loop** | Hypothesis → Experiment → Measure → Iterate. Every decision follows this pattern. |
 
 ---
 
