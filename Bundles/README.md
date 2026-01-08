@@ -95,7 +95,7 @@ While you can install packs individually, bundles provide:
 
 | Bundle | Description | Tier | Status |
 |--------|-------------|------|--------|
-| [The Official PAI (Kai)](Kai/) | Complete personal AI infrastructure from Daniel Miessler's Kai system | Complete | Active |
+| [The Official PAI Bundle](Official/) | Complete personal AI infrastructure from Daniel Miessler's Kai system | Complete | Active |
 
 *More bundles coming soon*
 
@@ -299,7 +299,7 @@ Bundles reference packs by name. When a pack is updated, reinstall it to get the
 
 - [PAI Repository](https://github.com/danielmiessler/PAI)
 - [Pack System](../PACKS.md)
-- [The Official PAI (Kai) Bundle](Kai/) - Reference implementation
+- [The Official PAI Bundle](Official/) - Reference implementation
 
 ---
 

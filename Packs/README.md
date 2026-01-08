@@ -170,13 +170,14 @@ PAI System
 |------|---------|----------|-------------|
 | [**pai-hook-system**](pai-hook-system/) | 1.0.0 | Foundation | Event-driven automation framework - the foundation for all hook-based capabilities |
 | [**pai-history-system**](pai-history-system/) | 1.0.0 | Infrastructure | Granular context-tracking that captures all work, decisions, and learnings automatically |
-| [**pai-core-install**](pai-core-install/) | 1.0.0 | Core | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
+| [**pai-core-install**](pai-core-install/) | 1.2.0 | Core | Skills + Identity + Architecture - the complete foundation with routing, response format, and tracking |
 | [**pai-voice-system**](pai-voice-system/) | 1.1.0 | Notifications | Voice notifications with ElevenLabs TTS and prosody enhancement for natural speech |
 | [**pai-observability-server**](pai-observability-server/) | 1.0.0 | Observability | Real-time multi-agent monitoring dashboard with WebSocket streaming |
 | [**pai-art-skill**](pai-art-skill/) | 1.0.0 | Creativity | Visual content generation with Excalidraw hand-drawn aesthetic - diagrams, comics, illustrations |
 | [**pai-agents-skill**](pai-agents-skill/) | 1.0.0 | Delegation | Dynamic agent composition - create custom agents with unique personalities, voices, and trait combinations |
 | [**pai-prompting-skill**](pai-prompting-skill/) | 1.0.0 | Methodology | Meta-prompting system with Handlebars templates, Claude 4.x best practices, and the Ultimate Prompt Template |
 | [**pai-browser-skill**](pai-browser-skill/) | 1.2.0 | Automation | Debug-first browser automation with Playwright - always-on diagnostics, session auto-start, 99% token savings |
+| [**pai-upgrades-skill**](pai-upgrades-skill/) | 1.0.0 | Maintenance | Track and manage PAI system upgrades - monitors for new features, tracks opportunities, maintains upgrade history |
 
 ---
 
@@ -194,9 +195,10 @@ Packs have dependencies. Install in this order:
 7. pai-art-skill              ← Depends on core-install
 8. pai-browser-skill          ← Optional, standalone (only needs Bun + Playwright)
 9. pai-observability-server   ← Optional, depends on hooks
+10. pai-upgrades-skill        ← Optional, depends on core-install
 ```
 
-**Or install the complete [Kai Bundle](../Bundles/Kai/)** which handles ordering automatically.
+**Or install the complete [PAI Bundle](../Bundles/Official/)** which handles ordering automatically.
 
 ---
 
