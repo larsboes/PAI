@@ -11,7 +11,7 @@
 
 # Personal AI Infrastructure
 
-### Open-source scaffolding for building your own AI-powered operating system
+## Everyone needs access to the best AI.
 
 <br/>
 
@@ -38,15 +38,21 @@
 
 ---
 
-# An AI system for pursuing your goals
+# AI should magnify everyone—not just the top 1%.
 
 </div>
 
-The most powerful AI setups are being built inside companies. That's fine, but I think technology should serve humans—not the other way around.
+The most powerful AI systems are being built inside companies for companies. The richest people and the biggest corporations are getting AI that knows their goals, learns from their history, and gets better at helping them over time.
 
-PAI is open-source infrastructure for building your own AI system. One that knows your goals, learns from your history, and gets better at helping you over time. Not a generic assistant. *Your* assistant, working on *your* problems.
+**Everyone deserves that.**
 
-But here's what makes PAI different: underneath the personal layer is something more fundamental.
+PAI exists to democratize access to world-class AI infrastructure. Not a chatbot. Not a generic assistant. A *system* that helps you become your best self—one that understands your goals, remembers your context, and improves at helping *you* specifically.
+
+This is open-source. This is free. This is for everyone.
+
+---
+
+**What makes PAI powerful technically:** It's built on a universal algorithm (Current → Ideal via verifiable iteration) that works at every scale—from fixing a typo to building a company to figuring out what to do with your life. But the mission comes first: giving everyone access to the kind of AI infrastructure that was previously only available to the privileged few.
 
 ---
 
