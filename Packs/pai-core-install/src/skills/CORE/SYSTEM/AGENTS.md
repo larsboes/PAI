@@ -228,5 +228,6 @@ Task({
 ## Related Documentation
 
 - **Delegation:** `THEDELEGATIONSYSTEM.md`
-- **Identity:** `USER/IDENTITY.md`
+- **Identity:** `USER/DAIDENTITY.md`
 - **Notifications:** `THENOTIFICATIONSYSTEM.md`
+- **Voice Pack:** `pai-voice-system` (full voice server implementation)

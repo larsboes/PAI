@@ -19,10 +19,12 @@ CUSTOMIZATION:
 
 RELATED FILES:
 - THEHOOKSYSTEM.md - Hook integration
-- USER/IDENTITY.md - Voice configuration
+- USER/DAIDENTITY.md - AI name and voice ID
+- AGENTS.md - Agent voice personalities
+- pai-voice-system pack - Full voice server implementation
 
 LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
+VERSION: 1.4.0
 ================================================================================
 -->
 
@@ -170,6 +172,32 @@ curl -s -X POST ${VOICE_SERVER_URL}/notify \
 | "Why isn't...?" | "Investigating...", "Debugging..." |
 | "Create..." | "Creating...", "Building..." |
 
+### Workflow Invocation Notifications
+
+**For skills with `Workflows/` directories, use "Executing..." format:**
+
+```
+Executing the **WorkflowName** workflow within the **SkillName** skill...
+```
+
+**Examples:**
+- "Executing the **GIT** workflow within the **CORE** skill..."
+- "Executing the **Publish** workflow within the **Blogging** skill..."
+
+**NEVER announce fake workflows:**
+- "Executing the file organization workflow..." - NO SUCH WORKFLOW EXISTS
+- If it's not listed in a skill's Workflow Routing, DON'T use "Executing" format
+- For non-workflow tasks, use context-appropriate gerund
+
+### When to Skip Notifications
+
+**Always skip when:**
+- **Conversational responses** - Greetings, acknowledgments, simple Q&A
+- **Skill has no workflows** - The skill has no `Workflows/` directory
+- **Direct skill handling** - SKILL.md handles request without invoking a workflow file
+- **Quick utility operations** - Simple file reads, status checks
+- **Sub-workflows** - When a workflow calls another workflow (avoid double notification)
+
 ---
 
 ## Notification Library
@@ -228,4 +256,6 @@ SLACK_WEBHOOK_URL=your_webhook_url_here
 ## Related Documentation
 
 - **Hooks:** `THEHOOKSYSTEM.md`
-- **Identity:** `USER/IDENTITY.md`
+- **Identity:** `USER/DAIDENTITY.md`
+- **Agents:** `AGENTS.md`
+- **Voice Pack:** `pai-voice-system`

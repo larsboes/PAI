@@ -1,7 +1,7 @@
 ---
 name: PAI Core Install
-pack-id: danielmiessler-pai-core-install-v1.3.0
-version: 1.3.0
+pack-id: danielmiessler-pai-core-install-v1.4.0
+version: 1.4.0
 author: danielmiessler
 description: Complete PAI core installation - skill routing, identity system, USER/SYSTEM configuration, MEMORY structure, security system, and settings template. The foundation pack that makes everything else work.
 type: feature
@@ -84,7 +84,7 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 │  ├── USER/                 # Personal configuration (v1.1.0)    │
 │  │   ├── BASICINFO.md      # Name, email, social handles        │
 │  │   ├── CONTACTS.md       # Contact directory                  │
-│  │   ├── IDENTITY.md       # AI name and personality            │
+│  │   ├── DAIDENTITY.md     # AI name, voice, personality        │
 │  │   ├── TECHSTACKPREFERENCES.md  # Tech preferences            │
 │  │   ├── ASSETMANAGEMENT.md       # Digital assets              │
 │  │   ├── PAISECURITYSYSTEM/       # Security architecture (v1.3.0)│
@@ -152,14 +152,14 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 | CreateSkill skill | `src/skills/CreateSkill/SKILL.md` | Meta-skill for creating skills |
 | UpdateDocumentation | `src/skills/CORE/Workflows/UpdateDocumentation.md` | Architecture refresh workflow |
 
-### USER/ Templates (v1.1.0, updated v1.3.0)
+### USER/ Templates (v1.1.0, updated v1.4.0)
 
 | File | Purpose |
 |------|---------|
 | `README.md` | Directory overview |
 | `BASICINFO.md` | Name, email, social handles |
 | `CONTACTS.md` | Contact directory |
-| `IDENTITY.md` | AI name and personality configuration |
+| `DAIDENTITY.md` | AI name, voice, personality (hooks read this) |
 | `TECHSTACKPREFERENCES.md` | Tech stack preferences |
 | `ASSETMANAGEMENT.md` | Digital assets registry |
 | `DEFINITIONS.md` | Canonical definitions |
@@ -255,6 +255,14 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 - **pai-voice-system** - Response format drives voice output
 
 ## Changelog
+
+### 1.4.0 - 2026-01-08
+- **NEW: DAIDENTITY.md** - Consolidated identity file that hooks read from (replaces IDENTITY.md)
+- **Response format update** - Changed `🎯 COMPLETED:` to `🗣️ [AI_NAME]:` for voice integration
+- SKILL.md now includes curl pattern for voice server notifications
+- THENOTIFICATIONSYSTEM.md updated with workflow invocation patterns
+- AGENTS.md now references pai-voice-system for voice implementation
+- All files updated to reference DAIDENTITY.md instead of IDENTITY.md
 
 ### 1.3.0 - 2026-01-08
 - **NEW: PAISECURITYSYSTEM/** - 8-file directory-based security architecture replacing SECURITYSYSTEM.md

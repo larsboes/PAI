@@ -258,7 +258,7 @@ Copy all files from `src/skills/CORE/USER/` to `$PAI_DIR/skills/CORE/USER/`:
 | `src/skills/CORE/USER/README.md` | `$PAI_DIR/skills/CORE/USER/README.md` |
 | `src/skills/CORE/USER/BASICINFO.md` | `$PAI_DIR/skills/CORE/USER/BASICINFO.md` |
 | `src/skills/CORE/USER/CONTACTS.md` | `$PAI_DIR/skills/CORE/USER/CONTACTS.md` |
-| `src/skills/CORE/USER/IDENTITY.md` | `$PAI_DIR/skills/CORE/USER/IDENTITY.md` |
+| `src/skills/CORE/USER/DAIDENTITY.md` | `$PAI_DIR/skills/CORE/USER/DAIDENTITY.md` |
 | `src/skills/CORE/USER/TECHSTACKPREFERENCES.md` | `$PAI_DIR/skills/CORE/USER/TECHSTACKPREFERENCES.md` |
 | `src/skills/CORE/USER/ASSETMANAGEMENT.md` | `$PAI_DIR/skills/CORE/USER/ASSETMANAGEMENT.md` |
 | `src/skills/CORE/USER/DEFINITIONS.md` | `$PAI_DIR/skills/CORE/USER/DEFINITIONS.md` |
@@ -427,7 +427,7 @@ What's available:
 Your AI assistant [AI_NAME] is now configured and ready.
 
 Next steps:
-1. Customize USER/IDENTITY.md with your AI's personality
+1. Customize USER/DAIDENTITY.md with your AI's personality
 2. Add your contacts to USER/CONTACTS.md
 3. Set your tech preferences in USER/TECHSTACKPREFERENCES.md"
 ```
@@ -455,7 +455,7 @@ Need help? See Troubleshooting section below."
 
 **Step 1: Configure Your Identity**
 
-Edit `$PAI_DIR/skills/CORE/USER/IDENTITY.md`:
+Edit `$PAI_DIR/skills/CORE/USER/DAIDENTITY.md`:
 - Set your AI's name
 - Configure personality traits (0-100 scale)
 - Define communication style
