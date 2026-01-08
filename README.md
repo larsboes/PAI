@@ -22,9 +22,9 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives) · [Packs & Bundles](#packs--bundles) · [Quick Start](#-quick-start)
+**Getting Started:** [AI-First Install](#-this-readme-is-for-your-ai-assistant) · [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives)
 
-**Installation:** [AI-First Philosophy](#ai-first-installation-philosophy) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles)
+**Installation:** [Packs & Bundles](#packs--bundles) · [How AI Install Works](#how-ai-installation-works) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [Quick Start](#-quick-start)
 
 **Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
 
@@ -47,6 +47,22 @@ The most powerful AI setups are being built inside companies. That's fine, but I
 PAI is open-source infrastructure for building your own AI system. One that knows your goals, learns from your history, and gets better at helping you over time. Not a generic assistant. *Your* assistant, working on *your* problems.
 
 But here's what makes PAI different: underneath the personal layer is something more fundamental.
+
+---
+
+> [!IMPORTANT]
+> ## 🤖 This README Is For Your AI Assistant
+>
+> **Manually reading READMEs is pre-2026 behavior.** In 2026+, software gets installed by your AI assistant.
+>
+> **Here's how to use this:**
+> 1. Copy this URL: `https://github.com/danielmiessler/PAI`
+> 2. Give it to your AI assistant (Claude, GPT, Gemini, etc.)
+> 3. Say: *"Read this repo and explain what PAI is. Then walk me through installing it."*
+>
+> Your AI will read this documentation, explain the concepts, ask you questions about your preferences, and guide you through a personalized installation wizard.
+>
+> **Feel free to read on yourself**—this README explains the full system. But these instructions are primarily designed for AI consumption.
 
 ---
 
@@ -322,15 +338,11 @@ Each pack includes everything needed: code, workflows, installation instructions
 
 ---
 
-## AI-First Installation Philosophy
+## How AI Installation Works
 
-**Every PAI pack is designed to be installed by your AI assistant, not by you manually copying commands.**
+> **See [🤖 This README Is For Your AI Assistant](#-this-readme-is-for-your-ai-assistant)** for the quick start. This section explains the technical details.
 
-This isn't just a convenience feature—it's the core design philosophy. Here's why:
-
-### Dynamic, Context-Aware Installation
-
-Your system is unique. You might have existing skills, different directory structures, conflicting configurations, or missing prerequisites. A static install script can't handle this. But your AI can:
+Your system is unique—existing skills, different directory structures, conflicting configurations, missing prerequisites. A static install script can't handle this. But your AI can:
 
 1. **Analyze your current state** — What's already installed? What conflicts exist?
 2. **Ask smart questions** — Only ask about things that matter for YOUR setup
