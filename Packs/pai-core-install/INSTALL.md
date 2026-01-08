@@ -164,6 +164,8 @@ fi
 {
   "todos": [
     {"content": "Create directory structure", "status": "pending", "activeForm": "Creating directory structure"},
+    {"content": "Create MEMORY/ structure", "status": "pending", "activeForm": "Creating MEMORY structure"},
+    {"content": "Install settings.json template", "status": "pending", "activeForm": "Installing settings template"},
     {"content": "Install USER/ templates", "status": "pending", "activeForm": "Installing USER/ templates"},
     {"content": "Install SYSTEM/ templates", "status": "pending", "activeForm": "Installing SYSTEM/ templates"},
     {"content": "Install tools", "status": "pending", "activeForm": "Installing tools"},
@@ -191,7 +193,60 @@ mkdir -p $PAI_DIR/Tools
 
 **Mark todo as completed.**
 
-### 4.2 Install USER/ Templates
+### 4.2 Create MEMORY/ Structure
+
+**Mark todo "Create MEMORY/ structure" as in_progress.**
+
+Create the MEMORY directory skeleton:
+
+```bash
+mkdir -p $PAI_DIR/MEMORY/{research,sessions,learnings,decisions,execution,security,recovery,raw-outputs,backups,State,History}
+```
+
+Copy the MEMORY README:
+```bash
+cp src/MEMORY/README.md $PAI_DIR/MEMORY/README.md
+```
+
+Create .gitkeep files to preserve empty directories:
+```bash
+for dir in research sessions learnings decisions execution security recovery raw-outputs backups State History; do
+  touch "$PAI_DIR/MEMORY/$dir/.gitkeep"
+done
+```
+
+**Mark todo as completed.**
+
+### 4.3 Install Settings Template
+
+**Mark todo "Install settings.json template" as in_progress.**
+
+Copy the settings template to the PAI directory:
+
+```bash
+cp src/config/settings.json.template $PAI_DIR/settings.json.template
+```
+
+**If no settings.json exists**, create one from the template:
+
+```bash
+if [ ! -f "$PAI_DIR/settings.json" ]; then
+  cp src/config/settings.json.template $PAI_DIR/settings.json
+  echo "✓ Created settings.json from template"
+else
+  echo "⚠️ settings.json already exists - template saved as settings.json.template"
+fi
+```
+
+**IMPORTANT:** The settings.json template includes hooks from:
+- `pai-hook-system`: Session initialization, security validation, tab titles
+- `pai-history-system`: Event capture, session summaries
+
+These hooks will only work after installing those packs. The template serves as documentation for the full hook configuration.
+
+**Mark todo as completed.**
+
+### 4.4 Install USER/ Templates
 
 **Mark todo "Install USER/ templates" as in_progress.**
 
@@ -217,7 +272,7 @@ Copy all files from `src/skills/CORE/USER/` to `$PAI_DIR/skills/CORE/USER/`:
 
 **Mark todo as completed.**
 
-### 4.3 Install SYSTEM/ Templates
+### 4.5 Install SYSTEM/ Templates
 
 **Mark todo "Install SYSTEM/ templates" as in_progress.**
 
@@ -245,7 +300,7 @@ Copy all files from `src/skills/CORE/SYSTEM/` to `$PAI_DIR/skills/CORE/SYSTEM/`:
 
 **Mark todo as completed.**
 
-### 4.4 Install Tools
+### 4.6 Install Tools
 
 **Mark todo "Install tools" as in_progress.**
 
@@ -256,7 +311,7 @@ Copy the following tools to `$PAI_DIR/Tools/`:
 
 **Mark todo as completed.**
 
-### 4.5 Install CORE Skill
+### 4.7 Install CORE Skill
 
 **Mark todo "Install CORE skill" as in_progress.**
 
@@ -269,7 +324,7 @@ Copy `src/skills/CORE/SKILL.md` to `$PAI_DIR/skills/CORE/SKILL.md`
 
 **Mark todo as completed.**
 
-### 4.6 Install CreateSkill Meta-Skill
+### 4.8 Install CreateSkill Meta-Skill
 
 **Mark todo "Install CreateSkill meta-skill" as in_progress.**
 
@@ -277,12 +332,12 @@ Copy `src/skills/CreateSkill/SKILL.md` to `$PAI_DIR/skills/CreateSkill/SKILL.md`
 
 **Mark todo as completed.**
 
-### 4.7 Install Workflows
+### 4.9 Install Workflows
 
 Copy `src/skills/CORE/Workflows/UpdateDocumentation.md` to:
 `$PAI_DIR/skills/CORE/Workflows/UpdateDocumentation.md`
 
-### 4.8 Generate Initial Index
+### 4.10 Generate Initial Index
 
 **Mark todo "Generate initial index" as in_progress.**
 

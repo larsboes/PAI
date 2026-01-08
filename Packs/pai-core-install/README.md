@@ -1,9 +1,9 @@
 ---
-name: Kai Core Install
-pack-id: danielmiessler-pai-core-install-v1.1.0
-version: 1.1.0
+name: PAI Core Install
+pack-id: danielmiessler-pai-core-install-v1.2.0
+version: 1.2.0
 author: danielmiessler
-description: Complete PAI core installation - skill routing, identity system, USER/SYSTEM configuration architecture. The foundation pack that makes everything else work.
+description: Complete PAI core installation - skill routing, identity system, USER/SYSTEM configuration, MEMORY structure, and settings template. The foundation pack that makes everything else work.
 type: feature
 purpose-type: [productivity, automation, development]
 platform: claude-code
@@ -17,9 +17,9 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
   <img src="../icons/pai-core-install.png" alt="Kai Core Install" width="256">
 </p>
 
-# Kai Core Install (pai-core-install)
+# PAI Core Install (pai-core-install)
 
-> The complete foundation for Personal AI Infrastructure - skill routing, identity framework, USER/SYSTEM configuration, and architecture tracking in one unified pack.
+> The complete foundation for Personal AI Infrastructure - skill routing, identity framework, USER/SYSTEM configuration, MEMORY system, settings template, and architecture tracking in one unified pack.
 
 > **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
 
@@ -47,7 +47,19 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 - **Separation of Concerns**: User data stays private, system config is shareable
 - **Extensive Documentation**: Every file has comprehensive headers
 
-**Part 4: Architecture Tracking**
+**Part 4: MEMORY System** (NEW in v1.2.0)
+- **Skeleton Structure**: Pre-built directory tree for session data
+- **11 Subdirectories**: research, sessions, learnings, decisions, execution, security, recovery, raw-outputs, backups, State, History
+- **Documentation**: README explaining each directory's purpose
+- **Privacy-Aware**: Guidelines for what to gitignore
+
+**Part 5: Settings Template** (NEW in v1.2.0)
+- **settings.json.template**: Complete hook configuration template
+- **Full Hook Structure**: All hook events pre-configured with $PAI_DIR paths
+- **Source Annotations**: Each hook marked with source pack (pai-hook-system, pai-history-system)
+- **Environment Variables**: PAI_DIR, token limits, timeouts
+
+**Part 6: Architecture Tracking**
 - **PAI Architecture.md**: Auto-generated tracking of installed packs, bundles, plugins
 - **Upgrade History**: Running record of all changes to your PAI system
 - **System Health**: Status checks for all installed components
@@ -181,7 +193,9 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 **Summary:**
 - **USER/ files:** 15 templates
 - **SYSTEM/ files:** 17 templates
-- **Total files created:** 40+
+- **MEMORY/ directories:** 11 skeleton directories
+- **Config files:** 1 (settings.json.template)
+- **Total files created:** 55+
 - **Hooks registered:** 0 (uses hook system from pai-hook-system)
 - **Dependencies:** pai-hook-system (required), pai-history-system (optional)
 
@@ -216,6 +230,14 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 - **pai-voice-system** - Response format drives voice output
 
 ## Changelog
+
+### 1.2.0 - 2026-01-08
+- **NEW: MEMORY/ skeleton** - 11-directory structure for session history, learnings, state
+- **NEW: settings.json.template** - Complete hook configuration with all events
+- Hook template includes source annotations (pai-hook-system, pai-history-system)
+- MEMORY README with directory purpose documentation
+- Updated INSTALL.md with MEMORY and settings installation steps
+- Updated VERIFY.md with new verification checks
 
 ### 1.1.0 - 2026-01-08
 - **NEW: USER/ directory** - 15 personal configuration templates

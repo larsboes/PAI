@@ -1,4 +1,4 @@
-# Kai Core Install - Verification Checklist
+# PAI Core Install - Verification Checklist
 
 ## Mandatory Completion Checklist
 
@@ -13,6 +13,26 @@
 - [ ] `$PAI_DIR/skills/CORE/Workflows/` directory exists
 - [ ] `$PAI_DIR/skills/CreateSkill/` directory exists
 - [ ] `$PAI_DIR/Tools/` directory exists
+- [ ] `$PAI_DIR/MEMORY/` directory exists (v1.2.0)
+
+### MEMORY/ Structure (v1.2.0)
+
+- [ ] `$PAI_DIR/MEMORY/README.md` exists
+- [ ] `$PAI_DIR/MEMORY/research/` directory exists
+- [ ] `$PAI_DIR/MEMORY/sessions/` directory exists
+- [ ] `$PAI_DIR/MEMORY/learnings/` directory exists
+- [ ] `$PAI_DIR/MEMORY/decisions/` directory exists
+- [ ] `$PAI_DIR/MEMORY/execution/` directory exists
+- [ ] `$PAI_DIR/MEMORY/security/` directory exists
+- [ ] `$PAI_DIR/MEMORY/recovery/` directory exists
+- [ ] `$PAI_DIR/MEMORY/raw-outputs/` directory exists
+- [ ] `$PAI_DIR/MEMORY/backups/` directory exists
+- [ ] `$PAI_DIR/MEMORY/State/` directory exists
+- [ ] `$PAI_DIR/MEMORY/History/` directory exists
+
+### Settings Configuration (v1.2.0)
+
+- [ ] `$PAI_DIR/settings.json` OR `$PAI_DIR/settings.json.template` exists
 
 ### Core Files
 
@@ -112,42 +132,64 @@ ls $PAI_DIR/skills/CORE/SYSTEM/
 #           DOCUMENTATIONINDEX.md BACKUPS.md
 ```
 
-### Test 4: Test Skill Search
+### Test 4: Verify MEMORY/ Structure (v1.2.0)
+
+```bash
+ls $PAI_DIR/MEMORY/ | wc -l
+# Expected: 12 (11 directories + README.md)
+
+ls $PAI_DIR/MEMORY/
+# Expected: README.md backups decisions execution History learnings
+#           raw-outputs recovery research security sessions State
+```
+
+### Test 5: Verify Settings Template (v1.2.0)
+
+```bash
+ls $PAI_DIR/settings.json* 2>/dev/null
+# Expected: settings.json and/or settings.json.template
+
+# Check hooks structure in settings
+cat $PAI_DIR/settings.json | grep -c "hooks" 2>/dev/null || cat $PAI_DIR/settings.json.template | grep -c "hooks"
+# Expected: Multiple matches (hook configuration present)
+```
+
+### Test 6: Test Skill Search
 
 ```bash
 bun run $PAI_DIR/Tools/SkillSearch.ts --list
 # Expected: Lists all indexed skills with icons
 ```
 
-### Test 5: Search for Specific Skill
+### Test 7: Search for Specific Skill
 
 ```bash
 bun run $PAI_DIR/Tools/SkillSearch.ts "create skill"
 # Expected: Returns CreateSkill in results
 ```
 
-### Test 6: Check Architecture Status
+### Test 8: Check Architecture Status
 
 ```bash
 bun run $PAI_DIR/Tools/PaiArchitecture.ts status
 # Expected: Shows installed packs, bundles, system health
 ```
 
-### Test 7: Verify System Health
+### Test 9: Verify System Health
 
 ```bash
 bun run $PAI_DIR/Tools/PaiArchitecture.ts check
 # Expected: All systems show healthy status
 ```
 
-### Test 8: Verify CORE Skill Content
+### Test 10: Verify CORE Skill Content
 
 ```bash
 cat $PAI_DIR/skills/CORE/SKILL.md | head -20
 # Expected: Shows YAML frontmatter with name: CORE
 ```
 
-### Test 9: Verify Documentation Headers
+### Test 11: Verify Documentation Headers
 
 ```bash
 head -30 $PAI_DIR/skills/CORE/USER/IDENTITY.md
@@ -157,7 +199,7 @@ head -30 $PAI_DIR/skills/CORE/SYSTEM/SKILLSYSTEM.md
 # Expected: Shows documentation header with PURPOSE, LOCATION, CUSTOMIZATION
 ```
 
-### Test 10: Verify Skill Index Format
+### Test 12: Verify Skill Index Format
 
 ```bash
 cat $PAI_DIR/skills/skill-index.json | head -30
@@ -210,7 +252,7 @@ In a Claude Code session:
 #!/bin/bash
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
 
-echo "=== Kai Core Install v1.1.0 Verification ==="
+echo "=== PAI Core Install v1.2.0 Verification ==="
 echo ""
 
 # Check directories
@@ -257,6 +299,27 @@ fi
 
 echo ""
 
+# Check MEMORY/ structure (v1.2.0)
+echo "🧠 MEMORY/ Structure:"
+MEMORY_COUNT=$(ls "$PAI_CHECK/MEMORY/" 2>/dev/null | wc -l | tr -d ' ')
+if [ "$MEMORY_COUNT" -ge 12 ]; then
+  echo "  ✓ MEMORY/ directory has $MEMORY_COUNT items (expected: 12)"
+else
+  echo "  ⚠️  MEMORY/ directory has $MEMORY_COUNT items (expected: 12)"
+fi
+
+echo ""
+
+# Check settings (v1.2.0)
+echo "⚙️  Settings:"
+if [ -f "$PAI_CHECK/settings.json" ] || [ -f "$PAI_CHECK/settings.json.template" ]; then
+  echo "  ✓ settings.json or template present"
+else
+  echo "  ⚠️  settings.json missing - copy from settings.json.template"
+fi
+
+echo ""
+
 # Check tools
 echo "🔧 Tools:"
 for file in "Tools/SkillSearch.ts" "Tools/GenerateSkillIndex.ts" "Tools/PaiArchitecture.ts"; do
@@ -291,7 +354,9 @@ Installation is complete when:
 2. ✅ All core files are present
 3. ✅ All 15 USER/ files are present
 4. ✅ All 17 SYSTEM/ files are present
-5. ✅ All tools are installed
-6. ✅ `bun run $PAI_DIR/Tools/SkillSearch.ts --list` returns skill list
-7. ✅ `bun run $PAI_DIR/Tools/PaiArchitecture.ts check` shows healthy status
-8. ✅ Documentation headers are present in USER/ and SYSTEM/ files
+5. ✅ All 12 MEMORY/ items present (11 directories + README.md)
+6. ✅ settings.json or settings.json.template exists
+7. ✅ All tools are installed
+8. ✅ `bun run $PAI_DIR/Tools/SkillSearch.ts --list` returns skill list
+9. ✅ `bun run $PAI_DIR/Tools/PaiArchitecture.ts check` shows healthy status
+10. ✅ Documentation headers are present in USER/ and SYSTEM/ files
