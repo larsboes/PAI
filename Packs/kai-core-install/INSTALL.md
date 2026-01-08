@@ -18,8 +18,8 @@
 Before starting, greet the user:
 ```
 "I'm installing the CORE skill - the foundation of your PAI system. This provides
-skill routing, response formatting, identity configuration, and the CreateSkill
-meta-skill for building new capabilities.
+skill routing, response formatting, identity configuration, USER/SYSTEM architecture,
+and the CreateSkill meta-skill for building new capabilities.
 
 Let me analyze your system and guide you through installation."
 ```
@@ -127,7 +127,7 @@ Tell the user what you found:
 ```json
 {
   "header": "Install",
-  "question": "Ready to install CORE skill?",
+  "question": "Ready to install CORE skill with USER/SYSTEM architecture?",
   "multiSelect": false,
   "options": [
     {"label": "Yes, install now (Recommended)", "description": "Proceeds with installation using choices above"},
@@ -164,7 +164,8 @@ fi
 {
   "todos": [
     {"content": "Create directory structure", "status": "pending", "activeForm": "Creating directory structure"},
-    {"content": "Install SkillSystem.md", "status": "pending", "activeForm": "Installing SkillSystem.md"},
+    {"content": "Install USER/ templates", "status": "pending", "activeForm": "Installing USER/ templates"},
+    {"content": "Install SYSTEM/ templates", "status": "pending", "activeForm": "Installing SYSTEM/ templates"},
     {"content": "Install tools", "status": "pending", "activeForm": "Installing tools"},
     {"content": "Install CORE skill", "status": "pending", "activeForm": "Installing CORE skill"},
     {"content": "Install CreateSkill meta-skill", "status": "pending", "activeForm": "Installing CreateSkill"},
@@ -179,35 +180,83 @@ fi
 **Mark todo "Create directory structure" as in_progress.**
 
 ```bash
+mkdir -p $PAI_DIR/skills/CORE/USER
+mkdir -p $PAI_DIR/skills/CORE/SYSTEM
 mkdir -p $PAI_DIR/skills/CORE/Workflows
-mkdir -p $PAI_DIR/skills/CORE/tools
+mkdir -p $PAI_DIR/skills/CORE/Tools
 mkdir -p $PAI_DIR/skills/CreateSkill/Workflows
-mkdir -p $PAI_DIR/skills/CreateSkill/tools
-mkdir -p $PAI_DIR/tools
+mkdir -p $PAI_DIR/skills/CreateSkill/Tools
+mkdir -p $PAI_DIR/Tools
 ```
 
 **Mark todo as completed.**
 
-### 4.2 Install SkillSystem.md
+### 4.2 Install USER/ Templates
 
-**Mark todo "Install SkillSystem.md" as in_progress.**
+**Mark todo "Install USER/ templates" as in_progress.**
 
-Copy `src/skills/CORE/SkillSystem.md` to `$PAI_DIR/skills/CORE/SkillSystem.md`
+Copy all files from `src/skills/CORE/USER/` to `$PAI_DIR/skills/CORE/USER/`:
+
+| Source | Destination |
+|--------|-------------|
+| `src/skills/CORE/USER/README.md` | `$PAI_DIR/skills/CORE/USER/README.md` |
+| `src/skills/CORE/USER/BASICINFO.md` | `$PAI_DIR/skills/CORE/USER/BASICINFO.md` |
+| `src/skills/CORE/USER/CONTACTS.md` | `$PAI_DIR/skills/CORE/USER/CONTACTS.md` |
+| `src/skills/CORE/USER/IDENTITY.md` | `$PAI_DIR/skills/CORE/USER/IDENTITY.md` |
+| `src/skills/CORE/USER/TECHSTACKPREFERENCES.md` | `$PAI_DIR/skills/CORE/USER/TECHSTACKPREFERENCES.md` |
+| `src/skills/CORE/USER/ASSETMANAGEMENT.md` | `$PAI_DIR/skills/CORE/USER/ASSETMANAGEMENT.md` |
+| `src/skills/CORE/USER/SECURITYSYSTEM.md` | `$PAI_DIR/skills/CORE/USER/SECURITYSYSTEM.md` |
+| `src/skills/CORE/USER/DEFINITIONS.md` | `$PAI_DIR/skills/CORE/USER/DEFINITIONS.md` |
+| `src/skills/CORE/USER/CORECONTENT.md` | `$PAI_DIR/skills/CORE/USER/CORECONTENT.md` |
+| `src/skills/CORE/USER/RESUME.md` | `$PAI_DIR/skills/CORE/USER/RESUME.md` |
+| `src/skills/CORE/USER/REMINDERS.md` | `$PAI_DIR/skills/CORE/USER/REMINDERS.md` |
+| `src/skills/CORE/USER/ALGOPREFS.md` | `$PAI_DIR/skills/CORE/USER/ALGOPREFS.md` |
+| `src/skills/CORE/USER/ART.md` | `$PAI_DIR/skills/CORE/USER/ART.md` |
+| `src/skills/CORE/USER/ABOUTME.md` | `$PAI_DIR/skills/CORE/USER/ABOUTME.md` |
+| `src/skills/CORE/USER/TELOS.md` | `$PAI_DIR/skills/CORE/USER/TELOS.md` |
 
 **Mark todo as completed.**
 
-### 4.3 Install Tools
+### 4.3 Install SYSTEM/ Templates
+
+**Mark todo "Install SYSTEM/ templates" as in_progress.**
+
+Copy all files from `src/skills/CORE/SYSTEM/` to `$PAI_DIR/skills/CORE/SYSTEM/`:
+
+| Source | Destination |
+|--------|-------------|
+| `src/skills/CORE/SYSTEM/README.md` | `$PAI_DIR/skills/CORE/SYSTEM/README.md` |
+| `src/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md` | `$PAI_DIR/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md` |
+| `src/skills/CORE/SYSTEM/SKILLSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/SKILLSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/MEMORYSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/MEMORYSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/THEHOOKSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/THEHOOKSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/THEDELEGATIONSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/THEDELEGATIONSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/AGENTS.md` | `$PAI_DIR/skills/CORE/SYSTEM/AGENTS.md` |
+| `src/skills/CORE/SYSTEM/ACTIONS.md` | `$PAI_DIR/skills/CORE/SYSTEM/ACTIONS.md` |
+| `src/skills/CORE/SYSTEM/PIPELINES.md` | `$PAI_DIR/skills/CORE/SYSTEM/PIPELINES.md` |
+| `src/skills/CORE/SYSTEM/TOOLS.md` | `$PAI_DIR/skills/CORE/SYSTEM/TOOLS.md` |
+| `src/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md` | `$PAI_DIR/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md` |
+| `src/skills/CORE/SYSTEM/THEFABRICSYSTEM.md` | `$PAI_DIR/skills/CORE/SYSTEM/THEFABRICSYSTEM.md` |
+| `src/skills/CORE/SYSTEM/SCRAPINGREFERENCE.md` | `$PAI_DIR/skills/CORE/SYSTEM/SCRAPINGREFERENCE.md` |
+| `src/skills/CORE/SYSTEM/TERMINALTABS.md` | `$PAI_DIR/skills/CORE/SYSTEM/TERMINALTABS.md` |
+| `src/skills/CORE/SYSTEM/DOCUMENTATIONINDEX.md` | `$PAI_DIR/skills/CORE/SYSTEM/DOCUMENTATIONINDEX.md` |
+| `src/skills/CORE/SYSTEM/BACKUPS.md` | `$PAI_DIR/skills/CORE/SYSTEM/BACKUPS.md` |
+
+**Mark todo as completed.**
+
+### 4.4 Install Tools
 
 **Mark todo "Install tools" as in_progress.**
 
-Copy the following tools to `$PAI_DIR/tools/`:
-- `src/tools/SkillSearch.ts` → `$PAI_DIR/tools/SkillSearch.ts`
-- `src/tools/GenerateSkillIndex.ts` → `$PAI_DIR/tools/GenerateSkillIndex.ts`
-- `src/tools/PaiArchitecture.ts` → `$PAI_DIR/tools/PaiArchitecture.ts`
+Copy the following tools to `$PAI_DIR/Tools/`:
+- `src/tools/SkillSearch.ts` → `$PAI_DIR/Tools/SkillSearch.ts`
+- `src/tools/GenerateSkillIndex.ts` → `$PAI_DIR/Tools/GenerateSkillIndex.ts`
+- `src/tools/PaiArchitecture.ts` → `$PAI_DIR/Tools/PaiArchitecture.ts`
 
 **Mark todo as completed.**
 
-### 4.4 Install CORE Skill
+### 4.5 Install CORE Skill
 
 **Mark todo "Install CORE skill" as in_progress.**
 
@@ -220,7 +269,7 @@ Copy `src/skills/CORE/SKILL.md` to `$PAI_DIR/skills/CORE/SKILL.md`
 
 **Mark todo as completed.**
 
-### 4.5 Install CreateSkill Meta-Skill
+### 4.6 Install CreateSkill Meta-Skill
 
 **Mark todo "Install CreateSkill meta-skill" as in_progress.**
 
@@ -228,19 +277,19 @@ Copy `src/skills/CreateSkill/SKILL.md` to `$PAI_DIR/skills/CreateSkill/SKILL.md`
 
 **Mark todo as completed.**
 
-### 4.6 Install Workflows
+### 4.7 Install Workflows
 
 Copy `src/skills/CORE/Workflows/UpdateDocumentation.md` to:
 `$PAI_DIR/skills/CORE/Workflows/UpdateDocumentation.md`
 
-### 4.7 Generate Initial Index
+### 4.8 Generate Initial Index
 
 **Mark todo "Generate initial index" as in_progress.**
 
 ```bash
-bun run $PAI_DIR/tools/GenerateSkillIndex.ts
-bun run $PAI_DIR/tools/PaiArchitecture.ts generate
-bun run $PAI_DIR/tools/PaiArchitecture.ts log-upgrade "Initial kai-core-install installation"
+bun run $PAI_DIR/Tools/GenerateSkillIndex.ts
+bun run $PAI_DIR/Tools/PaiArchitecture.ts generate
+bun run $PAI_DIR/Tools/PaiArchitecture.ts log-upgrade "Initial kai-core-install v1.1.0 installation"
 ```
 
 **Mark todo as completed.**
@@ -258,15 +307,21 @@ Quick verification:
 # Check CORE skill exists
 ls $PAI_DIR/skills/CORE/SKILL.md
 
+# Check USER/ directory (15 files)
+ls $PAI_DIR/skills/CORE/USER/ | wc -l
+
+# Check SYSTEM/ directory (17 files)
+ls $PAI_DIR/skills/CORE/SYSTEM/ | wc -l
+
 # Check tools exist
-ls $PAI_DIR/tools/SkillSearch.ts
-ls $PAI_DIR/tools/GenerateSkillIndex.ts
+ls $PAI_DIR/Tools/SkillSearch.ts
+ls $PAI_DIR/Tools/GenerateSkillIndex.ts
 
 # Check CreateSkill exists
 ls $PAI_DIR/skills/CreateSkill/SKILL.md
 
 # Run SkillSearch
-bun run $PAI_DIR/tools/SkillSearch.ts "test"
+bun run $PAI_DIR/Tools/SkillSearch.ts "test"
 ```
 
 **Mark todo as completed when all VERIFY.md checks pass.**
@@ -278,16 +333,23 @@ bun run $PAI_DIR/tools/SkillSearch.ts "test"
 ### On Success
 
 ```
-"CORE skill installed successfully!
+"CORE skill v1.1.0 installed successfully!
 
 What's available:
 - Skill routing system with USE WHEN triggers
 - Structured response format
 - Identity configuration for [AI_NAME]
+- USER/ directory with 15 personal configuration templates
+- SYSTEM/ directory with 17 system architecture documents
 - CreateSkill meta-skill for building new capabilities
 - Architecture tracking with PaiArchitecture.ts
 
-Your AI assistant [AI_NAME] is now configured and ready."
+Your AI assistant [AI_NAME] is now configured and ready.
+
+Next steps:
+1. Customize USER/IDENTITY.md with your AI's personality
+2. Add your contacts to USER/CONTACTS.md
+3. Set your tech preferences in USER/TECHSTACKPREFERENCES.md"
 ```
 
 ### On Failure
@@ -297,190 +359,63 @@ Your AI assistant [AI_NAME] is now configured and ready."
 
 1. Hook system installed? Run: ls $PAI_DIR/hooks/lib/observability.ts
 2. Directories created? Run: ls $PAI_DIR/skills/CORE/
-3. Tools copied? Run: ls $PAI_DIR/tools/
-4. Check VERIFY.md for the specific failing check
+3. USER/ files installed? Run: ls $PAI_DIR/skills/CORE/USER/
+4. SYSTEM/ files installed? Run: ls $PAI_DIR/skills/CORE/SYSTEM/
+5. Tools copied? Run: ls $PAI_DIR/Tools/
+6. Check VERIFY.md for the specific failing check
 
 Need help? See Troubleshooting section below."
 ```
 
 ---
 
-## Troubleshooting
+## Customization Guide
 
-### Step 0.1: Verify Environment and Dependencies
+### After Installation: Customize Your PAI
 
-```bash
-PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+**Step 1: Configure Your Identity**
 
-# Check if PAI_DIR is set
-echo "PAI_DIR: ${PAI_DIR:-'NOT SET - will use ~/.config/pai'}"
+Edit `$PAI_DIR/skills/CORE/USER/IDENTITY.md`:
+- Set your AI's name
+- Configure personality traits (0-100 scale)
+- Define communication style
 
-# Check for hook system (required)
-if [ -f "$PAI_CHECK/hooks/lib/observability.ts" ]; then
-  echo "✓ Hook system is installed (required)"
-else
-  echo "❌ Hook system NOT installed - install kai-hook-system first!"
-fi
+**Step 2: Add Your Contacts**
 
-# Check for history system (optional)
-if [ -d "$PAI_CHECK/history" ]; then
-  echo "✓ History system is installed (optional)"
-else
-  echo "ℹ️  History system not installed (skill usage won't be logged)"
-fi
-```
+Edit `$PAI_DIR/skills/CORE/USER/CONTACTS.md`:
+- Add personal contacts
+- Add work colleagues
+- Include relationship context
 
-### Step 0.2: Detect Existing Installation
+**Step 3: Set Tech Preferences**
 
-```bash
-PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
+Edit `$PAI_DIR/skills/CORE/USER/TECHSTACKPREFERENCES.md`:
+- Language preferences (TypeScript vs Python)
+- Package managers (bun, npm, uv)
+- Deployment preferences
 
-# Check for existing Skills directory
-if [ -d "$PAI_CHECK/skills" ]; then
-  echo "⚠️  Skills directory EXISTS at: $PAI_CHECK/skills"
-  ls -la "$PAI_CHECK/skills" 2>/dev/null
+**Step 4: Configure Security**
 
-  if [ -d "$PAI_CHECK/skills/CORE" ]; then
-    echo ""
-    echo "⚠️  CORE skill directory exists - will merge/update"
-  fi
-else
-  echo "✓ No existing Skills directory (clean install)"
-fi
-```
-
-### Step 0.3: Backup Existing (If Needed)
-
-```bash
-BACKUP_DIR="$HOME/.pai-backup/$(date +%Y%m%d-%H%M%S)"
-PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
-
-if [ -d "$PAI_CHECK/skills/CORE" ]; then
-  mkdir -p "$BACKUP_DIR/skills"
-  cp -r "$PAI_CHECK/skills/CORE" "$BACKUP_DIR/skills/CORE"
-  echo "✓ Backed up CORE skill to $BACKUP_DIR/skills/CORE"
-fi
-```
-
----
-
-## Step 1: Create Directory Structure
-
-```bash
-# Create the Skills directory
-mkdir -p $PAI_DIR/skills/CORE/Workflows
-mkdir -p $PAI_DIR/skills/CORE/tools
-mkdir -p $PAI_DIR/skills/CreateSkill/Workflows
-mkdir -p $PAI_DIR/skills/CreateSkill/tools
-mkdir -p $PAI_DIR/tools
-```
-
----
-
-## Step 2: Install SkillSystem.md
-
-Copy `src/skills/CORE/SkillSystem.md` to `$PAI_DIR/skills/CORE/SkillSystem.md`
-
----
-
-## Step 3: Install Tools
-
-Copy the following tools to `$PAI_DIR/tools/`:
-- `src/tools/SkillSearch.ts` → `$PAI_DIR/tools/SkillSearch.ts`
-- `src/tools/GenerateSkillIndex.ts` → `$PAI_DIR/tools/GenerateSkillIndex.ts`
-- `src/tools/PaiArchitecture.ts` → `$PAI_DIR/tools/PaiArchitecture.ts`
-
----
-
-## Step 4: Install CORE Skill
-
-Copy `src/skills/CORE/SKILL.md` to `$PAI_DIR/skills/CORE/SKILL.md`
-
-**IMPORTANT:** Customize the placeholders in SKILL.md:
-- `[YOUR_AI_NAME]` - Name for your AI (e.g., "Kai", "Atlas")
-- `[YOUR_NAME]` - Your name
-- `[YOUR_PROFESSION]` - Your profession
-
----
-
-## Step 5: Install CreateSkill Meta-Skill
-
-Copy `src/skills/CreateSkill/SKILL.md` to `$PAI_DIR/skills/CreateSkill/SKILL.md`
-
----
-
-## Step 6: Install Workflows
-
-Copy `src/skills/CORE/Workflows/UpdateDocumentation.md` to:
-`$PAI_DIR/skills/CORE/Workflows/UpdateDocumentation.md`
-
----
-
-## Step 7: Generate Initial Index
-
-```bash
-bun run $PAI_DIR/tools/GenerateSkillIndex.ts
-```
-
----
-
-## Step 8: Generate Initial Architecture
-
-```bash
-bun run $PAI_DIR/tools/PaiArchitecture.ts generate
-bun run $PAI_DIR/tools/PaiArchitecture.ts log-upgrade "Initial kai-core-install installation"
-```
-
----
-
-## Step 9: Verify Installation
-
-Run the verification checklist in VERIFY.md to confirm everything works.
-
----
-
-## Customization
-
-### Recommended: Define Your Personality and Identity
-
-Edit `$PAI_DIR/skills/CORE/SKILL.md`:
-
-1. **Fill in Your Identity**
-```markdown
-## Identity
-
-**Assistant:**
-- Name: [Choose a name for your AI - e.g., "Kai", "Atlas", "Sage"]
-- Role: [Your name]'s AI assistant
-
-**User:**
-- Name: [Your name]
-- Profession: [Your profession - e.g., "Software Engineer", "Researcher"]
-```
-
-2. **Calibrate Personality Traits**
-```markdown
-| Trait | Value | Description |
-|-------|-------|-------------|
-| Humor | 60/100 | Higher = more witty, lower = more serious |
-| Curiosity | 90/100 | Higher = asks more questions, explores tangents |
-| Precision | 95/100 | Higher = more exact details |
-| Formality | 50/100 | Higher = more professional, lower = more casual |
-| Directness | 80/100 | Higher = blunt, lower = diplomatic |
-```
-
-### Optional Customization
-
-| Customization | File | Impact |
-|---------------|------|--------|
-| **Contacts Directory** | `Contacts.md` | Add your frequent contacts |
-| **Stack Preferences** | `CoreStack.md` | Define your technology preferences |
-| **Response Format** | `SKILL.md` | Modify the structured response format |
-| **Security Protocols** | `SecurityProtocols.md` | Add project-specific security rules |
+Edit `$PAI_DIR/skills/CORE/USER/SECURITYSYSTEM.md`:
+- Define protected paths
+- Set up sanitization rules
+- Configure prompt injection defense
 
 ---
 
 ## Troubleshooting
+
+### USER/ or SYSTEM/ Files Missing
+
+```bash
+# Check if directories exist
+ls -la $PAI_DIR/skills/CORE/USER/
+ls -la $PAI_DIR/skills/CORE/SYSTEM/
+
+# If missing, manually copy from pack
+cp -r /path/to/kai-core-install/src/skills/CORE/USER/* $PAI_DIR/skills/CORE/USER/
+cp -r /path/to/kai-core-install/src/skills/CORE/SYSTEM/* $PAI_DIR/skills/CORE/SYSTEM/
+```
 
 ### Skills Not Routing
 

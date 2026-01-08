@@ -11,7 +11,7 @@ description: Personal AI Infrastructure core. AUTO-LOADS at session start. USE W
 
 **Example: Check contact information**
 ```
-User: "What's Angela's email?"
+User: "What's Alice's email?"
 → Reads Contacts.md
 → Returns contact information
 ```
