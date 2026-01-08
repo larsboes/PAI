@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "PAI Protected Files - Files that must NOT be overwritten with Kai content",
+  "version": "2.0",
+  "protected": {
+    "core_documents": {
+      "description": "Core PAI documentation that differs from Kai",
+      "files": [
+        "README.md",
+        "INSTALL.md",
+        "SECURITY.md"
+      ],
+      "validation": "Must contain 'PAI' or 'Personal AI Infrastructure' in content"
+    },
+    "pai_infrastructure": {
+      "description": "PAI-specific infrastructure code",
+      "files": [
+        "Tools/validate-protected.ts",
+        ".pai-protected.json"
+      ],
+      "validation": "Must not contain references to private Kai data"
+    },
+    "sanitized_config": {
+      "description": "Configuration files that must remain sanitized",
+      "files": [
+        ".env.example"
+      ],
+      "validation": "Must not contain API keys, personal emails, or secrets"
+    },
+    "forbidden_directories": {
+      "description": "Directories that should NEVER exist in public PAI",
+      "patterns": [
+        "^skills/",
+        "^Deprecated/",
+        "^.deprecated/",
+        "^MEMORY/",
+        "^History/",
+        "^context/",
+        "^progress/"
+      ],
+      "validation": "These directories contain private Kai data and must not be committed"
+    },
+    "protected_patterns": {
+      "description": "String patterns that should never appear in PAI",
+      "patterns": [
+        "daniel@danielmiessler.com",
+        "susan@danielmiessler.com",
+        "ANTHROPIC_API_KEY=sk-",
+        "PERPLEXITY_API_KEY=[^E]",
+        "ELEVENLABS_API_KEY=[^y]",
+        "GOOGLE_API_KEY=[^y]",
+        "/Users/daniel/.claude/skills/personal",
+        "/Users/daniel/.claude/MEMORY",
+        "/Users/daniel/.claude/History",
+        "daemon.plist",
+        "~/.claude/skills/CORE/USER"
+      ],
+      "exception_files": [
+        "SECURITY.md",
+        ".pai-protected.json",
+        ".env.example",
+        "Tools/validate-protected.ts"
+      ]
+    }
+  },
+  "kai_to_pai_workflow": {
+    "description": "How to safely sync Kai improvements to PAI",
+    "steps": [
+      "1. Make changes in Kai (~/.claude/)",
+      "2. Test thoroughly in Kai environment",
+      "3. Identify which changes should go to public PAI",
+      "4. Copy changes to PAI repo (~/Projects/PAI/)",
+      "5. SKIP protected files (they stay PAI-specific)",
+      "6. Sanitize any personal data or API keys",
+      "7. Run: bun ~/Projects/PAI/Tools/validate-protected.ts",
+      "8. If validation passes, commit to PAI",
+      "9. If validation fails, check which protected files changed"
+    ]
+  }
+}
