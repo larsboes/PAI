@@ -21,6 +21,10 @@ keywords: [core, identity, skills, routing, architecture, installation, foundati
 
 > The complete foundation for Personal AI Infrastructure - skill routing, identity framework, and architecture tracking in one unified pack.
 
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+
+---
+
 ## What This Pack Provides
 
 **Part 1: Skill System**

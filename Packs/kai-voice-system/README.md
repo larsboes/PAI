@@ -21,6 +21,10 @@ keywords: [voice, tts, elevenlabs, google-cloud-tts, notifications, prosody, spe
 
 > Voice notification system with natural speech synthesis and personality-driven delivery
 
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+
+---
+
 ## 🚨 Platform Requirements
 
 | Platform | Status | Notes |

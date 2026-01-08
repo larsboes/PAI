@@ -20,6 +20,10 @@ keywords: [history, documentation, memory, capture, hooks, sessions, learnings, 
 
 > Granular context-tracking system for the entire AI infrastructure - captures all work, decisions, and learnings automatically with zero manual effort
 
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+
+---
+
 ## What's Included
 
 | Component | File | Purpose |

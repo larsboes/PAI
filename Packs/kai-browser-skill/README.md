@@ -19,30 +19,7 @@ keywords: [browser, playwright, automation, screenshot, web-testing, verificatio
 
 **Debug-first browser automation with always-on visibility.**
 
-## What's New in v1.2.0
-
-### Debug-First Architecture
-- Console logs and network requests captured **by default**
-- Diagnostic output with every navigation
-- No more adding logging after the fact
-
-### Session Auto-Start
-- Session launches automatically on first command
-- No explicit `session start` needed
-- 30-minute idle timeout for cleanup
-
-### New Commands
-```bash
-bun run Browse.ts <url>        # Navigate with full diagnostics (PRIMARY)
-bun run Browse.ts errors       # Show console errors
-bun run Browse.ts warnings     # Show console warnings
-bun run Browse.ts console      # All console output
-bun run Browse.ts network      # Network activity
-bun run Browse.ts failed       # Failed requests (4xx, 5xx)
-bun run Browse.ts status       # Session info
-bun run Browse.ts restart      # Fresh session
-bun run Browse.ts stop         # Stop session
-```
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
 
 ---
 

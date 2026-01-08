@@ -15,6 +15,10 @@ keywords: [art, visualization, diagrams, comics, excalidraw, hand-drawn, technic
 
 > Visual content generation system with Excalidraw hand-drawn aesthetic - technical diagrams, comics, and editorial illustrations with consistent dark-mode styling
 
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+
+---
+
 ## What's Included
 
 | Component | File | Purpose |

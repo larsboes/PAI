@@ -24,7 +24,7 @@
 
 **Getting Started:** [What is PAI?](#what-is-pai) · [Quick Start](#-quick-start) · [15 Principles](#the-15-founding-principles)
 
-**Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
+**Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [AI Installation](#ai-first-installation-philosophy) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
 
 **Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
 
@@ -219,6 +219,52 @@ The packs are extracted from Kai - real capabilities that have been running in p
 - **Troubleshooting guides**
 
 **The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
+
+---
+
+## AI-First Installation Philosophy
+
+**Every PAI pack is designed to be installed by your AI assistant, not by you manually copying commands.**
+
+This isn't just a convenience feature—it's the core design philosophy. Here's why:
+
+### Dynamic, Context-Aware Installation
+
+Your system is unique. You might have existing skills, different directory structures, conflicting configurations, or missing prerequisites. A static install script can't handle this. But your AI can:
+
+1. **Analyze your current state** — What's already installed? What conflicts exist?
+2. **Ask smart questions** — Only ask about things that matter for YOUR setup
+3. **Adapt the installation** — Different paths, different configurations, different choices
+4. **Verify the results** — Confirm everything works before declaring success
+
+### The Wizard Pattern
+
+Every pack's `INSTALL.md` follows a wizard-style flow:
+
+| Phase | What Happens | AI Tool Used |
+|-------|--------------|--------------|
+| **1. System Analysis** | Detect current state, find conflicts, check prerequisites | Bash, Read |
+| **2. User Questions** | Ask only relevant questions based on analysis | AskUserQuestion |
+| **3. Backup** | Create timestamped backups if replacing existing content | Bash |
+| **4. Installation** | Execute installation with live progress tracking | TodoWrite, Bash, Write |
+| **5. Verification** | Run all checks from VERIFY.md, confirm success | Bash, VERIFY.md |
+
+### How to Install Any Pack
+
+Give the pack directory to your AI and say:
+
+```
+Install this pack into my system using PAI_DIR="~/.claude"
+```
+
+Your AI will:
+- Read `README.md` for context on what the pack does
+- Follow `INSTALL.md` with the wizard flow
+- Copy files from `src/` to appropriate locations
+- Run `VERIFY.md` checks to confirm success
+- Report what was installed and how to use it
+
+**No manual command copying. No guessing about your system state. Dynamic installation that adapts to you.**
 
 ---
 

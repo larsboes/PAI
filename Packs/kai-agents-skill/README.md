@@ -15,6 +15,10 @@ keywords: [agents, delegation, parallel, traits, personalities, voice, compositi
 
 > Dynamic agent composition system - create specialized agents with unique personalities and voices, composed from traits on-the-fly
 
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+
+---
+
 ## What's Included
 
 | Component | File | Purpose |
