@@ -22,7 +22,7 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-founding-principles) · [Quick Start](#-quick-start)
+**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Quick Start](#-quick-start)
 
 **Packs & Bundles:** [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [How Packs Work](#-how-pai-packs-work) · [AI Installation](#ai-first-installation-philosophy) · [v1 → v2 Journey](#the-journey-pai-v1x--v20)
 
@@ -99,7 +99,7 @@ See the **[Personal AI Maturity Model (PAIMM)](https://danielmiessler.com/blog/p
 
 ---
 
-## The 15 Founding Principles
+## The 15 PAI Principles
 
 These principles guide how PAI systems are designed and built. **[Full breakdown →](https://danielmiessler.com/blog/personal-ai-infrastructure)**
 
