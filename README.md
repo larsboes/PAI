@@ -22,7 +22,7 @@
 
 <br/>
 
-**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Packs & Bundles](#packs--bundles) · [Quick Start](#-quick-start)
+**Getting Started:** [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives) · [Packs & Bundles](#packs--bundles) · [Quick Start](#-quick-start)
 
 **Installation:** [AI-First Philosophy](#ai-first-installation-philosophy) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles)
 
@@ -120,6 +120,192 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 | 13 | **History System** | Everything worth knowing gets captured. History feeds future context. |
 | 14 | **Agent Personalities** | Different work needs different approaches. Specialized agents with unique voices. |
 | 15 | **Science as Meta-Loop** | Hypothesis → Experiment → Measure → Iterate. Every decision follows this pattern. |
+
+---
+
+## PAI Primitives
+
+While the 15 Principles describe the *philosophy* of PAI, the Primitives are the *architecture*—the core systems that make everything work.
+
+### The Continuous Learning Loop
+
+PAI isn't static. Every interaction feeds a learning loop that makes the system better over time.
+
+```
+User Interaction → Hook Captures → Signal Detection → Learning Directory → System Improvement
+```
+
+**How it works:**
+1. **User gives feedback** - Explicit ratings (type "7" or "8 - good work") or implicit sentiment ("this is frustrating")
+2. **Hooks capture signals** - Ratings, failures, loopbacks, and patterns are written to `MEMORY/Signals/`
+3. **Low ratings trigger learning** - Scores below 6 auto-capture to `MEMORY/Learning/` for analysis
+4. **System improves** - Learnings are organized by algorithm phase for targeted retrieval
+
+This isn't just logging—it's a feedback mechanism that identifies what's working and what isn't.
+
+### Memory System
+
+The Memory System is PAI's brain—what happened, what we learned, what we're working on.
+
+**Location:** `$PAI_DIR/MEMORY/`
+
+**Three-Tier Architecture:**
+
+| Tier | Temperature | Purpose | Location |
+|------|-------------|---------|----------|
+| **CAPTURE** | Hot | Active work with real-time traces | `Work/[Task-Name]/` |
+| **SYNTHESIS** | Warm | Learnings organized by algorithm phase | `Learning/{OBSERVE,THINK,PLAN,BUILD,EXECUTE,VERIFY}/` |
+| **APPLICATION** | Cold | Immutable historical archive | `History/` |
+
+**Directory Structure:**
+```
+MEMORY/
+├── History/           # All historical recordings (immutable archive)
+│   ├── research/      # Research session outputs
+│   ├── sessions/      # Session summaries (auto-captured)
+│   ├── learnings/     # Learning moments
+│   ├── decisions/     # Architectural decisions
+│   └── ...
+├── Learning/          # Phase-based curated learnings
+│   ├── OBSERVE/       # Learnings about gathering context
+│   ├── THINK/         # Learnings about hypothesis generation
+│   ├── PLAN/          # Learnings about execution planning
+│   ├── BUILD/         # Learnings about success criteria
+│   ├── EXECUTE/       # Learnings about implementation
+│   ├── VERIFY/        # Learnings about verification
+│   └── ALGORITHM/     # Meta-learnings about the algorithm itself
+├── State/             # Real-time operational state
+│   ├── algorithm-stats.json
+│   ├── algorithm-streak.json
+│   └── active-work.json
+├── Signals/           # Pattern detection and anomalies
+│   ├── failures.jsonl
+│   ├── loopbacks.jsonl
+│   ├── patterns.jsonl
+│   └── ratings.jsonl
+└── Work/              # Per-task memory (active work items)
+    └── [Task-Name_TIMESTAMP]/
+```
+
+**Key Insight:** VERIFY failures are the richest source of improvement. When verification fails, it traces back to a weakness in an earlier phase—that weakness gets captured in LEARN.
+
+### Hook System
+
+Hooks are event-driven automation that make PAI "alive"—they respond to what's happening and take action.
+
+**Hook Types:**
+
+| Event | When It Fires | Common Uses |
+|-------|---------------|-------------|
+| `SessionStart` | Opening a new session | Load context, set up environment |
+| `SessionEnd` | Session closing | Capture summary, archive learnings |
+| `UserPromptSubmit` | User sends a message | Update tab title, detect sentiment |
+| `Stop` | AI completes response | Voice notification, capture completion |
+| `SubagentStop` | Spawned agent completes | Capture agent output |
+| `PreToolUse` | Before tool execution | Security validation, logging |
+| `PostToolUse` | After tool execution | Capture results, observability |
+| `PreCompact` | Before context compaction | Preserve critical state |
+
+**Design Principles:**
+- **Graceful failure** - Hooks always exit 0; failures log but don't block
+- **Composable** - Multiple hooks can respond to the same event
+- **Fast** - Hooks run synchronously; keep them lightweight
+
+**Example Flow:**
+```
+User types message
+  → UserPromptSubmit hook updates tab title
+  → AI generates response
+  → Stop hook extracts completion message
+  → Stop hook sends to voice server
+  → Stop hook captures to history
+```
+
+### Security System
+
+Security is layered, not bolted on. PAI implements defense-in-depth across multiple layers.
+
+**Key Protections:**
+- **Command validation** - Dangerous commands (`rm -rf`, `sudo`, etc.) blocked before execution
+- **Repository separation** - Private (Kai) and public (PAI) repos are completely isolated
+- **Prompt injection defense** - External content is read-only; commands only come from the principal
+- **Secret management** - All API keys in `$PAI_DIR/.env`, never in code
+
+**The Two-Repository Rule:**
+```
+~/.claude/ (PRIVATE)          ~/Projects/PAI/ (PUBLIC)
+├── Contains secrets          ├── Example code only
+├── Personal data             ├── No personal data
+├── Your actual system        ├── Community template
+└── NEVER PUBLIC              └── Safe to share
+```
+
+### User/System Separation
+
+PAI cleanly separates what's *yours* from what's *system*.
+
+```
+$PAI_DIR/skills/CORE/
+├── USER/              # Your customizations
+│   ├── CONTACTS.md    # Your contacts
+│   ├── TELOS/         # Your goals (see below)
+│   ├── TECHSTACK.md   # Your preferences
+│   └── SECURITY.md    # Your security rules
+└── SYSTEM/            # PAI infrastructure
+    ├── ARCHITECTURE.md
+    ├── MEMORYSYSTEM.md
+    ├── THEHOOKSYSTEM.md
+    └── ...
+```
+
+**Why This Matters:**
+- **Upgrades don't clobber customizations** - System files update; your files persist
+- **Clear ownership** - You know what's yours to modify
+- **Portable identity** - Move USER/ to a new system; your preferences follow
+
+### Deep Goal Capture (TELOS)
+
+TELOS is PAI's framework for understanding *you*—your goals, beliefs, strategies, and what you're working toward.
+
+**The TELOS Files:**
+
+| File | Purpose |
+|------|---------|
+| `MISSION.md` | Your life mission and purpose |
+| `GOALS.md` | Current goals across life areas |
+| `PROJECTS.md` | Active projects with status |
+| `BELIEFS.md` | Core beliefs that guide decisions |
+| `MODELS.md` | Mental models you use |
+| `STRATEGIES.md` | Strategies you employ |
+| `NARRATIVES.md` | Stories you tell about yourself |
+| `LEARNED.md` | Key lessons learned |
+| `CHALLENGES.md` | Current challenges |
+| `IDEAS.md` | Ideas worth capturing |
+
+**Why TELOS Exists:**
+
+Generic AI assistants don't know what you're trying to accomplish. They treat every request as isolated. TELOS gives your AI the context to:
+- Prioritize based on your actual goals
+- Suggest based on your strategies
+- Warn when something conflicts with your beliefs
+- Connect today's task to your bigger picture
+
+### Granular Customization
+
+PAI doesn't force you into a structure. Everything is customizable at the level you choose.
+
+**Customization Levels:**
+
+| Level | What You Change | Example |
+|-------|-----------------|---------|
+| **Identity** | Your AI's name, voice, personality | `DA="Kai"`, voice settings |
+| **Preferences** | Tech stack, tool choices | TypeScript over Python, bun over npm |
+| **Workflows** | How skills execute | Custom research flow, different commit style |
+| **Skills** | What capabilities exist | Add new skills, modify existing ones |
+| **Hooks** | How events are handled | Custom logging, different notifications |
+| **Memory** | What gets captured and how | Retention rules, archive frequency |
+
+**The Principle:** Start with defaults. Customize when you have a reason. PAI works out of the box but adapts to how *you* work.
 
 ---
 
