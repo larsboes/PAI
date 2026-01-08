@@ -1,7 +1,7 @@
 ---
 name: PAI Voice System
-pack-id: danielmiessler-pai-voice-system-v1.4.0
-version: 1.4.0
+pack-id: danielmiessler-pai-voice-system-v1.0.0
+version: 1.0.0
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
@@ -195,15 +195,12 @@ Configure multiple voices in `voice-personalities.json` for multi-agent conversa
 
 ## Changelog
 
-### 1.4.0 - 2026-01-08
-- **BREAKING:** Removed Google Cloud TTS support (ElevenLabs only)
-- Added complete voice server implementation (`src/voice/server.ts`)
-- Added server management script (`src/voice/manage.sh`)
-- Added stop hook for main agent (`src/hooks/stop-hook-voice.ts`)
-- Added stop hook for subagents (`src/hooks/subagent-stop-hook-voice.ts`)
-- Updated response format from `🎯 COMPLETED:` to `🗣️ [AI_NAME]:`
-- Integrated with DAIDENTITY.md for AI name and voice ID
-
-### 1.3.0 - 2026-01-03
-- Initial release with prosody enhancer
+### 1.0.0 - 2026-01-08
+- Initial release with complete voice server implementation
+- ElevenLabs TTS voice server (`src/voice/server.ts`)
+- Server management script (`src/voice/manage.sh`)
+- Main agent stop hook (`src/hooks/stop-hook-voice.ts`)
+- Subagent stop hook (`src/hooks/subagent-stop-hook-voice.ts`)
+- Prosody enhancer with 13 emotional markers
 - Voice personalities configuration
+- Integrates with pai-core-install response format (`🗣️ [AI_NAME]:`)

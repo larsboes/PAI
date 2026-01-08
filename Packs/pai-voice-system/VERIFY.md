@@ -124,7 +124,7 @@ $PAI_DIR/voice-server/manage.sh start
 #!/bin/bash
 PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
 
-echo "=== PAI Voice System v1.4.0 Verification ==="
+echo "=== PAI Voice System v1.0.0 Verification ==="
 echo ""
 
 # Check files
