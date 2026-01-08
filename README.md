@@ -62,11 +62,10 @@ This is open-source. This is free. This is for everyone.
 > **Manually reading READMEs is pre-2026 behavior.** In 2026+, software gets installed by your AI assistant.
 >
 > **Here's how to use this:**
-> 1. Copy this URL: `https://github.com/danielmiessler/PAI`
-> 2. Give it to your AI assistant (Claude, GPT, Gemini, etc.)
-> 3. Say: *"Read this repo and explain what PAI is. Then walk me through installing it."*
+> 1. Give this URL to your AI: `https://github.com/danielmiessler/PAI`
+> 2. Say: *"Look at this system and walk me through installing it. Customize it for me."*
 >
-> Your AI will read this documentation, explain the concepts, ask you questions about your preferences, and guide you through a personalized installation wizard.
+> The PAI documentation will guide your AI on how best to install it for your specific needs.
 >
 > **Feel free to read on yourself**—this README explains the full system. But these instructions are primarily designed for AI consumption.
 
