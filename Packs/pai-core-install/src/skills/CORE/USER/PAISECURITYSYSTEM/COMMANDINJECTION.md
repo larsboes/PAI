@@ -292,7 +292,7 @@ function detectSuspiciousInput(input: string): void {
     };
 
     // Append to security log
-    const logPath = '${PAI_DIR}/History/security/input-validation.jsonl';
+    const logPath = '${PAI_DIR}/MEMORY/security/input-validation.jsonl';
     appendLog(logPath, logEntry);
 
     // Report if highly suspicious

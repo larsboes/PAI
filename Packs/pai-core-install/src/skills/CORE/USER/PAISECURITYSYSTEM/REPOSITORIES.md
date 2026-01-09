@@ -147,7 +147,7 @@ const dbHost = process.env.DB_HOST || "your-database-host";
 
 ```typescript
 // stop-hook.ts - references your actual setup
-const sessionLog = "/Users/myuser/.claude/History/sessions/";
+const sessionLog = "/Users/myuser/.claude/MEMORY/sessions/";
 const voiceId = "abc123xyz"; // Your ElevenLabs voice
 ```
 
@@ -156,7 +156,7 @@ const voiceId = "abc123xyz"; // Your ElevenLabs voice
 ```typescript
 // stop-hook.ts - generic for public use
 const PAI_DIR = process.env.PAI_DIR || path.join(os.homedir(), '.claude');
-const sessionLog = path.join(PAI_DIR, 'History', 'sessions');
+const sessionLog = path.join(PAI_DIR, 'MEMORY', 'sessions');
 const voiceId = process.env.VOICE_ID || "your_elevenlabs_voice_id";
 ```
 

@@ -201,7 +201,7 @@ mkdir -p $PAI_DIR/Tools
 Create the MEMORY directory skeleton:
 
 ```bash
-mkdir -p $PAI_DIR/MEMORY/{research,sessions,learnings,decisions,execution,security,recovery,raw-outputs,backups,State,History}
+mkdir -p $PAI_DIR/MEMORY/{research,sessions,learnings,decisions,execution,security,recovery,raw-outputs,backups,State}
 ```
 
 Copy the MEMORY README:
@@ -211,7 +211,7 @@ cp src/MEMORY/README.md $PAI_DIR/MEMORY/README.md
 
 Create .gitkeep files to preserve empty directories:
 ```bash
-for dir in research sessions learnings decisions execution security recovery raw-outputs backups State History; do
+for dir in research sessions learnings decisions execution security recovery raw-outputs backups State; do
   touch "$PAI_DIR/MEMORY/$dir/.gitkeep"
 done
 ```

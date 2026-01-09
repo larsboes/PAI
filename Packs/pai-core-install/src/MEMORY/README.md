@@ -15,8 +15,7 @@ MEMORY/
 ├── recovery/          # Recovery snapshots and journals
 ├── raw-outputs/       # JSONL event streams
 ├── backups/           # Pre-change backups
-├── State/             # Operational state files
-└── History/           # Historical archives
+└── State/             # Operational state files
 ```
 
 ## Directory Purposes
@@ -33,7 +32,6 @@ MEMORY/
 | `raw-outputs/` | JSONL event streams | Rolling 7 days |
 | `backups/` | Pre-refactoring state backups | As needed |
 | `State/` | Current operational state | Active |
-| `History/` | Historical archives | Permanent |
 
 ## Event Capture
 

@@ -28,7 +28,6 @@
 - [ ] `$PAI_DIR/MEMORY/raw-outputs/` directory exists
 - [ ] `$PAI_DIR/MEMORY/backups/` directory exists
 - [ ] `$PAI_DIR/MEMORY/State/` directory exists
-- [ ] `$PAI_DIR/MEMORY/History/` directory exists
 
 ### Settings Configuration (v1.2.0)
 
@@ -158,10 +157,10 @@ ls $PAI_DIR/skills/CORE/SYSTEM/
 
 ```bash
 ls $PAI_DIR/MEMORY/ | wc -l
-# Expected: 12 (11 directories + README.md)
+# Expected: 11 (10 directories + README.md)
 
 ls $PAI_DIR/MEMORY/
-# Expected: README.md backups decisions execution History learnings
+# Expected: README.md backups decisions execution learnings
 #           raw-outputs recovery research security sessions State
 ```
 
@@ -333,10 +332,10 @@ echo ""
 # Check MEMORY/ structure (v1.2.0)
 echo "🧠 MEMORY/ Structure:"
 MEMORY_COUNT=$(ls "$PAI_CHECK/MEMORY/" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$MEMORY_COUNT" -ge 12 ]; then
-  echo "  ✓ MEMORY/ directory has $MEMORY_COUNT items (expected: 12)"
+if [ "$MEMORY_COUNT" -ge 11 ]; then
+  echo "  ✓ MEMORY/ directory has $MEMORY_COUNT items (expected: 11)"
 else
-  echo "  ⚠️  MEMORY/ directory has $MEMORY_COUNT items (expected: 12)"
+  echo "  ⚠️  MEMORY/ directory has $MEMORY_COUNT items (expected: 11)"
 fi
 
 echo ""
@@ -386,7 +385,7 @@ Installation is complete when:
 3. ✅ All 14 USER/ files are present (+ 1 PAISECURITYSYSTEM/ directory)
 4. ✅ All 8 PAISECURITYSYSTEM/ files are present
 5. ✅ All 17 SYSTEM/ files are present
-6. ✅ All 12 MEMORY/ items present (11 directories + README.md)
+6. ✅ All 11 MEMORY/ items present (10 directories + README.md)
 7. ✅ settings.json or settings.json.template exists
 8. ✅ All tools are installed
 9. ✅ `bun run $PAI_DIR/Tools/SkillSearch.ts --list` returns skill list
