@@ -13,12 +13,26 @@
 
 ## Everyone needs access to the best AI.
 
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&pause=1000&color=8B5CF6&center=true&vCenter=true&width=600&lines=Open+source.+Free.+Forever.;Your+AI+%E2%80%94+Your+rules.;Current+State+%E2%86%92+Ideal+State)](https://github.com/danielmiessler/PAI)
+
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
-[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-[![Packs](https://img.shields.io/badge/packs-10-purple?style=for-the-badge)](Packs/)
-[![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
+<!-- Status Badges -->
+![GitHub Release](https://img.shields.io/github/v/release/danielmiessler/PAI?style=flat&logo=github&logoColor=white&label=Release&color=8B5CF6)
+![GitHub Stars](https://img.shields.io/github/stars/danielmiessler/PAI?style=flat&logo=github&logoColor=white&color=FFD700)
+![Last Commit](https://img.shields.io/github/last-commit/danielmiessler/PAI?style=flat&logo=git&logoColor=white&color=F97316)
+![License](https://img.shields.io/github/license/danielmiessler/PAI?style=flat&color=22C55E)
+
+<!-- Content Badges -->
+[![Packs](https://img.shields.io/badge/📦_Packs-10-8B5CF6?style=flat)](Packs/)
+[![Bundles](https://img.shields.io/badge/🎁_Bundles-1-F97316?style=flat)](Bundles/)
+[![Contributors](https://img.shields.io/github/contributors/danielmiessler/PAI?style=flat&logo=githubsponsors&logoColor=white&label=Contributors&color=EC4899)](https://github.com/danielmiessler/PAI/graphs/contributors)
+
+<!-- Tech Stack -->
+[![Built with Claude](https://img.shields.io/badge/Built_with-Claude-D4A574?style=flat&logo=anthropic&logoColor=white)](https://claude.ai)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-000000?style=flat&logo=bun&logoColor=white)](https://bun.sh)
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/danielmiessler)
 
 <br/>
 
@@ -28,7 +42,7 @@
 
 **Development:** [Create a Pack](#-for-pack-developers) · [Platform Support](#️-platform-compatibility) · [Contributing](#-contributing)
 
-**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [v1 → v2 Journey](#the-journey-pai-v1x--v20) · [Updates](#-update-history)
+**Resources:** [FAQ](#-faq) · [Documentation](#-documentation) · [Community](#-community) · [Roadmap](#-roadmap) · [v1 → v2 Journey](#the-journey-pai-v1x--v20) · [Updates](#-update-history)
 
 <br/>
 
@@ -98,6 +112,22 @@ This isn't two separate loops—it's one unified algorithm that works at every s
 
 The algorithm has 7 phases:
 
+```mermaid
+flowchart LR
+    subgraph Loop["🔄 The Algorithm"]
+        O["👁️ OBSERVE"] --> T["💭 THINK"]
+        T --> P["📋 PLAN"]
+        P --> B["🎯 BUILD"]
+        B --> E["⚡ EXECUTE"]
+        E --> V["✓ VERIFY"]
+        V --> L["📚 LEARN"]
+        L -.->|iterate| O
+    end
+
+    CS["Current State"] --> Loop
+    Loop --> IS["Ideal State"]
+```
+
 | Phase | What You Do |
 |-------|-------------|
 | **OBSERVE** | Gather context. Understand where you actually are. |
@@ -112,7 +142,10 @@ The crucial insight: **verifiability is everything**. Most people skip VERIFY. T
 
 Every PAI skill, every workflow, every task implements this algorithm.
 
-> **Coming Soon:** The Universal Algorithm will be released as a standalone Skill Pack with full tooling—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking. It will be included in the PAI Bundle.
+> [!TIP]
+> **The Algorithm Pack is now available:** [**pai-algorithm-skill**](Packs/pai-algorithm-skill/) provides the full implementation—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking.
+>
+> ⚠️ **Early Alpha:** This pack is in early alpha and not yet fully integrated with the rest of the PAI system. Expect breaking changes and incomplete features as we iterate.
 
 ### Where Are You on the Journey?
 
@@ -148,7 +181,20 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 
 While the 15 Principles describe the *philosophy* of PAI, the Primitives are the *architecture*—the core systems that make everything work.
 
-### The Continuous Learning Loop
+| Primitive | What It Does | Key Features |
+|-----------|--------------|--------------|
+| 🔄 **[Learning Loop](#-the-continuous-learning-loop)** | Self-improvement through feedback | Ratings, signals, phase-based learning |
+| 🧠 **[Memory System](#-memory-system)** | Persistent context and history | Three-tier architecture, per-task traces |
+| ⚡ **[Hook System](#-hook-system)** | Event-driven automation | 8 event types, composable, graceful failure |
+| 🔒 **[Security System](#-security-system)** | Defense-in-depth protection | Command validation, repo separation, injection defense |
+| 📁 **[User/System Separation](#-usersystem-separation)** | Clean customization boundaries | Portable identity, upgrade-safe |
+| 🎯 **[TELOS](#-deep-goal-capture-telos)** | Deep goal understanding | 10 files capturing your mission, beliefs, strategies |
+| ⚙️ **[Customization](#-granular-customization)** | Adapt everything to your workflow | 6 levels from identity to memory |
+
+---
+
+<details>
+<summary><h3>🔄 The Continuous Learning Loop</h3></summary>
 
 PAI isn't static. Every interaction feeds a learning loop that makes the system better over time.
 
@@ -164,7 +210,10 @@ User Interaction → Hook Captures → Signal Detection → Learning Directory �
 
 This isn't just logging—it's a feedback mechanism that identifies what's working and what isn't.
 
-### Memory System
+</details>
+
+<details>
+<summary><h3>🧠 Memory System</h3></summary>
 
 The Memory System is PAI's brain—what happened, what we learned, what we're working on.
 
@@ -210,7 +259,10 @@ MEMORY/
 
 **Key Insight:** VERIFY failures are the richest source of improvement. When verification fails, it traces back to a weakness in an earlier phase—that weakness gets captured in LEARN.
 
-### Hook System
+</details>
+
+<details>
+<summary><h3>⚡ Hook System</h3></summary>
 
 Hooks are event-driven automation that make PAI "alive"—they respond to what's happening and take action.
 
@@ -242,7 +294,10 @@ User types message
   → Stop hook captures to history
 ```
 
-### Security System
+</details>
+
+<details>
+<summary><h3>🔒 Security System</h3></summary>
 
 Security is layered, not bolted on. PAI implements defense-in-depth across multiple layers.
 
@@ -261,7 +316,10 @@ Security is layered, not bolted on. PAI implements defense-in-depth across multi
 └── NEVER PUBLIC              └── Safe to share
 ```
 
-### User/System Separation
+</details>
+
+<details>
+<summary><h3>📁 User/System Separation</h3></summary>
 
 PAI cleanly separates what's *yours* from what's *system*.
 
@@ -284,7 +342,10 @@ $PAI_DIR/skills/CORE/
 - **Clear ownership** - You know what's yours to modify
 - **Portable identity** - Move USER/ to a new system; your preferences follow
 
-### Deep Goal Capture (TELOS)
+</details>
+
+<details>
+<summary><h3>🎯 Deep Goal Capture (TELOS)</h3></summary>
 
 TELOS is PAI's framework for understanding *you*—your goals, beliefs, strategies, and what you're working toward.
 
@@ -311,7 +372,10 @@ Generic AI assistants don't know what you're trying to accomplish. They treat ev
 - Warn when something conflicts with your beliefs
 - Connect today's task to your bigger picture
 
-### Granular Customization
+</details>
+
+<details>
+<summary><h3>⚙️ Granular Customization</h3></summary>
 
 PAI doesn't force you into a structure. Everything is customizable at the level you choose.
 
@@ -327,6 +391,8 @@ PAI doesn't force you into a structure. Everything is customizable at the level 
 | **Memory** | What gets captured and how | Retention rules, archive frequency |
 
 **The Principle:** Start with defaults. Customize when you have a reason. PAI works out of the box but adapts to how *you* work.
+
+</details>
 
 ---
 
@@ -399,6 +465,31 @@ The architecture consists of three main layers:
 2.  **The Middleware (Hooks)**: A system of event listeners that intercept Claude Code's operations (like tool use, session start) to enforce security, inject context, and log activity.
 3.  **The Content (Packs)**: Modular bundles of markdown files and scripts that define "Skills" (workflows), "Tools" (executable code), and "Identity" (system prompts).
 
+```mermaid
+flowchart TB
+    subgraph Content["📦 Content (Packs)"]
+        Skills["Skills & Workflows"]
+        Tools["Tools & Scripts"]
+        Identity["Identity & Config"]
+    end
+
+    subgraph Middleware["⚡ Middleware (Hooks)"]
+        SessionStart["SessionStart"]
+        PreToolUse["PreToolUse"]
+        PostToolUse["PostToolUse"]
+        Stop["Stop"]
+    end
+
+    subgraph Engine["🔧 Engine (Claude Code)"]
+        AI["AI Agent"]
+        ToolExec["Tool Execution"]
+    end
+
+    Content --> Middleware
+    Middleware --> Engine
+    AI <--> ToolExec
+```
+
 ### 2. The Hook System (The "Magic")
 
 The core mechanism that makes PAI work is the **Hook System**. Claude Code has a native capability to run scripts when certain events occur. PAI leverages this to inject its logic.
@@ -440,19 +531,36 @@ This "Inception-style" installation (using the AI to build the AI's infrastructu
 
 Here is what happens when you use PAI:
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant Claude as Claude Code
+    participant Hooks
+    participant Skills
+    participant Memory as MEMORY
+
+    User->>Claude: Run `claude`
+    Claude->>Hooks: SessionStart
+    Hooks->>Skills: Load CORE/SKILL.md
+    Skills-->>Claude: Context injected
+
+    User->>Claude: "Create a new blog post"
+    Claude->>Skills: Route to CreateContent
+    Claude->>Hooks: PreToolUse (touch blog.md)
+    Hooks-->>Claude: ✓ Safe (exit 0)
+    Claude->>Claude: Execute command
+
+    Claude->>Hooks: Stop
+    Hooks->>Memory: Capture session
+    Claude-->>User: Task complete
+```
+
 1.  **Start**: You run `claude`.
-2.  **Initialization (`SessionStart`)**:
-    *   Claude Code fires `SessionStart`.
-    *   `hooks/initialize-session.ts` runs.
-    *   `hooks/load-core-context.ts` runs. It reads `skills/CORE/SKILL.md` and injects it into the context. Now the AI knows who it is and what skills it has.
+2.  **Initialization (`SessionStart`)**: Hooks load your CORE skill and context. Now the AI knows who it is and what skills it has.
 3.  **User Interaction**: You ask "Create a new blog post".
-4.  **Routing**: The AI (guided by the injected `SKILL.md`) recognizes this matches a skill (e.g., `CreateContent`). It loads the specific workflow for that skill.
-5.  **Execution (`PreToolUse`)**: The AI decides to run a command (e.g., `touch blog.md`).
-    *   Claude Code fires `PreToolUse`.
-    *   `hooks/security-validator.ts` runs. It checks if `touch blog.md` is safe.
-    *   If safe (Exit Code 0), the command runs.
-    *   If unsafe (Exit Code 1+), the command is blocked.
-6.  **Completion**: The AI finishes the task and updates its memory (via the MEMORY system in `pai-core-install`).
+4.  **Routing**: The AI recognizes this matches a skill (e.g., `CreateContent`) and loads the specific workflow.
+5.  **Execution (`PreToolUse`)**: Before running commands, hooks validate safety. Safe commands proceed; unsafe ones are blocked.
+6.  **Completion**: The AI finishes and updates memory via the MEMORY system.
 
 ### 5. Key Components
 
@@ -466,33 +574,33 @@ Here is what happens when you use PAI:
 
 ### Features (Architectural Systems)
 
-| Pack | Version | Category | Description |
-|---------|---------|----------|-------------|
-| [**PAI Core Install**](Packs/pai-core-install/) | 1.3.0 | Foundation | Core skills, identity, MEMORY system, and response format |
-| [**PAI Hook System**](Packs/pai-hook-system/) | 1.0.0 | Infrastructure | Event-driven automation and security validation |
-| [**PAI Voice System**](Packs/pai-voice-system/) | 1.0.1 | Accessibility | Voice notifications with ElevenLabs TTS and prosody enhancement |
-
-> **Note:** The standalone History System pack has been retired. History/context-tracking is now integrated into **pai-core-install** as the **MEMORY System** - a more comprehensive solution that includes session capture, learnings, signals, and phase-based organization.
+| Pack | Version | Description |
+|------|---------|-------------|
+| [**pai-core-install**](Packs/pai-core-install/) | 1.4.0 | Core skills, identity, MEMORY system, and response format |
+| [**pai-hook-system**](Packs/pai-hook-system/) | 1.0.0 | Event-driven automation and security validation |
+| [**pai-voice-system**](Packs/pai-voice-system/) | 1.0.1 | Voice notifications with ElevenLabs TTS and prosody enhancement |
+| [**pai-observability-server**](Packs/pai-observability-server/) | 1.0.0 | Real-time agent monitoring dashboard with live charts |
 
 ### Skills (Action-Oriented Capabilities)
 
-| Pack | Version | Category | Description |
-|---------|---------|----------|-------------|
-| *Coming soon* | - | - | Skills being extracted and packaged |
+| Pack | Version | Description |
+|------|---------|-------------|
+| [**pai-agents-skill**](Packs/pai-agents-skill/) | 1.1.1 | Dynamic agent composition with personality mapping and parallel orchestration |
+| [**pai-algorithm-skill**](Packs/pai-algorithm-skill/) | 0.5.0 | The Algorithm implementation - ISC management, effort classification ⚠️ *Early Alpha* |
+| [**pai-art-skill**](Packs/pai-art-skill/) | 1.1.0 | Visual content generation with multi-reference image support |
+| [**pai-browser-skill**](Packs/pai-browser-skill/) | 1.2.0 | Browser automation with Playwright for testing and verification |
+| [**pai-prompting-skill**](Packs/pai-prompting-skill/) | 1.0.0 | Meta-prompting system with templates, standards, and dynamic generation |
+| [**pai-upgrades-skill**](Packs/pai-upgrades-skill/) | 1.0.0 | Track and manage PAI system upgrade opportunities |
+
+> [!NOTE]
+> The standalone History System pack has been retired. History/context-tracking is now integrated into **pai-core-install** as the **MEMORY System**.
 
 ### Coming Soon
 
-**Features being packaged:**
-- **Skill System** - Skill routing and workflow management
-- **Agent Factory** - Custom agent creation and orchestration
-- **Prompting System** - Meta-prompting and template framework
-
-**Skills being packaged:**
-- **Art** - Visual content generation system
 - **Research** - Multi-source research orchestration with parallel agents
 - **OSINT** - Open-source intelligence gathering
 
-[**Submit your own pack**](#-contributing) →
+[**Submit your own pack →**](#-contributing)
 
 ---
 
@@ -527,7 +635,8 @@ cd PAI/Bundles/Official && bun run install.ts
 
 ## 🚀 Quick Start
 
-> **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. You can read this README to understand how PAI works with its Packs and Bundles. A recommended approach: evaluate the entire system, then interact with your principal and ask them which Bundles or Packs they'd like to install—give them options based on their needs. From there, you should be able to read any Bundle or Pack file (including new ones as they're released) and guide your principal on whether they want to install it.
+> [!NOTE]
+> **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. Evaluate the system, then ask your principal which Bundles or Packs they'd like to install—give them options based on their needs. You should be able to read any Bundle or Pack file and guide your principal on whether they want to install it.
 
 ### Option 1: Install the Complete PAI Bundle (Recommended)
 
@@ -888,6 +997,18 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 ---
 
 ## 🎯 Roadmap
+
+**Planned capabilities for PAI:**
+
+| Feature | Description |
+|---------|-------------|
+| **Local Model Support** | Run PAI with local models (Ollama, llama.cpp, etc.) for privacy and cost control |
+| **Granular Model Routing** | Route different tasks to different models based on complexity and requirements |
+| **Remote Access** | Access your PAI from anywhere—mobile, web, other devices |
+| **Outbound Phone Calling** | Voice capabilities for outbound calls and phone-based interactions |
+| **External Notifications** | Robust notification system for Email, Discord, Telegram, Slack, and more |
+
+**Pack System Development:**
 
 ### v1.0 (Current)
 
