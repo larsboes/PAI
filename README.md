@@ -568,7 +568,7 @@ sequenceDiagram
 
 ---
 
-## 📦 Available Packs
+## 📦 Available PAI Packs
 
 ### Features (Architectural Systems)
 
@@ -592,11 +592,6 @@ sequenceDiagram
 
 > [!NOTE]
 > The standalone History System pack has been retired. History/context-tracking is now integrated into **pai-core-install** as the **MEMORY System**.
-
-### Coming Soon
-
-- **Research** - Multi-source research orchestration with parallel agents
-- **OSINT** - Open-source intelligence gathering
 
 [**Submit your own pack →**](#-contributing)
 
