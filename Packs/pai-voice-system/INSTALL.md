@@ -235,24 +235,21 @@ PAI_DIR="${PAI_DIR:-$HOME/.claude}"
 
 # Copy voice server
 cp "$PACK_DIR/src/voice/server.ts" "$PAI_DIR/VoiceServer/"
-cp "$PACK_DIR/src/voice/voices.json" "$PAI_DIR/VoiceServer/"
 
-# Copy management scripts
+# Copy voice personalities configuration
+cp "$PACK_DIR/config/voice-personalities.json" "$PAI_DIR/VoiceServer/"
+
+# Copy management script
 cp "$PACK_DIR/src/voice/manage.sh" "$PAI_DIR/VoiceServer/"
-cp "$PACK_DIR/src/voice/start.sh" "$PAI_DIR/VoiceServer/"
-cp "$PACK_DIR/src/voice/stop.sh" "$PAI_DIR/VoiceServer/"
-cp "$PACK_DIR/src/voice/restart.sh" "$PAI_DIR/VoiceServer/"
-cp "$PACK_DIR/src/voice/status.sh" "$PAI_DIR/VoiceServer/"
 
 # Make scripts executable
 chmod +x "$PAI_DIR/VoiceServer/"*.sh
 ```
 
 **Files copied:**
-- `server.ts` - ElevenLabs TTS HTTP server
-- `voices.json` - Agent voice configurations
-- `manage.sh` - Start/stop/restart/status management
-- `start.sh`, `stop.sh`, `restart.sh`, `status.sh` - Individual control scripts
+- `server.ts` - ElevenLabs TTS HTTP server (port 8888)
+- `voice-personalities.json` - Agent voice configurations with stability/similarity settings
+- `manage.sh` - Unified management script (start/stop/restart/status/test)
 
 **Mark todo as completed.**
 
@@ -384,7 +381,7 @@ echo "=== PAI Voice System Verification ==="
 # Check VoiceServer files
 echo "Checking VoiceServer files..."
 [ -f "$PAI_DIR/VoiceServer/server.ts" ] && echo "✓ server.ts" || echo "❌ server.ts missing"
-[ -f "$PAI_DIR/VoiceServer/voices.json" ] && echo "✓ voices.json" || echo "❌ voices.json missing"
+[ -f "$PAI_DIR/VoiceServer/voice-personalities.json" ] && echo "✓ voice-personalities.json" || echo "❌ voice-personalities.json missing"
 [ -x "$PAI_DIR/VoiceServer/manage.sh" ] && echo "✓ manage.sh (executable)" || echo "❌ manage.sh not executable"
 
 # Check hook files
@@ -542,16 +539,12 @@ afplay /System/Library/Sounds/Ping.aiff
 
 | File | Purpose |
 |------|---------|
-| `VoiceServer/server.ts` | ElevenLabs TTS HTTP server |
-| `VoiceServer/voices.json` | Agent voice configurations |
-| `VoiceServer/manage.sh` | Start/stop/restart/status script |
-| `VoiceServer/start.sh` | Start voice server |
-| `VoiceServer/stop.sh` | Stop voice server |
-| `VoiceServer/restart.sh` | Restart voice server |
-| `VoiceServer/status.sh` | Check server status |
+| `VoiceServer/server.ts` | ElevenLabs TTS HTTP server (port 8888) |
+| `VoiceServer/voice-personalities.json` | Agent voice configurations with stability/similarity settings |
+| `VoiceServer/manage.sh` | Unified management script (start/stop/restart/status/test) |
 | `hooks/stop-hook-voice.ts` | Session stop voice hook |
 | `hooks/subagent-stop-hook-voice.ts` | Subagent stop voice hook |
-| `hooks/lib/prosody-enhancer.ts` | SSML prosody enhancement |
+| `hooks/lib/prosody-enhancer.ts` | Prosody enhancement with 13 emotional markers |
 
 ---
 
@@ -608,7 +601,7 @@ curl -X POST http://localhost:8888/notify \
 
 ## Voice Personalities
 
-The voice system supports multiple agent voices via `voices.json`:
+The voice system supports multiple agent voices via `voice-personalities.json`:
 
 | Agent | Voice Style |
 |-------|-------------|
@@ -617,7 +610,7 @@ The voice system supports multiple agent voices via `voices.json`:
 | Architect | Measured, thoughtful pace |
 | Engineer | Clear, technical tone |
 
-Configure voices in `$PAI_DIR/VoiceServer/voices.json`.
+Configure voices in `$PAI_DIR/VoiceServer/voice-personalities.json`.
 
 ---
 

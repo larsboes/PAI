@@ -1,7 +1,7 @@
 ---
 name: PAI Voice System
-pack-id: danielmiessler-pai-voice-system-v1.0.0
-version: 1.0.0
+pack-id: danielmiessler-pai-voice-system-v1.0.1
+version: 1.0.1
 author: danielmiessler
 description: Voice notification system with ElevenLabs TTS, prosody enhancement for natural speech, and agent personality-driven voice delivery
 type: feature
@@ -194,6 +194,13 @@ Configure multiple voices in `voice-personalities.json` for multi-agent conversa
 - **pai-history-system** - Complementary functionality
 
 ## Changelog
+
+### 1.0.1 - 2026-01-09
+- **Documentation fixes**: INSTALL.md and VERIFY.md now correctly reference actual files
+- Fixed: References to non-existent `start.sh`, `stop.sh`, `restart.sh`, `status.sh` → use `manage.sh`
+- Fixed: `voices.json` → `voice-personalities.json`
+- Fixed: `voice-server/` → `VoiceServer/` directory paths
+- Clarified: Full voice server IS included at `src/voice/server.ts` (553 lines)
 
 ### 1.0.0 - 2026-01-08
 - Initial release with complete voice server implementation

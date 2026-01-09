@@ -7,15 +7,16 @@
 ### Directory Structure
 
 - [ ] `$PAI_DIR/hooks/lib/` directory exists
-- [ ] `$PAI_DIR/voice-server/` directory exists
+- [ ] `$PAI_DIR/VoiceServer/` directory exists
 
 ### Core Files
 
 - [ ] `$PAI_DIR/hooks/lib/prosody-enhancer.ts` exists
 - [ ] `$PAI_DIR/hooks/stop-hook-voice.ts` exists
 - [ ] `$PAI_DIR/hooks/subagent-stop-hook-voice.ts` exists
-- [ ] `$PAI_DIR/voice-server/server.ts` exists
-- [ ] `$PAI_DIR/voice-server/manage.sh` exists
+- [ ] `$PAI_DIR/VoiceServer/server.ts` exists
+- [ ] `$PAI_DIR/VoiceServer/manage.sh` exists
+- [ ] `$PAI_DIR/VoiceServer/voice-personalities.json` exists
 
 ### Configuration
 
@@ -39,7 +40,7 @@ PAI_CHECK="${PAI_DIR:-$HOME/.config/pai}"
 ls -la $PAI_CHECK/hooks/lib/
 # Expected: prosody-enhancer.ts
 
-ls -la $PAI_CHECK/voice-server/
+ls -la $PAI_CHECK/VoiceServer/
 # Expected: server.ts, manage.sh
 
 ls -la $PAI_CHECK/hooks/
@@ -81,7 +82,7 @@ grep -A5 "stop-hook-voice" ~/.claude/settings.json
 ### Test 6: Test Management Script
 
 ```bash
-$PAI_DIR/voice-server/manage.sh status
+$PAI_DIR/VoiceServer/manage.sh status
 # Expected: Shows server running status
 ```
 
@@ -107,13 +108,13 @@ In a Claude Code session:
 
 ```bash
 # Stop the voice server
-$PAI_DIR/voice-server/manage.sh stop
+$PAI_DIR/VoiceServer/manage.sh stop
 
 # In Claude Code, complete a task
 # Should complete without errors (silent, no crash)
 
 # Restart voice server
-$PAI_DIR/voice-server/manage.sh start
+$PAI_DIR/VoiceServer/manage.sh start
 ```
 
 ---
@@ -129,7 +130,7 @@ echo ""
 
 # Check files
 echo "📁 Files:"
-for file in "hooks/lib/prosody-enhancer.ts" "hooks/stop-hook-voice.ts" "hooks/subagent-stop-hook-voice.ts" "voice-server/server.ts" "voice-server/manage.sh"; do
+for file in "hooks/lib/prosody-enhancer.ts" "hooks/stop-hook-voice.ts" "hooks/subagent-stop-hook-voice.ts" "VoiceServer/server.ts" "VoiceServer/manage.sh"; do
   if [ -f "$PAI_CHECK/$file" ]; then
     echo "  ✓ $file"
   else
