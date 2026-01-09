@@ -11,9 +11,7 @@
 
 # Personal AI Infrastructure
 
-## Everyone needs access to the best AI.
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&pause=1000&color=8B5CF6&center=true&vCenter=true&width=600&lines=Open+source.+Free.+Forever.;Your+AI+%E2%80%94+Your+rules.;Current+State+%E2%86%92+Ideal+State)](https://github.com/danielmiessler/PAI)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&pause=1000&color=8B5CF6&center=true&vCenter=true&width=600&lines=Everyone+needs+access+to+the+best+AI.;AI+should+magnify+everyone.;Your+personal+AI+stack.)](https://github.com/danielmiessler/PAI)
 
 <br/>
 
