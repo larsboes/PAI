@@ -15,7 +15,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue?style=for-the-badge)](https://github.com/danielmiessler/Personal_AI_Infrastructure/releases)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 [![Packs](https://img.shields.io/badge/packs-10-purple?style=for-the-badge)](Packs/)
 [![Bundles](https://img.shields.io/badge/bundles-1-orange?style=for-the-badge)](Bundles/)
@@ -452,13 +452,12 @@ Here is what happens when you use PAI:
     *   `hooks/security-validator.ts` runs. It checks if `touch blog.md` is safe.
     *   If safe (Exit Code 0), the command runs.
     *   If unsafe (Exit Code 1+), the command is blocked.
-6.  **Completion**: The AI finishes the task and updates its memory (via `pai-history-system` hooks).
+6.  **Completion**: The AI finishes the task and updates its memory (via the MEMORY system in `pai-core-install`).
 
 ### 5. Key Components
 
 *   **`pai-hook-system`**: The engine room. Provides the event bus and security layer.
-*   **`pai-core-install`**: The brain. Defines the "CORE" skill, identity, and routing logic.
-*   **`pai-history-system`**: The memory. Captures session data and learnings.
+*   **`pai-core-install`**: The brain. Defines the "CORE" skill, identity, routing logic, and **MEMORY system** (session capture, learnings, signals).
 *   **`pai-voice-system`**: (Optional) Adds voice capabilities via ElevenLabs.
 
 ---
@@ -469,7 +468,11 @@ Here is what happens when you use PAI:
 
 | Pack | Version | Category | Description |
 |---------|---------|----------|-------------|
-| [**PAI History System**](Packs/pai-history-system.md) | 1.0.0 | Infrastructure | Automatic context-tracking system that captures all work, decisions, and learnings with zero manual effort |
+| [**PAI Core Install**](Packs/pai-core-install/) | 1.3.0 | Foundation | Core skills, identity, MEMORY system, and response format |
+| [**PAI Hook System**](Packs/pai-hook-system/) | 1.0.0 | Infrastructure | Event-driven automation and security validation |
+| [**PAI Voice System**](Packs/pai-voice-system/) | 1.0.1 | Accessibility | Voice notifications with ElevenLabs TTS and prosody enhancement |
+
+> **Note:** The standalone History System pack has been retired. History/context-tracking is now integrated into **pai-core-install** as the **MEMORY System** - a more comprehensive solution that includes session capture, learnings, signals, and phase-based organization.
 
 ### Skills (Action-Oriented Capabilities)
 
@@ -1112,6 +1115,29 @@ The packs are extracted from Kai—real capabilities that have been running in p
 ## 📜 Update History
 
 <details open>
+<summary><strong>v2.1.1 (2026-01-09) — MEMORY System Migration</strong></summary>
+
+<br/>
+
+**History System Retired**
+- Removed standalone `pai-history-system` pack
+- History/context-tracking functionality is now part of **pai-core-install** as the **MEMORY System**
+
+**Why This Change?**
+- The MEMORY System in pai-core-install is more comprehensive:
+  - Three-tier architecture (CAPTURE → SYNTHESIS → APPLICATION)
+  - Phase-based learnings organized by algorithm phase (OBSERVE, THINK, PLAN, BUILD, EXECUTE, VERIFY)
+  - Real-time signals tracking (ratings, failures, loopbacks, patterns)
+  - Per-task work directories with full traces
+- Having history as a separate pack created confusion and redundancy
+- Core installation now provides complete memory/history functionality out of the box
+
+**Migration Note**
+If you previously installed `pai-history-system`, your data is preserved. The new MEMORY System in pai-core-install uses the same `$PAI_DIR/MEMORY/` directory structure.
+
+</details>
+
+<details>
 <summary><strong>v2.1.0 (2025-12-31) — Directory-Based Pack Structure</strong></summary>
 
 <br/>
