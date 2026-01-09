@@ -11,7 +11,7 @@
 
 # Personal AI Infrastructure
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&pause=1000&color=8B5CF6&center=true&vCenter=true&width=600&lines=Everyone+needs+access+to+the+best+AI.;AI+should+magnify+everyone.;Your+personal+AI+stack.)](https://github.com/danielmiessler/PAI)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=24&pause=1000&color=1E40AF&center=true&vCenter=true&width=600&lines=Everyone+needs+access+to+the+best+AI.;AI+should+magnify+everyone.;Your+personal+AI+stack.)](https://github.com/danielmiessler/PAI)
 
 <br/>
 
@@ -30,7 +30,7 @@
 [![Built with Claude](https://img.shields.io/badge/Built_with-Claude-D4A574?style=flat&logo=anthropic&logoColor=white)](https://claude.ai)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Bun](https://img.shields.io/badge/Bun-000000?style=flat&logo=bun&logoColor=white)](https://bun.sh)
-[![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/danielmiessler)
+[![UL Community](https://img.shields.io/badge/UL_Community-5865F2?style=flat&logo=discord&logoColor=white)](https://danielmiessler.com/upgrade)
 
 <br/>
 
@@ -110,21 +110,9 @@ This isn't two separate loops—it's one unified algorithm that works at every s
 
 The algorithm has 7 phases:
 
-```mermaid
-flowchart LR
-    subgraph Loop["🔄 The Algorithm"]
-        O["👁️ OBSERVE"] --> T["💭 THINK"]
-        T --> P["📋 PLAN"]
-        P --> B["🎯 BUILD"]
-        B --> E["⚡ EXECUTE"]
-        E --> V["✓ VERIFY"]
-        V --> L["📚 LEARN"]
-        L -.->|iterate| O
-    end
-
-    CS["Current State"] --> Loop
-    Loop --> IS["Ideal State"]
-```
+<p align="center">
+  <img src="./pai-algorithm-diagram.png" alt="The Algorithm - 7 Phases" width="800">
+</p>
 
 | Phase | What You Do |
 |-------|-------------|
@@ -137,8 +125,6 @@ flowchart LR
 | **LEARN** | Harvest insights. Iterate or complete. |
 
 The crucial insight: **verifiability is everything**. Most people skip VERIFY. They try things, vaguely check if it worked, and move on. The algorithm's power comes from defining success criteria *before* execution and measuring against them *after*.
-
-Every PAI skill, every workflow, every task implements this algorithm.
 
 > [!TIP]
 > **The Algorithm Pack is now available:** [**pai-algorithm-skill**](Packs/pai-algorithm-skill/) provides the full implementation—effort classification, capability loading, ISC (Ideal State Criteria) management, and visual progress tracking.
@@ -463,30 +449,9 @@ The architecture consists of three main layers:
 2.  **The Middleware (Hooks)**: A system of event listeners that intercept Claude Code's operations (like tool use, session start) to enforce security, inject context, and log activity.
 3.  **The Content (Packs)**: Modular bundles of markdown files and scripts that define "Skills" (workflows), "Tools" (executable code), and "Identity" (system prompts).
 
-```mermaid
-flowchart TB
-    subgraph Content["📦 Content (Packs)"]
-        Skills["Skills & Workflows"]
-        Tools["Tools & Scripts"]
-        Identity["Identity & Config"]
-    end
-
-    subgraph Middleware["⚡ Middleware (Hooks)"]
-        SessionStart["SessionStart"]
-        PreToolUse["PreToolUse"]
-        PostToolUse["PostToolUse"]
-        Stop["Stop"]
-    end
-
-    subgraph Engine["🔧 Engine (Claude Code)"]
-        AI["AI Agent"]
-        ToolExec["Tool Execution"]
-    end
-
-    Content --> Middleware
-    Middleware --> Engine
-    AI <--> ToolExec
-```
+<p align="center">
+  <img src="./pai-architecture-diagram.png" alt="PAI Architecture" width="800">
+</p>
 
 ### 2. The Hook System (The "Magic")
 
@@ -1001,40 +966,13 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 | **Outbound Phone Calling** | Voice capabilities for outbound calls and phone-based interactions |
 | **External Notifications** | Robust notification system for Email, Discord, Telegram, Slack, and more |
 
-**Pack System Development:**
-
-### v1.0 (Current)
-
-- [x] Pack format specification
-- [x] History System pack (context-tracking)
-- [x] Pack template
-- [x] Installation documentation
-- [ ] Pack discovery website
-- [ ] 5+ core packs released
-
-### v1.1 (Q1 2026)
-
-- [ ] Pack dependency system
-- [ ] Automated testing framework
-- [ ] Pack marketplace
-- [ ] Cross-pack integration examples
-- [ ] 20+ packs available
-
-### v1.2 (Q2 2026)
-
-- [ ] Pack composition tools
-- [ ] Version compatibility checker
-- [ ] Community pack ratings
-- [ ] Pack search/filter by category
-- [ ] 50+ packs available
-
 ---
 
 ## 🌐 Community
 
 **GitHub Discussions:** [Join the conversation](https://github.com/danielmiessler/Personal_AI_Infrastructure/discussions)
 
-**Discord:** [PAI Community](https://discord.gg/danielmiessler) (coming soon)
+**UL Community Discord:** PAI is discussed in the [Unsupervised Learning community](https://danielmiessler.com/upgrade) along with other AI projects
 
 **Twitter/X:** [@danielmiessler](https://twitter.com/danielmiessler)
 
@@ -1171,6 +1109,7 @@ PAI is **free and open-source forever.**
 If you find it valuable:
 
 - ⭐ **Star the repo** - Helps others discover it
+- 💜 **[Sponsor on GitHub](https://github.com/sponsors/danielmiessler)** - Help fund development
 - 📢 **Share your packs** - The more packs, the better PAI gets
 - 💬 **Engage in discussions** - Help answer questions, share ideas
 - 🐛 **Report issues** - Make PAI better for everyone
@@ -1495,6 +1434,18 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 ### Contributors
 
 **[fayerman-source](https://github.com/fayerman-source)** — Google Cloud TTS provider integration and Linux audio support for the voice system.
+
+---
+
+## 💜 Support This Project
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/Sponsor-❤️-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="Sponsor">
+
+**I spend hundreds of hours a year on open source. If you'd like to help support this project, you can sponsor me [here](https://github.com/sponsors/danielmiessler). 🙏🏼**
+
+</div>
 
 ---
 
