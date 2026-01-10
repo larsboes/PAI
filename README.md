@@ -45,10 +45,6 @@
 
 <br/>
 
-⚠️ **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. If you prefer stability, consider waiting for v2.1. If you're comfortable with flux and want to help shape the project, dive in!
-
-<br/>
-
 [![PAI Overview Video](https://img.youtube.com/vi/Le0DLrn7ta0/maxresdefault.jpg)](https://youtu.be/Le0DLrn7ta0)
 
 **[Watch the full PAI walkthrough](https://youtu.be/Le0DLrn7ta0)** | **[Read: The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)**
@@ -72,6 +68,9 @@ This is open-source. This is free. This is for everyone.
 - **Power users** who want their AI to know their goals, preferences, and context
 - **Teams** building shared AI infrastructure with consistent capabilities
 - **Experimenters** interested in AI system design and personal AI patterns
+
+> [!CAUTION]
+> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. If you prefer stability, consider waiting for v2.1. If you're comfortable with flux and want to help shape the project, dive in!
 
 ---
 
