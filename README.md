@@ -102,7 +102,7 @@ We didn't invent this pattern. Evolution uses it. Science uses it. Every success
 
 You've probably used ChatGPT or Claude. Type a question, get an answer. Simple.
 
-But here's the thing: **there are actually three levels of AI**, and most people are stuck on level one.
+But you can think of it as **three levels**—and most people are stuck on level one.
 
 <p align="center">
   <img src="./pai-eli5-diagram.png" alt="The AI Evolution - From chatbots to your personal AI system" width="800">
