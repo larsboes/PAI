@@ -45,17 +45,7 @@
 
 <br/>
 
-> [!CAUTION]
-> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. If you prefer stability, consider waiting for v2.1. If you're comfortable with flux and want to help shape the project, dive in!
-
-<br/>
-
-### ⚡ TL;DR - Get Started in 60 Seconds
-
-```bash
-git clone https://github.com/danielmiessler/PAI.git
-cd PAI/Bundles/Official && bun run install.ts
-```
+⚠️ **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. If you prefer stability, consider waiting for v2.1. If you're comfortable with flux and want to help shape the project, dive in!
 
 <br/>
 
