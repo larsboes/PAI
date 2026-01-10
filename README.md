@@ -70,7 +70,7 @@ This is open-source. This is free. This is for everyone.
 - **Experimenters** interested in AI system design and personal AI patterns
 
 > [!CAUTION]
-> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. If you prefer stability, consider waiting for v2.1. If you're comfortable with flux and want to help shape the project, dive in!
+> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. Changes should be slowing down shortly, but you should be someone with patience for tinkering if you get in at this stage. We are working on stable and development branches, but currently it's all combined.
 
 ---
 
