@@ -34,7 +34,7 @@
 
 <br/>
 
-**Getting Started:** [AI-First Install](#-this-readme-is-for-your-ai-assistant) · [What is PAI?](#what-is-pai) · [ELI5](#wait-back-upexplain-this-like-im-5) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives)
+**Getting Started:** [AI-First Install](#-this-readme-is-for-your-ai-assistant) · [What is PAI?](#what-is-pai) · [High Level](#whats-the-high-level) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives)
 
 **Installation:** [Packs & Bundles](#packs--bundles) · [How AI Install Works](#how-ai-installation-works) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [Quick Start](#-quick-start)
 
@@ -98,7 +98,7 @@ We didn't invent this pattern. Evolution uses it. Science uses it. Every success
 
 ---
 
-## Wait, Back Up—Explain This Like I'm 5
+## What's the High Level?
 
 You've probably used ChatGPT or Claude. Type a question, get an answer. Simple.
 
