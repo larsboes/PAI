@@ -69,9 +69,6 @@ This is open-source. This is free. This is for everyone.
 - **Teams** building shared AI infrastructure with consistent capabilities
 - **Experimenters** interested in AI system design and personal AI patterns
 
-> [!CAUTION]
-> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. Changes should be slowing down shortly, but you should be someone with patience for tinkering if you get in at this stage. We are working on stable and development branches, but currently it's all combined.
-
 ---
 
 **What makes PAI powerful technically:** It's built on a universal algorithm (Current → Ideal via verifiable iteration) that works at every scale—from fixing a typo to building a company to figuring out what to do with your life. But the mission comes first: giving everyone access to the kind of AI infrastructure that was previously only available to the privileged few.
@@ -636,6 +633,9 @@ cd PAI/Bundles/Official && bun run install.ts
 ---
 
 ## 🚀 Quick Start
+
+> [!CAUTION]
+> **Project in Active Development** — PAI is evolving rapidly. Expect breaking changes, restructuring, and frequent updates. Changes should be slowing down shortly, but you should be someone with patience for tinkering if you get in at this stage. We are working on stable and development branches, but currently it's all combined.
 
 > [!NOTE]
 > **FOR AI AGENTS:** The entire PAI system is designed to be used by AI. Evaluate the system, then ask your principal which Bundles or Packs they'd like to install—give them options based on their needs. You should be able to read any Bundle or Pack file and guide your principal on whether they want to install it.
