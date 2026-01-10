@@ -102,7 +102,7 @@ We didn't invent this pattern. Evolution uses it. Science uses it. Every success
 
 You've probably used ChatGPT or Claude. Type a question, get an answer. Simple.
 
-But you can think of it as **three levels**—and most people are stuck on level one.
+You can think of it as **three levels**:
 
 <p align="center">
   <img src="./pai-eli5-diagram.png" alt="The AI Evolution - From chatbots to your personal AI system" width="800">
@@ -110,33 +110,31 @@ But you can think of it as **three levels**—and most people are stuck on level
 
 ### Level 1: Chatbots
 
-This is where most people are. ChatGPT, Claude, Gemini—you ask it something, it answers, and then... it forgets everything. Next conversation? Fresh start. No memory of you, your preferences, or what you talked about yesterday.
+ChatGPT, Claude, Gemini—you ask something, it answers, and then it forgets everything. Next conversation starts fresh. No memory of you, your preferences, or what you talked about yesterday.
 
 **The pattern:** Ask → Answer → Forget
 
-It's like having a brilliant friend with amnesia.
-
 ### Level 2: Agentic Platforms
 
-This is where things like Claude Code, Cursor, and Windsurf live. The AI can actually *do* things—write code, browse the web, edit files, run commands. It has tools.
+Tools like Claude Code, Cursor, and Windsurf. The AI can actually *do* things—write code, browse the web, edit files, run commands.
 
-**The pattern:** Ask → Use tools → Get result → Still forgets you
+**The pattern:** Ask → Use tools → Get result
 
-Better! But it still doesn't know *you*. It doesn't know your goals, your preferences, your history, or what you're actually trying to accomplish in life.
+More capable, but it still doesn't know *you*—your goals, your preferences, your history.
 
 ### Level 3: PAI (Personal AI Infrastructure)
 
-This is the destination. Your AI knows:
-- **Your goals** — What you're working toward in life and work
-- **Your preferences** — TypeScript over Python, how you like things formatted
-- **Your history** — Past decisions, learnings, what worked and what didn't
-- **Your context** — Who you are, who you know, what matters to you
+Now your AI knows:
+- **Your goals** — What you're working toward
+- **Your preferences** — How you like things done
+- **Your history** — Past decisions and learnings
+- **Your context** — Who you are and what matters to you
 
-And it gets *better* at helping you over time. It learns from your feedback. It remembers what you taught it.
+It gets better at helping you over time. It learns from feedback and remembers what you taught it.
 
 **The pattern:** Observe → Think → Plan → Execute → Verify → Learn → Improve
 
-That's what PAI builds. Not just an AI that answers questions—an AI system that knows you and helps you become your best self.
+That's what PAI builds—an AI system that actually knows you.
 
 ---
 
