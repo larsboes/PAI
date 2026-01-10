@@ -34,7 +34,7 @@
 
 <br/>
 
-**Getting Started:** [AI-First Install](#-this-readme-is-for-your-ai-assistant) · [What is PAI?](#what-is-pai) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives)
+**Getting Started:** [AI-First Install](#-this-readme-is-for-your-ai-assistant) · [What is PAI?](#what-is-pai) · [ELI5](#wait-back-upexplain-this-like-im-5) · [The Algorithm](#the-algorithm) · [Principles](#the-15-pai-principles) · [Primitives](#pai-primitives)
 
 **Installation:** [Packs & Bundles](#packs--bundles) · [How AI Install Works](#how-ai-installation-works) · [Browse Packs](#-available-packs) · [Browse Bundles](#-available-bundles) · [Quick Start](#-quick-start)
 
@@ -95,6 +95,48 @@ We didn't invent this pattern. Evolution uses it. Science uses it. Every success
 - **A universal algorithm** - Current → Ideal via verifiable iteration, at any scale
 - **Personal infrastructure** - Skills, memory, and context that make AI actually useful for *your* life
 - **Open-source packs** - Battle-tested capabilities anyone can install or contribute
+
+---
+
+## Wait, Back Up—Explain This Like I'm 5
+
+You've probably used ChatGPT or Claude. Type a question, get an answer. Simple.
+
+But here's the thing: **there are actually three levels of AI**, and most people are stuck on level one.
+
+<p align="center">
+  <img src="./pai-eli5-diagram.png" alt="The AI Evolution - From chatbots to your personal AI system" width="800">
+</p>
+
+### Level 1: Chatbots
+
+This is where most people are. ChatGPT, Claude, Gemini—you ask it something, it answers, and then... it forgets everything. Next conversation? Fresh start. No memory of you, your preferences, or what you talked about yesterday.
+
+**The pattern:** Ask → Answer → Forget
+
+It's like having a brilliant friend with amnesia.
+
+### Level 2: Agentic Platforms
+
+This is where things like Claude Code, Cursor, and Windsurf live. The AI can actually *do* things—write code, browse the web, edit files, run commands. It has tools.
+
+**The pattern:** Ask → Use tools → Get result → Still forgets you
+
+Better! But it still doesn't know *you*. It doesn't know your goals, your preferences, your history, or what you're actually trying to accomplish in life.
+
+### Level 3: PAI (Personal AI Infrastructure)
+
+This is the destination. Your AI knows:
+- **Your goals** — What you're working toward in life and work
+- **Your preferences** — TypeScript over Python, how you like things formatted
+- **Your history** — Past decisions, learnings, what worked and what didn't
+- **Your context** — Who you are, who you know, what matters to you
+
+And it gets *better* at helping you over time. It learns from your feedback. It remembers what you taught it.
+
+**The pattern:** Observe → Think → Plan → Execute → Verify → Learn → Improve
+
+That's what PAI builds. Not just an AI that answers questions—an AI system that knows you and helps you become your best self.
 
 ---
 
