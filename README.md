@@ -61,6 +61,8 @@ The most powerful AI systems are being built inside companies for companies. The
 
 PAI exists to democratize access to **self-learning AI infrastructure**. Not a chatbot that forgets everything. Not a generic assistant that starts fresh each time. A [*system* that improves itself](https://danielmiessler.com/blog/personal-ai-maturity-model)—one that captures feedback from every interaction, learns from mistakes, and gets better at helping *you* specifically.
 
+**The North Star: Euphoric Surprise.** PAI pursues a singular goal—creating *Euphoric Surprise* in how it executes every task. Not just completion, but results so thorough, thoughtful, and effective that you're genuinely surprised and delighted. This is how PAI helps you become the best version of yourself: by consistently exceeding expectations in service of your goals. The [Personal AI Maturity Model](https://danielmiessler.com/blog/personal-ai-maturity-model) shows where this path leads—from basic chatbots to a true AI companion.
+
 This is open-source. This is free. This is for everyone.
 
 **Who is PAI for?**
