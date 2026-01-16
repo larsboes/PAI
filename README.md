@@ -51,14 +51,14 @@
 
 ---
 
-# AI should magnify everyone—not just the top 1%.
-
-</div>
-
 > [!IMPORTANT]
 > **PAI v2.3.0 Released** — Complete `.claude/` directories with continuous learning are back.
 >
 > **[Release notes →](Releases/v2.3/README.md)** | **[GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)**
+
+# AI should magnify everyone—not just the top 1%.
+
+</div>
 
 The most powerful AI systems are being built inside companies for companies. The richest people and the biggest corporations are getting AI that learns from every interaction and gets better at helping them over time.
 
