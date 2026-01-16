@@ -56,13 +56,9 @@
 </div>
 
 > [!IMPORTANT]
-> **PAI v2.3.0 Released — Full Releases Return**
+> **PAI v2.3.0 Released** — Complete `.claude/` directories with continuous learning are back.
 >
-> Complete `.claude/` directories are back. Copy, configure, and start immediately.
->
-> v2.3 introduces **continuous learning** — PAI now captures every interaction (ratings, sentiment, behavioral signals) and uses them to improve itself over time.
->
-> **[Read the full v2.3 release notes →](Releases/v2.3/README.md)** | **[GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)**
+> **[Release notes →](Releases/v2.3/README.md)** | **[GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)**
 
 The most powerful AI systems are being built inside companies for companies. The richest people and the biggest corporations are getting AI that learns from every interaction and gets better at helping them over time.
 
