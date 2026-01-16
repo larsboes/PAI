@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="../release-icon.png" alt="PAI v2.3" width="200">
+<img src="../release-icon-v2.png" alt="PAI v2.3" width="200">
 
 # PAI v2.3.0 — Full Releases Return
 
@@ -23,7 +23,7 @@ Most AI assistants forget everything after each session. They start fresh every 
 
 <div align="center">
 
-![The Continuous Learning Loop](continuous-learning-loop.png)
+![The Continuous Learning Loop](continuous-learning-loop-v2.png)
 
 *Every interaction makes PAI smarter through capture, sentiment analysis, pattern extraction, and system upgrades*
 
@@ -49,7 +49,7 @@ PAI's memory system captures the complete history of your interactions, organize
 
 <div align="center">
 
-![Memory Architecture](memory-architecture.png)
+![Memory Architecture](memory-architecture-v2.png)
 
 *Layered architecture: raw capture on top, sentiment overlay in the middle, learning extraction below*
 
@@ -92,7 +92,7 @@ PAI captures your satisfaction through two complementary channels—you can rate
 
 <div align="center">
 
-![Sentiment Capture System](sentiment-capture.png)
+![Sentiment Capture System](sentiment-capture-v2.png)
 
 *Explicit ratings and AI-detected sentiment merge into a unified learning signal*
 
