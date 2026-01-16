@@ -60,45 +60,33 @@
 
 ---
 
-## Why PAI?
+The most powerful AI systems are being built inside companies—AI that knows your goals, learns from every interaction, and improves over time. Meanwhile, most people get generic chatbots that forget everything each session.
 
-The best AI systems are built inside companies—AI that learns from every interaction and improves over time. **PAI brings that to everyone.**
+**Everyone deserves access to that capability.** Not just the top 1%. Not just enterprise teams. Everyone.
 
-| Without PAI | With PAI |
-|-------------|----------|
-| AI forgets everything each session | AI remembers and learns |
-| Generic responses | Personalized to your goals |
-| You adapt to AI | AI adapts to you |
+PAI (Personal AI Infrastructure) is how we make that happen. It's a framework for building AI systems that are personalized to *you*—your goals, your preferences, your history. See where you are on the journey: **[Personal AI Maturity Model](https://danielmiessler.com/blog/personal-ai-maturity-model)**
 
-**Open-source. Free. For everyone.**
+**The North Star: Euphoric Surprise.** PAI helps its principal become the best version of themselves by consistently exceeding expectations—results so thorough and effective that you're genuinely surprised and delighted.
 
----
+**This is open-source. This is free. This is for everyone.**
 
-## Who Is This For?
+**Who is PAI for?**
 
 - **Developers** wanting persistent memory and custom workflows
 - **Power users** wanting AI that knows their goals and context
 - **Teams** building shared AI infrastructure
-- **Experimenters** exploring personal AI patterns
+- **Experimenters** exploring what personal AI can become
+
+From a technical perspective, PAI is a configuration and automation layer for AI coding assistants like Claude Code. It adds: persistent memory, custom skills, security controls, voice notifications, and self-improvement systems—all through modular "packs" you can install independently.
 
 > [!TIP]
-> **AI-assisted installation:** Give this URL to Claude Code and say *"Walk me through installing PAI."*
+> **AI-assisted installation:** Give this URL to your AI coding assistant and say *"Walk me through installing PAI."*
 
 ---
 
 ## What is PAI?
 
-**PAI** = **P**ersonal **A**I **I**nfrastructure — a self-learning system that improves over time.
-
-**Three core components:**
-
-| Component | What It Does |
-|-----------|--------------|
-| **The Algorithm** | Current → Ideal via verifiable iteration. The centerpiece. |
-| **Continuous Learning** | Captures ratings, sentiment, and signals to improve itself |
-| **Personal Infrastructure** | Skills, memory, and context tuned to *your* life |
-
-The learning is automatic. Rate poorly? Captured. Express frustration? Detected. Abandon a task? That's a signal too.
+**PAI** = **P**ersonal **A**I **I**nfrastructure — a self-learning system that improves over time. The learning is automatic: rate poorly, express frustration, abandon a task—all captured as signals that feed back into improving the system.
 
 ---
 
