@@ -23,11 +23,12 @@ import { extname, resolve } from "node:path";
 // ============================================================================
 
 /**
- * Load environment variables from ~/.claude/.env
+ * Load environment variables from ${PAI_DIR}/.env
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
-  const envPath = resolve(process.env.HOME!, '.claude/.env');
+  const paiDir = process.env.PAI_DIR || resolve(process.env.HOME!, '.claude');
+  const envPath = resolve(paiDir, '.env');
   try {
     const envContent = await readFile(envPath, 'utf-8');
     for (const line of envContent.split('\n')) {
@@ -622,7 +623,7 @@ async function generateWithNanoBananaPro(
 
 async function main(): Promise<void> {
   try {
-    // Load API keys from ~/.claude/.env
+    // Load API keys from ${PAI_DIR}/.env
     await loadEnv();
 
     const args = parseArgs(process.argv);

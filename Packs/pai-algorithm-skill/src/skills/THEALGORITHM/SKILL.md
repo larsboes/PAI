@@ -293,7 +293,7 @@ Iteration count bounded by effort level:
 ## Integration
 
 ### Uses
-- **Agents Skill** - ComposeAgent for dynamic agent composition
+- **Agents Skill** - AgentFactory for dynamic agent composition
 - **CORE Skill** - User context for ISC inference
 - **Browser Skill** - Web verification in VERIFY phase
 - **BeCreative Skill** - deep thinking for THINK phase

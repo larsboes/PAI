@@ -12,10 +12,10 @@ User says:
 
 ## The Workflow
 
-### Step 1: Run ComposeAgent with --list Flag
+### Step 1: Run AgentFactory with --list Flag
 
 ```bash
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --list
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --list
 ```
 
 ### Step 2: Present Results to User
@@ -197,4 +197,4 @@ Popular Combos:
 
 - Full trait definitions: `~/.claude/skills/Agents/Data/Traits.yaml`
 - Voice mappings: Lines 349-794 in Traits.yaml
-- ComposeAgent tool: `~/.claude/skills/Agents/Tools/ComposeAgent.ts`
+- AgentFactory tool: `~/.claude/skills/Agents/Tools/AgentFactory.ts`

@@ -32,7 +32,7 @@ ls ~/.claude/skills/Agents/Templates/
 ```bash
 ls ~/.claude/skills/Agents/Tools/
 ```
-**Expected:** ComposeAgent.ts, LoadAgentContext.ts, SpawnAgentWithProfile.ts, package.json
+**Expected:** AgentFactory.ts, LoadAgentContext.ts, SpawnAgentWithProfile.ts, package.json
 
 ### Check workflows
 ```bash
@@ -84,21 +84,21 @@ head -10 ~/.claude/agents/Engineer.md
 
 ## Tool Verification
 
-### ComposeAgent runs successfully
+### AgentFactory runs successfully
 ```bash
-cd ~/.claude/skills/Agents/Tools && bun run ComposeAgent.ts --list | head -30
+cd ~/.claude/skills/Agents/Tools && bun run AgentFactory.ts --list | head -30
 ```
 **Expected:** Lists expertise, personality, approach categories
 
-### ComposeAgent composes agent from task
+### AgentFactory composes agent from task
 ```bash
-cd ~/.claude/skills/Agents/Tools && bun run ComposeAgent.ts --task "Review security" --output summary
+cd ~/.claude/skills/Agents/Tools && bun run AgentFactory.ts --task "Review security" --output summary
 ```
 **Expected:** Shows composed agent with traits and voice
 
-### ComposeAgent composes agent from traits
+### AgentFactory composes agent from traits
 ```bash
-cd ~/.claude/skills/Agents/Tools && bun run ComposeAgent.ts --traits "security,skeptical,thorough" --output summary
+cd ~/.claude/skills/Agents/Tools && bun run AgentFactory.ts --traits "security,skeptical,thorough" --output summary
 ```
 **Expected:** Shows "Security Expert Skeptical Thorough" agent
 
@@ -132,7 +132,7 @@ done
 
 ### Trait count verification
 ```bash
-cd ~/.claude/skills/Agents/Tools && bun run ComposeAgent.ts --list 2>/dev/null | grep -c "^  [a-z]"
+cd ~/.claude/skills/Agents/Tools && bun run AgentFactory.ts --list 2>/dev/null | grep -c "^  [a-z]"
 ```
 **Expected:** 28 or more (10 expertise + 10 personality + 8 approach)
 
@@ -189,9 +189,9 @@ Mark each item as complete:
 - [ ] GrokResearcherContext.md present
 
 ### Tools
-- [ ] ComposeAgent.ts runs with --list
-- [ ] ComposeAgent.ts composes from --task
-- [ ] ComposeAgent.ts composes from --traits
+- [ ] AgentFactory.ts runs with --list
+- [ ] AgentFactory.ts composes from --task
+- [ ] AgentFactory.ts composes from --traits
 - [ ] LoadAgentContext.ts lists available agents
 
 ### Functional
@@ -214,7 +214,7 @@ When all items pass:
 
 ## Troubleshooting
 
-### ComposeAgent fails to run
+### AgentFactory fails to run
 Check dependencies are installed:
 ```bash
 cd ~/.claude/skills/Agents/Tools
@@ -273,8 +273,8 @@ echo "=== PAI Agents Skill Quick Test ==="
 # 3. Traits file check
 [ -f ~/.claude/skills/Agents/Data/Traits.yaml ] && echo "OK Traits.yaml" || echo "FAIL Traits.yaml"
 
-# 4. ComposeAgent test
-cd ~/.claude/skills/Agents/Tools && bun run ComposeAgent.ts --traits "security,skeptical" --output summary 2>/dev/null | grep -q "Security Expert" && echo "OK ComposeAgent" || echo "FAIL ComposeAgent"
+# 4. AgentFactory test
+cd ~/.claude/skills/Agents/Tools && bun run AgentFactory.ts --traits "security,skeptical" --output summary 2>/dev/null | grep -q "Security Expert" && echo "OK AgentFactory" || echo "FAIL AgentFactory"
 
 echo "=== Test Complete ==="
 ```

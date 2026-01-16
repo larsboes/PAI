@@ -3,7 +3,7 @@ name: PAI Voice System
 pack-id: danielmiessler-voice-system-core-v2.3.0
 version: 2.3.0
 author: danielmiessler
-description: Text-to-speech notification server using ElevenLabs API with fallback to macOS say - gives your DA agent a voice
+description: Text-to-speech notification server using ElevenLabs API with fallback to macOS say - gives your AI agent a voice
 type: feature
 purpose-type: [productivity, automation, integration]
 platform: claude-code
@@ -17,7 +17,7 @@ keywords: [voice, tts, speech, notifications, elevenlabs, audio, alerts, spoken,
 
 # PAI Voice System
 
-> Text-to-speech notification server that gives your DA agent a voice - using ElevenLabs AI voices or macOS say as fallback
+> Text-to-speech notification server that gives your AI agent a voice - using ElevenLabs AI voices or macOS say as fallback
 
 ## Installation Prompt
 
@@ -27,17 +27,17 @@ You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
 **What is a Pack?** See: [Pack System](../README.md#the-journey-pai-v1x--v20)
 
-This pack adds voice capabilities to your DA infrastructure. The PAI Voice System provides:
+This pack adds voice capabilities to your AI infrastructure. The PAI Voice System provides:
 
-- **Spoken Feedback**: Hear your DA speak completions, alerts, and notifications
+- **Spoken Feedback**: Hear your AI speak completions, alerts, and notifications
 - **Multi-Voice Support**: Different voices for different agents (Architect, Engineer, Designer, etc.)
 - **ElevenLabs Integration**: High-quality AI voices with personality-tuned settings
 - **Fallback System**: Works without API key using macOS built-in voices
 - **Zero Configuration**: Install and go - speaks immediately
 
-**Core principle:** Your DA should be heard, not just read.
+**Core principle:** Your AI should be heard, not just read.
 
-No more missing important completions. No more checking the terminal constantly. Your DA speaks to you while you focus elsewhere.
+No more missing important completions. No more checking the terminal constantly. Your AI speaks to you while you focus elsewhere.
 
 Please follow the installation instructions in INSTALL.md to integrate this pack into your infrastructure.
 
@@ -83,7 +83,7 @@ This creates real problems:
 **For User Experience:**
 - Text-only feedback feels cold and robotic
 - Important alerts blend into scrolling text
-- No emotional connection with your DA assistant
+- No emotional connection with your AI assistant
 
 **The Fundamental Problem:**
 

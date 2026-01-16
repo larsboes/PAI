@@ -178,7 +178,7 @@ function flattenCapabilities(registry: CapabilityRegistry): Capability[] {
     capabilities.push({
       name: "agent_factory",
       category: "composition",
-      tool: "ComposeAgent",
+      tool: "AgentFactory",
       effort_min: registry.agent_composition.factory.effort_min || "STANDARD",
       use_when: registry.agent_composition.use_when || "Custom agent composition",
     });

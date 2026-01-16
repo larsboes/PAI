@@ -60,7 +60,7 @@ The Agents skill is a complete agent composition and management system. It conso
 ```
 User: "Spin up 5 custom science agents to analyze this data"
 → Invokes CREATECUSTOMAGENT workflow
-→ Runs ComposeAgent 5 times with DIFFERENT trait combinations
+→ Runs AgentFactory 5 times with DIFFERENT trait combinations
 → Each agent gets unique personality + matched voice
 → Launches agents in parallel with model: "sonnet"
 ```
@@ -113,7 +113,7 @@ The system uses two types of agents:
 
 | User Says | What to Use | Why |
 |-----------|-------------|-----|
-| "**custom agents**", "create **custom** agents" | ComposeAgent | Unique prompts + unique voices |
+| "**custom agents**", "create **custom** agents" | AgentFactory | Unique prompts + unique voices |
 | "agents", "launch agents", "bunch of agents" | Generic Interns | Same voice, parallel grunt work |
 | "use Remy", "get Ava to" | Named agent | Pre-defined personality |
 
@@ -142,7 +142,7 @@ The system uses two types of agents:
 
 ### Tools
 
-**ComposeAgent.ts** (`Tools/ComposeAgent.ts`)
+**AgentFactory.ts** (`Tools/AgentFactory.ts`)
 - Dynamic agent composition engine
 - Infers traits from task description
 - Maps trait combinations to appropriate voices
@@ -150,9 +150,9 @@ The system uses two types of agents:
 
 ```bash
 # Usage examples
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --task "Review security architecture"
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --traits "legal,skeptical,meticulous"
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --list
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --task "Review security architecture"
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --traits "legal,skeptical,meticulous"
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --list
 ```
 
 ### Personalities
@@ -194,7 +194,7 @@ bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --list
 
 Users talk naturally:
 - "I need a legal expert to review this contract" → System composes legal + analytical + thorough agent
-- "Spin up 5 custom science agents" → System uses ComposeAgent 5 times with different traits
+- "Spin up 5 custom science agents" → System uses AgentFactory 5 times with different traits
 - "Launch agents to research these companies" → System spawns generic Intern agents
 - "Get me someone skeptical about security" → System composes security + skeptical + adversarial agent
 
@@ -202,7 +202,7 @@ Users talk naturally:
 
 When user says "custom agents", the assistant:
 1. Invokes CREATECUSTOMAGENT workflow
-2. Runs ComposeAgent for EACH agent with DIFFERENT trait combinations
+2. Runs AgentFactory for EACH agent with DIFFERENT trait combinations
 3. Gets unique prompt + voice ID for each
 4. Launches agents using Task tool with the composed prompt
 5. Each agent has a distinct personality-matched voice
@@ -212,15 +212,15 @@ Example internal execution:
 # User: "Create 3 custom research agents"
 
 # Agent 1
-bun run ComposeAgent.ts --traits "research,enthusiastic,exploratory"
+bun run AgentFactory.ts --traits "research,enthusiastic,exploratory"
 # Output: Prompt with voice "Jeremy" (energetic)
 
 # Agent 2
-bun run ComposeAgent.ts --traits "research,skeptical,thorough"
+bun run AgentFactory.ts --traits "research,skeptical,thorough"
 # Output: Prompt with voice "George" (intellectual)
 
 # Agent 3
-bun run ComposeAgent.ts --traits "research,analytical,systematic"
+bun run AgentFactory.ts --traits "research,analytical,systematic"
 # Output: Prompt with voice "Drew" (professional)
 
 # Launch all 3 with Task tool

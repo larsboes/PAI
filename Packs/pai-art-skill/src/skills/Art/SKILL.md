@@ -132,7 +132,7 @@ bun run ~/.claude/skills/Art/Tools/Generate.ts \
   --output ~/Downloads/character-scene.png
 ```
 
-**API keys in:** `~/.claude/.env`
+**API keys in:** `${PAI_DIR}/.env`
 
 ## Examples
 

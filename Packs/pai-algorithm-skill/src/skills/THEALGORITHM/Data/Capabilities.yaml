@@ -161,8 +161,8 @@ execution:
 # === AGENT COMPOSITION ===
 agent_composition:
   factory:
-    tool: ComposeAgent
-    location: ~/.claude/skills/Agents/Tools/ComposeAgent.ts
+    tool: AgentFactory
+    location: ~/.claude/skills/Agents/Tools/AgentFactory.ts
     effort_min: STANDARD
   traits_file: ~/.claude/skills/Agents/Data/Traits.yaml
   use_when: "Need custom agent with specific trait combination"

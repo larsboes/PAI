@@ -89,7 +89,7 @@ bun ~/.claude/skills/CORE/Tools/RemoveBg.ts image1.png image2.png image3.png
 ```
 
 **Environment Variables:**
-- `REMOVEBG_API_KEY` - Required for background removal (from `~/.claude/.env`)
+- `REMOVEBG_API_KEY` - Required for background removal (from `${PAI_DIR}/.env`)
 
 **When to Use:**
 - "remove background from this image"
@@ -280,7 +280,7 @@ bun ~/.claude/skills/CORE/Tools/YouTubeApi.ts --latest-videos
 ```
 
 **Environment Variables:**
-- `YOUTUBE_API_KEY` - Required for API access (from `~/.claude/.env`)
+- `YOUTUBE_API_KEY` - Required for API access (from `${PAI_DIR}/.env`)
 - `YOUTUBE_CHANNEL_ID` - Default channel ID
 
 **When to Use:**

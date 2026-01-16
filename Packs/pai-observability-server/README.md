@@ -17,9 +17,9 @@ keywords: [observability, dashboard, monitoring, agents, websocket, streaming, e
 
 # PAI Observability Server
 
-> Real-time multi-agent activity monitoring dashboard - see exactly what your DA agents are doing as they work
+> Real-time multi-agent activity monitoring dashboard - see exactly what your AI agents are doing as they work
 
-> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your DA and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
 
 ---
 

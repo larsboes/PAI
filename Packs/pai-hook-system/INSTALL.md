@@ -4,22 +4,6 @@
 
 ---
 
-## Prerequisites
-
-### This is the Foundation Pack
-
-> **pai-hook-system is the FIRST pack to install.** It has no PAI dependencies.
->
-> All other PAI packs depend on this one. After installing hook-system, install pai-core-install next.
-
-### System Requirements
-
-- **Bun runtime**: `curl -fsSL https://bun.sh/install | bash`
-- **Claude Code** (or compatible AI coding assistant)
-- **Write access** to `~/.claude/` directory
-
----
-
 ## AI Agent Instructions
 
 **This is a wizard-style installation.** Use Claude Code's native tools to guide the user through installation:
@@ -51,11 +35,11 @@ Let me analyze your system and guide you through installation."
 PAI_CHECK="${PAI_DIR:-$HOME/.claude}"
 echo "PAI_DIR: $PAI_CHECK"
 
-# Check if pai-core-install is installed (optional - enhances functionality)
+# Check if pai-core-install is installed (REQUIRED)
 if [ -f "$PAI_CHECK/skills/CORE/SKILL.md" ]; then
-  echo "OK pai-core-install is installed (enhanced functionality available)"
+  echo "OK pai-core-install is installed"
 else
-  echo "INFO pai-core-install not found - hooks will work standalone, install core later for full functionality"
+  echo "ERROR pai-core-install NOT installed - REQUIRED!"
 fi
 
 # Check for existing hooks directory
@@ -97,19 +81,17 @@ echo "  TIME_ZONE: ${TIME_ZONE:-'NOT SET (default: system)'}"
 Tell the user what you found:
 ```
 "Here's what I found on your system:
-- pai-core-install: [installed (enhanced) / not installed (basic mode)]
+- pai-core-install: [installed / NOT INSTALLED - REQUIRED]
 - Existing hooks directory: [Yes (N hooks) / No]
 - Claude settings.json: [has hooks / no hooks / doesn't exist]
 - Bun runtime: [installed vX.X / NOT INSTALLED - REQUIRED]
 - DA environment variable: [set / not set]"
 ```
 
-**STOP if Bun is not installed.** Tell the user:
+**STOP if pai-core-install or Bun is not installed.** Tell the user:
 ```
-"Bun is required. Please install it first: curl -fsSL https://bun.sh/install | bash"
+"pai-core-install and Bun are required. Please install them first, then return to install this pack."
 ```
-
-**Note:** pai-core-install is optional at this stage. The hook system will work standalone, and you can install pai-core-install afterward for full functionality (context loading, skill routing, etc.).
 
 ---
 
@@ -313,7 +295,7 @@ cp "$PACK_DIR/src/hooks/handlers/"*.ts "$PAI_DIR/hooks/handlers/"
 - `capture.ts` - Output capture coordination
 - `voice.ts` - Voice notification handling
 - `tab-state.ts` - Tab state management
-- `system-integrity.ts` - System integrity checks
+- `SystemIntegrity.ts` - System integrity checks
 
 **Mark todo as completed.**
 
@@ -345,7 +327,7 @@ Tell the user:
 ```
 "Created .env at $PAI_DIR/.env
 You can customize:
-- DA - Your DA name (default: PAI)
+- DA - Your AI assistant name (default: PAI)
 - TIME_ZONE - Your timezone
 - PAI_SOURCE_APP - Source app identifier"
 ```
@@ -615,7 +597,7 @@ grep "UpdateTabTitle" ~/.claude/settings.json
 | `capture.ts` | Output capture |
 | `voice.ts` | Voice handling |
 | `tab-state.ts` | Tab management |
-| `system-integrity.ts` | System checks |
+| `SystemIntegrity.ts` | System checks |
 
 ---
 

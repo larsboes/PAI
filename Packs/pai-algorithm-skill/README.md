@@ -19,7 +19,7 @@ keywords: [algorithm, ISC, ideal-state, execution, scientific-method, effort-cla
 
 > Universal execution engine using the scientific method to achieve ideal state. Produces euphoric, highly surprising, exceptional results that solve problems better than expected.
 
-> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your DA and ask it to install using `INSTALL.md`.
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using `INSTALL.md`.
 
 ---
 
@@ -167,7 +167,7 @@ bun run ~/.claude/skills/THEALGORITHM/Tools/ISCManager.ts show
 
 THE ALGORITHM integrates with the broader PAI ecosystem:
 
-- **Agents Skill** - ComposeAgent for dynamic agent composition
+- **Agents Skill** - AgentFactory for dynamic agent composition
 - **CORE Skill** - User context for ISC inference
 - **Browser Skill** - Web verification in VERIFY phase
 - **BeCreative Skill** - Deep thinking for THINK phase

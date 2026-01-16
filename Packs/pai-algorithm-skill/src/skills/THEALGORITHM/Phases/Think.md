@@ -20,11 +20,11 @@ Consider using additional resources:
 
 - **BeCreative skill** - deep thinking for deep analysis
 - **Council skill** - Multiple perspectives on requirements
-- **ComposeAgent** - Spawn a "thinking" agent with `analytical,exploratory` traits
+- **AgentFactory** - Spawn a "thinking" agent with `analytical,exploratory` traits
 
 ```bash
 # Compose a thinking agent
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts \
   --task "What requirements might be missing for: [request]" \
   --traits "analytical,exploratory,thorough"
 ```

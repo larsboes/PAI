@@ -52,7 +52,7 @@ The most powerful AI systems are being built inside companies for companies. PAI
 **Why customization matters:**
 - Generic AI starts fresh every time—no memory of you or your goals
 - Customized AI compounds intelligence—every interaction makes it better at helping *you*
-- Your DA should know your priorities and make decisions aligned with them
+- Your AI should know your priorities and make decisions aligned with them
 - Personal infrastructure means AI that works for you, not just with you
 
 **Key Takeaway:** AI should magnify everyone. PAI is the infrastructure that makes AI truly personal.
@@ -338,11 +338,11 @@ Located in `settings.json`:
 ### Hybrid Model
 
 - **Named Agents:** Persistent identities with backstories and fixed voice mappings
-- **Dynamic Agents:** Task-specific compositions from traits via ComposeAgent
+- **Dynamic Agents:** Task-specific compositions from traits via AgentFactory
 
 ### Delegation Patterns
 
-- Custom agents → ComposeAgent with unique voices
+- Custom agents → AgentFactory with unique voices
 - Generic parallel work → Intern agents
 - Spotcheck pattern → Verify parallel work with additional agent
 

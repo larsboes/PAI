@@ -138,7 +138,7 @@ pai-agents-skill/
         |-- Templates/
         |   +-- DynamicAgent.hbs
         |-- Tools/
-        |   |-- ComposeAgent.ts
+        |   |-- AgentFactory.ts
         |   |-- LoadAgentContext.ts
         |   |-- SpawnAgentWithProfile.ts
         |   +-- package.json

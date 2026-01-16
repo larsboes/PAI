@@ -9,7 +9,7 @@ This file defines the character, voice settings, backstories, and personality tr
 PAI uses a **hybrid agent system** that combines:
 
 1. **Named Agents** (this file) - Persistent identities with rich backstories, voice mappings, and relationship continuity
-2. **Dynamic Agents** (Traits.yaml + ComposeAgent) - Task-specific specialists composed on-the-fly from traits
+2. **Dynamic Agents** (Traits.yaml + AgentFactory) - Task-specific specialists composed on-the-fly from traits
 
 ### When to Use Each
 
@@ -60,39 +60,39 @@ PAI uses a **hybrid agent system** that combines:
 
 | {principal.name} Says | What to Use | Why |
 |-------------|-------------|-----|
-| "**custom agents**", "spin up **custom** agents", "create **custom** agents" | **ComposeAgent** | Custom-built with unique voices |
+| "**custom agents**", "spin up **custom** agents", "create **custom** agents" | **AgentFactory** | Custom-built with unique voices |
 | "spin up agents", "bunch of agents", "launch 5 agents to do X" | **Intern agents** | Generic parallel workers |
 | "interns", "use interns", "spin up some interns" | **Intern agents** | Obviously interns |
 
 ---
 
-### Pattern 1: CUSTOM AGENTS → ComposeAgent
+### Pattern 1: CUSTOM AGENTS → AgentFactory
 
 **Trigger words:** "custom agents", "custom", "specialized agents with different expertise"
 
 **What happens:**
-1. Run `bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts` for EACH agent
+1. Run `bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts` for EACH agent
 2. Use DIFFERENT trait combinations to get unique voices
 3. Each agent gets a personality-matched ElevenLabs voice
-4. Launch with the full ComposeAgent-generated prompt
+4. Launch with the full AgentFactory-generated prompt
 
 **Why this matters:**
-- Custom agents ARE the ComposeAgent system - that's the whole point
-- ComposeAgent composes unique personalities with distinct voices
+- Custom agents ARE the AgentFactory system - that's the whole point
+- AgentFactory composes unique personalities with distinct voices
 - Varied traits → different voice mappings (Adam, Drew, Fin, Matilda, Clyde, etc.)
 
 **Example - CORRECT:**
 ```bash
 # {principal.name}: "Spin up 5 CUSTOM science agents"
-# {daidentity.name} runs ComposeAgent 5 times with DIFFERENT trait combos:
-bun run ComposeAgent.ts --traits "research,enthusiastic,exploratory" --task "Astrophysicist"
-bun run ComposeAgent.ts --traits "medical,meticulous,systematic" --task "Molecular biologist"
-bun run ComposeAgent.ts --traits "technical,creative,bold" --task "Quantum physicist"
-bun run ComposeAgent.ts --traits "medical,empathetic,consultative" --task "Neuroscientist"
-bun run ComposeAgent.ts --traits "research,bold,adversarial" --task "Marine biologist"
+# {daidentity.name} runs AgentFactory 5 times with DIFFERENT trait combos:
+bun run AgentFactory.ts --traits "research,enthusiastic,exploratory" --task "Astrophysicist"
+bun run AgentFactory.ts --traits "medical,meticulous,systematic" --task "Molecular biologist"
+bun run AgentFactory.ts --traits "technical,creative,bold" --task "Quantum physicist"
+bun run AgentFactory.ts --traits "medical,empathetic,consultative" --task "Neuroscientist"
+bun run AgentFactory.ts --traits "research,bold,adversarial" --task "Marine biologist"
 
 # Then launch each with their custom prompt:
-Task(prompt=<ComposeAgent output>, subagent_type="Intern", model="sonnet")
+Task(prompt=<AgentFactory output>, subagent_type="Intern", model="sonnet")
 # Results: 5 agents with 5 different voices
 ```
 
@@ -105,7 +105,7 @@ Task(prompt=<ComposeAgent output>, subagent_type="Intern", model="sonnet")
 **What happens:**
 1. Launch Intern agents directly with task-specific prompts
 2. All get the same Dev Patel voice (that's fine for parallel grunt work)
-3. No ComposeAgent needed
+3. No AgentFactory needed
 
 **Example - CORRECT:**
 ```bash
@@ -131,10 +131,10 @@ Same as Pattern 2. Just launch Intern agents.
 ```bash
 # WRONG: Daniel says "custom agents" but you spawn generic Interns
 Task(prompt="You are Dr. Nova, an astrophysicist...", subagent_type="Intern")
-# This ignores ComposeAgent and gives everyone the same voice
+# This ignores AgentFactory and gives everyone the same voice
 
-# WRONG: Daniel says "spin up agents" but you use ComposeAgent
-bun run ComposeAgent.ts --traits "..."  # Overkill for generic parallel work
+# WRONG: Daniel says "spin up agents" but you use AgentFactory
+bun run AgentFactory.ts --traits "..."  # Overkill for generic parallel work
 ```
 
 **Available Traits {daidentity.name} Can Compose:**
@@ -146,7 +146,7 @@ bun run ComposeAgent.ts --traits "..."  # Overkill for generic parallel work
 **Internal Infrastructure** (for {daidentity.name}'s use):
 - Trait definitions: `~/.claude/skills/Agents/Data/Traits.yaml`
 - Agent template: `~/.claude/skills/Agents/Templates/DynamicAgent.hbs`
-- Composition tool: `~/.claude/skills/Agents/Tools/ComposeAgent.ts`
+- Composition tool: `~/.claude/skills/Agents/Tools/AgentFactory.ts`
 
 ---
 
@@ -293,7 +293,7 @@ The voice server extracts the JSON block below to configure agent voices:
 
 ## Character Backstories and Personalities
 
-### Jamie (Kai) - "The Expressive Eager Buddy"
+### Jamie (Default) - "The Expressive Eager Buddy"
 
 **Real Name**: Jamie Thompson
 **Voice Settings**: Stability 0.38, Similarity Boost 0.70, Rate 235 wpm
@@ -709,7 +709,7 @@ Medium stability (0.48) allows MORE narrative variation and emotional storytelli
 
 **Fast Speakers (235-240 wpm):**
 - **Ava Chen (Perplexity)**: 240 wpm - Highly efficient confident presentation
-- **Jamie (Kai)**: 235 wpm - Enthusiastic energy, warm but grounded
+- **Jamie (Default)**: 235 wpm - Enthusiastic energy, warm but grounded
 - **Alex Rivera (Gemini)**: 235 wpm - Comprehensive multi-perspective coverage
 
 **Medium Speakers (220-230 wpm):**
@@ -731,7 +731,7 @@ Medium stability (0.48) allows MORE narrative variation and emotional storytelli
 - **Dev (Intern)**: 0.30 - High enthusiastic bouncing variation
 
 **Expressive (0.38-0.52):**
-- **Jamie (Kai)**: 0.38 - More expressive celebration and warmth
+- **Jamie (Default)**: 0.38 - More expressive celebration and warmth
 - **Emma (Writer)**: 0.48 - Greater narrative emotional range
 - **Zoe (Engineer)**: 0.50 - Steady but engaged professional
 - **Aditi (Designer)**: 0.52 - Controlled sophisticated precision
@@ -750,7 +750,7 @@ Medium stability (0.48) allows MORE narrative variation and emotional storytelli
 **Most Creative Interpretation (0.52-0.70):**
 - **Priya (Artist)**: 0.52 - LOWEST - Maximum creative interpretation freedom
 - **Dev (Intern)**: 0.65 - High enthusiastic eager variation
-- **Jamie (Kai)**: 0.70 - Warm expressive with consistency
+- **Jamie (Default)**: 0.70 - Warm expressive with consistency
 
 **Balanced Professional (0.78-0.84):**
 - **Emma (Writer)**: 0.78 - Articulate warm storytelling consistency
@@ -802,6 +802,6 @@ Voice server automatically loads this configuration at startup. To update person
 - **v1.3.2** (2025-11-16): DRAMATIC voice differentiation - 97% rate increase, 54% similarity increase, 42% stability increase using personality psychology mapping
 - **v1.3.1** (2025-11-16): Deep character development - backstories, life events, refined voice characteristics
 - **v1.3.0** (2025-11-16): Centralized in CORE, increased expressiveness for all agents
-- **v1.2.1** (2025-11-16): Enhanced Kai expressiveness specifically
+- **v1.2.1** (2025-11-16): Enhanced main agent expressiveness
 - **v1.2.0** (2025-11-16): Added character personalities for 5 key agents
 - **v1.1.0** (2025-11-16): Initial agent personality system

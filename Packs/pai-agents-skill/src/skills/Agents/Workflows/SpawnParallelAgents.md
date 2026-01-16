@@ -280,10 +280,10 @@ Task({ ... })  // Agent 3
 // All run simultaneously
 ```
 
-**❌ WRONG: Using ComposeAgent for generic agents**
+**❌ WRONG: Using AgentFactory for generic agents**
 ```bash
 # Overkill for simple parallel work
-bun run ComposeAgent.ts --traits "research,analytical"
+bun run AgentFactory.ts --traits "research,analytical"
 ```
 
 **✅ RIGHT: Direct Intern launch**

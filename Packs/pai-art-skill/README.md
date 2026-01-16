@@ -27,7 +27,7 @@ You are receiving a PAI Pack - a modular upgrade for AI agent systems.
 
 **What is a Pack?** See: [Pack System](../../../README.md#the-journey-pai-v1x--v20)
 
-This pack adds a complete visual content creation system to your DA. The Art Skill provides:
+This pack adds a complete visual content creation system to your AI infrastructure. The Art Skill provides:
 
 - **Consistent Aesthetic**: All generated images follow a unified editorial style with defined typography and color palette
 - **Multiple Workflows**: Purpose-built workflows for essays, technical diagrams, frameworks, statistics, and more
@@ -36,7 +36,7 @@ This pack adds a complete visual content creation system to your DA. The Art Ski
 
 **Core principle:** Professional visual content with zero design skills required.
 
-No more inconsistent images. No more hiring designers for simple illustrations. Your DA creates publication-ready visuals on demand.
+No more inconsistent images. No more hiring designers for simple illustrations. Your AI creates publication-ready visuals on demand.
 
 Please follow the installation instructions in INSTALL.md to integrate this pack into your infrastructure.
 
@@ -217,7 +217,7 @@ Validation -> Output
 
 ## Credits
 
-- **Original concept**: Daniel Miessler - developed as part of Kai personal AI infrastructure
+- **Original concept**: Daniel Miessler - developed as part of PAI (Personal AI Infrastructure)
 - **Typography inspiration**: Matthew Butterick's Practical Typography
 - **Color system**: UL (Unsupervised Learning) editorial guidelines
 - **Aesthetic reference**: Excalidraw for hand-drawn technical diagrams

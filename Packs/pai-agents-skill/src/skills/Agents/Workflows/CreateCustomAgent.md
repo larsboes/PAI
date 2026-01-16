@@ -1,6 +1,6 @@
 # CreateCustomAgent Workflow
 
-**Creates custom agents with unique personalities and voice IDs using ComposeAgent.**
+**Creates custom agents with unique personalities and voice IDs using AgentFactory.**
 
 ## When to Use
 
@@ -21,7 +21,7 @@ Extract from {principal.name}'s request:
 - What's the task?
 - Are specific traits mentioned? (security, legal, skeptical, thorough, etc.)
 
-### Step 2: For EACH Agent, Run ComposeAgent with DIFFERENT Traits
+### Step 2: For EACH Agent, Run AgentFactory with DIFFERENT Traits
 
 **CRITICAL: Each agent MUST have different trait combinations to get unique voices.**
 
@@ -29,19 +29,19 @@ Extract from {principal.name}'s request:
 # Example for 3 custom research agents:
 
 # Agent 1 - Enthusiastic Explorer
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts \
   --traits "research,enthusiastic,exploratory" \
   --task "Research quantum computing applications" \
   --output json
 
 # Agent 2 - Skeptical Analyst
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts \
   --traits "research,skeptical,systematic" \
   --task "Research quantum computing applications" \
   --output json
 
 # Agent 3 - Thorough Synthesizer
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts \
   --traits "research,analytical,synthesizing" \
   --task "Research quantum computing applications" \
   --output json
@@ -49,7 +49,7 @@ bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
 
 ### Step 3: Extract Prompt and Voice ID from Each
 
-ComposeAgent returns JSON with:
+AgentFactory returns JSON with:
 ```json
 {
   "name": "Research Enthusiastic Explorer",
@@ -86,7 +86,7 @@ Task({
 })
 ```
 
-**Note:** Store the voice_id from ComposeAgent output - you'll need it to voice the agent's results.
+**Note:** Store the voice_id from AgentFactory output - you'll need it to voice the agent's results.
 
 ### Step 5: Voice Agent Results
 
@@ -155,23 +155,23 @@ When creating multiple custom agents, vary traits to ensure different voices:
 **{daidentity.name}'s Internal Execution:**
 ```bash
 # Agent 1 - Climate Science Enthusiast
-bun run ComposeAgent.ts --traits "research,enthusiastic,thorough" --task "Analyze climate data patterns" --output json
+bun run AgentFactory.ts --traits "research,enthusiastic,thorough" --task "Analyze climate data patterns" --output json
 # Returns: voice="Jeremy", voice_id="bVMeCyTHy58xNoL34h3p"
 
 # Agent 2 - Skeptical Data Analyst
-bun run ComposeAgent.ts --traits "data,skeptical,systematic" --task "Analyze climate data patterns" --output json
+bun run AgentFactory.ts --traits "data,skeptical,systematic" --task "Analyze climate data patterns" --output json
 # Returns: voice="Daniel", voice_id="onwK4e9ZLuTAKqWW03F9"
 
 # Agent 3 - Creative Pattern Finder
-bun run ComposeAgent.ts --traits "data,creative,exploratory" --task "Analyze climate data patterns" --output json
+bun run AgentFactory.ts --traits "data,creative,exploratory" --task "Analyze climate data patterns" --output json
 # Returns: voice="Freya", voice_id="jsCqWAovK2LkecY7zXl4"
 
 # Agent 4 - Meticulous Validator
-bun run ComposeAgent.ts --traits "research,meticulous,comparative" --task "Analyze climate data patterns" --output json
+bun run AgentFactory.ts --traits "research,meticulous,comparative" --task "Analyze climate data patterns" --output json
 # Returns: voice="Charlotte", voice_id="XB0fDUnXU5powFXDhCwa"
 
 # Agent 5 - Synthesizing Strategist
-bun run ComposeAgent.ts --traits "research,analytical,synthesizing" --task "Analyze climate data patterns" --output json
+bun run AgentFactory.ts --traits "research,analytical,synthesizing" --task "Analyze climate data patterns" --output json
 # Returns: voice="Charlotte", voice_id="XB0fDUnXU5powFXDhCwa"
 
 # Launch all 5 in parallel (single message, 5 Task calls)
@@ -185,17 +185,17 @@ bun run ComposeAgent.ts --traits "research,analytical,synthesizing" --task "Anal
 **❌ WRONG: Using same traits for all agents**
 ```bash
 # All agents get same voice!
-bun run ComposeAgent.ts --traits "research,analytical" # Agent 1
-bun run ComposeAgent.ts --traits "research,analytical" # Agent 2 (same voice!)
-bun run ComposeAgent.ts --traits "research,analytical" # Agent 3 (same voice!)
+bun run AgentFactory.ts --traits "research,analytical" # Agent 1
+bun run AgentFactory.ts --traits "research,analytical" # Agent 2 (same voice!)
+bun run AgentFactory.ts --traits "research,analytical" # Agent 3 (same voice!)
 ```
 
 **✅ RIGHT: Varying traits for unique voices**
 ```bash
 # Each agent gets different voice
-bun run ComposeAgent.ts --traits "research,enthusiastic,exploratory"  # Jeremy
-bun run ComposeAgent.ts --traits "research,skeptical,systematic"      # George
-bun run ComposeAgent.ts --traits "research,creative,synthesizing"     # Freya
+bun run AgentFactory.ts --traits "research,enthusiastic,exploratory"  # Jeremy
+bun run AgentFactory.ts --traits "research,skeptical,systematic"      # George
+bun run AgentFactory.ts --traits "research,creative,synthesizing"     # Freya
 ```
 
 **❌ WRONG: Launching agents sequentially**
@@ -216,7 +216,7 @@ Task({ ... })  // Agent 3
 
 ## Voice Assignment Logic
 
-ComposeAgent automatically maps trait combinations to voices:
+AgentFactory automatically maps trait combinations to voices:
 
 1. **Exact combination matches** (highest priority)
    - `["contrarian", "skeptical"]` → Clyde (gravelly intensity)
@@ -244,5 +244,5 @@ ComposeAgent automatically maps trait combinations to voices:
 
 - Trait definitions: `~/.claude/skills/Agents/Data/Traits.yaml`
 - Agent template: `~/.claude/skills/Agents/Templates/DynamicAgent.hbs`
-- ComposeAgent tool: `~/.claude/skills/Agents/Tools/ComposeAgent.ts`
+- AgentFactory tool: `~/.claude/skills/Agents/Tools/AgentFactory.ts`
 - Voice mappings: `~/.claude/skills/Agents/AgentPersonalities.md`

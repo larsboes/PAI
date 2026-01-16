@@ -84,7 +84,8 @@ Harvesting (periodic):
 
 ### Claude Code projects/ - Native Session Storage
 
-**Location:** `~/.claude/projects/<your-project>/`
+**Location:** `~/.claude/projects/-Users-{username}--claude/`
+*(Replace `{username}` with your system username, e.g., `-Users-john--claude`)*
 **What populates it:** Claude Code automatically (every conversation)
 **Content:** Complete session transcripts in JSONL format
 **Format:** `{uuid}.jsonl` - one file per session
@@ -236,10 +237,11 @@ tail ~/.claude/MEMORY/LEARNING/SIGNALS/ratings.jsonl
 ### View session transcripts
 ```bash
 # List recent sessions (newest first)
-ls -lt ~/.claude/projects/<your-project>/*.jsonl | head -5
+# Replace {username} with your system username
+ls -lt ~/.claude/projects/-Users-{username}--claude/*.jsonl | head -5
 
 # View last session events
-tail ~/.claude/projects/<your-project>/$(ls -t ~/.claude/projects/<your-project>/*.jsonl | head -1) | jq .
+tail ~/.claude/projects/-Users-{username}--claude/$(ls -t ~/.claude/projects/-Users-{username}--claude/*.jsonl | head -1) | jq .
 ```
 
 ### Check learnings

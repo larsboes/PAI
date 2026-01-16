@@ -21,7 +21,7 @@ keywords: [prompting, templates, handlebars, meta-prompting, prompt-engineering,
 
 > Prompts that write prompts. Meta-prompting enables dynamic composition where structure is fixed but content is parameterized.
 
-> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your DA and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
 
 ---
 

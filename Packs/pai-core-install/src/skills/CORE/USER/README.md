@@ -2,7 +2,7 @@
 
 **Your Personal Knowledge Base**
 
-This directory stores information your DA needs about YOU. All content here is private and never synced publicly.
+This directory stores information your AI needs about YOU. All content here is private and never synced publicly.
 
 ---
 
@@ -18,14 +18,14 @@ This directory stores information your DA needs about YOU. All content here is p
 
 ## What Belongs Here
 
-Create files that help your DA understand YOU:
+Create files that help your AI understand YOU:
 
 - **ABOUTME.md** - Your background, interests, expertise
 - **BASICINFO.md** - Name, timezone, location, contact info
-- **CONTACTS.md** - People your DA should know about
-- **DAIDENTITY.md** - Your DA's personality customizations
+- **CONTACTS.md** - People your AI should know about
+- **DAIDENTITY.md** - Your AI's personality customizations
 - **DEFINITIONS.md** - Your personal glossary and terminology
-- **REMINDERS.md** - Things your DA should remember to mention
+- **REMINDERS.md** - Things your AI should remember to mention
 - **RESPONSEFORMAT.md** - Override default response format (optional)
 - **TECHSTACKPREFERENCES.md** - Your technology preferences
 
@@ -44,9 +44,9 @@ Create files that help your DA understand YOU:
 
 ## Getting Started
 
-1. Start with `ABOUTME.md` - introduce yourself to your DA
+1. Start with `ABOUTME.md` - introduce yourself to your AI
 2. Add `BASICINFO.md` with essential details
-3. Customize `DAIDENTITY.md` to shape your DA's personality
+3. Customize `DAIDENTITY.md` to shape your AI's personality
 4. Add files as you discover what context helps most
 
 ---

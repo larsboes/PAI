@@ -109,7 +109,7 @@ rm /tmp/pai-security-canary
 - [ ] `$PAI_DIR/hooks/handlers/capture.ts` exists
 - [ ] `$PAI_DIR/hooks/handlers/voice.ts` exists
 - [ ] `$PAI_DIR/hooks/handlers/tab-state.ts` exists
-- [ ] `$PAI_DIR/hooks/handlers/system-integrity.ts` exists
+- [ ] `$PAI_DIR/hooks/handlers/SystemIntegrity.ts` exists
 
 ### Configuration Verification
 

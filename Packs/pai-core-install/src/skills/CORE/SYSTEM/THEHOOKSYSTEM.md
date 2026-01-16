@@ -346,15 +346,15 @@ Hooks have access to all environment variables from `~/.claude/settings.json` `"
 ```json
 {
   "daidentity": {
-    "name": "Kai",
-    "fullName": "Kai Magnus",
-    "displayName": "Kai",
+    "name": "PAI",
+    "fullName": "Personal AI",
+    "displayName": "PAI",
     "color": "#3B82F6",
     "voiceId": "s3TPKV1kjDlVtZbl4Ksh"
   },
   "principal": {
-    "name": "Daniel",
-    "pronunciation": "Dan-yel",
+    "name": "User",
+    "pronunciation": "User",
     "timezone": "America/Los_Angeles"
   }
 }
@@ -369,7 +369,7 @@ const identity = getIdentity();    // { name, fullName, displayName, voiceId, co
 const principal = getPrincipal();  // { name, pronunciation, timezone }
 
 // Convenience functions
-const daName = getDAName();        // "Kai"
+const daName = getDAName();        // "PAI"
 const userName = getPrincipalName(); // "Daniel"
 const voice = getVoiceId();        // "s3TPKV1kjDlVtZbl4Ksh"
 ```
@@ -831,7 +831,7 @@ setTimeout(() => {
 1. Is voice server running? `curl http://localhost:8888/health`
 2. Is voice_id correct? See `skills/CORE/SKILL.md` for mappings
 3. Is message format correct? `{"message":"...", "voice_id":"...", "title":"..."}`
-4. Is ElevenLabs API key in `~/.claude/.env`?
+4. Is ElevenLabs API key in `${PAI_DIR}/.env`?
 
 **Debug:**
 ```bash
@@ -996,8 +996,8 @@ bun run dev
 
 **Verification:**
 ```bash
-# Check transcript type field
-grep '"type":"user"' ~/.claude/projects/<your-project>/*.jsonl | head -1 | jq '.type'
+# Check transcript type field (replace {username} with your system username)
+grep '"type":"user"' ~/.claude/projects/-Users-{username}--claude/*.jsonl | head -1 | jq '.type'
 # Should output: "user" (not "human")
 ```
 

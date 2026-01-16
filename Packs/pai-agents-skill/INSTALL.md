@@ -261,7 +261,7 @@ cp "$PACK_DIR/src/skills/Agents/Workflows/"*.md "$PAI_DIR/skills/Agents/Workflow
 - `*Context.md` - Agent-specific context files (9 files: Architect, Artist, ClaudeResearcher, CodexResearcher, Designer, Engineer, GeminiResearcher, GrokResearcher, QATester)
 - `Data/Traits.yaml` - 28 composable traits + 45 voice mappings
 - `Templates/DynamicAgent.hbs` - Dynamic agent prompt template
-- `Tools/*.ts` - ComposeAgent, LoadAgentContext, SpawnAgentWithProfile
+- `Tools/*.ts` - AgentFactory, LoadAgentContext, SpawnAgentWithProfile
 - `Tools/package.json` - Dependencies (yaml, handlebars)
 - `Workflows/*.md` - CreateCustomAgent, ListTraits, SpawnParallelAgents
 
@@ -385,9 +385,9 @@ ls "$PAI_DIR/skills/Agents/Workflows/"*.md 2>/dev/null && echo "OK Workflows fou
 echo "Checking agent templates..."
 ls "$PAI_DIR/agents/"*.md 2>/dev/null && echo "OK Agent templates found" || echo "ERROR Agent templates missing"
 
-# Test ComposeAgent
-echo "Testing ComposeAgent..."
-cd "$PAI_DIR/skills/Agents/Tools" && bun run ComposeAgent.ts --list 2>/dev/null | head -20
+# Test AgentFactory
+echo "Testing AgentFactory..."
+cd "$PAI_DIR/skills/Agents/Tools" && bun run AgentFactory.ts --list 2>/dev/null | head -20
 
 echo "=== Verification Complete ==="
 ```
@@ -447,7 +447,7 @@ curl -fsSL https://bun.sh/install | bash
 source ~/.bashrc  # or ~/.zshrc
 ```
 
-### ComposeAgent fails to run
+### AgentFactory fails to run
 
 Check dependencies:
 ```bash
@@ -482,7 +482,7 @@ python3 -c "import yaml; yaml.safe_load(open('$HOME/.claude/skills/Agents/Data/T
 | `*Context.md` | Agent-specific context files |
 | `Data/Traits.yaml` | 28 composable traits + voice mappings |
 | `Templates/DynamicAgent.hbs` | Dynamic agent prompt template |
-| `Tools/ComposeAgent.ts` | Dynamic agent composition engine |
+| `Tools/AgentFactory.ts` | Dynamic agent composition engine |
 | `Tools/LoadAgentContext.ts` | Context loader utility |
 | `Workflows/*.md` | CreateCustomAgent, ListTraits, SpawnParallel |
 
@@ -522,11 +522,11 @@ python3 -c "import yaml; yaml.safe_load(open('$HOME/.claude/skills/Agents/Data/T
 
 ```bash
 # List all traits
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --list
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --list
 
 # Compose agent for task
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --task "Review security architecture"
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --task "Review security architecture"
 
 # Compose agent with explicit traits
-bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts --traits "security,skeptical,thorough"
+bun run ~/.claude/skills/Agents/Tools/AgentFactory.ts --traits "security,skeptical,thorough"
 ```

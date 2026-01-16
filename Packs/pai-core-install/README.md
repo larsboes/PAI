@@ -153,7 +153,7 @@ CORE is not a prompt - it's an operating system. While system prompts are static
 export PAI_DIR="$HOME/.claude"
 
 # Optional - for voice integration
-export DA="YourDAName"
+export DA="YourAIName"
 export TIME_ZONE="America/Los_Angeles"
 ```
 
@@ -162,8 +162,8 @@ export TIME_ZONE="America/Los_Angeles"
 ```json
 {
   "daidentity": {
-    "name": "YourDAName",
-    "fullName": "Your DA Full Name",
+    "name": "YourAIName",
+    "fullName": "Your AI Full Name",
     "voiceId": "your-elevenlabs-voice-id"
   },
   "principal": {
@@ -183,9 +183,9 @@ export TIME_ZONE="America/Los_Angeles"
 
 After installing CORE, personalize your PAI by creating files in `USER/`:
 
-1. **ABOUTME.md** - Tell your DA about yourself
+1. **ABOUTME.md** - Tell your AI about yourself
 2. **BASICINFO.md** - Name, timezone, location
-3. **DAIDENTITY.md** - Customize your DA's personality
+3. **DAIDENTITY.md** - Customize your AI's personality
 4. **RESPONSEFORMAT.md** - Override default response format
 
 **Why:** USER files make PAI *yours*. Without them, you get generic defaults.
@@ -193,7 +193,7 @@ After installing CORE, personalize your PAI by creating files in `USER/`:
 **Process:**
 1. Read the README.md files in each USER subdirectory
 2. Create the recommended files with your personal content
-3. Your DA will use this context in every session
+3. Your AI will use this context in every session
 
 **Expected Outcome:** An AI that knows you, speaks in your preferred style, and maintains your preferences across sessions.
 

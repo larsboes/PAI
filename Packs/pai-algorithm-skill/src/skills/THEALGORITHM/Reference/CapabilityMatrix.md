@@ -46,7 +46,7 @@ This document describes what capabilities are unlocked at each effort level. Eff
   - `execution.designer` - UX/UI
   - `verification.browser` - Web validation
   - `verification.skeptical_verifier` - Independent verification
-  - `agent_composition` - ComposeAgent for custom agents
+  - `agent_composition` - AgentFactory for custom agents
 - **ISC Rows:** As many as needed to capture ideal state
 - **Traits Added:** analytical, systematic
 - **Max Parallel:** 3
