@@ -1,5 +1,9 @@
 <div align="center">
 
+<img src="pai-v23-hero.png" alt="PAI v2.3 in Action" width="800">
+
+<br><br>
+
 <img src="../release-icon-v2.png" alt="PAI v2.3" width="200">
 
 # PAI v2.3.0 — Full Releases Return

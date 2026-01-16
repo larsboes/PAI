@@ -51,6 +51,17 @@
 
 ---
 
+> [!IMPORTANT]
+> ## PAI v2.3.0 Released — Full Releases Return
+>
+> **Complete `.claude/` directories are back.** Copy, configure, and start immediately.
+>
+> v2.3 introduces **continuous learning** — PAI now captures every interaction (ratings, sentiment, behavioral signals) and uses them to improve itself over time. This is what enterprise AI teams build internally. Now it's open-source.
+>
+> **[Read the full v2.3 release notes →](Releases/v2.3/README.md)** | **[GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)**
+
+---
+
 # AI should magnify everyone—not just the top 1%.
 
 </div>
@@ -1230,6 +1241,50 @@ The packs are extracted from Kai—real capabilities that have been running in p
 ---
 
 ## 📜 Update History
+
+<details>
+<summary><strong>v2.3.0 (2026-01-15) — Full Releases Return</strong></summary>
+
+<br/>
+
+**Complete .claude Directory Releases**
+- Full functional releases are back — copy `.claude/` and start immediately
+- Complete release in `Releases/v2.3/` with everything included
+- Interactive setup wizard via `bun run install.ts`
+
+**Continuous Learning System**
+- Every interaction teaches the system through automatic signal capture
+- Explicit rating capture: say "8" or "8 - great work" to rate responses
+- Implicit sentiment capture: AI-detected mood from natural expressions
+- All signals merge into unified `ratings.jsonl` for learning
+
+**Enhanced Hook System**
+- 14 production hooks across 6 lifecycle events
+- New sentiment hooks: `ExplicitRatingCapture.hook.ts`, `ImplicitSentimentCapture.hook.ts`
+- Learning extraction: `WorkCompletionLearning.hook.ts` extracts insights at session end
+- Full hook orchestration with `StopOrchestrator.hook.ts`
+
+**Memory Architecture**
+- Layered capture: Raw events → Sentiment overlay → Learning extraction
+- Organized directories: `SESSIONS/`, `SIGNALS/`, `LEARNINGS/`, `RESEARCH/`
+- `ratings.jsonl` as unified learning signal source
+
+**Status Line with Learning Signal**
+- 4-mode responsive display (nano/micro/mini/normal)
+- Real-time learning score with trend indicators (↑ improving, ↓ declining, → stable)
+- Visual feedback that the system is learning from your input
+
+**Release Contents**
+- 20 production skills across 5 categories
+- 11 named agents with persistent personalities
+- Complete hook system with lib dependencies
+- Observability dashboard for agent monitoring
+
+**Resources**
+- [Release Notes](Releases/v2.3/README.md) — Full documentation with diagrams
+- [GitHub Release](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0) — Tagged release
+
+</details>
 
 <details>
 <summary><strong>v2.1.1 (2026-01-09) — MEMORY System Migration</strong></summary>
