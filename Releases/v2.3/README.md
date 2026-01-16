@@ -2,9 +2,9 @@
 
 <img src="../release-icon.png" alt="PAI v2.3" width="200">
 
-# PAI v2.3.0 — The Continuously Learning AI
+# PAI v2.3.0 — Full Releases Return
 
-**AI that gets smarter every time you use it**
+**Complete .claude directory with continuous learning built in**
 
 [![GitHub Release](https://img.shields.io/badge/Release-v2.3.0-8B5CF6?style=flat&logo=github)](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)
 [![Skills](https://img.shields.io/badge/Skills-20-22C55E?style=flat)](skills/)
