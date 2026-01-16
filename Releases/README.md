@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="release-icon.png" alt="PAI Releases" width="128">
+<img src="release-icon.png" alt="PAI Releases" width="256">
 
 # PAI Releases
 
