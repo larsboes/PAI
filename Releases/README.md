@@ -1,6 +1,12 @@
+<div align="center">
+
+<img src="release-icon.png" alt="PAI Releases" width="128">
+
 # PAI Releases
 
- This is the PAI releases directory, which deal with a different type of install from PAI Packs or Bundles. 
+</div>
+
+This is the PAI releases directory, which deals with a different type of install from PAI Packs or Bundles. 
 
  PAI releases are designed to give you a full working state after a very short install wizard by giving you a functional .claude directory. 
 
