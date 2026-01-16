@@ -6,6 +6,24 @@
 
 </div>
 
+---
+
+<div align="center">
+
+## Latest Release: v2.3.0
+
+[![PAI v2.3](https://img.shields.io/badge/PAI-v2.3.0-8B5CF6?style=for-the-badge&logo=github)](v2.3/)
+
+**Complete `.claude/` directory with continuous learning built in**
+
+20 Skills | 11 Agents | 14 Hooks | Sentiment Capture | Memory System
+
+[**Get Started with v2.3 →**](v2.3/)
+
+</div>
+
+---
+
 This is the PAI releases directory, which deals with a different type of install from PAI Packs or Bundles. 
 
  PAI releases are designed to give you a full working state after a very short install wizard by giving you a functional .claude directory. 
