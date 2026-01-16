@@ -624,26 +624,39 @@ sequenceDiagram
 
 ### Features (Architectural Systems)
 
-| Pack | Version | Description |
-|------|---------|-------------|
-| [**pai-core-install**](Packs/pai-core-install/) | 1.4.0 | Core skills, identity, MEMORY system, and response format |
-| [**pai-hook-system**](Packs/pai-hook-system/) | 1.0.0 | Event-driven automation and security validation |
-| [**pai-voice-system**](Packs/pai-voice-system/) | 1.0.1 | Voice notifications with ElevenLabs TTS and prosody enhancement |
-| [**pai-observability-server**](Packs/pai-observability-server/) | 1.0.0 | Real-time agent monitoring dashboard with live charts |
+| Pack | Description |
+|------|-------------|
+| [**pai-core-install**](Packs/pai-core-install/) | Core skills, identity, MEMORY system, and response format |
+| [**pai-hook-system**](Packs/pai-hook-system/) | Event-driven automation and security validation |
+| [**pai-voice-system**](Packs/pai-voice-system/) | Voice notifications with ElevenLabs TTS and prosody enhancement |
+| [**pai-observability-server**](Packs/pai-observability-server/) | Real-time agent monitoring dashboard with live charts |
+| [**pai-statusline**](Packs/pai-statusline/) | 4-mode responsive status line with learning signal display |
 
 ### Skills (Action-Oriented Capabilities)
 
-| Pack | Version | Description |
-|------|---------|-------------|
-| [**pai-agents-skill**](Packs/pai-agents-skill/) | 1.1.1 | Dynamic agent composition with personality mapping and parallel orchestration |
-| [**pai-algorithm-skill**](Packs/pai-algorithm-skill/) | 0.5.0 | The Algorithm implementation - ISC management, effort classification ⚠️ *Early Alpha* |
-| [**pai-art-skill**](Packs/pai-art-skill/) | 1.1.0 | Visual content generation with multi-reference image support |
-| [**pai-browser-skill**](Packs/pai-browser-skill/) | 1.2.0 | Browser automation with Playwright for testing and verification |
-| [**pai-prompting-skill**](Packs/pai-prompting-skill/) | 1.0.0 | Meta-prompting system with templates, standards, and dynamic generation |
-| [**pai-upgrades-skill**](Packs/pai-upgrades-skill/) | 1.0.0 | Track and manage PAI system upgrade opportunities |
+| Pack | Description |
+|------|-------------|
+| [**pai-agents-skill**](Packs/pai-agents-skill/) | Dynamic agent composition with personality mapping and parallel orchestration |
+| [**pai-algorithm-skill**](Packs/pai-algorithm-skill/) | The Algorithm implementation - ISC management, effort classification |
+| [**pai-annualreports-skill**](Packs/pai-annualreports-skill/) | Annual security report aggregation and analysis |
+| [**pai-art-skill**](Packs/pai-art-skill/) | Visual content generation with multi-reference image support |
+| [**pai-brightdata-skill**](Packs/pai-brightdata-skill/) | Progressive URL scraping with Bright Data integration |
+| [**pai-browser-skill**](Packs/pai-browser-skill/) | Browser automation with Playwright for testing and verification |
+| [**pai-council-skill**](Packs/pai-council-skill/) | Multi-agent debate system for exploring perspectives |
+| [**pai-createcli-skill**](Packs/pai-createcli-skill/) | Generate TypeScript CLI tools |
+| [**pai-createskill-skill**](Packs/pai-createskill-skill/) | Create and validate PAI skills |
+| [**pai-firstprinciples-skill**](Packs/pai-firstprinciples-skill/) | First principles analysis and decomposition |
+| [**pai-osint-skill**](Packs/pai-osint-skill/) | Open source intelligence gathering |
+| [**pai-privateinvestigator-skill**](Packs/pai-privateinvestigator-skill/) | Ethical people-finding and reconnection |
+| [**pai-prompting-skill**](Packs/pai-prompting-skill/) | Meta-prompting system with templates and standards |
+| [**pai-recon-skill**](Packs/pai-recon-skill/) | Security reconnaissance and attack surface mapping |
+| [**pai-redteam-skill**](Packs/pai-redteam-skill/) | Adversarial analysis with 32 specialized agents |
+| [**pai-research-skill**](Packs/pai-research-skill/) | Multi-source research with parallel agent execution |
+| [**pai-system-skill**](Packs/pai-system-skill/) | System maintenance, integrity checks, and documentation |
+| [**pai-telos-skill**](Packs/pai-telos-skill/) | Life OS and deep goal capture framework |
 
 > [!NOTE]
-> The standalone History System pack has been retired. History/context-tracking is now integrated into **pai-core-install** as the **MEMORY System**.
+> **23 packs total** — 5 infrastructure packs + 18 skill packs. All extracted from production PAI systems.
 
 [**Submit your own pack →**](#-contributing)
 
