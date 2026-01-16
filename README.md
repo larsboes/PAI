@@ -56,37 +56,53 @@
 </div>
 
 > [!IMPORTANT]
-> **PAI v2.3.0 Released** — Complete `.claude/` directories are back. [Release notes →](Releases/v2.3/README.md) | [GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)
+> **PAI v2.3.0 Released — Full Releases Return**
+>
+> Complete `.claude/` directories are back. Copy, configure, and start immediately.
+>
+> v2.3 introduces **continuous learning** — PAI now captures every interaction (ratings, sentiment, behavioral signals) and uses them to improve itself over time.
+>
+> **[Read the full v2.3 release notes →](Releases/v2.3/README.md)** | **[GitHub Release →](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)**
+
+The most powerful AI systems are being built inside companies for companies. The richest people and the biggest corporations are getting AI that learns from every interaction and gets better at helping them over time.
+
+**Everyone deserves that.**
+
+PAI exists to democratize access to **self-learning AI infrastructure**. Not a chatbot that forgets everything. Not a generic assistant that starts fresh each time. A [*system* that improves itself](https://danielmiessler.com/blog/personal-ai-maturity-model)—one that captures feedback from every interaction, learns from mistakes, and gets better at helping *you* specifically.
+
+**The North Star: Euphoric Surprise.** PAI pursues a singular goal—creating *Euphoric Surprise* in how it executes every task. Not just completion, but results so thorough, thoughtful, and effective that you're genuinely surprised and delighted. This is how PAI helps you become the best version of yourself: by consistently exceeding expectations in service of your goals.
+
+This is open-source. This is free. This is for everyone.
+
+**Who is PAI for?**
+- **Developers** using AI coding assistants who want persistent memory and custom workflows
+- **Power users** who want their AI to know their goals, preferences, and context
+- **Teams** building shared AI infrastructure with consistent capabilities
+- **Experimenters** interested in AI system design and personal AI patterns
 
 ---
 
-The most powerful AI systems are being built inside companies—AI that knows your goals, learns from every interaction, and improves over time. Meanwhile, most people get generic chatbots that forget everything each session.
-
-**Everyone deserves access to that capability.** Not just the top 1%. Not just enterprise teams. Everyone.
-
-PAI (Personal AI Infrastructure) is how we make that happen. It's a framework for building AI systems that are personalized to *you*—your goals, your preferences, your history. See where you are on the journey: **[Personal AI Maturity Model](https://danielmiessler.com/blog/personal-ai-maturity-model)**
-
-**The North Star: Euphoric Surprise.** PAI helps its principal become the best version of themselves by consistently exceeding expectations—results so thorough and effective that you're genuinely surprised and delighted.
-
-**This is open-source. This is free. This is for everyone.**
-
-**Who is PAI for?**
-
-- **Developers** wanting persistent memory and custom workflows
-- **Power users** wanting AI that knows their goals and context
-- **Teams** building shared AI infrastructure
-- **Experimenters** exploring what personal AI can become
-
-From a technical perspective, PAI is a configuration and automation layer for AI coding assistants like Claude Code. It adds: persistent memory, custom skills, security controls, voice notifications, and self-improvement systems—all through modular "packs" you can install independently.
-
 > [!TIP]
-> **AI-assisted installation:** Give this URL to your AI coding assistant and say *"Walk me through installing PAI."*
+> ## 🤖 This README Works Great with AI Assistants
+>
+> **Try AI-assisted installation:** Give this URL to your DA assistant and say *"Walk me through installing PAI and customize it for me."*
+>
+> The documentation is designed for both humans and AI. Read on to understand the system, or let your DA guide you through setup—whichever works best for you.
 
 ---
 
 ## What is PAI?
 
-**PAI** = **P**ersonal **A**I **I**nfrastructure — a self-learning system that improves over time. The learning is automatic: rate poorly, express frustration, abandon a task—all captured as signals that feed back into improving the system.
+**PAI (Personal AI Infrastructure)** is a **self-learning system** that gets better at helping you over time.
+
+Unlike static AI assistants that treat every conversation as a blank slate, PAI captures feedback from every interaction—explicit ratings, implicit sentiment, behavioral signals, verification outcomes—and uses it to improve. The system literally upgrades itself based on what works and what doesn't.
+
+**PAI is three things:**
+- **A continuously upgrading algorithm** - The centerpiece. Current → Ideal via verifiable iteration, at any scale.
+- **A self-learning system** - Every interaction generates feedback that improves the system.
+- **Personal infrastructure** - Skills, memory, and context that make AI useful for *your* life
+
+The learning happens automatically. Rate a response poorly? The system captures why. Express frustration? Sentiment analysis detects it. Abandon a task? That's a signal too.
 
 ---
 
