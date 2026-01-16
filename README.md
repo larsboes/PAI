@@ -64,12 +64,9 @@
 
 </div>
 
-### 1. We believe AI provides an **EXTRAORDINARY** advantage for those who know how to use it, and we don't want that to be just a few tech nerds like us. That's why this is open-source instead of private.
-### 2. We believe the most important part of an AI system is the person using it. This is why **customization to the principal (you)** is the central idea of the PAI system.
-k
-The most powerful AI systems are being built inside companies for companies. The richest people and the biggest corporations are getting AI that learns from every interaction and gets better at helping them over time.
-
-**Everyone deserves that.**
+### 1. We believe AI provides **AN EXTRAORDINARY ADVANTAGE** to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
+### 2. We believe the most important part of an AI system is not the tech itself, but the person using it. This is why **customization to the principal (you)** is the central idea of the PAI system.
+### 3. We believe the ideal AI system functions as a [powerful assistant, friend, coach, and mentor](https://danielmiessler.com/blog/personal-ai-maturity-model) that's continuously helping you achieve your goals, rather than a narrow tool for coding or building applications. 
 
 PAI exists to democratize access to **self-learning AI infrastructure**. Not a chatbot that forgets everything. Not a generic assistant that starts fresh each time. A [*system* that improves itself](https://danielmiessler.com/blog/personal-ai-maturity-model)—one that captures feedback from every interaction, learns from mistakes, and gets better at helping *you* specifically.
 
