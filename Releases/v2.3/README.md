@@ -2,9 +2,9 @@
 
 <img src="../release-icon.png" alt="PAI v2.3" width="200">
 
-# PAI v2.3.0 — Full Releases Return
+# PAI v2.3.0 — The Continuously Learning AI
 
-**The most significant release since v2.0**
+**AI that gets smarter every time you use it**
 
 [![GitHub Release](https://img.shields.io/badge/Release-v2.3.0-8B5CF6?style=flat&logo=github)](https://github.com/danielmiessler/PAI/releases/tag/v2.3.0)
 [![Skills](https://img.shields.io/badge/Skills-20-22C55E?style=flat)](skills/)
@@ -15,495 +15,344 @@
 
 ---
 
-## What's New in v2.3
+## The Core Innovation: Continuous Learning
 
-PAI v2.3 brings back **complete, functional releases** while maintaining the modular Packs system. This release addresses the most common feedback since v2.0: *"I love the modular approach, but I just want the whole thing."*
+Most AI assistants forget everything after each session. They start fresh every time, making the same mistakes, missing the same context, unable to improve from feedback.
 
-Now you have both options:
-- **Full Release**: Copy the `.claude/` directory and start immediately
-- **Individual Packs**: Install specific capabilities as needed
+**PAI is different.** Every interaction teaches the system. Every rating, every expression of satisfaction or frustration, every completed task—all captured, analyzed, and fed back into the system. PAI doesn't just help you; it learns *how* to help you better.
 
-### Highlights
+<div align="center">
 
-| Feature | Description |
-|---------|-------------|
-| **Full `.claude/` Directory** | Complete, functional PAI installation ready to copy |
-| **Euphoric Surprise** | New north star philosophy embedded throughout |
-| **Customization as Principle #1** | PAI exists to help YOU accomplish YOUR goals |
-| **14 Lifecycle Hooks** | Voice, memory, security, sentiment, learning |
-| **Responsive Status Line** | 4-mode adaptive display with learning signals |
-| **11 Named Agents** | Persistent personalities for specialized work |
-| **20 Production Skills** | Battle-tested capabilities from production PAI |
-| **Observability Dashboard** | Real-time agent monitoring and analytics |
+![The Continuous Learning Loop](continuous-learning-loop.png)
+
+*Every interaction makes PAI smarter through capture, sentiment analysis, pattern extraction, and system upgrades*
+
+</div>
+
+### How It Works
+
+1. **Capture Everything** — Every session is recorded: transcripts, responses, work artifacts, research. Nothing is lost.
+
+2. **Overlay Sentiment** — On top of that raw capture, PAI overlays your emotional signal. Did you rate the response? Express satisfaction? Show frustration? All captured.
+
+3. **Extract Patterns** — What worked? What didn't? The system identifies patterns across sessions, skills, and contexts.
+
+4. **Upgrade the System** — Insights feed back into skills, prompts, and behaviors. The system literally improves itself.
+
+This isn't theoretical—it's implemented in production hooks that run on every message.
 
 ---
 
-## Release Contents
+## Comprehensive Memory: Everything Captured
+
+PAI's memory system captures the complete history of your interactions, organized for learning.
+
+<div align="center">
+
+![Memory Architecture](memory-architecture.png)
+
+*Layered architecture: raw capture on top, sentiment overlay in the middle, learning extraction below*
+
+</div>
+
+### Memory Structure
+
+```
+MEMORY/
+├── SESSIONS/           # Complete session transcripts
+│   └── *.json          # Every conversation preserved
+│
+├── SIGNALS/            # The sentiment layer
+│   └── ratings.jsonl   # Explicit + implicit ratings
+│
+├── LEARNINGS/          # Extracted insights
+│   └── *.md            # Patterns that work
+│
+├── RESEARCH/           # Accumulated knowledge
+│   └── */              # Topic-organized artifacts
+│
+└── PAISYSTEMUPDATES/   # System evolution
+    └── *.md            # How PAI improves
+```
+
+### What Gets Captured
+
+| Layer | Content | Purpose |
+|-------|---------|---------|
+| **Raw Capture** | Session transcripts, work artifacts, research, code | Complete history |
+| **Sentiment Overlay** | Explicit ratings, implicit mood, satisfaction signals | Learning signal |
+| **Pattern Extraction** | What worked, what failed, behavioral patterns | System improvement |
+| **Learning Output** | Updated skills, refined prompts, new behaviors | Continuous upgrade |
+
+---
+
+## Sentiment Capture: Two Channels, One Signal
+
+PAI captures your satisfaction through two complementary channels—you can rate explicitly, or the system detects how you feel automatically.
+
+<div align="center">
+
+![Sentiment Capture System](sentiment-capture.png)
+
+*Explicit ratings and AI-detected sentiment merge into a unified learning signal*
+
+</div>
+
+### Explicit Rating Capture
+
+Say a number, and PAI captures it:
+
+```
+User: "8 - great work on that refactor"
+      ↓
+ExplicitRatingCapture.hook.ts detects pattern
+      ↓
+Rating: 8.0 → ratings.jsonl
+```
+
+**Patterns recognized:**
+- `"8"` (just the number)
+- `"8 - good job"`
+- `"that was a 9"`
+- `"I'd give that a 7"`
+
+### Implicit Sentiment Capture
+
+Don't want to rate? Just express yourself naturally:
+
+```
+User: "This is amazing, exactly what I needed!"
+      ↓
+ImplicitSentimentCapture.hook.ts runs AI inference
+      ↓
+Sentiment: 0.9 positive → Converted: 9.0 → ratings.jsonl
+```
+
+**What triggers sentiment detection:**
+- Expressions of satisfaction: "perfect", "exactly right", "love it"
+- Expressions of frustration: "that's wrong", "not what I asked", "try again"
+- Task completion language: "done", "finished", "that works"
+- Emotional indicators: exclamation marks, capitalization, word choice
+
+### The Unified Signal
+
+Both channels merge into `ratings.jsonl`—a single source of truth for how well PAI is serving you:
+
+```jsonl
+{"timestamp":"2026-01-15T22:30:00Z","rating":8.0,"type":"explicit","context":"refactor task"}
+{"timestamp":"2026-01-15T22:35:00Z","rating":9.0,"type":"implicit","sentiment":0.9,"context":"bug fix"}
+```
+
+This signal appears in real-time on your status line:
+
+```
+Good evening, Daniel │ Wielding opus │ Learning: 8.5↑ │ Context: 42%
+```
+
+The `↑` indicates your satisfaction is trending up. The system is learning.
+
+---
+
+## The Learning Hooks
+
+PAI's continuous learning is implemented through 14 TypeScript hooks that run at lifecycle events:
+
+### Capture Hooks (What Goes In)
+
+| Hook | Event | What It Captures |
+|------|-------|------------------|
+| `AgentOutputCapture` | SubagentStop | Subagent results and outcomes |
+| `AutoWorkCreation` | UserPromptSubmit | Work context and session state |
+| `SessionSummary` | SessionEnd | Complete session wrap-up |
+
+### Sentiment Hooks (The Overlay)
+
+| Hook | Event | What It Detects |
+|------|-------|-----------------|
+| `ExplicitRatingCapture` | UserPromptSubmit | Numeric ratings in messages |
+| `ImplicitSentimentCapture` | UserPromptSubmit | Emotional tone via AI inference |
+
+### Learning Hooks (What Comes Out)
+
+| Hook | Event | What It Extracts |
+|------|-------|------------------|
+| `WorkCompletionLearning` | SessionEnd | Insights from completed work |
+
+### The Complete Hook Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                     THE LEARNING PIPELINE                           │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  SessionStart ──► LoadContext ──► Previous learnings injected       │
+│                                                                     │
+│  UserPromptSubmit ──┬──► AutoWorkCreation ──► Context captured      │
+│                     ├──► ExplicitRatingCapture ──► "8" detected     │
+│                     ├──► ImplicitSentimentCapture ──► mood inferred │
+│                     └──► UpdateTabTitle ──► Learning signal shown   │
+│                                                                     │
+│  SubagentStop ──► AgentOutputCapture ──► Agent work recorded        │
+│                                                                     │
+│  SessionEnd ──┬──► WorkCompletionLearning ──► Patterns extracted    │
+│               └──► SessionSummary ──► Session archived              │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Status Line: Learning Made Visible
+
+PAI's responsive status line shows your learning signal in real-time, adapting to terminal width:
+
+### 4-Mode Responsive Display
+
+| Mode | Width | Display |
+|------|-------|---------|
+| `nano` | <35 cols | `8.5↑` |
+| `micro` | 35-54 | `Learning: 8.5↑` |
+| `mini` | 55-79 | `Learning: 8.5↑ │ Context: 42%` |
+| `normal` | 80+ | Full display with sparklines and trends |
+
+### What the Learning Signal Shows
+
+```
+Learning: 8.5↑
+         │  │
+         │  └── Trend direction (↑ improving, ↓ declining, → stable)
+         │
+         └───── Rolling average of recent ratings
+```
+
+This isn't vanity metrics—it's the system showing you that it's learning from your feedback in real-time.
+
+---
+
+## Full Release: Everything Included
+
+v2.3 brings back **complete, functional releases**. Copy the `.claude/` directory and start immediately.
+
+### What's Inside
 
 ```
 .claude/
 ├── settings.json           # Pre-configured, works immediately
 ├── install.ts              # Interactive setup wizard
 ├── statusline-command.sh   # Responsive 4-mode status line
-├── CLAUDE.md               # Entry point for Claude Code
-├── INSTALL.md              # Installation guide
+│
+├── hooks/                  # 14 learning hooks
+│   ├── ExplicitRatingCapture.hook.ts
+│   ├── ImplicitSentimentCapture.hook.ts
+│   ├── WorkCompletionLearning.hook.ts
+│   ├── AgentOutputCapture.hook.ts
+│   └── ... (10 more)
+│
+├── MEMORY/                 # Comprehensive capture system
+│   ├── SESSIONS/           # Session transcripts
+│   ├── SIGNALS/            # Sentiment layer (ratings.jsonl)
+│   ├── LEARNINGS/          # Extracted insights
+│   └── RESEARCH/           # Knowledge artifacts
 │
 ├── skills/                 # 20 production skills
-│   ├── CORE/               # System foundation (auto-loads)
-│   ├── THEALGORITHM/       # Universal execution engine
-│   ├── Agents/             # Dynamic agent composition
-│   ├── Art/                # Visual content creation
-│   ├── Browser/            # Debug-first browser automation
-│   ├── Research/           # Multi-source research system
-│   └── ... (15 more)
-│
-├── agents/                 # 11 named agents with personalities
-│   ├── Architect.md        # System design specialist
-│   ├── Engineer.md         # Principal engineer patterns
-│   ├── Artist.md           # Visual content creator
-│   └── ... (8 more)
-│
-├── hooks/                  # 14 lifecycle hooks
-│   ├── lib/                # Shared hook libraries
-│   ├── handlers/           # Handler implementations
-│   └── *.hook.ts           # Hook scripts
-│
-├── MEMORY/                 # Persistent memory system
-│   ├── LEARNINGS/          # Captured insights
-│   ├── SIGNALS/            # User feedback ratings
-│   ├── SESSIONS/           # Session summaries
-│   └── RESEARCH/           # Research artifacts
-│
-├── Observability/          # Agent monitoring dashboard
-│   ├── apps/client/        # Vue.js dashboard
-│   ├── apps/server/        # SQLite-backed server
-│   └── Tools/              # Management scripts
-│
-├── USER/                   # Your customizations (private)
-├── Plans/                  # Plan mode working files
-└── lib/                    # Shared utilities
+├── agents/                 # 11 named agents
+└── Observability/          # Real-time monitoring dashboard
 ```
 
----
-
-## Hook System (14 Hooks)
-
-PAI's hook system extends Claude Code with voice feedback, automatic memory capture, security validation, sentiment tracking, and observability.
-
-### Lifecycle Events
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        Claude Code Session                          │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│  SessionStart ──┬──► StartupGreeting (banner + stats)               │
-│                 ├──► LoadContext (CORE skill injection)             │
-│                 └──► CheckVersion (update notification)             │
-│                                                                     │
-│  UserPromptSubmit ──┬──► FormatEnforcer (response spec)             │
-│                     ├──► AutoWorkCreation (work tracking)           │
-│                     ├──► ExplicitRatingCapture (1-10 ratings)       │
-│                     ├──► ImplicitSentimentCapture (mood detection)  │
-│                     └──► UpdateTabTitle (tab + voice)               │
-│                                                                     │
-│  PreToolUse ──┬──► SecurityValidator (Bash/Edit/Write/Read)         │
-│               └──► SetQuestionTab (teal state for questions)        │
-│                                                                     │
-│  SubagentStop ──► AgentOutputCapture (subagent results)             │
-│                                                                     │
-│  Stop ──► StopOrchestrator ──┬──► ResponseCapture                   │
-│                              ├──► TabTitleReset                     │
-│                              └──► VoiceCompletion                   │
-│                                                                     │
-│  SessionEnd ──┬──► WorkCompletionLearning (insight extraction)      │
-│               └──► SessionSummary (work completion)                 │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Hook Registry
-
-| Hook | Event | Purpose |
-|------|-------|---------|
-| `StartupGreeting` | SessionStart | Display PAI banner with system stats |
-| `LoadContext` | SessionStart | Inject CORE skill into context |
-| `CheckVersion` | SessionStart | Notify if Claude Code update available |
-| `FormatEnforcer` | UserPromptSubmit | Inject response format specification |
-| `AutoWorkCreation` | UserPromptSubmit | Create/update work directories |
-| `ExplicitRatingCapture` | UserPromptSubmit | Capture explicit 1-10 ratings from user |
-| `ImplicitSentimentCapture` | UserPromptSubmit | Detect emotional sentiment in messages |
-| `UpdateTabTitle` | UserPromptSubmit | Set tab title + voice announcement |
-| `SecurityValidator` | PreToolUse | Validate dangerous operations |
-| `SetQuestionTab` | PreToolUse | Set teal tab state for questions |
-| `AgentOutputCapture` | SubagentStop | Capture subagent outputs for memory |
-| `StopOrchestrator` | Stop | Coordinate tab reset + voice completion |
-| `WorkCompletionLearning` | SessionEnd | Extract learnings from completed work |
-| `SessionSummary` | SessionEnd | Mark work as completed |
-
-### Shared Libraries (hooks/lib/)
-
-| Library | Purpose |
-|---------|---------|
-| `identity.ts` | Get DA name, principal from settings |
-| `notifications.ts` | Voice server + push notification integration |
-| `paths.ts` | Canonical path construction |
-| `learning-utils.ts` | Learning categorization and storage |
-| `response-format.ts` | Tab summary validation |
-| `metadata-extraction.ts` | Parse assistant responses |
-| `observability.ts` | Trace emitting for monitoring |
-| `IdealState.ts` | ISC tracking for Algorithm integration |
-
----
-
-## Memory System
-
-PAI's memory system enables continuous learning—every session, insight, and signal is captured automatically.
-
-```
-MEMORY/
-├── LEARNINGS/          # Insights extracted from sessions
-│   └── *.md            # Categorized learnings
-│
-├── SIGNALS/            # User feedback for learning loop
-│   └── ratings.jsonl   # Explicit + implicit ratings
-│
-├── SESSIONS/           # Session summaries
-│   └── *.json          # Session metadata and outcomes
-│
-├── RESEARCH/           # Research artifacts
-│   └── */              # Topic-organized research
-│
-└── PAISYSTEMUPDATES/   # System upgrade documentation
-    └── *.md            # Upgrade notes and changelogs
-```
-
-### Learning Loop
-
-```
-User Interaction
-      │
-      ├─► Explicit Rating ("8 - great work")
-      │         │
-      │         └─► ExplicitRatingCapture ─► ratings.jsonl
-      │
-      └─► Implicit Sentiment ("this is amazing!")
-                │
-                └─► ImplicitSentimentCapture ─► ratings.jsonl
-                              │
-                              ▼
-                    Status Line Display
-                    (shows learning signal)
-                              │
-                              ▼
-                    WorkCompletionLearning
-                    (extracts insights at session end)
-```
-
----
-
-## Status Line
-
-PAI includes a **responsive 4-mode status line** that adapts to terminal width:
-
-| Mode | Width | Display |
-|------|-------|---------|
-| `nano` | <35 cols | Minimal single-line |
-| `micro` | 35-54 | Compact with key metrics |
-| `mini` | 55-79 | Balanced information |
-| `normal` | 80+ | Full display with sparklines |
-
-### Status Line Components
-
-- **Greeting**: Time-based greeting with principal name
-- **Wielding**: Current model being used
-- **Git**: Repository and branch status
-- **Learning**: Recent rating signal with trend
-- **Context**: Token usage percentage
-- **Quote**: Rotating inspirational quote
-
-Example (normal mode):
-```
-Good evening, Daniel │ Wielding opus │ PAI main │ Learning: 8.2↑ │ Context: 42% │ "Ship it."
-```
-
----
-
-## Named Agents (11)
-
-PAI includes 11 named agents with persistent personalities, each specialized for different tasks:
-
-| Agent | Specialty | Description |
-|-------|-----------|-------------|
-| **Architect** | System Design | PhD-level distributed systems, Fortune 10 experience |
-| **Engineer** | Implementation | Principal engineer patterns, TDD, constitutional principles |
-| **Artist** | Visual Content | Prompt engineering, model selection, editorial standards |
-| **Designer** | UX/UI | Design school pedigree, shadcn/ui, accessibility |
-| **QATester** | Quality Assurance | Browser automation, Gate 4 verification |
-| **Pentester** | Security Testing | Vulnerability assessment, ethical boundaries |
-| **Intern** | General Purpose | 176 IQ genius, high-agency problem solver |
-| **GeminiResearcher** | Multi-Perspective | Google Gemini, parallel investigations |
-| **GrokResearcher** | Contrarian Analysis | xAI Grok, unbiased fact-based research |
-| **CodexResearcher** | Technical Archaeology | O3/GPT-5-Codex, curiosity-driven exploration |
-| **ClaudeResearcher** | Academic Research | Claude WebSearch, scholarly synthesis |
-
----
-
-## Skills (20)
-
-Production-tested skills extracted from active PAI systems:
-
-### Core Infrastructure
-
-| Skill | Purpose |
-|-------|---------|
-| **CORE** | System foundation, auto-loads at session start |
-| **THEALGORITHM** | Universal execution engine (Current → Ideal) |
-| **System** | Integrity checks, documentation, security scans |
-| **PAIUpgrade** | Extract system improvements from content |
-
-### Research & Intelligence
-
-| Skill | Purpose |
-|-------|---------|
-| **Research** | Multi-source research with tiered depth |
-| **OSINT** | Open source intelligence gathering |
-| **PrivateInvestigator** | Ethical people-finding |
-| **AnnualReports** | Security report aggregation and analysis |
-
-### Creative & Content
-
-| Skill | Purpose |
-|-------|---------|
-| **Art** | Complete visual content system |
-| **Prompting** | Meta-prompting and template generation |
-| **Council** | Multi-agent debate system |
-| **RedTeam** | Adversarial analysis with 32 agents |
-
-### Development & Testing
-
-| Skill | Purpose |
-|-------|---------|
-| **Browser** | Debug-first browser automation |
-| **CreateCLI** | Generate TypeScript CLIs |
-| **CreateSkill** | Create and validate skills |
-| **Agents** | Dynamic agent composition |
-
-### Specialized
-
-| Skill | Purpose |
-|-------|---------|
-| **Telos** | Life OS and project analysis |
-| **FirstPrinciples** | Root cause analysis |
-| **BrightData** | Progressive URL scraping |
-| **Recon** | Security reconnaissance |
-
----
-
-## Observability Dashboard
-
-Real-time monitoring of PAI agent activity:
-
-```
-Observability/
-├── apps/
-│   ├── client/          # Vue.js dashboard
-│   │   ├── src/
-│   │   │   ├── composables/
-│   │   │   │   ├── useAdvancedMetrics.ts
-│   │   │   │   ├── useAgentChartData.ts
-│   │   │   │   ├── useEventSearch.ts
-│   │   │   │   ├── useHeatLevel.ts
-│   │   │   │   ├── useTimelineIntelligence.ts
-│   │   │   │   └── useWebSocket.ts
-│   │   │   └── ...
-│   │   └── ...
-│   │
-│   └── server/          # SQLite-backed server
-│       ├── src/
-│       │   ├── db.ts           # Database operations
-│       │   ├── file-ingest.ts  # Log ingestion
-│       │   ├── task-watcher.ts # Task monitoring
-│       │   └── index.ts        # Server entry
-│       └── ...
-│
-└── Tools/
-    └── ManageServer.ts   # Start/stop/restart
-```
-
-### Dashboard Features
-
-- **Real-time event timeline** with search and filtering
-- **Agent heat level** visualization
-- **Advanced metrics** with sparkline charts
-- **HITL notifications** for human-in-the-loop events
-- **Remote agent** monitoring
-- **Theme support** (Tokyo Night, etc.)
-
----
-
-## Security System
-
-Multi-layer defense with pattern-based validation:
-
-### Security Layers
-
-| Layer | Component | Function |
-|-------|-----------|----------|
-| 1 | `settings.json` permissions | Tool-level allow/deny/ask |
-| 2 | `SecurityValidator.hook.ts` | PreToolUse command filtering |
-| 3 | `patterns.yaml` | Pattern-based security rules |
-| 4 | `USER/PAISECURITYSYSTEM/` | Personal security policies |
-
-### Protected Operations
-
-```json
-{
-  "permissions": {
-    "ask": [
-      "Bash(rm -rf /)",
-      "Bash(git push --force:*)",
-      "Read(~/.ssh/id_*)",
-      "Write(~/.claude/settings.json)"
-    ]
-  }
-}
-```
-
-### Security Event Logging
-
-All security decisions logged to `MEMORY/SECURITY/security-events.jsonl` for audit.
-
----
-
-## Installation
-
-### Quick Start (Full Installation)
+### Quick Start
 
 ```bash
-# 1. Backup existing installation (if any)
+# 1. Backup existing installation
 mv ~/.claude ~/.claude-backup
 
 # 2. Copy the release
 cp -r .claude ~/
 
-# 3. Run the setup wizard
-cd ~/.claude
-bun run install.ts
+# 3. Run setup wizard
+cd ~/.claude && bun run install.ts
 
 # 4. Start PAI
 claude
 ```
 
-### What the Wizard Does
+---
 
-1. **Fixes permissions** - Makes hooks executable
-2. **Asks your name** - Personalizes the experience
-3. **Configures voice** - Male/female/neutral options
-4. **Tests voice server** - Verifies TTS works
-5. **Sets up aliases** - Adds `pai` command to shell
-6. **Validates installation** - Checks all components
+## 20 Skills, 11 Agents
 
-### Prerequisites
+### Skills
 
-- **Bun**: `curl -fsSL https://bun.sh/install | bash`
-- **Claude Code**: `npm install -g @anthropic-ai/claude-code`
-- **ElevenLabs API Key** (optional): For voice synthesis
+Production-tested capabilities extracted from active PAI systems:
+
+| Category | Skills |
+|----------|--------|
+| **Core** | CORE, THEALGORITHM, System, PAIUpgrade |
+| **Research** | Research, OSINT, PrivateInvestigator, AnnualReports |
+| **Creative** | Art, Prompting, Council, RedTeam |
+| **Development** | Browser, CreateCLI, CreateSkill, Agents |
+| **Specialized** | Telos, FirstPrinciples, BrightData, Recon |
+
+### Named Agents
+
+Persistent personalities for specialized work:
+
+| Agent | Role |
+|-------|------|
+| **Architect** | System design, PhD-level distributed systems |
+| **Engineer** | Principal engineer patterns, TDD |
+| **Artist** | Visual content, prompt engineering |
+| **Designer** | UX/UI, accessibility, shadcn/ui |
+| **QATester** | Browser automation, verification |
+| **Pentester** | Security testing, ethical boundaries |
+| **Intern** | High-agency generalist, 176 IQ |
+| **GeminiResearcher** | Multi-perspective, parallel investigations |
+| **GrokResearcher** | Contrarian, fact-based analysis |
+| **CodexResearcher** | Technical archaeology, curiosity-driven |
+| **ClaudeResearcher** | Academic, scholarly synthesis |
 
 ---
 
-## Configuration
+## Security: Learning Without Leaking
 
-### settings.json (Pre-configured)
+Multi-layer defense ensures learning data stays private:
 
-The release includes a working `settings.json` with:
+| Layer | Protection |
+|-------|------------|
+| **Permissions** | Tool-level allow/deny/ask in settings.json |
+| **SecurityValidator** | PreToolUse command filtering |
+| **patterns.yaml** | Pattern-based security rules |
+| **USER/** | Personal content never shared |
 
-- Full tool permissions (no "dangerously skip" prompts)
-- All 14 hooks configured
-- Security policies for dangerous operations
-- Voice synthesis settings
-- Status line configuration
-
-### Customization Points
-
-| File | Purpose |
-|------|---------|
-| `settings.json` | Identity, permissions, hooks |
-| `USER/` | Personal customizations (never overwritten) |
-| `USER/PAISECURITYSYSTEM/` | Personal security rules |
-| `USER/RESPONSEFORMAT.md` | Custom response format |
+All security decisions logged to `MEMORY/SECURITY/security-events.jsonl` for audit.
 
 ---
 
-## What's Changed Since v2.1
+## The Philosophy: Euphoric Surprise
 
-### Major Changes
+PAI pursues a singular goal—creating *Euphoric Surprise* in how it executes every task. Not just completion, but results so thorough and thoughtful that you're genuinely surprised and delighted.
 
-- **Full releases restored** - Complete `.claude/` directory
-- **Euphoric Surprise** - New north star philosophy
-- **Customization as Principle #1** - PAI exists for your goals
-- **23 packs updated** - All packs refreshed for v2.3
-- **Visual README redesign** - Technical diagrams and badges
+The continuous learning system makes this possible. Every time you're delighted (rating captured), PAI learns what works. Every time you're frustrated (sentiment detected), PAI learns what to avoid. Over time, the system becomes increasingly tuned to your preferences.
 
-### Infrastructure
-
-- **Retired pai-history-system** - Migrated to MEMORY in core
-- **Security system upgrade** - Directory-based architecture
-- **Voice integration improvements** - Better reliability
-- **AI wizard format** - Standardized pack installation
-
-### New Hook Features
-
-- **WorkCompletionLearning** - Extracts insights at session end
-- **ImplicitSentimentCapture** - Mood detection from messages
-- **ExplicitRatingCapture** - Captures 1-10 ratings
-
-### Status Line Improvements
-
-- **4-mode responsive display** - Adapts to terminal width
-- **Learning signal** - Shows recent ratings with trends
-- **Weather integration** - Optional location-based weather
-- **Quote rotation** - Inspirational quotes from your collection
+**This is what enterprise AI teams build internally. Now it's open-source.**
 
 ---
 
-## Verification
+## What's New in v2.3
 
-After installation, verify everything works:
-
-```bash
-# Run validation
-bun run install.ts --validate
-
-# Expected output:
-# ✓ settings.json: Valid
-# ✓ CORE skill: Found
-# ✓ Skills: 20 found
-# ✓ Hooks: 14 found
-# ✓ Agents: 11 found
-# ✓ Bun runtime: v1.x
-# ✓ Claude Code: Installed
-```
-
-### Quick Test
-
-```bash
-cd ~/.claude
-claude
-```
-
-PAI should:
-1. Display the startup banner with stats
-2. Greet you by name (or "User" if not configured)
-3. Show the status line with context percentage
-4. Speak "PAI here, ready to go." (if voice configured)
+| Feature | Description |
+|---------|-------------|
+| **Full Releases Return** | Complete `.claude/` directory, copy and start |
+| **Sentiment Capture** | Explicit ratings + AI-detected mood |
+| **Comprehensive Memory** | Every session, artifact, and signal captured |
+| **Learning Status Line** | Real-time visibility into learning signal |
+| **Pattern Extraction** | WorkCompletionLearning extracts insights |
+| **Euphoric Surprise** | North star philosophy embedded throughout |
 
 ---
 
 ## Resources
 
 - **GitHub**: [github.com/danielmiessler/PAI](https://github.com/danielmiessler/PAI)
-- **Video Walkthrough**: [PAI Overview](https://youtu.be/Le0DLrn7ta0)
+- **Video**: [PAI Overview](https://youtu.be/Le0DLrn7ta0)
 - **Philosophy**: [The Real Internet of Things](https://danielmiessler.com/blog/real-internet-of-things)
 - **Maturity Model**: [Personal AI Maturity Model](https://danielmiessler.com/blog/personal-ai-maturity-model)
 
@@ -511,7 +360,7 @@ PAI should:
 
 <div align="center">
 
-**PAI v2.3.0** — Magnifying human capabilities through personalized AI infrastructure.
+**PAI v2.3.0** — AI that learns from every interaction.
 
 *Everyone deserves AI that gets better at helping them over time.*
 
