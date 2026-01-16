@@ -64,15 +64,16 @@
 
 </div>
 
-![1](https://img.shields.io/badge/1-8B5CF6?style=for-the-badge) We believe AI provides **AN EXTRAORDINARY ADVANTAGE** to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
+### ${\textsf{\color{#8B5CF6}1. We believe AI provides AN EXTRAORDINARY ADVANTAGE}}$ to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
 
-![2](https://img.shields.io/badge/2-F97316?style=for-the-badge) We believe the most important part of an AI system is not the tech itself, but the person using it. This is why **customization to the principal (you)** is the central idea of the PAI system.
+### ${\textsf{\color{#F97316}2. We believe the most important part of an AI system is not the tech itself, but the person using it.}}$ This is why **customization to the principal (you)** is the central idea of the PAI system.
 
-![3](https://img.shields.io/badge/3-22C55E?style=for-the-badge) We believe the ideal AI system functions as a [powerful assistant, friend, coach, and mentor](https://danielmiessler.com/blog/personal-ai-maturity-model) that's continuously helping you achieve your goals, rather than a narrow tool for coding or building applications. 
+### ${\textsf{\color{#22C55E}3. We believe the ideal AI system functions as a powerful assistant, friend, coach, and mentor}}$ that's continuously helping you [achieve your goals](https://danielmiessler.com/blog/personal-ai-maturity-model), rather than a narrow tool for coding or building applications.
 
-PAI exists to democratize access to **self-learning AI infrastructure**. Not a chatbot that forgets everything. Not a generic assistant that starts fresh each time. A [*system* that improves itself](https://danielmiessler.com/blog/personal-ai-maturity-model)—one that captures feedback from every interaction, learns from mistakes, and gets better at helping *you* specifically.
+The goal of the PAI system is to produce **Euphoric Surprise** with every result, which means  
 
-**The North Star: Euphoric Surprise.** PAI pursues a singular goal—creating *Euphoric Surprise* in how it executes every task. Not just completion, but results so thorough, thoughtful, and effective that you're genuinely surprised and delighted. This is how PAI helps you become the best version of yourself: by consistently exceeding expectations in service of your goals.
+PAI pursues a singular goal—creating *Euphoric Surprise* in how it executes every task. Not just completion, but results so thorough, thoughtful, and effective that you're genuinely surprised and delighted. This is how PAI helps you become the best version of yourself: by consistently exceeding expectations in service of your goals.
+![Image](assets/260116-141626.avif)
 
 This is open-source. This is free. This is for everyone.
 
