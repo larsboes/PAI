@@ -1,16 +1,16 @@
 ---
-name: Kai Prompting Skill
-pack-id: danielmiessler-pai-prompting-skill-v1.0.0
-version: 1.0.0
+name: PAI Prompting Skill
+pack-id: danielmiessler-pai-prompting-skill-v2.3.0
+version: 2.3.0
 author: danielmiessler
-description: Meta-prompting system for dynamic prompt generation using Handlebars templates, Claude 4.x best practices, and the Fabric pattern system. Includes the Ultimate Prompt Template, five core primitives (Roster, Voice, Structure, Briefing, Gate), and CLI tools for rendering and validation.
+description: Meta-prompting system for dynamic prompt generation using Handlebars templates, Claude 4.x best practices, and the Fabric pattern system. Includes the Ultimate Prompt Template, five core primitives (Roster, Voice, Structure, Briefing, Gate), eval templates for LLM-as-Judge, and CLI tools for rendering and validation.
 type: feature
 purpose-type: [productivity, development, automation]
 platform: claude-code
 dependencies:
   - pai-core-install (required) - Skills directory structure and routing
   - pai-hook-system (optional) - For session startup context loading
-keywords: [prompting, templates, handlebars, meta-prompting, prompt-engineering, fabric, claude-4, context-engineering, templating]
+keywords: [prompting, templates, handlebars, meta-prompting, prompt-engineering, fabric, claude-4, context-engineering, templating, evals]
 ---
 
 <p align="center">
@@ -21,7 +21,7 @@ keywords: [prompting, templates, handlebars, meta-prompting, prompt-engineering,
 
 > Prompts that write prompts. Meta-prompting enables dynamic composition where structure is fixed but content is parameterized.
 
-> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your AI and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
+> **Installation:** This pack is designed for AI-assisted installation. Give this directory to your DA and ask it to install using the wizard in `INSTALL.md`. The installation dynamically adapts to your system state. See [AI-First Installation Philosophy](../../README.md#ai-first-installation-philosophy) for details.
 
 ---
 
@@ -37,8 +37,10 @@ This Pack provides a complete prompt engineering system:
 
 **Template System**
 - Five core primitives: Roster, Voice, Structure, Briefing, Gate
+- Five eval templates: Judge, Rubric, Comparison, Report, TestCase
 - Handlebars-based templating (Anthropic's official syntax)
 - Data-driven prompt generation from YAML
+- Pre-configured data files (Agents, ValidationGates, VoicePresets)
 - CLI tools for rendering and validation
 
 **Core Philosophy:** Find the smallest possible set of high-signal tokens that maximize the likelihood of desired outcomes.
@@ -57,12 +59,26 @@ pai-prompting-skill/
             ├── Standards.md     # Claude 4.x best practices
             ├── Templates/
             │   ├── README.md    # Template system docs
-            │   └── Primitives/  # Core templates
-            │       ├── Roster.hbs
-            │       ├── Voice.hbs
-            │       ├── Structure.hbs
-            │       ├── Briefing.hbs
-            │       └── Gate.hbs
+            │   ├── Primitives/  # Core templates (5 files)
+            │   │   ├── Roster.hbs
+            │   │   ├── Voice.hbs
+            │   │   ├── Structure.hbs
+            │   │   ├── Briefing.hbs
+            │   │   └── Gate.hbs
+            │   ├── Evals/       # LLM-as-Judge templates (5 files)
+            │   │   ├── Judge.hbs
+            │   │   ├── Rubric.hbs
+            │   │   ├── Comparison.hbs
+            │   │   ├── Report.hbs
+            │   │   └── TestCase.hbs
+            │   ├── Data/        # Pre-configured YAML data
+            │   │   ├── Agents.yaml
+            │   │   ├── ValidationGates.yaml
+            │   │   └── VoicePresets.yaml
+            │   └── Tools/       # Template CLI tools
+            │       ├── RenderTemplate.ts
+            │       ├── ValidateTemplate.ts
+            │       └── package.json
             └── Tools/
                 ├── RenderTemplate.ts
                 └── ValidateTemplate.ts
@@ -135,7 +151,7 @@ bun run $PAI_DIR/skills/Prompting/Tools/ValidateTemplate.ts \
 ## Credits
 
 - **Author:** Daniel Miessler
-- **Origin:** Extracted from production Kai system (2024-2025)
+- **Origin:** Extracted from production PAI system (2024-2026)
 - **License:** MIT
 
 ## Acknowledgments

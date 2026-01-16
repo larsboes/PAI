@@ -34,21 +34,19 @@ interface RalphLoopState {
   prompt: string;
 }
 
-// PAI_DIR configurable via environment variable
-const PAI_DIR = process.env.PAI_DIR || join(process.env.HOME || "~", ".config/pai");
-const STATE_FILE_NAME = "ralph-loop.local.md";
+const STATE_FILE = ".claude/ralph-loop.local.md";
 
 function getStatePath(): string {
-  // First check for project-local .pai directory
+  // Find project root by looking for .claude directory
   let dir = process.cwd();
   while (dir !== "/") {
-    if (existsSync(join(dir, ".pai"))) {
-      return join(dir, ".pai", STATE_FILE_NAME);
+    if (existsSync(join(dir, ".claude"))) {
+      return join(dir, STATE_FILE);
     }
     dir = dirname(dir);
   }
-  // Default to PAI state directory
-  return join(PAI_DIR, "MEMORY/State", STATE_FILE_NAME);
+  // Default to current directory
+  return STATE_FILE;
 }
 
 function parseState(content: string): RalphLoopState | null {
@@ -86,7 +84,7 @@ function createStateFile(config: RalphLoopConfig): void {
   const statePath = getStatePath();
   const stateDir = dirname(statePath);
 
-  // Ensure state directory exists
+  // Ensure .claude directory exists
   if (!existsSync(stateDir)) {
     mkdirSync(stateDir, { recursive: true });
   }
@@ -190,9 +188,6 @@ OPTIONS:
   --cancel                         Cancel active loop
   -o, --output <fmt>               Output format: text (default), json
   -h, --help                       Show this help
-
-ENVIRONMENT:
-  PAI_DIR                          PAI installation directory (default: ~/.config/pai)
 
 INTEGRATION WITH THEALGORITHM:
   When an ISC row is assigned execution.ralph_loop capability, this tool:

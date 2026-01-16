@@ -10,7 +10,7 @@ Quick reference for effort level characteristics and when to use each.
 | QUICK | Minimal | haiku | 1 | haiku | Simple, fast, low-risk |
 | STANDARD | Normal | sonnet | 1-2 | sonnet | Default for most work |
 | THOROUGH | Extended | sonnet | 2-3 | sonnet | Important, complex |
-| DETERMINED | UltraThink | opus | Until done | opus | Critical, unlimited |
+| DETERMINED | deep thinking | opus | Until done | opus | Critical, unlimited |
 
 ## Detection Keywords
 

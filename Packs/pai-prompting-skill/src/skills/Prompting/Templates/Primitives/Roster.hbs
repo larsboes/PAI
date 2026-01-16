@@ -3,7 +3,13 @@
 
   Purpose: Generate structured definitions from YAML data sources.
 
-  Input Data Structure:
+  Use Cases:
+  - Agent personality rosters
+  - Skill directory listings
+  - Voice configuration tables
+  - Team composition overviews
+
+  Input Data Structure (agents):
   ```yaml
   agents:
     agent_id:
@@ -15,13 +21,21 @@
       personality:
         traits: [string]
         perspective: string
+        style: string
+      backstory: string (optional)
   ```
+
+  Usage:
+  bun run RenderTemplate.ts -t Primitives/Roster.hbs -d Data/Agents.yaml -o Compiled/AgentRoster.md
 --}}
 
 # Agent Roster
 
 {{#if version}}
 **Version:** {{version}}
+{{/if}}
+{{#if last_updated}}
+**Last Updated:** {{last_updated}}
 {{/if}}
 
 ---
@@ -33,6 +47,9 @@
 {{#if name}}
 **Character Name:** {{name}}
 {{/if}}
+{{#if archetype}}
+**Archetype:** {{titlecase archetype}}
+{{/if}}
 
 {{#if personality}}
 ### Personality
@@ -43,8 +60,41 @@
 {{#each personality.traits}}
 - {{this}}
 {{/each}}
+
+{{#if personality.style}}
+**Communication Style:**
+{{personality.style}}
+{{/if}}
+{{/if}}
+
+{{#if voice}}
+### Voice Configuration
+
+| Setting | Value |
+|---------|-------|
+| Voice ID | `{{voice.voice_id}}` |
+| Voice Name | {{voice.voice_name}} |
+| Rate (WPM) | {{voice.rate_wpm}} |
+| Stability | {{voice.stability}} |
+| Similarity | {{voice.similarity_boost}} |
+{{/if}}
+
+{{#if backstory}}
+### Backstory
+
+{{backstory}}
 {{/if}}
 
 ---
 
 {{/each}}
+
+{{#if archetypes}}
+## Voice Archetypes
+
+| Archetype | Stability Range | Rate Range | Description |
+|-----------|-----------------|------------|-------------|
+{{#each archetypes}}
+| **{{titlecase @key}}** | {{stability_range.[0]}} - {{stability_range.[1]}} | {{rate_range.[0]}} - {{rate_range.[1]}} wpm | {{description}} |
+{{/each}}
+{{/if}}

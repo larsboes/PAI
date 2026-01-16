@@ -1,178 +1,55 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/THENOTIFICATIONSYSTEM.md
-================================================================================
+# The Notification System
 
-PURPOSE:
-Notification system documentation. How to send notifications through various
-channels - voice, push, desktop, webhooks.
+**Voice notifications for PAI workflows and task execution.**
 
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md
-
-CUSTOMIZATION:
-- [ ] Configure your notification channels
-- [ ] Set up voice server if using TTS
-- [ ] Add webhook URLs for your services
-- [ ] Customize routing rules
-
-RELATED FILES:
-- THEHOOKSYSTEM.md - Hook integration
-- USER/DAIDENTITY.md - AI name and voice ID
-- AGENTS.md - Agent voice personalities
-- pai-voice-system pack - Full voice server implementation
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.4.0
-================================================================================
--->
-
-# Notification System
-
-How PAI sends notifications across various channels.
+This system provides:
+- Voice feedback when workflows start
+- Observability tracking for the dashboard
+- Consistent user experience across all skills
 
 ---
 
-## Design Principles
+## Task Start Announcements
 
-1. **Fire and forget** - Notifications never block execution
-2. **Fail gracefully** - Missing services don't cause errors
-3. **Conservative defaults** - Avoid notification fatigue
-4. **Duration-aware** - Escalate for long-running tasks
+**When STARTING a task, do BOTH:**
 
----
+1. **Send voice notification**:
+   ```bash
+   curl -s -X POST http://localhost:8888/notify \
+     -H "Content-Type: application/json" \
+     -d '{"message": "[Doing what {principal.name} asked]"}' \
+     > /dev/null 2>&1 &
+   ```
 
-## Notification Channels
+2. **Output text notification**:
+   ```
+   [Doing what {principal.name} asked]...
+   ```
 
-### Voice (TTS)
-
-Primary spoken feedback via text-to-speech.
-
-**Configuration:**
-```bash
-# Environment variables
-VOICE_SERVER_URL=http://localhost:8888
-ELEVENLABS_VOICE_ID=[YOUR_VOICE_ID]
-```
-
-**Usage:**
-```bash
-curl -s -X POST ${VOICE_SERVER_URL}/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Task completed"}' \
-  > /dev/null 2>&1 &
-```
-
-**Best Practices:**
-- Keep messages under 450 characters
-- Use for immediate feedback
-- Fire in background (don't await)
-
-### Push (ntfy)
-
-Mobile push notifications via ntfy.sh or self-hosted.
-
-**Configuration:**
-```bash
-# Environment variables
-NTFY_TOPIC=your-topic-name
-NTFY_SERVER=https://ntfy.sh  # or self-hosted
-```
-
-**Usage:**
-```bash
-curl -s -X POST "${NTFY_SERVER}/${NTFY_TOPIC}" \
-  -H "Title: Task Complete" \
-  -d "Your task has finished" \
-  > /dev/null 2>&1 &
-```
-
-**Best Practices:**
-- Use for completed long-running tasks
-- Include actionable information
-- Set priority levels appropriately
-
-### Desktop
-
-Native OS notifications.
-
-**Usage (macOS):**
-```bash
-osascript -e 'display notification "Message" with title "PAI"'
-```
-
-**Best Practices:**
-- Use for focus-requiring updates
-- Don't spam - consolidate notifications
-
-### Webhooks (Discord, Slack, etc.)
-
-Team or server alerts via webhooks.
-
-**Configuration:**
-```bash
-# Environment variables
-DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
-```
-
-**Usage (Discord):**
-```bash
-curl -s -X POST "${DISCORD_WEBHOOK_URL}" \
-  -H "Content-Type: application/json" \
-  -d '{"content": "Task completed"}' \
-  > /dev/null 2>&1 &
-```
+**Skip curl for conversational responses** (greetings, acknowledgments, simple Q&A). The 🎯 COMPLETED line already drives voice output—adding curl creates redundant voice messages.
 
 ---
 
-## Event Routing
+## Context-Aware Announcements
 
-Route notifications based on event type and priority:
+**Match your announcement to what {principal.name} asked.** Start with the appropriate gerund:
 
-| Event Type | Channels | Priority |
-|------------|----------|----------|
-| Task start | Voice | Low |
-| Task complete | Voice, Push | Medium |
-| Long task (>5min) | Voice, Push, Desktop | High |
-| Error/Failure | Voice, Push, Desktop | Critical |
-| Security alert | All channels | Critical |
+| {principal.name}'s Request | Announcement Style |
+|------------------|-------------------|
+| Question ("Where is...", "What does...") | "Checking...", "Looking up...", "Finding..." |
+| Command ("Fix this", "Create that") | "Fixing...", "Creating...", "Updating..." |
+| Investigation ("Why isn't...", "Debug this") | "Investigating...", "Debugging...", "Analyzing..." |
+| Research ("Find out about...", "Look into...") | "Researching...", "Exploring...", "Looking into..." |
+
+**Examples:**
+- "Where's the config file?" → "Checking the project for config files..."
+- "Fix this bug" → "Fixing the null pointer in auth handler..."
+- "Why isn't the API responding?" → "Investigating the API connection..."
+- "Create a new component" → "Creating the new component..."
 
 ---
 
-## Voice Notification Patterns
-
-### Task Start Announcement
-
-```bash
-# Fire at task start
-curl -s -X POST ${VOICE_SERVER_URL}/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Starting the deployment workflow"}' \
-  > /dev/null 2>&1 &
-```
-
-### Task Completion
-
-```bash
-# Fire when task completes
-curl -s -X POST ${VOICE_SERVER_URL}/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Deployment complete. All tests passing."}' \
-  > /dev/null 2>&1 &
-```
-
-### Context-Aware Messages
-
-| User Request | Announcement |
-|--------------|--------------|
-| "Where is...?" | "Checking...", "Looking up..." |
-| "Fix this" | "Fixing...", "Updating..." |
-| "Why isn't...?" | "Investigating...", "Debugging..." |
-| "Create..." | "Creating...", "Building..." |
-
-### Workflow Invocation Notifications
+## Workflow Invocation Notifications
 
 **For skills with `Workflows/` directories, use "Executing..." format:**
 
@@ -189,73 +66,248 @@ Executing the **WorkflowName** workflow within the **SkillName** skill...
 - If it's not listed in a skill's Workflow Routing, DON'T use "Executing" format
 - For non-workflow tasks, use context-appropriate gerund
 
-### When to Skip Notifications
+### The curl Pattern (Workflow-Based Skills Only)
 
-**Always skip when:**
+When executing an actual workflow file from a `Workflows/` directory:
+
+```bash
+curl -s -X POST http://localhost:8888/notify \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Running the WORKFLOWNAME workflow from the SKILLNAME skill", "voice_id": "{daidentity.voiceId}", "title": "{daidentity.name}"}' \
+  > /dev/null 2>&1 &
+```
+
+**Parameters:**
+- `message` - The spoken text (workflow and skill name)
+- `voice_id` - ElevenLabs voice ID (default: {daidentity.name}'s voice)
+- `title` - Display name for the notification
+
+---
+
+## Effort Level in Voice Notifications
+
+**Automatic:** THE ALGORITHM tasks automatically include effort level in voice:
+
+| Event | Hook | Voice Format |
+|-------|------|--------------|
+| Task Start | `TaskNotifier.ts` | "Running THE ALGORITHM at **thorough** effort **with multi-agent analysis** to [summary]" |
+| Phase Transition | `AlgorithmPhaseNotifier.ts` | "Entering observe phase - gathering context at **thorough** effort" |
+| Task Completion | `PAICompletion.ts` | "[COMPLETED line content]" |
+
+**Effort levels and capability hints spoken:**
+
+| Effort | Spoken | Capability Hint |
+|--------|--------|-----------------|
+| Trivial | (none) | (none) |
+| Flash | "flash" | (none) |
+| Quick | "quick" | (none) |
+| Standard | "standard" | "with agent support" |
+| Thorough | "thorough" | "with multi-agent analysis and deep thinking" |
+| Exhaustive | "exhaustive" | "with fleet operations and full decision support" |
+| Custom | "custom" | "with custom configuration" |
+| Determined | "determined" | "with unlimited resources until quality achieved" |
+
+**Example voice messages:**
+- Flash: "Running THE ALGORITHM at flash effort to fix the typo"
+- Standard: "Running THE ALGORITHM at standard effort with agent support to update the component"
+- Thorough: "Running THE ALGORITHM at thorough effort with multi-agent analysis and deep thinking to design the architecture"
+- Exhaustive: "Running THE ALGORITHM at exhaustive effort with fleet operations and full decision support to build the new feature"
+
+**State file:** `~/.claude/current-effort.json` stores current effort for downstream hooks.
+
+---
+
+## Voice IDs
+
+| Agent | Voice ID | Notes |
+|-------|----------|-------|
+| **{daidentity.name}** (default) | `{daidentity.voiceId}` | Use for most workflows |
+| **Priya** (Artist) | `ZF6FPAbjXT4488VcRRnw` | Art skill workflows |
+
+**Full voice registry:** `~/.claude/skills/CORE/SYSTEM/AGENTPERSONALITIES.md`
+
+---
+
+## Copy-Paste Templates
+
+### Template A: Skills WITH Workflows
+
+For skills that have a `Workflows/` directory:
+
+```markdown
+## Voice Notification
+
+**When executing a workflow, do BOTH:**
+
+1. **Send voice notification**:
+   ```bash
+   curl -s -X POST http://localhost:8888/notify \
+     -H "Content-Type: application/json" \
+     -d '{"message": "Running the WORKFLOWNAME workflow from the SKILLNAME skill"}' \
+     > /dev/null 2>&1 &
+   ```
+
+2. **Output text notification**:
+   ```
+   Running the **WorkflowName** workflow from the **SkillName** skill...
+   ```
+```
+
+Replace `WORKFLOWNAME` and `SKILLNAME` with actual values when executing.
+
+### Template B: Skills WITHOUT Workflows
+
+For skills that handle requests directly (no `Workflows/` directory), **do NOT include a Voice Notification section**. These skills just describe what they're doing naturally in their responses.
+
+If you need to indicate this explicitly:
+
+```markdown
+## Task Handling
+
+This skill handles requests directly without workflows. When executing, simply describe what you're doing:
+- "Let me [action]..."
+- "I'll [action]..."
+```
+
+---
+
+## Why Direct curl (Not Shell Script)
+
+Direct curl is:
+- **More reliable** - No script execution dependencies
+- **Faster** - No shell script overhead
+- **Visible** - The command is explicit in the skill file
+- **Debuggable** - Easy to test in isolation
+
+The backgrounded `&` and redirected output (`> /dev/null 2>&1`) ensure the curl doesn't block workflow execution.
+
+---
+
+## When to Skip Notifications
+
+**Always skip notifications when:**
 - **Conversational responses** - Greetings, acknowledgments, simple Q&A
 - **Skill has no workflows** - The skill has no `Workflows/` directory
 - **Direct skill handling** - SKILL.md handles request without invoking a workflow file
 - **Quick utility operations** - Simple file reads, status checks
 - **Sub-workflows** - When a workflow calls another workflow (avoid double notification)
 
+**The rule:** Only notify when actually loading and following a `.md` file from a `Workflows/` directory, or when starting significant task work.
+
 ---
 
-## Notification Library
+## External Notifications (Push, Discord)
 
-```typescript
-// hooks/lib/notifications.ts
+**Beyond voice notifications, PAI supports external notification channels:**
 
-export async function notify(message: string, channel: 'voice' | 'push' | 'desktop' = 'voice') {
-  try {
-    switch (channel) {
-      case 'voice':
-        await fetch(`${process.env.VOICE_SERVER_URL}/notify`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message })
-        });
-        break;
-      case 'push':
-        await fetch(`${process.env.NTFY_SERVER}/${process.env.NTFY_TOPIC}`, {
-          method: 'POST',
-          body: message
-        });
-        break;
-      case 'desktop':
-        Bun.spawn(['osascript', '-e', `display notification "${message}" with title "PAI"`]);
-        break;
+### Available Channels
+
+| Channel | Service | Purpose | Configuration |
+|---------|---------|---------|---------------|
+| **ntfy** | ntfy.sh | Mobile push notifications | `settings.json → notifications.ntfy` |
+| **Discord** | Webhook | Team/server notifications | `settings.json → notifications.discord` |
+| **Desktop** | macOS native | Local desktop alerts | Always available |
+
+### Smart Routing
+
+Notifications are automatically routed based on event type:
+
+| Event | Default Channels | Trigger |
+|-------|------------------|---------|
+| `taskComplete` | Voice only | Normal task completion |
+| `longTask` | Voice + ntfy | Task duration > 5 minutes |
+| `backgroundAgent` | ntfy | Background agent completes |
+| `error` | Voice + ntfy | Error in response |
+| `security` | Voice + ntfy + Discord | Security alert |
+
+### Configuration
+
+Located in `~/.claude/settings.json`:
+
+```json
+{
+  "notifications": {
+    "ntfy": {
+      "enabled": true,
+      "topic": "kai-[random-topic]",
+      "server": "ntfy.sh"
+    },
+    "discord": {
+      "enabled": false,
+      "webhook": "https://discord.com/api/webhooks/..."
+    },
+    "thresholds": {
+      "longTaskMinutes": 5
+    },
+    "routing": {
+      "taskComplete": [],
+      "longTask": ["ntfy"],
+      "backgroundAgent": ["ntfy"],
+      "error": ["ntfy"],
+      "security": ["ntfy", "discord"]
     }
-  } catch {
-    // Never fail on notification
   }
 }
 ```
 
----
+### ntfy.sh Setup
 
-## Configuration Template
+1. **Generate topic**: `echo "kai-$(openssl rand -hex 8)"`
+2. **Install app**: iOS App Store or Android Play Store → "ntfy"
+3. **Subscribe**: Add your topic in the app
+4. **Test**: `curl -d "Test" ntfy.sh/your-topic`
 
-Add to your `.env`:
+Topic name acts as password - use random string for security.
 
-```bash
-# Voice
-VOICE_SERVER_URL=http://localhost:8888
-ELEVENLABS_VOICE_ID=your_voice_id_here
+### Discord Setup
 
-# Push (ntfy)
-NTFY_SERVER=https://ntfy.sh
-NTFY_TOPIC=your-topic-here
+1. Create webhook in your Discord server
+2. Add webhook URL to `settings.json`
+3. Set `discord.enabled: true`
 
-# Webhooks
-DISCORD_WEBHOOK_URL=your_webhook_url_here
-SLACK_WEBHOOK_URL=your_webhook_url_here
+### SMS (Not Recommended)
+
+**SMS is impractical for personal notifications.** US carriers require A2P 10DLC campaign registration since Dec 2024, which involves:
+- Brand registration + verification (weeks)
+- Campaign approval + monthly fees
+- Carrier bureaucracy for each number
+
+**Alternatives researched (Jan 2025):**
+
+| Option | Status | Notes |
+|--------|--------|-------|
+| **ntfy.sh** | ✅ RECOMMENDED | Same result (phone alert), zero hassle |
+| **Textbelt** | ❌ Blocked | Free tier disabled for US due to abuse |
+| **AppleScript + Messages.app** | ⚠️ Requires permissions | Works if you grant automation access |
+| **Twilio Toll-Free** | ⚠️ Simpler | 5-14 day verification (vs 3-5 weeks for 10DLC) |
+| **Email-to-SMS** | ⚠️ Carrier-dependent | `number@vtext.com` (Verizon), `@txt.att.net` (AT&T) |
+
+**Bottom line:** ntfy.sh already alerts your phone. SMS adds carrier bureaucracy for the same outcome.
+
+### Implementation
+
+The notification service is in `~/.claude/hooks/lib/notifications.ts`:
+
+```typescript
+import { notify, notifyTaskComplete, notifyBackgroundAgent, notifyError } from './lib/notifications';
+
+// Smart routing based on task duration
+await notifyTaskComplete("Task completed successfully");
+
+// Explicit background agent notification
+await notifyBackgroundAgent("Researcher", "Found 5 relevant articles");
+
+// Error notification
+await notifyError("Database connection failed");
+
+// Direct channel access
+await sendPush("Message", { title: "Title", priority: "high" });
+await sendDiscord("Message", { title: "Title", color: 0x00ff00 });
 ```
 
----
+### Design Principles
 
-## Related Documentation
-
-- **Hooks:** `THEHOOKSYSTEM.md`
-- **Identity:** `USER/DAIDENTITY.md`
-- **Agents:** `AGENTS.md`
-- **Voice Pack:** `pai-voice-system`
+1. **Fire and forget** - Notifications never block hook execution
+2. **Fail gracefully** - Missing services don't cause errors
+3. **Conservative defaults** - Avoid notification fatigue
+4. **Duration-aware** - Only push for long-running tasks (>5 min)

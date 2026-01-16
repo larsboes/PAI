@@ -59,7 +59,7 @@ BUILD:   "Logout button visible in navbar (top-right, matches existing style)"
 
 ## JSON Storage Format
 
-ISC is stored at `$PAI_DIR/MEMORY/Work/current-isc.json`:
+ISC is stored at `~/.claude/MEMORY/Work/current-isc.json`:
 
 ```json
 {

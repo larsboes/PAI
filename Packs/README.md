@@ -22,9 +22,9 @@ The old approach was "here's my whole system—clone it and customize." That cre
 - **Self-contained** - Works without understanding the rest of the system
 - **Independently installable** - Add what you need, skip what you don't
 - **Platform-agnostic** - Works with Claude Code, OpenCode, Cursor, or custom systems
-- **AI-installable** - Give your AI the pack directory, it handles the rest
+- **AI-installable** - Give your DA the pack directory, it handles the rest
 
-**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system autonomously.
+**The key insight:** Give your DA the complete context it needs, and it can integrate the pack into *your* system autonomously.
 
 ---
 
@@ -206,14 +206,14 @@ Packs have dependencies. Install in this order:
 
 ### Option 1: AI-Assisted (Recommended)
 
-Give the pack directory to your AI agent:
+Give the pack directory to your DA agent:
 
 ```
 Install the pai-hook-system pack from PAI/Packs/pai-hook-system/.
 Use PAI_DIR="~/.config/pai" and DA="MyAI".
 ```
 
-Your AI will:
+Your DA will:
 1. Read `README.md` for context
 2. Follow `INSTALL.md` step by step
 3. Copy files from `src/` to your system

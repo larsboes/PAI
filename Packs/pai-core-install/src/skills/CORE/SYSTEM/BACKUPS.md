@@ -1,36 +1,11 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/BACKUPS.md
-================================================================================
-
-PURPOSE:
-Backup system documentation. Where backups go, naming conventions, and when
-to create them.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/BACKUPS.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/BACKUPS.md
-
-CUSTOMIZATION:
-- Adjust paths to match your PAI_DIR
-- These patterns are generic and apply to all implementations
-
-RELATED FILES:
-- MEMORYSYSTEM.md - Overall memory architecture
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 # Backup System
 
-All backups go to `${PAI_DIR}/MEMORY/Backups/` - never inside skill directories.
+All backups go to `~/.claude/MEMORY/Backups/` - never inside skill directories.
 
 ## Directory Structure
 
 ```
-${PAI_DIR}/MEMORY/Backups/
+~/.claude/MEMORY/Backups/
 ├── skills/        # Skill backups before major changes
 ├── config/        # Configuration file backups
 └── Workflows/     # Workflow backups
@@ -58,12 +33,12 @@ YYYY-MM-DD-HHMMSS_[type]_[description].md
 
 ```bash
 # Backup a skill
-cp ${PAI_DIR}/skills/Skillname/SKILL.md \
-   ${PAI_DIR}/MEMORY/Backups/skills/$(date +%Y-%m-%d-%H%M%S)_skill_Skillname-description.md
+cp ~/.claude/skills/Skillname/SKILL.md \
+   ~/.claude/MEMORY/Backups/skills/$(date +%Y-%m-%d-%H%M%S)_skill_Skillname-description.md
 
 # Backup a config
-cp ${PAI_DIR}/settings.json \
-   ${PAI_DIR}/MEMORY/Backups/config/$(date +%Y-%m-%d-%H%M%S)_config_settings-description.json
+cp ~/.claude/settings.json \
+   ~/.claude/MEMORY/Backups/config/$(date +%Y-%m-%d-%H%M%S)_config_settings-description.json
 ```
 
 ## Rules

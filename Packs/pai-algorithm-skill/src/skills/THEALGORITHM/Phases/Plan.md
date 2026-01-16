@@ -75,7 +75,7 @@ bun run ISCManager.ts show -o markdown
 Consider using Architect agent for complex sequencing:
 
 ```bash
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
   --task "Plan execution order for these requirements" \
   --traits "analytical,systematic,meticulous"
 ```

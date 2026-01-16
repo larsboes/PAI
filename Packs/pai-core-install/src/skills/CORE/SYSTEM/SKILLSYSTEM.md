@@ -1,31 +1,3 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/SKILLSYSTEM.md
-================================================================================
-
-PURPOSE:
-The mandatory configuration system for ALL PAI skills. Defines required structure,
-naming conventions, and patterns for creating and organizing skills.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/SKILLSYSTEM.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/SKILLSYSTEM.md
-
-CUSTOMIZATION:
-- This file defines system standards - modify carefully
-- Follow these patterns when creating new skills
-- Use "canonicalize a skill" to restructure existing skills
-
-RELATED FILES:
-- PAISYSTEMARCHITECTURE.md - Core philosophy
-- CLIFIRSTARCHITECTURE.md - CLI-First patterns
-- ACTIONS.md - Action system (multi-step workflows)
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 # Custom Skill System
 
 **The MANDATORY configuration system for ALL PAI skills.**
@@ -75,7 +47,7 @@ If a skill does not follow this structure, it is not properly configured and wil
 ### System Skills (Shareable via PAI Packs)
 - Use **TitleCase** naming: `Browser`, `Research`, `Development`
 - Contain NO personal data (contacts, API keys, team members)
-- Reference `${PAI_DIR}/skills/CORE/USER/` for any personalization
+- Reference `~/.claude/skills/CORE/USER/` for any personalization
 - Can be exported to the public PAI repository
 
 ### Personal Skills (Never Shared)
@@ -84,16 +56,121 @@ If a skill does not follow this structure, it is not properly configured and wil
 - Will NEVER be pushed to public PAI
 - The underscore prefix makes them sort first and visually distinct
 
+**Personal Skills:** *(dynamically discovered)*
+
+Personal skills are identified by their `_ALLCAPS` naming convention. To list current personal skills:
+```bash
+ls -1 ~/.claude/skills/ | grep "^_"
+```
+
+This ensures documentation never drifts from reality. The underscore prefix ensures:
+- They sort first in directory listings
+- They are visually distinct from system skills
+- They are automatically excluded from PAI pack exports
+
 **Pattern for Personalization in System Skills:**
 System skills should reference CORE/USER files for personal data:
 ```markdown
 ## Configuration
 Personal configuration loaded from:
-- `${PAI_DIR}/skills/CORE/USER/CONTACTS.md` - Contact information
-- `${PAI_DIR}/skills/CORE/USER/TECHSTACKPREFERENCES.md` - Tech preferences
+- `~/.claude/skills/CORE/USER/CONTACTS.md` - Contact information
+- `~/.claude/skills/CORE/USER/TECHSTACKPREFERENCES.md` - Tech preferences
 ```
 
 **NEVER hardcode personal data in system skills.**
+
+---
+
+## Skill Customization System
+
+**System skills (TitleCase) check for user customizations before executing.**
+
+**Personal skills (_ALLCAPS) do NOT use this system** - they already contain personal data directly and are never shared.
+
+### The Pattern
+
+All skills include this standard instruction block after the YAML frontmatter:
+
+```markdown
+## Customization
+
+**Before executing, check for user customizations at:**
+`~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/{SkillName}/`
+
+If this directory exists, load and apply:
+- `PREFERENCES.md` - User preferences and configuration
+- Additional files specific to the skill
+
+These define user-specific preferences. If the directory does not exist, proceed with skill defaults.
+```
+
+### Directory Structure
+
+```
+~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/
+├── README.md                    # Documentation for this system
+├── Art/                         # Art skill customizations
+│   ├── EXTEND.yaml              # Extension manifest
+│   ├── PREFERENCES.md           # Aesthetic preferences
+│   ├── CharacterSpecs.md        # Character design specs
+│   └── SceneConstruction.md     # Scene building guidelines
+├── Agents/                      # Agents skill customizations
+│   ├── EXTEND.yaml              # Extension manifest
+│   ├── PREFERENCES.md           # Named agent summary
+│   └── VoiceConfig.json         # ElevenLabs voice mappings
+├── FrontendDesign/              # FrontendDesign customizations
+│   ├── EXTEND.yaml              # Extension manifest
+│   └── PREFERENCES.md           # Design tokens, palette
+└── [SkillName]/                 # Any skill can have customizations
+    ├── EXTEND.yaml              # Required manifest
+    └── [config-files]           # Skill-specific configs
+```
+
+### EXTEND.yaml Manifest
+
+Every customization directory requires an EXTEND.yaml manifest:
+
+```yaml
+# EXTEND.yaml - Extension manifest
+---
+skill: SkillName                   # Must match skill name exactly
+extends:
+  - PREFERENCES.md                 # Files to load
+  - OtherConfig.md
+merge_strategy: override           # append | override | deep_merge
+enabled: true                      # Toggle customizations on/off
+description: "What this customization adds"
+```
+
+### Merge Strategies
+
+| Strategy | Behavior |
+|----------|----------|
+| `append` | Add items to existing config (default) |
+| `override` | Replace default behavior entirely |
+| `deep_merge` | Recursive merge of objects |
+
+### What Goes Where
+
+| Content Type | Location | Example |
+|--------------|----------|---------|
+| User preferences | `SKILLCUSTOMIZATIONS/{Skill}/PREFERENCES.md` | Art style, color palette |
+| Named configurations | `SKILLCUSTOMIZATIONS/{Skill}/[name].md` | Character specs, voice configs |
+| Skill logic | `skills/{Skill}/SKILL.md` | Generic, shareable skill code |
+
+### Creating a Customization
+
+1. **Create directory**: `mkdir -p ~/.claude/skills/CORE/USER/SKILLCUSTOMIZATIONS/SkillName`
+2. **Create EXTEND.yaml**: Define what files to load and merge strategy
+3. **Create PREFERENCES.md**: User preferences for this skill
+4. **Add additional files**: Any skill-specific configurations
+
+### Benefits
+
+- **Shareable Skills**: Skill files contain no personal data
+- **Centralized Preferences**: All customizations in one location
+- **Discoverable**: Easy to see which skills have customizations
+- **Toggleable**: Set `enabled: false` to disable customizations temporarily
 
 ---
 
@@ -141,6 +218,14 @@ science_cycle_time: meso
 | `meso` | Hours-Days | Explicit when stuck | Evals, Research, Development |
 | `macro` | Weeks-Months | Formal documentation | Major architecture work |
 
+**Skills That Implement Science:**
+- **Development** - TDD is Science (test = goal, code = experiment, pass/fail = analysis)
+- **Evals** - Prompt optimization through systematic experimentation
+- **Research** - Investigation through hypotheses and evidence gathering
+- **Council** - Debate as parallel hypothesis testing
+
+**See:** `~/.claude/skills/Science/Protocol.md` for the full protocol interface
+
 ### 2. Markdown Body (Workflow Routing + Examples + Documentation)
 
 ```markdown
@@ -154,7 +239,7 @@ science_cycle_time: meso
 
 1. **Send voice notification**:
    ```bash
-   curl -s -X POST ${VOICE_SERVER_URL}/notify \
+   curl -s -X POST http://localhost:8888/notify \
      -H "Content-Type: application/json" \
      -d '{"message": "Running the WORKFLOWNAME workflow from the SKILLNAME skill"}' \
      > /dev/null 2>&1 &
@@ -165,7 +250,7 @@ science_cycle_time: meso
    Running the **WorkflowName** workflow from the **SkillName** skill...
    ```
 
-**Full documentation:** `${PAI_DIR}/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md`
+**Full documentation:** `~/.claude/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md`
 
 ## Workflow Routing
 
@@ -271,6 +356,114 @@ skills/SkillName/
 
 **The skill directory itself IS the context.** Additional .md files are context files that provide SOPs for specific aspects of the skill's operation.
 
+### What Goes In SKILL.md (Minimal)
+
+Keep only these in SKILL.md:
+- ✅ YAML frontmatter with triggers
+- ✅ Brief description (1-2 lines)
+- ✅ Workflow routing table
+- ✅ Quick reference (3-5 bullet points)
+- ✅ Pointers to detailed docs via SkillSearch
+
+### What Goes In Additional .md Context Files (Loaded On-Demand)
+
+These are **additional SOPs** (Standard Operating Procedures) for specific aspects. They live in skill root and can reference Workflows/, Tools/, etc.
+
+Move these to separate context files in skill root:
+- ❌ Extended documentation → `Documentation.md`
+- ❌ API reference → `ApiReference.md`
+- ❌ Detailed examples → `Examples.md`
+- ❌ Tool documentation → `Tools.md`
+- ❌ Aesthetic guides → `Aesthetic.md`
+- ❌ Configuration details → `Configuration.md`
+
+**These are SOPs, not just docs.** They provide specific handling instructions for workflows to reference.
+
+### Example: Minimal SKILL.md
+
+```markdown
+---
+name: Art
+description: Visual content system. USE WHEN art, header images, visualizations, diagrams.
+---
+
+# Art Skill
+
+Complete visual content system using **charcoal architectural sketch** aesthetic.
+
+## Workflow Routing
+
+| Trigger | Workflow |
+|---------|----------|
+| Blog header/editorial | `Workflows/Essay.md` |
+| Technical diagram | `Workflows/TechnicalDiagrams.md` |
+| Mermaid flowchart | `Workflows/Mermaid.md` |
+
+## Quick Reference
+
+**Aesthetic:** Charcoal architectural sketch
+**Model:** nano-banana-pro
+**Output:** Always ~/Downloads/ first
+
+**Full Documentation:**
+- Aesthetic guide: `SkillSearch('art aesthetic')` → loads Aesthetic.md
+- Examples: `SkillSearch('art examples')` → loads Examples.md
+- Tools: `SkillSearch('art tools')` → loads Tools.md
+```
+
+### Loading Additional Context Files
+
+Workflows call SkillSearch to load context files as needed:
+
+```bash
+# In workflow files or SKILL.md
+SkillSearch('art aesthetic')    # Loads Aesthetic.md from skill root
+SkillSearch('art examples')     # Loads Examples.md from skill root
+SkillSearch('art tools')        # Loads Tools.md from skill root
+```
+
+Or reference them directly:
+```bash
+# Read specific context file
+Read ~/.claude/skills/Art/Aesthetic.md
+```
+
+Context files can reference workflows and tools:
+```markdown
+# Aesthetic.md (context file)
+
+Use the Essay workflow for blog headers: `Workflows/Essay.md`
+Generate images with: `bun Tools/Generate.ts`
+```
+
+### Benefits
+
+**Token Savings on Skill Invocation:**
+- Before: 150+ lines load when skill invoked
+- After: 40-50 lines load when skill invoked
+- Additional context loads only if workflows need it
+- Reduction: 70%+ token savings per invocation (when full docs not needed)
+
+**Improved Organization:**
+- SKILL.md = clean routing layer
+- Context files = SOPs for specific aspects
+- Workflows load only what they need
+- Easier to maintain and update
+
+### When To Use
+
+Use dynamic loading for skills with:
+- ✅ SKILL.md > 100 lines
+- ✅ Multiple documentation sections
+- ✅ Extensive API reference
+- ✅ Detailed examples
+- ✅ Tool documentation
+
+Don't bother for:
+- ❌ Simple skills (< 50 lines total)
+- ❌ Pure utility wrappers (use CORE/SYSTEM/TOOLS.md instead)
+- ❌ Skills that are already minimal
+
 ---
 
 ## Canonicalization
@@ -312,6 +505,21 @@ skills/SkillName/
 - [ ] No `backups/` directory inside skill
 - [ ] Reference docs at skill root (not in Workflows/)
 - [ ] Workflows contain ONLY execution procedures
+
+### How to Canonicalize
+
+Use the Createskill skill's CanonicalizeSkill workflow:
+```
+~/.claude/skills/Createskill/Workflows/CanonicalizeSkill.md
+```
+
+Or manually:
+1. Rename files to TitleCase
+2. Update YAML frontmatter to single-line description
+3. Add `## Workflow Routing` table
+4. Add `## Examples` section
+5. Move backups to `~/.claude/MEMORY/Backups/`
+6. Verify against checklist
 
 ---
 
@@ -370,6 +578,89 @@ description: Complete blog workflow. USE WHEN user mentions doing anything with 
 
 ---
 
+## Complete Canonical Example: Blogging Skill
+
+**Reference:** `~/.claude/skills/_BLOGGING/SKILL.md`
+
+```yaml
+---
+name: Blogging
+description: Complete blog workflow. USE WHEN user mentions doing anything with their blog, website, site, including things like update, proofread, write, edit, publish, preview, blog posts, articles, headers, or website pages, etc.
+---
+
+# Blogging
+
+Complete blog workflow.
+
+## Voice Notification
+
+**When executing a workflow, do BOTH:**
+
+1. **Send voice notification**:
+   ```bash
+   curl -s -X POST http://localhost:8888/notify \
+     -H "Content-Type: application/json" \
+     -d '{"message": "Running the WORKFLOWNAME workflow from the Blogging skill"}' \
+     > /dev/null 2>&1 &
+   ```
+
+2. **Output text notification**:
+   ```
+   Running the **WorkflowName** workflow from the **Blogging** skill...
+   ```
+
+**Full documentation:** `~/.claude/skills/CORE/SYSTEM/THENOTIFICATIONSYSTEM.md`
+
+## Core Paths
+
+- **Blog posts:** `~/Projects/Website/cms/blog/`
+- **CMS root:** `~/Projects/Website/cms/`
+- **Images:** `~/Projects/Website/cms/public/images/`
+
+## Workflow Routing
+
+**When executing a workflow, also output this text:**
+
+```
+Running the **WorkflowName** workflow from the **Blogging** skill...
+```
+
+| Workflow | Trigger | File |
+|----------|---------|------|
+| **Create** | "write a post", "new article" | `Workflows/Create.md` |
+| **Rewrite** | "rewrite this post" | `Workflows/Rewrite.md` |
+| **Publish** | "publish", "deploy" | `Workflows/Publish.md` |
+| **Open** | "preview", "open in browser" | `Workflows/Open.md` |
+| **Header** | "create header image" | `Workflows/Header.md` |
+
+## Examples
+
+**Example 1: Write new content**
+```
+User: "Write a post about AI agents for the blog"
+→ Invokes Create workflow
+→ Drafts content in scratchpad/
+→ Opens dev server preview at localhost:5173
+```
+
+**Example 2: Publish**
+```
+User: "Publish the AI agents post"
+→ Invokes Publish workflow
+→ Runs build validation
+→ Deploys to Cloudflare Pages
+```
+
+## Quick Reference
+
+- **Tech Stack:** VitePress + bun + Cloudflare Pages
+- **Package Manager:** bun (NEVER npm)
+- **Dev Server:** `http://localhost:5173`
+- **Live Site:** `https://example.com`
+```
+
+---
+
 ## Directory Structure
 
 Every skill follows this structure:
@@ -415,6 +706,10 @@ skills/OSINT/Workflows/CompanyDueDiligence.md   # Workflow - one level deep
 skills/OSINT/Tools/Analyze.ts                   # Tool - one level deep
 skills/OSINT/CompanyTools.md                    # Context file - in root
 skills/OSINT/Examples.md                        # Context file - in root
+skills/Prompting/BeCreative.md                  # Templates in Prompting root
+skills/Prompting/StoryExplanation.md            # Templates in Prompting root
+skills/PromptInjection/DefenseMechanisms.md     # Context file - in root
+skills/PromptInjection/QuickStartGuide.md       # Context file - in root
 ```
 
 ### ❌ FORBIDDEN (Too deep OR wrong location)
@@ -423,7 +718,9 @@ skills/OSINT/Examples.md                        # Context file - in root
 skills/OSINT/Resources/Examples.md              # Context files go in root, NOT Resources/
 skills/OSINT/Docs/CompanyTools.md               # Context files go in root, NOT Docs/
 skills/OSINT/Templates/Primitives/Extract.md    # THREE levels - NO
-skills/OSINT/Workflows/Company/DueDiligence.md  # THREE levels - NO
+skills/OSINT/Workflows/Company/DueDiligence.md  # THREE levels - NO (use CompanyDueDiligence.md instead)
+skills/Prompting/Templates/BeCreative.md        # Templates in root, NOT Templates/ subdirectory
+skills/Research/Workflows/Analysis/Deep.md      # THREE levels - NO
 ```
 
 ### Why Flat Structure
@@ -433,6 +730,145 @@ skills/OSINT/Workflows/Company/DueDiligence.md  # THREE levels - NO
 3. **Speed** - Faster file operations without deep traversal
 4. **Maintainability** - Harder to create organizational complexity
 5. **Consistency** - Every skill follows same simple pattern
+
+### Allowed Subdirectories
+
+**ONLY these subdirectories are allowed:**
+
+1. **Workflows/** - Execution workflows ONLY
+   - All workflows go directly in `Workflows/`, NO subcategories
+   - Correct: `Workflows/CompanyDueDiligence.md`
+   - Wrong: `Workflows/Company/DueDiligence.md`
+
+2. **Tools/** - Executable scripts/tools ONLY
+   - CLI tools, automation scripts
+   - Correct: `Tools/Analyze.ts`
+   - Wrong: `Tools/Analysis/Analyze.ts`
+
+**Templates (Prompting skill only):**
+- Templates live in `skills/Prompting/` root, NOT nested
+- Correct: `skills/Prompting/BeCreative.md`
+- Wrong: `skills/Prompting/Templates/BeCreative.md`
+
+### Context/Resource Files Go in Skill Root
+
+**CRITICAL RULE: Documentation, guides, reference materials, and context files live in the skill ROOT directory, NOT in subdirectories.**
+
+❌ **WRONG** - Don't create subdirectories for context files:
+```
+skills/SkillName/Resources/Guide.md          # NO - no Resources/ subdirectory
+skills/SkillName/Docs/Reference.md           # NO - no Docs/ subdirectory
+skills/SkillName/Guides/QuickStart.md        # NO - no Guides/ subdirectory
+```
+
+✅ **CORRECT** - Put context files directly in skill root:
+```
+skills/SkillName/Guide.md                    # YES - in root
+skills/SkillName/Reference.md                # YES - in root
+skills/SkillName/QuickStart.md               # YES - in root
+skills/SkillName/DefenseMechanisms.md        # YES - in root
+skills/SkillName/ApiDocumentation.md         # YES - in root
+```
+
+**Exceptions:** Workflows/ and Tools/ subdirectories only. Everything else goes in the root.
+
+### Migration Rule
+
+If you encounter nested structures deeper than 2 levels:
+1. Flatten immediately
+2. Move files up to proper level
+3. Rename files for clarity if needed (e.g., `CompanyDueDiligence.md` instead of `Company/DueDiligence.md`)
+4. Update all references
+
+---
+
+## Workflow-to-Tool Integration
+
+**Workflows should map user intent to tool flags, not hardcode single invocation patterns.**
+
+When a workflow calls a CLI tool, it should:
+1. **Interpret user intent** from the request
+2. **Consult flag mapping tables** to determine appropriate flags
+3. **Construct the CLI command** with selected flags
+4. **Execute and handle results**
+
+### Intent-to-Flag Mapping Tables
+
+Workflows should include tables that map natural language intent to CLI flags:
+
+```markdown
+## Model Selection
+
+| User Says | Flag | Use Case |
+|-----------|------|----------|
+| "fast", "quick" | `--model haiku` | Speed priority |
+| "best", "highest quality" | `--model opus` | Quality priority |
+| (default) | `--model sonnet` | Balanced default |
+
+## Output Options
+
+| User Says | Flag | Effect |
+|-----------|------|--------|
+| "JSON output" | `--format json` | Machine-readable |
+| "detailed" | `--verbose` | Extra information |
+| "just the result" | `--quiet` | Minimal output |
+```
+
+### Command Construction Pattern
+
+```markdown
+## Execute Tool
+
+Based on the user's request, construct the CLI command:
+
+\`\`\`bash
+bun ToolName.ts \
+  [FLAGS_FROM_INTENT_MAPPING] \
+  --required-param "value" \
+  --output /path/to/output
+\`\`\`
+```
+
+**See:** `~/.claude/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md` (Workflow-to-Tool Integration section)
+
+---
+
+## Workflows vs Reference Documentation
+
+**CRITICAL DISTINCTION:**
+
+### Workflows (`Workflows/` directory)
+Workflows are **work execution procedures** - step-by-step instructions for DOING something.
+
+**Workflows ARE:**
+- Operational procedures (create, update, delete, deploy, sync)
+- Step-by-step execution instructions
+- Actions that change state or produce output
+- Things you "run" or "execute"
+
+**Workflows are NOT:**
+- Reference guides
+- Documentation
+- Specifications
+- Context or background information
+
+**Workflow naming:** TitleCase verbs (e.g., `Create.md`, `SyncRepo.md`, `UpdateDaemonInfo.md`)
+
+### Reference Documentation (skill root)
+Reference docs are **information to read** - context, guides, specifications.
+
+**Reference docs ARE:**
+- Guides and how-to documentation
+- Specifications and schemas
+- Background context
+- Information you "read" or "reference"
+
+**Reference docs are NOT:**
+- Executable procedures
+- Step-by-step workflows
+- Things you "run"
+
+**Reference naming:** TitleCase descriptive (e.g., `ProsodyGuide.md`, `SchemaSpec.md`, `ApiReference.md`)
 
 ---
 
@@ -457,7 +893,48 @@ Every CLI tool must:
 4. **Support `--help`** - Display usage information
 5. **Use colored output** - ANSI colors for terminal feedback
 6. **Handle errors gracefully** - Clear error messages, appropriate exit codes
-7. **Expose configuration via flags** - Enable behavioral control
+7. **Expose configuration via flags** - Enable behavioral control (see below)
+
+### Configuration Flags Standard
+
+**Tools should expose configuration through CLI flags, not hardcoded values.**
+
+This pattern (inspired by indydevdan's variable-centric approach) enables workflows to adapt tool behavior based on user intent without code changes.
+
+**Standard Flag Categories:**
+
+| Category | Examples | Purpose |
+|----------|----------|---------|
+| **Mode flags** | `--fast`, `--thorough`, `--dry-run` | Execution behavior |
+| **Output flags** | `--format json`, `--quiet`, `--verbose` | Output control |
+| **Resource flags** | `--model haiku`, `--model opus` | Model/resource selection |
+| **Post-process flags** | `--thumbnail`, `--remove-bg` | Additional processing |
+
+**Example: Well-Configured Tool**
+
+```bash
+# Minimal invocation (sensible defaults)
+bun Generate.ts --prompt "..." --output /tmp/image.png
+
+# Full configuration
+bun Generate.ts \
+  --model nano-banana-pro \    # Resource selection
+  --prompt "..." \
+  --size 2K \                  # Output configuration
+  --aspect-ratio 16:9 \
+  --thumbnail \                # Post-processing
+  --remove-bg \
+  --output /tmp/header.png
+```
+
+**Flag Design Principles:**
+1. **Defaults first**: Tool works without flags for common case
+2. **Explicit overrides**: Flags modify default behavior
+3. **Boolean flags**: `--flag` enables (no `--no-flag` needed)
+4. **Value flags**: `--flag <value>` for choices
+5. **Composable**: Flags should combine logically
+
+**See:** `~/.claude/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md` (Configuration Flags section) for full documentation
 
 ### Tool Structure
 
@@ -467,7 +944,7 @@ Every CLI tool must:
  * ToolName.ts - Brief description
  *
  * Usage:
- *   bun ${PAI_DIR}/skills/SkillName/Tools/ToolName.ts <command> [options]
+ *   bun ~/.claude/skills/SkillName/Tools/ToolName.ts <command> [options]
  *
  * Commands:
  *   start     Start the thing
@@ -504,6 +981,31 @@ When a skill is invoked, follow the SKILL.md instructions step-by-step rather th
 4. Your behavior should match the Examples section
 
 Think of SKILL.md as a script - it already encodes "how to do X" so you can follow it directly.
+
+---
+
+## Output Requirements (Recommended Section)
+
+**For skills with variable output quality, add explicit output specifications:**
+
+```markdown
+## Output Requirements
+
+- **Format:** [markdown list | JSON | prose | code | table]
+- **Length:** [under X words | exactly N items | concise | comprehensive]
+- **Tone:** [professional | casual | technical | friendly]
+- **Must Include:** [specific required elements]
+- **Must Avoid:** [corporate fluff | hedging language | filler]
+```
+
+**Why This Matters:**
+Explicit output specs reduce variability and increase actionability.
+
+**When to Add Output Requirements:**
+- Content generation skills (blogging, xpost, newsletter)
+- Analysis skills (research, upgrade, OSINT)
+- Code generation skills (development, createcli)
+- Any skill where output format matters
 
 ---
 

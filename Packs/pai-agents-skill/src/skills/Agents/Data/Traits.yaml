@@ -1,11 +1,12 @@
 # Traits.yaml - Composable Agent Traits
 # Version: 1.0.0
 #
+# This file defines the building blocks for dynamic agent composition.
 # Agents are composed by combining: expertise + personality + approach
 #
 # Usage:
-#   bun run AgentFactory.ts --task "Review security architecture"
-#   bun run AgentFactory.ts --traits "security,skeptical,thorough"
+#   bun run ~/.claude/Skills/Agents/Tools/ComposeAgent.ts --task "Review security architecture"
+#   bun run ~/.claude/Skills/Agents/Tools/ComposeAgent.ts --traits "security,skeptical,thorough"
 
 # ==============================================================================
 # EXPERTISE AREAS - Domain knowledge and specialization
@@ -99,28 +100,6 @@ expertise:
       - database
       - infrastructure
       - software
-      - script
-      - bash
-      - shell
-      - POSIX
-      - programming
-      - TypeScript
-      - JavaScript
-      - Python
-      - Java
-      - Rust
-      - Go
-      - error
-      - development
-      - transform
-      - conversion
-      - CLI
-      - function
-      - class
-      - module
-      - procedure
-      - refactor
-      - test
 
   research:
     name: "Research Specialist"
@@ -361,181 +340,764 @@ approach:
       understand the reasoning so they can adapt if needed.
 
 # ==============================================================================
-# VOICE MAPPINGS - How dynamic agents map to TTS voices
+# VOICE MAPPINGS - How dynamic agents map to ElevenLabs voices
 # ==============================================================================
-# CUSTOMIZE: Replace voice_id values with your TTS provider's voice IDs
+#
+# DESIGN PRINCIPLE: Match voices to PERSONALITY TYPES, not stereotypes.
+# Voice selection is based on tone, energy, and delivery style - not gender.
 #
 voice_mappings:
   # Default voice when no mapping matches
-  default: "Default"
-  default_voice_id: "YOUR_DEFAULT_VOICE_ID"
+  default: "Daniel"
+  default_voice_id: "onwK4e9ZLuTAKqWW03F9"
 
   # ===========================================================================
-  # VOICE SVCISTRY - Define your available voices
+  # VOICE SVCISTRY - All available voices with characteristics
   # ===========================================================================
+  # Each voice is tagged with personality attributes for matching.
+  # Categories: authoritative, warm, energetic, measured, intellectual, edgy
+  #
   voice_registry:
-    # --- AUTHORITATIVE VOICES ---
-    Authoritative:
-      voice_id: "YOUR_AUTHORITATIVE_VOICE_ID"
+    # --- AUTHORITATIVE VOICES (confident, commanding, trustworthy) ---
+    Daniel:
+      voice_id: "onwK4e9ZLuTAKqWW03F9"
       characteristics: ["authoritative", "measured", "intellectual"]
-      description: "Deep authoritative voice for serious analysis"
-      stability: 0.70
-      similarity_boost: 0.85
+      description: "Deep British male, BBC anchor authority"
+      prosody:
+        stability: 0.70
+        similarity_boost: 0.85
+        style: 0.05
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
 
-    Professional:
-      voice_id: "YOUR_PROFESSIONAL_VOICE_ID"
-      characteristics: ["professional", "balanced", "neutral"]
-      description: "Balanced professional voice for general use"
-      stability: 0.65
-      similarity_boost: 0.80
+    Bill:
+      voice_id: "pqHfZKP75CvOlQylNhV4"
+      characteristics: ["authoritative", "trustworthy", "measured"]
+      description: "Strong American male, documentary trustworthy"
+      prosody:
+        stability: 0.70
+        similarity_boost: 0.85
+        style: 0.05
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
 
-    # --- WARM/FRIENDLY VOICES ---
-    Warm:
-      voice_id: "YOUR_WARM_VOICE_ID"
+    Alice:
+      voice_id: "Xb7hH8MSUJpSbSDYk0k2"
+      characteristics: ["authoritative", "confident", "professional"]
+      description: "Confident British female, news anchor authority"
+      prosody:
+        stability: 0.68
+        similarity_boost: 0.85
+        style: 0.10
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
+
+    Domi:
+      voice_id: "AZnzlk1XvdvUeBnXmlld"
+      characteristics: ["authoritative", "assertive", "bold"]
+      description: "Strong assertive American female, CEO-like presence"
+      prosody:
+        stability: 0.65
+        similarity_boost: 0.80
+        style: 0.15
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.90
+
+    # --- WARM/FRIENDLY VOICES (approachable, supportive, helpful) ---
+    Rachel:
+      voice_id: "21m00Tcm4TlvDq8ikWAM"
+      characteristics: ["warm", "calm", "supportive"]
+      description: "Calm American female, default assistant"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.15
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Matilda:
+      voice_id: "XrExE9yKIg1WjnnlVkGX"
       characteristics: ["warm", "friendly", "engaging"]
-      description: "Warm friendly voice for supportive interactions"
-      stability: 0.50
-      similarity_boost: 0.75
+      description: "Warm American female, friendly storyteller"
+      prosody:
+        stability: 0.50
+        similarity_boost: 0.75
+        style: 0.20
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
 
-    Gentle:
-      voice_id: "YOUR_GENTLE_VOICE_ID"
+    Charlie:
+      voice_id: "IKne3meq5aSn9XLyUdCD"
+      characteristics: ["warm", "casual", "conversational"]
+      description: "Casual Australian male, laid-back conversational"
+      prosody:
+        stability: 0.50
+        similarity_boost: 0.70
+        style: 0.25
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Thomas:
+      voice_id: "GBv7mTt0atIp3Br8iCZE"
       characteristics: ["warm", "calm", "gentle"]
-      description: "Calm gentle voice for empathetic guidance"
-      stability: 0.55
-      similarity_boost: 0.75
+      description: "Calm American male, gentle guide"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.75
 
-    # --- ENERGETIC VOICES ---
-    Energetic:
-      voice_id: "YOUR_ENERGETIC_VOICE_ID"
+    # --- ENERGETIC VOICES (enthusiastic, dynamic, exciting) ---
+    Jeremy:
+      voice_id: "bVMeCyTHy58xNoL34h3p"
       characteristics: ["energetic", "excited", "dynamic"]
-      description: "High-energy voice for enthusiastic delivery"
-      stability: 0.35
-      similarity_boost: 0.65
+      description: "Excited young American-Irish male, high energy"
+      prosody:
+        stability: 0.35
+        similarity_boost: 0.65
+        style: 0.40
+        speed: 1.10
+        use_speaker_boost: true
+        volume: 1.00
 
-    Dynamic:
-      voice_id: "YOUR_DYNAMIC_VOICE_ID"
+    Fin:
+      voice_id: "D38z5RcWu1voky8WS1ja"
       characteristics: ["energetic", "fast", "charismatic"]
-      description: "Fast-paced dynamic voice for exciting content"
-      stability: 0.40
-      similarity_boost: 0.70
+      description: "Old Irish male, energetic fast-paced storyteller"
+      prosody:
+        stability: 0.40
+        similarity_boost: 0.70
+        style: 0.35
+        speed: 1.10
+        use_speaker_boost: true
+        volume: 0.95
 
-    # --- INTELLECTUAL VOICES ---
-    Academic:
-      voice_id: "YOUR_ACADEMIC_VOICE_ID"
-      characteristics: ["intellectual", "warm", "academic"]
-      description: "Academic voice for research and analysis"
-      stability: 0.62
-      similarity_boost: 0.80
+    Freya:
+      voice_id: "jsCqWAovK2LkecY7zXl4"
+      characteristics: ["energetic", "vibrant", "versatile"]
+      description: "Young American female, vibrant dynamic"
+      prosody:
+        stability: 0.45
+        similarity_boost: 0.70
+        style: 0.30
+        speed: 1.05
+        use_speaker_boost: true
+        volume: 0.90
 
-    Sophisticated:
-      voice_id: "YOUR_SOPHISTICATED_VOICE_ID"
+    Dave:
+      voice_id: "CYw3kZ02Hs0563khs1Fj"
+      characteristics: ["energetic", "youthful", "conversational"]
+      description: "Young British-Essex male, youthful energy"
+      prosody:
+        stability: 0.40
+        similarity_boost: 0.65
+        style: 0.30
+        speed: 1.05
+        use_speaker_boost: true
+        volume: 0.90
+
+    # --- INTELLECTUAL VOICES (analytical, sophisticated, precise) ---
+    Charlotte:
+      voice_id: "XB0fDUnXU5powFXDhCwa"
       characteristics: ["intellectual", "sophisticated", "smooth"]
-      description: "Sophisticated voice for nuanced discussion"
-      stability: 0.60
-      similarity_boost: 0.80
+      description: "British-Swedish female, seductive intellectual"
+      prosody:
+        stability: 0.60
+        similarity_boost: 0.80
+        style: 0.15
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.80
 
-    # --- EDGY/DISTINCTIVE VOICES ---
-    Intense:
-      voice_id: "YOUR_INTENSE_VOICE_ID"
+    George:
+      voice_id: "JBFqnCBsd6RMkjVDRZzb"
+      characteristics: ["intellectual", "warm", "academic"]
+      description: "Raspy British male, academic warm"
+      prosody:
+        stability: 0.62
+        similarity_boost: 0.80
+        style: 0.10
+        speed: 0.92
+        use_speaker_boost: true
+        volume: 0.80
+
+    Antoni:
+      voice_id: "ErXwobaYiN019PkySvjV"
+      characteristics: ["intellectual", "articulate", "professorial"]
+      description: "Young American male, professor-like articulate"
+      prosody:
+        stability: 0.58
+        similarity_boost: 0.78
+        style: 0.12
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.80
+
+    James:
+      voice_id: "ZQe5CZNOzWyzPSCn5a3c"
+      characteristics: ["intellectual", "calm", "documentary"]
+      description: "Calm Australian male, documentary professional"
+      prosody:
+        stability: 0.65
+        similarity_boost: 0.82
+        style: 0.08
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.80
+
+    # --- PROFESSIONAL VOICES (neutral, clear, news-style) ---
+    Drew:
+      voice_id: "29vD33N1CtxCmqQRPOHJ"
+      characteristics: ["professional", "balanced", "neutral"]
+      description: "Middle-aged American male, news reader balanced"
+      prosody:
+        stability: 0.65
+        similarity_boost: 0.80
+        style: 0.05
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.80
+
+    Josh:
+      voice_id: "TxGEqnHWrfWFTfGW9XjX"
+      characteristics: ["professional", "deep", "serious"]
+      description: "Deep young American male, serious professional"
+      prosody:
+        stability: 0.62
+        similarity_boost: 0.80
+        style: 0.08
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
+
+    Joseph:
+      voice_id: "Zlb1dXrM653N07WRdFW3"
+      characteristics: ["professional", "formal", "authoritative"]
+      description: "Middle-aged British male, formal authority"
+      prosody:
+        stability: 0.68
+        similarity_boost: 0.82
+        style: 0.05
+        speed: 0.92
+        use_speaker_boost: true
+        volume: 0.85
+
+    Serena:
+      voice_id: "pMsXgVXv3BLzUgSXRplE"
+      characteristics: ["professional", "pleasant", "corporate"]
+      description: "Pleasant American female, corporate professional"
+      prosody:
+        stability: 0.60
+        similarity_boost: 0.78
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    # --- EDGY/DISTINCTIVE VOICES (unique, character, unconventional) ---
+    Clyde:
+      voice_id: "2EiwWnXFnvU5JabPnv8n"
       characteristics: ["edgy", "gravelly", "intense"]
-      description: "Intense voice for adversarial/security work"
-      stability: 0.55
-      similarity_boost: 0.75
+      description: "Deep gravelly American male, war veteran intensity"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.20
+        speed: 0.90
+        use_speaker_boost: true
+        volume: 0.85
 
-    Gritty:
-      voice_id: "YOUR_GRITTY_VOICE_ID"
+    Sam:
+      voice_id: "yoZ06aMxZJJ28mfd3POQ"
       characteristics: ["edgy", "raspy", "authentic"]
-      description: "Gritty authentic voice for skeptical analysis"
-      stability: 0.50
-      similarity_boost: 0.70
+      description: "Raspy gritty American male, blue-collar authentic"
+      prosody:
+        stability: 0.50
+        similarity_boost: 0.70
+        style: 0.25
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
+
+    Bella:
+      voice_id: "EXAVITQu4vr4xnSDxMaL"
+      characteristics: ["edgy", "mysterious", "intense"]
+      description: "Soft intense American female, mysterious dramatic"
+      prosody:
+        stability: 0.45
+        similarity_boost: 0.72
+        style: 0.30
+        speed: 0.90
+        use_speaker_boost: true
+        volume: 0.75
+
+    Callum:
+      voice_id: "N2lVS1w4EtoT3dr4eOWO"
+      characteristics: ["edgy", "hoarse", "character"]
+      description: "Hoarse American male, video game character"
+      prosody:
+        stability: 0.48
+        similarity_boost: 0.70
+        style: 0.25
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.85
+
+    # --- CREATIVE VOICES (expressive, artistic, tangential) ---
+    Grace:
+      voice_id: "oWAxZDx7w5VEj9dCyTzz"
+      characteristics: ["creative", "gentle", "southern"]
+      description: "American Southern female, gentle storyteller"
+      prosody:
+        stability: 0.48
+        similarity_boost: 0.72
+        style: 0.20
+        speed: 0.95
+        use_speaker_boost: true
+        volume: 0.75
+
+    Adam:
+      voice_id: "pNInz6obpgDQGcFmaJgB"
+      characteristics: ["creative", "narratorial", "deep"]
+      description: "Deep American male, #1 narratorial storytelling"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.78
+        style: 0.15
+        speed: 0.90
+        use_speaker_boost: true
+        volume: 0.85
+
+    Brian:
+      voice_id: "nPczCjzI2devNBz1zQrb"
+      characteristics: ["creative", "commanding", "rich"]
+      description: "Deep middle-aged American male, rich narrator"
+      prosody:
+        stability: 0.58
+        similarity_boost: 0.80
+        style: 0.12
+        speed: 0.92
+        use_speaker_boost: true
+        volume: 0.85
+
+    # --- NEW VOICES (pending characterization) ---
+    Voice01:
+      voice_id: "KLON7Nwan8mJxpF2R8Yw"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice02:
+      voice_id: "dllHSct4GokGc1AH9JwT"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice03:
+      voice_id: "iBo5PWT1qLiEyqhM7TrG"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice04:
+      voice_id: "WZlYpi1yf6zJhNWXih74"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice05:
+      voice_id: "pjcYQlDFKMbcOUp6F5GD"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice06:
+      voice_id: "yhf80q1381zd2JJQ4tM7"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice07:
+      voice_id: "OB0Jj6v9DGLLgz8dD57i"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice08:
+      voice_id: "NNl6r8mD7vthiJatiJt1"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice09:
+      voice_id: "4e32WqNVWRquDa1OcRYZ"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice10:
+      voice_id: "vZzlAds9NzvLsFSWp0qk"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice11:
+      voice_id: "2BsEFcU7jUhLaUwV4h7l"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice12:
+      voice_id: "sLfduly0sixkh8riDzed"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice13:
+      voice_id: "douDhHvfoViWmZth0cUX"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
+
+    Voice14:
+      voice_id: "4VhEioWwLzhlRxXpucCZ"
+      characteristics: ["pending"]
+      description: "New voice - characterize after testing"
+      prosody:
+        stability: 0.55
+        similarity_boost: 0.75
+        style: 0.10
+        speed: 1.00
+        use_speaker_boost: true
+        volume: 0.80
 
   # ===========================================================================
-  # TRAIT -> VOICE MAPPINGS
+  # TRAIT → VOICE MAPPINGS (personality-based, not stereotype-based)
   # ===========================================================================
+  # More specific combinations take priority over single-trait fallbacks
+
   mappings:
-    # Skeptical combinations -> Intellectual voices
+    # --- SKEPTICAL + ANALYTICAL combinations → Intellectual voices ---
     - traits: ["contrarian", "skeptical"]
-      voice: "Intense"
-      reason: "Contrarian skepticism needs intensity"
+      voice: "Clyde"
+      voice_id: "2EiwWnXFnvU5JabPnv8n"
+      reason: "Contrarian skepticism needs gravelly intensity"
 
     - traits: ["skeptical", "analytical"]
-      voice: "Academic"
+      voice: "George"
+      voice_id: "JBFqnCBsd6RMkjVDRZzb"
       reason: "Skeptical analysis suits academic warmth"
 
     - traits: ["skeptical", "meticulous"]
-      voice: "Sophisticated"
-      reason: "Meticulous skepticism suits sophistication"
+      voice: "Charlotte"
+      voice_id: "XB0fDUnXU5powFXDhCwa"
+      reason: "Meticulous skepticism suits sophisticated precision"
 
-    # Creative combinations -> Energetic voices
+    # --- CREATIVE + ENTHUSIASTIC combinations → Energetic voices ---
     - traits: ["enthusiastic", "creative"]
-      voice: "Energetic"
-      reason: "Creative enthusiasm needs high energy"
+      voice: "Jeremy"
+      voice_id: "bVMeCyTHy58xNoL34h3p"
+      reason: "Creative enthusiasm needs high-energy delivery"
 
     - traits: ["creative", "exploratory"]
-      voice: "Dynamic"
-      reason: "Creative exploration suits dynamic delivery"
+      voice: "Freya"
+      voice_id: "jsCqWAovK2LkecY7zXl4"
+      reason: "Creative exploration suits vibrant versatility"
 
-    # Analytical combinations -> Professional voices
+    - traits: ["creative", "bold"]
+      voice: "Fin"
+      voice_id: "D38z5RcWu1voky8WS1ja"
+      reason: "Bold creativity suits energetic Irish charisma"
+
+    # --- ANALYTICAL + TECHNICAL combinations → Authoritative voices ---
     - traits: ["analytical", "technical"]
-      voice: "Authoritative"
-      reason: "Technical analysis suits authority"
+      voice: "Daniel"
+      voice_id: "onwK4e9ZLuTAKqWW03F9"
+      reason: "Technical analysis suits authoritative British clarity"
 
     - traits: ["analytical", "systematic"]
-      voice: "Professional"
-      reason: "Systematic analysis suits professionalism"
+      voice: "Drew"
+      voice_id: "29vD33N1CtxCmqQRPOHJ"
+      reason: "Systematic analysis suits balanced news professionalism"
 
-    # Empathetic combinations -> Warm voices
+    - traits: ["analytical", "comparative"]
+      voice: "Antoni"
+      voice_id: "ErXwobaYiN019PkySvjV"
+      reason: "Comparative analysis suits professorial articulation"
+
+    # --- EMPATHETIC + WARM combinations → Warm voices ---
     - traits: ["empathetic", "consultative"]
-      voice: "Warm"
-      reason: "Empathetic consulting suits warmth"
+      voice: "Matilda"
+      voice_id: "XrExE9yKIg1WjnnlVkGX"
+      reason: "Empathetic consulting suits warm friendliness"
 
     - traits: ["empathetic", "synthesizing"]
-      voice: "Gentle"
-      reason: "Synthesizing empathy suits gentleness"
+      voice: "Thomas"
+      voice_id: "GBv7mTt0atIp3Br8iCZE"
+      reason: "Synthesizing empathy suits calm gentleness"
 
-    # Security combinations -> Edgy voices
+    - traits: ["empathetic", "thorough"]
+      voice: "Rachel"
+      voice_id: "21m00Tcm4TlvDq8ikWAM"
+      reason: "Thorough empathy suits calm supportiveness"
+
+    # --- BOLD + BUSINESS combinations → Assertive voices ---
+    - traits: ["bold", "business"]
+      voice: "Domi"
+      voice_id: "AZnzlk1XvdvUeBnXmlld"
+      reason: "Bold business stance suits assertive CEO presence"
+
+    - traits: ["bold", "adversarial"]
+      voice: "Clyde"
+      voice_id: "2EiwWnXFnvU5JabPnv8n"
+      reason: "Adversarial boldness suits gravelly intensity"
+
+    - traits: ["bold", "rapid"]
+      voice: "Dave"
+      voice_id: "CYw3kZ02Hs0563khs1Fj"
+      reason: "Rapid boldness suits youthful British energy"
+
+    # --- CAUTIOUS + METICULOUS combinations → Measured voices ---
+    - traits: ["cautious", "meticulous"]
+      voice: "Joseph"
+      voice_id: "Zlb1dXrM653N07WRdFW3"
+      reason: "Cautious precision suits formal British authority"
+
+    - traits: ["cautious", "systematic"]
+      voice: "James"
+      voice_id: "ZQe5CZNOzWyzPSCn5a3c"
+      reason: "Systematic caution suits calm documentary style"
+
+    - traits: ["cautious", "consultative"]
+      voice: "Serena"
+      voice_id: "pMsXgVXv3BLzUgSXRplE"
+      reason: "Cautious advice suits pleasant professionalism"
+
+    # --- SECURITY + ADVERSARIAL combinations → Edgy voices ---
     - traits: ["security", "adversarial"]
-      voice: "Intense"
-      reason: "Security adversary suits intensity"
+      voice: "Callum"
+      voice_id: "N2lVS1w4EtoT3dr4eOWO"
+      reason: "Security adversary suits hoarse hacker character"
 
     - traits: ["security", "skeptical"]
-      voice: "Gritty"
-      reason: "Security skepticism suits gritty authenticity"
+      voice: "Sam"
+      voice_id: "yoZ06aMxZJJ28mfd3POQ"
+      reason: "Security skepticism suits raspy authenticity"
+
+    - traits: ["security", "thorough"]
+      voice: "Bill"
+      voice_id: "pqHfZKP75CvOlQylNhV4"
+      reason: "Thorough security suits trustworthy authority"
+
+    # --- RESEARCH + SYNTHESIZING combinations → Intellectual voices ---
+    - traits: ["research", "synthesizing"]
+      voice: "Charlotte"
+      voice_id: "XB0fDUnXU5powFXDhCwa"
+      reason: "Research synthesis suits sophisticated intellect"
+
+    - traits: ["research", "thorough"]
+      voice: "Adam"
+      voice_id: "pNInz6obpgDQGcFmaJgB"
+      reason: "Thorough research suits deep narratorial delivery"
+
+    - traits: ["research", "exploratory"]
+      voice: "George"
+      voice_id: "JBFqnCBsd6RMkjVDRZzb"
+      reason: "Exploratory research suits academic warmth"
+
+    # --- LEGAL + METICULOUS combinations → Formal voices ---
+    - traits: ["legal", "meticulous"]
+      voice: "Alice"
+      voice_id: "Xb7hH8MSUJpSbSDYk0k2"
+      reason: "Legal precision suits confident news authority"
+
+    - traits: ["legal", "cautious"]
+      voice: "Joseph"
+      voice_id: "Zlb1dXrM653N07WRdFW3"
+      reason: "Cautious legal suits formal British authority"
+
+    # --- COMMUNICATIONS + CREATIVE combinations → Storytelling voices ---
+    - traits: ["communications", "creative"]
+      voice: "Grace"
+      voice_id: "oWAxZDx7w5VEj9dCyTzz"
+      reason: "Creative communications suits gentle storytelling"
+
+    - traits: ["communications", "enthusiastic"]
+      voice: "Brian"
+      voice_id: "nPczCjzI2devNBz1zQrb"
+      reason: "Enthusiastic communications suits rich narration"
 
   # ===========================================================================
-  # FALLBACKS - Single trait -> voice
+  # FALLBACKS - Single trait → voice (used when no combination matches)
   # ===========================================================================
   fallbacks:
-    skeptical: "Academic"
-    enthusiastic: "Energetic"
-    analytical: "Authoritative"
-    cautious: "Professional"
-    bold: "Intense"
-    creative: "Dynamic"
-    empathetic: "Warm"
-    contrarian: "Intense"
-    pragmatic: "Professional"
-    meticulous: "Sophisticated"
+    # Personality fallbacks
+    skeptical: "George"
+    skeptical_voice_id: "JBFqnCBsd6RMkjVDRZzb"
 
-    security: "Intense"
-    legal: "Authoritative"
-    finance: "Professional"
-    medical: "Warm"
-    technical: "Professional"
-    research: "Academic"
-    communications: "Dynamic"
-    business: "Professional"
-    data: "Academic"
+    enthusiastic: "Jeremy"
+    enthusiastic_voice_id: "bVMeCyTHy58xNoL34h3p"
 
-    thorough: "Professional"
-    rapid: "Dynamic"
-    systematic: "Professional"
-    exploratory: "Dynamic"
-    adversarial: "Intense"
-    consultative: "Warm"
+    analytical: "Daniel"
+    analytical_voice_id: "onwK4e9ZLuTAKqWW03F9"
+
+    cautious: "Joseph"
+    cautious_voice_id: "Zlb1dXrM653N07WRdFW3"
+
+    bold: "Domi"
+    bold_voice_id: "AZnzlk1XvdvUeBnXmlld"
+
+    creative: "Freya"
+    creative_voice_id: "jsCqWAovK2LkecY7zXl4"
+
+    empathetic: "Matilda"
+    empathetic_voice_id: "XrExE9yKIg1WjnnlVkGX"
+
+    contrarian: "Clyde"
+    contrarian_voice_id: "2EiwWnXFnvU5JabPnv8n"
+
+    pragmatic: "Charlie"
+    pragmatic_voice_id: "IKne3meq5aSn9XLyUdCD"
+
+    meticulous: "Charlotte"
+    meticulous_voice_id: "XB0fDUnXU5powFXDhCwa"
+
+    # Expertise fallbacks
+    security: "Callum"
+    security_voice_id: "N2lVS1w4EtoT3dr4eOWO"
+
+    legal: "Alice"
+    legal_voice_id: "Xb7hH8MSUJpSbSDYk0k2"
+
+    finance: "Bill"
+    finance_voice_id: "pqHfZKP75CvOlQylNhV4"
+
+    medical: "Rachel"
+    medical_voice_id: "21m00Tcm4TlvDq8ikWAM"
+
+    technical: "Drew"
+    technical_voice_id: "29vD33N1CtxCmqQRPOHJ"
+
+    research: "Adam"
+    research_voice_id: "pNInz6obpgDQGcFmaJgB"
+
+    communications: "Brian"
+    communications_voice_id: "nPczCjzI2devNBz1zQrb"
+
+    business: "Josh"
+    business_voice_id: "TxGEqnHWrfWFTfGW9XjX"
+
+    data: "Antoni"
+    data_voice_id: "ErXwobaYiN019PkySvjV"
+
+    # Approach fallbacks
+    thorough: "James"
+    thorough_voice_id: "ZQe5CZNOzWyzPSCn5a3c"
+
+    rapid: "Dave"
+    rapid_voice_id: "CYw3kZ02Hs0563khs1Fj"
+
+    systematic: "Serena"
+    systematic_voice_id: "pMsXgVXv3BLzUgSXRplE"
+
+    exploratory: "Fin"
+    exploratory_voice_id: "D38z5RcWu1voky8WS1ja"
+
+    adversarial: "Sam"
+    adversarial_voice_id: "yoZ06aMxZJJ28mfd3POQ"
+
+    consultative: "Thomas"
+    consultative_voice_id: "GBv7mTt0atIp3Br8iCZE"
 
 # ==============================================================================
-# COMPOSITION EXAMPLES
+# COMPOSITION EXAMPLES - Reference for common compositions
 # ==============================================================================
 examples:
   security_audit:

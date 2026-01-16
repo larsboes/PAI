@@ -18,13 +18,13 @@
 
 Consider using additional resources:
 
-- **BeCreative skill** - UltraThink for deep analysis
+- **BeCreative skill** - deep thinking for deep analysis
 - **Council skill** - Multiple perspectives on requirements
-- **AgentFactory** - Spawn a "thinking" agent with `analytical,exploratory` traits
+- **ComposeAgent** - Spawn a "thinking" agent with `analytical,exploratory` traits
 
 ```bash
 # Compose a thinking agent
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
   --task "What requirements might be missing for: [request]" \
   --traits "analytical,exploratory,thorough"
 ```

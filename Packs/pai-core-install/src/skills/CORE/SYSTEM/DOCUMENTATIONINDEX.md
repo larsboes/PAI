@@ -1,54 +1,27 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/DOCUMENTATIONINDEX.md
-================================================================================
-
-PURPOSE:
-Complete CORE documentation index with route triggers. Quick reference for
-finding the right documentation file based on user queries.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/DOCUMENTATIONINDEX.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/DOCUMENTATIONINDEX.md
-
-CUSTOMIZATION:
-- [ ] Add entries for your custom documentation
-- [ ] Update triggers as you add new files
-- [ ] Keep in sync with actual file structure
-
-RELATED FILES:
-- PAISYSTEMARCHITECTURE.md - Core philosophy
-- SKILLSYSTEM.md - Skill configuration
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 ---
 name: DocumentationIndex
-description: Complete CORE documentation index with detailed descriptions. Reference material for on-demand loading.
+description: Complete CORE documentation index with detailed descriptions. Reference material extracted from SKILL.md for on-demand loading.
+created: 2025-12-17
+extracted_from: SKILL.md lines 339-401
 ---
 
 # CORE Documentation Index
 
-**Quick reference for finding the right documentation file.**
+**Quick reference in SKILL.md** → For full details, see this file
 
 ---
 
-## Documentation Index & Route Triggers
+## 📚 Documentation Index & Route Triggers
 
-**All documentation files are in `${PAI_DIR}/skills/CORE/` (flat structure). Read these files when you need deeper context.**
+**All documentation files are in `~/.claude/skills/CORE/` with SYSTEM/ and USER/ subdirectories. Read these files when you need deeper context.**
 
-### Core Architecture & Philosophy
+**Core Architecture & Philosophy:**
+- `SYSTEM/PAISYSTEMARCHITECTURE.md` - System architecture and philosophy, foundational principles (CLI-First, Deterministic Code, Prompts Wrap Code) | ⭐ PRIMARY REFERENCE | Triggers: "system architecture", "how does the system work", "system principles"
+- `SYSTEM/SYSTEM_USER_EXTENDABILITY.md` - Two-tier SYSTEM/USER architecture for extensibility | Triggers: "two tier", "system vs user", "how to extend", "customization pattern"
+- `SYSTEM/CLIFIRSTARCHITECTURE.md` - CLI-First pattern details
+- `SYSTEM/SKILLSYSTEM.md` - Custom skill system with triggers and workflow routing | ⭐ CRITICAL | Triggers: "how to structure a skill", "skill routing", "create new skill"
 
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/PAISYSTEMARCHITECTURE.md` | System architecture and philosophy, foundational principles | "system architecture", "how does the system work", "system principles" |
-| `SYSTEM/CLIFIRSTARCHITECTURE.md` | CLI-First pattern details | "CLI-First", "deterministic tools" |
-| `SYSTEM/SKILLSYSTEM.md` | Custom skill system with triggers and workflow routing | "how to structure a skill", "skill routing", "create new skill" |
-
-### Skill Execution
+**Skill Execution:**
 
 When a skill is invoked, follow the SKILL.md instructions step-by-step: execute voice notifications, use the routing table to find the workflow, and follow the workflow instructions in order.
 
@@ -72,92 +45,35 @@ description: Complete blog workflow. USE WHEN user mentions their blog, website,
 
 See `SYSTEM/SKILLSYSTEM.md` for complete documentation.
 
-### Development & Testing
+**Development & Testing:**
+- `USER/TECHSTACKPREFERENCES.md` - Core technology stack (TypeScript, bun, Cloudflare) | Triggers: "what stack do I use", "TypeScript or Python", "bun or npm"
+- Testing standards → Development Skill
 
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `USER/TECHSTACKPREFERENCES.md` | Core technology stack preferences | "what stack do I use", "TypeScript or Python", "bun or npm" |
+**Agent System:**
+- **Agents Skill** (`~/.claude/skills/Agents/`) - Complete agent composition system | See Agents skill for custom agent creation, traits, and voice mappings
+- Delegation patterns are documented inline in the "Delegation & Parallelization" section below
 
-### Agent System
+**Response & Communication:**
+- `SYSTEM/RESPONSEFORMAT.md` - Mandatory response format | Triggers: "output format", "response format"
+- `SYSTEM/THEFABRICSYSTEM.md` - Fabric patterns | Triggers: "fabric patterns", "prompt engineering"
+- Voice notifications → VoiceServer (system alerts, agent feedback)
 
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/AGENTS.md` | Agent configuration and personality system | "create agents", "agent traits" |
-| `SYSTEM/THEDELEGATIONSYSTEM.md` | Delegation patterns | "parallel agents", "delegation" |
+**Configuration & Systems:**
+- `SYSTEM/THEHOOKSYSTEM.md` - Hook configuration | Triggers: "hooks configuration", "create custom hooks"
+- `SYSTEM/MEMORYSYSTEM.md` - Memory documentation | Triggers: "memory system", "capture system", "work tracking", "session history"
+- `SYSTEM/TERMINALTABS.md` - Terminal tab state system (colors + suffixes for working/completed/awaiting/error states) | Triggers: "tab colors", "tab state", "kitty tabs"
 
-### Response & Communication
+**Reference Data:**
+- `USER/ASSETMANAGEMENT.md` - Digital assets registry for instant recognition & vulnerability management | ⭐ CRITICAL | Triggers: "my site", "vulnerability", "what uses React", "upgrade path", "tech stack"
+- `USER/CONTACTS.md` - Complete contact directory | Triggers: "who is Angela", "Bunny's email", "show contacts" | Top 7 quick ref below
+- `USER/DEFINITIONS.md` - Canonical definitions | Triggers: "definition of AGI", "how do we define X"
+- `PAISECURITYSYSTEM/` - Security architecture and generic patterns (shareable)
+- `USER/PAISECURITYSYSTEM/` - Personal security policies (private) | See security section below for critical always-active rules
 
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/THENOTIFICATIONSYSTEM.md` | Notification channels (voice, push, desktop) | "notifications", "voice alerts" |
-| `SYSTEM/THEHOOKSYSTEM.md` | Hook configuration | "hooks configuration", "create custom hooks" |
-
-### Memory & History
-
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/MEMORYSYSTEM.md` | Memory and history documentation | "history system", "capture system", "memory system" |
-
-### Reference Data
-
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `USER/ASSETMANAGEMENT.md` | Digital assets registry | "my site", "vulnerability", "what uses React", "tech stack" |
-| `USER/CONTACTS.md` | Contact directory | "who is [name]", "show contacts" |
-| `USER/DEFINITIONS.md` | Canonical definitions | "definition of AGI", "how do we define X" |
-| `USER/SECURITYSYSTEM.md` | Security protocols | "security protocols", "sensitive data" |
-
-### Workflows & Actions
-
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/ACTIONS.md` | Multi-step workflow patterns | "create action", "workflow patterns" |
-| `SYSTEM/PIPELINES.md` | Pipeline orchestration | "pipeline", "chain actions" |
-| `SYSTEM/TOOLS.md` | CLI utilities reference | "CLI tools", "utilities" |
-
-### Specialized Systems
-
-| File | Purpose | Triggers |
-|------|---------|----------|
-| `SYSTEM/THEFABRICSYSTEM.md` | Fabric patterns | "fabric patterns", "extract_wisdom" |
-| `SYSTEM/SCRAPINGREFERENCE.md` | Web scraping | "scrape", "MCP", "Bright Data", "Apify" |
-| `SYSTEM/TERMINALTABS.md` | Terminal tab management | "tab titles", "terminal" |
+**Workflows:**
+- `Workflows/` - Operational procedures (git, delegation, MCP, blog deployment, etc.)
 
 ---
 
-## File Naming Convention
-
-### USER/ Directory (Personal Configuration)
-- `BASICINFO.md` - Your name, email, social handles
-- `CONTACTS.md` - Your contact directory
-- `TECHSTACKPREFERENCES.md` - Your tech preferences
-- `ASSETMANAGEMENT.md` - Your digital assets
-- `SECURITYSYSTEM.md` - Your security protocols
-
-### SYSTEM/ Directory (System Architecture)
-- `PAISYSTEMARCHITECTURE.md` - Core principles
-- `SKILLSYSTEM.md` - Skill configuration
-- `MEMORYSYSTEM.md` - Memory system
-- `THEHOOKSYSTEM.md` - Hook system
-- `THENOTIFICATIONSYSTEM.md` - Notifications
-- `THEDELEGATIONSYSTEM.md` - Delegation patterns
-- `AGENTS.md` - Agent system
-- `ACTIONS.md` - Action patterns
-- `PIPELINES.md` - Pipeline orchestration
-- `TOOLS.md` - CLI utilities
-- `CLIFIRSTARCHITECTURE.md` - CLI-First pattern
-- `THEFABRICSYSTEM.md` - Fabric patterns
-- `SCRAPINGREFERENCE.md` - Web scraping
-- `TERMINALTABS.md` - Terminal management
-- `DOCUMENTATIONINDEX.md` - This file
-
----
-
-## Quick Lookup
-
-**"How do I create a skill?"** → `SYSTEM/SKILLSYSTEM.md`
-**"What are my tech preferences?"** → `USER/TECHSTACKPREFERENCES.md`
-**"How does delegation work?"** → `SYSTEM/THEDELEGATIONSYSTEM.md`
-**"Where are my contacts?"** → `USER/CONTACTS.md`
-**"How do hooks work?"** → `SYSTEM/THEHOOKSYSTEM.md`
-**"What's the memory structure?"** → `SYSTEM/MEMORYSYSTEM.md`
+**See Also:**
+- SKILL.md > Documentation Index - Condensed table version

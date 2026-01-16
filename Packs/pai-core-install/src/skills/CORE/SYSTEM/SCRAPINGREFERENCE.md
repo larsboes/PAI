@@ -1,42 +1,17 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/SCRAPINGREFERENCE.md
-================================================================================
-
-PURPOSE:
-Web scraping and MCP system routing reference. Documents how to route scraping
-requests to appropriate providers (Bright Data, Apify, etc.).
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/SCRAPINGREFERENCE.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/SCRAPINGREFERENCE.md
-
-CUSTOMIZATION:
-- [ ] Configure your scraping providers
-- [ ] Set up API keys for Bright Data, Apify, etc.
-- [ ] Customize routing based on your needs
-
-RELATED FILES:
-- TOOLS.md - CLI utilities reference
-- PAISYSTEMARCHITECTURE.md - Core architecture
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 ---
 name: ScrapingReference
-description: Web scraping and MCP system routing details. Reference material for on-demand loading.
+description: Web scraping and MCP system routing details. Reference material extracted from SKILL.md for on-demand loading.
+created: 2025-12-17
+extracted_from: SKILL.md lines 993-1022
 ---
 
 # Web Scraping & MCP Systems Reference
 
-**Quick reference for web scraping capabilities and routing.**
+**Quick reference in SKILL.md** → For full details, see this file
 
 ---
 
-## Web Scraping & MCP Systems
+## 🌐 Web Scraping & MCP Systems
 
 ### Route Triggers
 - User says "use the MCP" or "use Bright Data" or "use Apify" → Use MCP Skill
@@ -49,12 +24,12 @@ description: Web scraping and MCP system routing details. Reference material for
 ### Web Scraping: Use MCP Skill
 
 **The MCP Skill is THE skill for web scraping and data extraction.**
-
-- Location: `${PAI_DIR}/skills/mcp/`
+- Location: ~/.claude/skills/mcp/
 - Handles: Bright Data, Apify, and future web scraping providers
 - Implementation: TypeScript wrappers that call APIs directly (not old MCP protocol tools)
 - **When user says "use the MCP" or "use Bright Data" or "use Apify"** → Use MCP Skill
 - Execute with: `bun run script.ts` using TypeScript imports
+- Example: `import { scrapeAsMarkdown } from '~/.claude/skills/mcp/Providers/brightdata/actors'`
 - 99% token savings by filtering data in TypeScript code BEFORE model context
 
 **Why TypeScript Wrappers (not old MCP protocol):**
@@ -65,53 +40,7 @@ description: Web scraping and MCP system routing details. Reference material for
 
 ---
 
-## Provider Configuration
-
-### Bright Data
-
-```bash
-# Environment variables
-BRIGHT_DATA_API_KEY=your_api_key_here
-```
-
-**Capabilities:**
-- Web Unlocking (bypass anti-bot)
-- SERP API (search results)
-- Data Collector (pre-built scrapers)
-- Scraping Browser (headless automation)
-
-### Apify
-
-```bash
-# Environment variables
-APIFY_API_TOKEN=your_api_token_here
-```
-
-**Capabilities:**
-- Actor marketplace (pre-built scrapers)
-- Custom actors (your own scrapers)
-- Social media scrapers (Instagram, Twitter, LinkedIn, etc.)
-- E-commerce scrapers (Amazon, eBay, etc.)
-- Business data (Google Maps, Yelp, etc.)
-
----
-
-## Usage Pattern
-
-```typescript
-// Import from MCP skill
-import { scrapeAsMarkdown } from '${PAI_DIR}/skills/mcp/Providers/brightdata/actors';
-
-// Scrape and filter in TypeScript
-const data = await scrapeAsMarkdown(url);
-const filtered = extractRelevantFields(data);
-
-// Only send filtered data to model context
-```
-
----
-
-## See Also
-
-- `${PAI_DIR}/skills/mcp/SKILL.md` - Complete MCP skill documentation
-- `${PAI_DIR}/skills/mcp/Providers/` - Bright Data and Apify integrations
+**See Also:**
+- SKILL.md > Web Scraping - Condensed trigger
+- skills/mcp/SKILL.md - Complete MCP skill documentation
+- skills/mcp/Providers/ - Bright Data and Apify integrations

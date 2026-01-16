@@ -21,7 +21,7 @@ models:
 
 # === THINKING MODES ===
 thinking:
-  ultrathink:
+  deep thinking:
     skill: BeCreative
     workflow: StandardCreativity
     effort_min: STANDARD
@@ -141,7 +141,7 @@ execution:
     type: iterative_loop
     model: sonnet
     effort_min: QUICK
-    icon: "loop"
+    icon: "🔄"
     keywords:
       - "iterate until"
       - "keep trying"
@@ -161,10 +161,10 @@ execution:
 # === AGENT COMPOSITION ===
 agent_composition:
   factory:
-    tool: AgentFactory
-    location: $PAI_DIR/skills/Agents/Tools/AgentFactory.ts
+    tool: ComposeAgent
+    location: ~/.claude/skills/Agents/Tools/ComposeAgent.ts
     effort_min: STANDARD
-  traits_file: $PAI_DIR/skills/Agents/Data/Traits.yaml
+  traits_file: ~/.claude/skills/Agents/Data/Traits.yaml
   use_when: "Need custom agent with specific trait combination"
 
 # === PARALLEL EXECUTION ===
@@ -209,7 +209,7 @@ effort_unlocks:
     capabilities:
       - models.haiku
       - models.sonnet
-      - thinking.ultrathink
+      - thinking.deep thinking
       - analysis.first_principles
       - analysis.science
       - research.* # single researcher

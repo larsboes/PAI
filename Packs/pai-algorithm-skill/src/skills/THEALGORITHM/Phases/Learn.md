@@ -122,7 +122,7 @@ Re-run from that phase
 # Archive the ISC (saves to archive, clears current)
 bun run ISCManager.ts clear
 
-# This creates: $PAI_DIR/MEMORY/Work/archive-{timestamp}.json
+# This creates: ~/.claude/MEMORY/Work/archive-{timestamp}.json
 ```
 
 ## Example Output

@@ -27,7 +27,7 @@ PHASE A: RESEARCH (first - parallel)
 └─ 🔬 research.codex → Task(subagent_type: CodexResearcher)
 
 PHASE B: THINKING (synthesis - sequential)
-├─ 💡 thinking.ultrathink → Skill(BeCreative)
+├─ 💡 thinking.deep thinking → Skill(BeCreative)
 ├─ 💡 thinking.tree_of_thought → Skill(BeCreative, workflow: TreeOfThoughts)
 ├─ 🔍 analysis.first_principles → Skill(FirstPrinciples)
 ├─ 🔍 analysis.science → Skill(Science)
@@ -89,7 +89,7 @@ For ISC rows assigned `execution.ralph_loop` - persistent iteration until succes
 
 ```bash
 # Start a Ralph loop for an ISC row
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts \
+bun run ~/.claude/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts \
   --prompt "Fix the auth bug until all tests pass" \
   --completion-promise "All tests pass" \
   --max-iterations 15 \
@@ -120,10 +120,10 @@ bun run $PAI_DIR/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts \
 **Monitoring Ralph loops:**
 ```bash
 # Check status
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts --status
+bun run ~/.claude/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts --status
 
 # Cancel loop
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts --cancel
+bun run ~/.claude/skills/THEALGORITHM/Tools/RalphLoopExecutor.ts --cancel
 ```
 
 **Keywords that trigger Ralph Loop assignment:**
@@ -180,7 +180,7 @@ bun run ISCManager.ts update --row 1 --status ADJUSTED --reason "Used REST inste
 |---|----------------------|------------|--------|
 | 1 | Research good patterns | 🔬 perplexity× | ⏳ PENDING |
 | 2 | Research competitor impl | 🔬 gemini× | ⏳ PENDING |
-| 3 | Synthesize findings | 💡 ultrathink | ⏳ PENDING |
+| 3 | Synthesize findings | 💡 deep thinking | ⏳ PENDING |
 | 4 | Design component | 🤖 designer | ⏳ PENDING |
 | 5 | Implement component | 🤖 engineer× | ⏳ PENDING |
 | 6 | Implement styling | 🤖 engineer× | ⏳ PENDING |
@@ -228,7 +228,7 @@ Skill({ skill: "Browser", args: "Verify component renders correctly" })
 |---|----------------------|------------|--------|
 | 1 | Research good patterns | 🔬 perplexity× | ✅ DONE |
 | 2 | Research competitor impl | 🔬 gemini× | ✅ DONE |
-| 3 | Synthesize findings | 💡 ultrathink | ✅ DONE |
+| 3 | Synthesize findings | 💡 deep thinking | ✅ DONE |
 | 4 | Design component | 🤖 designer | ✅ DONE |
 | 5 | Implement component | 🤖 engineer× | ✅ DONE |
 | 6 | Implement styling | 🤖 engineer× | ✅ DONE |

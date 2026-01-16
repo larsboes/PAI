@@ -23,7 +23,7 @@
 
 <!-- Content Badges -->
 [![Get Started](https://img.shields.io/badge/🚀_Get_Started-Quick_Install-22C55E?style=flat)](#-quick-start)
-[![Packs](https://img.shields.io/badge/📦_Packs-10-8B5CF6?style=flat)](Packs/)
+[![Packs](https://img.shields.io/badge/📦_Packs-23-8B5CF6?style=flat)](Packs/)
 [![Bundles](https://img.shields.io/badge/🎁_Bundles-1-F97316?style=flat)](Bundles/)
 [![Contributors](https://img.shields.io/github/contributors/danielmiessler/PAI?style=flat&logo=githubsponsors&logoColor=white&label=Contributors&color=EC4899)](https://github.com/danielmiessler/PAI/graphs/contributors)
 
@@ -80,9 +80,9 @@ This is open-source. This is free. This is for everyone.
 > [!TIP]
 > ## 🤖 This README Works Great with AI Assistants
 >
-> **Try AI-assisted installation:** Give this URL to your AI assistant and say *"Walk me through installing PAI and customize it for me."*
+> **Try AI-assisted installation:** Give this URL to your DA assistant and say *"Walk me through installing PAI and customize it for me."*
 >
-> The documentation is designed for both humans and AI. Read on to understand the system, or let your AI guide you through setup—whichever works best for you.
+> The documentation is designed for both humans and AI. Read on to understand the system, or let your DA guide you through setup—whichever works best for you.
 
 ---
 
@@ -127,7 +127,7 @@ More capable, but it still doesn't know *you*—your goals, your preferences, yo
 
 ### Level 3: PAI (Personal AI Infrastructure)
 
-Now your AI **learns and improves**:
+Now your DA **learns and improves**:
 - **Captures every signal** — Ratings, sentiment, verification outcomes
 - **Learns from mistakes** — Failures get analyzed and fixed
 - **Gets better over time** — Success patterns get reinforced
@@ -426,7 +426,7 @@ TELOS is PAI's framework for understanding *you*—your goals, beliefs, strategi
 
 **Why TELOS Exists:**
 
-Generic AI assistants don't know what you're trying to accomplish. They treat every request as isolated. TELOS gives your AI the context to:
+Generic AI assistants don't know what you're trying to accomplish. They treat every request as isolated. TELOS gives your DA the context to:
 - Prioritize based on your actual goals
 - Suggest based on your strategies
 - Warn when something conflicts with your beliefs
@@ -443,7 +443,7 @@ PAI doesn't force you into a structure. Everything is customizable at the level 
 
 | Level | What You Change | Example |
 |-------|-----------------|---------|
-| **Identity** | Your AI's name, voice, personality | `DA="Kai"`, voice settings |
+| **Identity** | Your DA's name, voice, personality | `DA="Kai"`, voice settings |
 | **Preferences** | Tech stack, tool choices | TypeScript over Python, bun over npm |
 | **Workflows** | How skills execute | Custom research flow, different commit style |
 | **Skills** | What capabilities exist | Add new skills, modify existing ones |
@@ -463,7 +463,7 @@ PAI capabilities are distributed as **Packs**—self-contained, AI-installable m
 - **Packs** are individual capabilities (e.g., History System, Voice Notifications, Browser Automation)
 - **Bundles** are curated collections of packs that work together (e.g., the PAI Bundle)
 
-Each pack includes everything needed: code, workflows, installation instructions, and verification tests. Your AI reads the pack and installs it into your system—no manual copying required.
+Each pack includes everything needed: code, workflows, installation instructions, and verification tests. Your DA reads the pack and installs it into your system—no manual copying required.
 
 **[Browse Available Packs →](#-available-packs)** · **[Browse Bundles →](#-available-bundles)**
 
@@ -471,9 +471,9 @@ Each pack includes everything needed: code, workflows, installation instructions
 
 ## How AI Installation Works
 
-> **See [🤖 This README Is For Your AI Assistant](#-this-readme-is-for-your-ai-assistant)** for the quick start. This section explains the technical details.
+> **See [🤖 This README Is For Your DA](#-this-readme-is-for-your-da)** for the quick start. This section explains the technical details.
 
-Your system is unique—existing skills, different directory structures, conflicting configurations, missing prerequisites. A static install script can't handle this. But your AI can:
+Your system is unique—existing skills, different directory structures, conflicting configurations, missing prerequisites. A static install script can't handle this. But your DA can:
 
 1. **Analyze your current state** — What's already installed? What conflicts exist?
 2. **Ask smart questions** — Only ask about things that matter for YOUR setup
@@ -494,13 +494,13 @@ Every pack's `INSTALL.md` follows a wizard-style flow:
 
 ### How to Install Any Pack
 
-Give the pack directory to your AI and say:
+Give the pack directory to your DA and say:
 
 ```
 Install this pack into my system using PAI_DIR="~/.claude"
 ```
 
-Your AI will:
+Your DA will:
 - Read `README.md` for context on what the pack does
 - Follow `INSTALL.md` with the wizard flow
 - Copy files from `src/` to appropriate locations
@@ -557,7 +557,7 @@ The user runs `bun run Bundles/Official/install.ts`. This script **does not** in
 **Crucially, this phase does not install the hooks or skills.** It prepares the environment for the AI to do it.
 
 **Phase 2: Pack Installation (AI-Driven)**
-The user is instructed to "give each pack file to your AI". This is where the actual installation happens.
+The user is instructed to "give each pack file to your DA". This is where the actual installation happens.
 1.  **User Action**: The user pastes the content of a pack file (e.g., `Packs/pai-hook-system.md`) into Claude Code.
 2.  **AI Execution**: The pack file contains natural language instructions and code blocks. The AI reads these instructions and:
     *   **Writes Files**: Creates the TypeScript hook files (e.g., `hooks/security-validator.ts`) and skill definitions.
@@ -697,18 +697,18 @@ bun run install.ts
 
 ### Option 2: AI-Assisted Pack Installation
 
-⏱️ **~5-10 minutes per pack** — Install individual packs by giving them to your AI:
+⏱️ **~5-10 minutes per pack** — Install individual packs by giving them to your DA:
 
 1. **Browse packs** - Find a pack you want in [Packs/](Packs/)
-2. **Give it to your AI** - Provide the entire pack markdown file
-3. **Ask your AI to install it:**
+2. **Give it to your DA** - Provide the entire pack markdown file
+3. **Ask your DA to install it:**
 
 ```
 Install this pack into my system. Use PAI_DIR="~/.config/pai"
 and DA="MyAI". Set up the hooks, save the code, and verify it works.
 ```
 
-Your AI will:
+Your DA will:
 - Check for required dependencies
 - Save code to appropriate directories
 - Set up routing/hooks (if applicable)
@@ -804,7 +804,7 @@ nano $PAI_DIR/.env
 ### What Goes in .env
 
 **Core variables:**
-- `DA` - Your AI assistant's name
+- `DA` - Your DA's name
 - `TIME_ZONE` - Your timezone
 
 **Pack-specific keys:** Each pack documents its required API keys in its installation section. Add them to `.env` as you install packs.
@@ -825,7 +825,7 @@ PAI offers **two types of packs**, each with its own structure and purpose:
 
 ### Pack Type 1: Skills
 
-**Skills** are action-oriented capabilities that your AI can invoke - things like generating visual content, conducting research, or processing data.
+**Skills** are action-oriented capabilities that your DA can invoke - things like generating visual content, conducting research, or processing data.
 
 **Examples:** Art (visual content generation), Research (multi-source investigation), OSINT (intelligence gathering)
 
@@ -882,13 +882,13 @@ pack:
     api_keys: [REPLICATE_API_TOKEN]
 ```
 
-**🤖 Assistant Install Prompt** - Every pack starts with instructions for AI assistants to autonomously install it. Your AI reads the pack, understands what it does, verifies dependencies, sets up the code, and validates it works - all without manual intervention.
+**🤖 Assistant Install Prompt** - Every pack starts with instructions for AI assistants to autonomously install it. Your DA reads the pack, understands what it does, verifies dependencies, sets up the code, and validates it works - all without manual intervention.
 
 ### Why Single Files?
 
 **Portability** - One file contains everything. Email it, share it, version control it.
 
-**AI-Friendly** - Your AI can read the entire context at once. No navigation, no missing pieces.
+**AI-Friendly** - Your DA can read the entire context at once. No navigation, no missing pieces.
 
 **No Dependencies** - Packs are self-contained. They may *call* external tools, but the pack itself is complete.
 
@@ -978,7 +978,7 @@ The code itself is platform-independent (TypeScript, Python, Bash). Integration 
 
 ## 💡 Why Packs?
 
-**Text is the interface.** Everything your AI needs to implement a capability should be in one readable file.
+**Text is the interface.** Everything your DA needs to implement a capability should be in one readable file.
 
 **Composability over monoliths.** Mix and match packs. Build your own stack.
 
@@ -1073,9 +1073,9 @@ PAI isn't a replacement for Claude Code—it's what you build *on top of it*. Cl
 
 PAI provides the scaffolding to make that generic AI *yours*:
 
-- **Persistent memory** — Your AI remembers past sessions, decisions, and learnings
+- **Persistent memory** — Your DA remembers past sessions, decisions, and learnings
 - **Custom skills** — Specialized capabilities for the things you do most (research, content creation, security analysis, etc.)
-- **Your context** — Goals, contacts, preferences, definitions—all available to your AI without re-explaining
+- **Your context** — Goals, contacts, preferences, definitions—all available to your DA without re-explaining
 - **Intelligent routing** — Say "research this" and the right workflow triggers automatically
 - **Self-improvement** — The system can modify itself based on what it learns
 
@@ -1096,7 +1096,7 @@ The best way to start: pick ONE pack that solves a problem you have today. Insta
 
 ### What's the difference between PAI and Anthropic's plugin system?
 
-Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your AI can use. It's powerful, and you're free to use plugins as part of PAI as well.
+Anthropic's plugin system (Skills, slash commands, MCP servers) provides discrete functionality—individual tools your DA can use. It's powerful, and you're free to use plugins as part of PAI as well.
 
 The difference is scope and integration:
 
@@ -1109,7 +1109,7 @@ PAI is:
 - **Dynamically adaptive** — Adjusts to your existing environment and workflows
 - **Context-aware** — Understands what you're trying to accomplish in your life and work
 - **Customized to you** — Picks and chooses functionality from different sources
-- **Self-managing** — Your AI installs, configures, and maintains the system itself
+- **Self-managing** — Your DA installs, configures, and maintains the system itself
 
 The plugin system offers building blocks. PAI offers a blueprint for a mansion—plus the AI architect to build it.
 
@@ -1129,7 +1129,7 @@ The code is TypeScript, Python, and Bash. The concepts are universal. The integr
 
 1. **Solve a real problem** — Packs should come from actual use, not theoretical ideas
 2. **Use the template** — Download [PAIPackTemplate.md](Tools/PAIPackTemplate.md)
-3. **Test it** — Have your AI install it in a fresh environment
+3. **Test it** — Have your DA install it in a fresh environment
 4. **Submit a PR** — Include examples and evidence it works
 
 See [Contributing](#-contributing) for full details.
@@ -1138,7 +1138,7 @@ See [Contributing](#-contributing) for full details.
 
 [Fabric](https://github.com/danielmiessler/fabric) is a collection of AI prompts (patterns) for specific tasks—extract wisdom, analyze arguments, summarize content. It's focused on *what to ask AI*.
 
-PAI is infrastructure for *how your AI operates*—memory, skills, routing, context, self-improvement. They're complementary:
+PAI is infrastructure for *how your DA operates*—memory, skills, routing, context, self-improvement. They're complementary:
 
 - **Fabric** = A library of expert prompts
 - **PAI** = The system that knows when to use which prompt, remembers your preferences, and learns from results
@@ -1150,9 +1150,9 @@ Many PAI users integrate Fabric patterns into their skills. They work great toge
 The modular design makes recovery easy:
 
 - **Packs are isolated** — Breaking one doesn't affect others
-- **History is preserved** — Your AI's memory survives mistakes
+- **History is preserved** — Your DA's memory survives mistakes
 - **Git-backed** — Version control everything, roll back when needed
-- **AI can fix it** — Your AI helped build it, it can help repair it
+- **DA can fix it** — Your DA helped build it, it can help repair it
 
 Start small, experiment, iterate. The system is designed for safe exploration.
 
@@ -1203,7 +1203,7 @@ Instead of "here's my whole system," it's "here are battle-tested capabilities y
 - **Self-contained** - Works without understanding the rest of the system
 - **Independently installable** - Add what you need, skip what you don't
 - **Platform-agnostic** - Works with Claude Code, OpenCode, or custom systems
-- **AI-installable** - Your AI can read the pack and set it up for you
+- **AI-installable** - Your DA can read the pack and set it up for you
 
 The packs are extracted from Kai—real capabilities that have been running in production. They're not theoretical examples. They're the actual tools and systems I use daily, packaged for others to adopt.
 
@@ -1213,7 +1213,7 @@ The packs are extracted from Kai—real capabilities that have been running in p
 
 **PAI Packs** are modular upgrade packages for AI agent systems. Think of them like learning kung-fu in The Matrix—each pack is a complete, tested capability that you can download into your system.
 
-**Each pack provides** everything your AI needs to implement a specific capability:
+**Each pack provides** everything your DA needs to implement a specific capability:
 
 - **The problem** being solved
 - **The solution** and how it works
@@ -1225,7 +1225,7 @@ The packs are extracted from Kai—real capabilities that have been running in p
 - **Testing procedures**
 - **Troubleshooting guides**
 
-**The key insight:** Give your AI the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
+**The key insight:** Give your DA the complete context it needs, and it can integrate the pack into *your* system, whether that's Claude Code, OpenCode, Gemini Code, GPT-Codex, or a homebrew setup.
 
 ---
 
@@ -1378,7 +1378,7 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 
 **Platform-Agnostic Configuration**
 - Clear separation: `settings.json` for identity/paths, `.env` for API keys
-- `DA` (Digital Assistant name) — your AI's identity
+- `DA` (Digital Assistant name) — your DA's identity
 - `PAI_DIR` — root directory for all configuration
 - `TIME_ZONE` — configurable timezone for timestamps
 

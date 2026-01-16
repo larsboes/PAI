@@ -142,7 +142,7 @@ When fully installed, the PAI bundle gives you:
 
 ### How to Install Packs
 
-Give each pack directory to your AI and ask it to install:
+Give each pack directory to your DA and ask it to install:
 
 ```
 "Install the pai-hook-system pack from PAI/Packs/pai-hook-system/"

@@ -1,146 +1,191 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/TERMINALTABS.md
-================================================================================
-
-PURPOSE:
-Terminal tab title system documentation. Automatically updates terminal tab
-titles with task summaries for visual feedback.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/TERMINALTABS.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/TERMINALTABS.md
-
-CUSTOMIZATION:
-- [ ] Configure stop-hook.ts for your terminal
-- [ ] Adjust word count for summaries
-- [ ] Customize prefix/suffix patterns
-
-RELATED FILES:
-- THEHOOKSYSTEM.md - Hook configuration
-- THENOTIFICATIONSYSTEM.md - Notification channels
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
-# Terminal Tab Title System
+# Terminal Tab State System
 
 ## Overview
 
-The PAI system automatically updates your terminal tab title with a 4-word summary of what was done after each task completion. This provides instant visual feedback in your terminal tabs, making it easy to see what each Claude session accomplished.
+The PAI system uses Kitty terminal tab colors and title suffixes to provide instant visual feedback on session state. At a glance, you can see which tabs are working, completed, waiting for input, or have errors.
+
+## State System
+
+| State | Icon | Format | Suffix | Inactive Background | When |
+|-------|------|--------|--------|---------------------|------|
+| **Inference** | 🧠 | Normal | `…` | Purple `#1E0A3C` | AI thinking (Haiku/Sonnet inference) |
+| **Working** | ⚙️ | *Italic* | `…` | Orange `#804000` | Processing your request |
+| **Completed** | ✓ | Normal | (none) | Green `#022800` | Task finished successfully |
+| **Awaiting Input** | ❓ | **BOLD CAPS** | (none) | Teal `#085050` | AskUserQuestion tool used |
+| **Error** | ⚠ | Normal | `!` | Orange `#804000` | Error detected in response |
+
+**Text Colors:**
+- Active tab: White `#FFFFFF`
+- Inactive tab: Gray `#A0A0A0`
+
+**Active Tab Background:** Always Dark Blue `#002B80` (regardless of state)
+
+**Key Design:** State colors only affect **inactive** tabs. The active tab always stays dark blue so you can quickly identify which tab you're in. When you switch away from a tab, you see its state color.
 
 ## How It Works
 
-The `stop-hook.ts` hook runs after every task completion and:
+### Two-Hook Architecture
 
-1. **Extracts the task summary** from the COMPLETED line in responses
-2. **Generates a 4-word title** that summarizes what was accomplished
-3. **Updates your terminal tab** using ANSI escape sequences
+**1. UserPromptSubmit (Start of Work)**
+- Hook: `UpdateTabTitle.hook.ts`
+- Sets title with `…` suffix
+- Sets background to orange (working)
+- Announces via voice server
 
-## Features
+**2. Stop (End of Work)**
+- Hook: `VoiceAndHistoryCapture.hook.ts`
+- Detects final state (completed, awaiting input, error)
+- Sets appropriate suffix and color
+- Voice notification with completion message
 
-### 4-Word Summary Format
+### State Detection Logic
 
-The system creates meaningful 4-word summaries by:
-- Using past-tense action verbs (Created, Updated, Fixed, etc.)
-- Extracting key nouns from the task
-- Prioritizing words from the COMPLETED line when available
-- Falling back to the user's original query if needed
+```typescript
+function detectResponseState(lastMessage, transcriptPath): ResponseState {
+  // Check for AskUserQuestion tool → 'awaitingInput'
+  // Check for error patterns in STATUS section → 'error'
+  // Default → 'completed'
+}
+```
 
-### Examples
+**Awaiting Input Detection:**
+- Scans last 20 transcript entries for `AskUserQuestion` tool use
 
-| User Query | Tab Title |
-|------------|-----------|
-| "Update the README documentation" | Updated Readme Documentation Done |
-| "Fix the stop-hook" | Fixed Stop Hook Successfully |
-| "Send email to user" | Sent Email User Done |
-| "Research AI trends" | Researched AI Trends Complete |
+**Error Detection:**
+- Checks `📊 STATUS:` section for: error, failed, broken, problem, issue
+- Checks for error keywords + error emoji combination
+
+## Examples
+
+| Scenario | Tab Appearance | Notes |
+|----------|----------------|-------|
+| AI inference running | `🧠 Analyzing…` (purple when inactive) | Brain icon shows AI is thinking |
+| Processing request | `⚙️ 𝘍𝘪𝘹𝘪𝘯𝘨 𝘣𝘶𝘨…` (orange when inactive) | Gear icon + italic text |
+| Task completed | `✓Fixing bug` (green when inactive) | Checkmark, normal text |
+| Need clarification | `❓𝗤𝗨𝗘𝗦𝗧𝗜𝗢𝗡` (teal when inactive) | Bold ALL CAPS |
+| Error occurred | `⚠Fixing bug!` (orange when inactive) | Warning icon + exclamation |
+
+**Note:** Active tab always shows dark blue (#002B80) background. State colors only visible when tab is inactive.
+
+### Text Formatting
+
+- **Working state:** Uses Unicode Mathematical Italic (`𝘈𝘉𝘊...`) for italic appearance
+- **Question state:** Uses Unicode Mathematical Bold (`𝗔𝗕𝗖...`) in ALL CAPS
 
 ## Terminal Compatibility
 
-The tab title system works with terminals that support OSC (Operating System Command) sequences:
+Requires **Kitty terminal** with remote control enabled:
 
-- **Kitty** - Full support
-- **iTerm2** - Full support
-- **Terminal.app** - Full support
-- **Alacritty** - Full support
-- **VS Code Terminal** - Full support
+```bash
+# kitty.conf
+allow_remote_control yes
+listen_on unix:/tmp/kitty
+```
 
 ## Implementation Details
 
-### Escape Sequences Used
+### Kitty Commands Used
 
 ```bash
-# OSC 0 - Sets icon and window title
-printf '\033]0;Title Here\007'
+# Set tab title
+kitty @ set-tab-title "Title here"
 
-# OSC 2 - Sets window title
-printf '\033]2;Title Here\007'
-
-# OSC 30 - Kitty-specific tab title
-printf '\033]30;Title Here\007'
+# Set tab colors
+kitten @ set-tab-color --self \
+  active_bg=#1244B3 active_fg=#FFFFFF \
+  inactive_bg=#022800 inactive_fg=#A0A0A0
 ```
 
-### Hook Location
+### Hook Files
 
-The terminal tab functionality is implemented in:
+| File | Event | Purpose |
+|------|-------|---------|
+| `UpdateTabTitle.hook.ts` | UserPromptSubmit | Set working state (italic text) |
+| `SetQuestionTab.hook.ts` | PreToolUse (AskUserQuestion) | Set question state (bold caps) |
+| `VoiceAndHistoryCapture.hook.ts` | Stop | Set final state |
+
+### Color Constants
+
+```typescript
+// In UpdateTabTitle.hook.ts
+const TAB_WORKING_BG = '#804000';      // Dark orange (inactive tabs only)
+const TAB_INFERENCE_BG = '#1E0A3C';    // Dark purple (AI thinking)
+const ACTIVE_TAB_BG = '#002B80';       // Dark blue (always for active tab)
+const ACTIVE_TEXT = '#FFFFFF';          // White
+const INACTIVE_TEXT = '#A0A0A0';        // Gray
+
+// In SetQuestionTab.hook.ts
+const TAB_AWAITING_BG = '#085050';     // Dark teal (waiting for input)
+
+// In handlers/tab-state.ts
+const TAB_COLORS = {
+  awaitingInput: '#0D6969', // Dark teal
+  completed: '#022800',     // Dark green
+  error: '#804000',         // Dark orange
+};
+
+// Tab icons and formatting
+const TAB_ICONS = {
+  inference: '🧠',   // Brain - AI thinking
+  working: '⚙️',     // Gear - processing (italic text)
+  completed: '✓',    // Checkmark
+  awaiting: '❓',    // Question (bold caps text)
+  error: '⚠',       // Warning
+};
+
+const TAB_SUFFIXES = {
+  inference: '…',
+  working: '…',
+  awaitingInput: '',  // No suffix, uses bold QUESTION
+  completed: '',
+  error: '!',
+};
 ```
-${PAI_DIR}/hooks/stop-hook.ts
-```
 
-### Key Functions
-
-1. **generateTabTitle(prompt, completedLine)** - Creates the 4-word summary
-2. **setKittyTabTitle(title)** - Sends escape sequences to update the tab
-3. **Hook execution** - Runs automatically after every task
+**Key Point:** `active_bg` is always set to `#002B80` (dark blue). State colors are applied to `inactive_bg` only.
 
 ## Debugging
 
-If tab titles aren't updating:
+### Check Current Tab Colors
 
-1. **Check hook is executable:**
-   ```bash
-   ls -la ${PAI_DIR}/hooks/stop-hook.ts
-   # Should show: -rwxr-xr-x
-   ```
+```bash
+kitty @ ls | jq '.[].tabs[] | {title, id}'
+```
 
-2. **Verify Claude Code settings:**
-   - Ensure stop-hook is configured in your Claude Code settings
-   - Path should be: `${PAI_DIR}/hooks/stop-hook.ts`
+### Manually Reset All Tabs to Completed
 
-3. **Test manually:**
-   ```bash
-   printf '\033]0;Test Title\007' >&2
-   ```
+```bash
+kitten @ set-tab-color --match all \
+  active_bg=#002B80 active_fg=#FFFFFF \
+  inactive_bg=#022800 inactive_fg=#A0A0A0
+```
 
-4. **Check stderr output:**
-   The hook logs to stderr with:
-   - 🏷️ Tab title changes
-   - 📝 User queries processed
-   - ✅ Completed text extracted
+### Test State Colors
 
-## Customization
+```bash
+# Inference (purple) - inactive only
+kitten @ set-tab-color --self active_bg=#002B80 inactive_bg=#1E0A3C
 
-To modify the tab title behavior, edit `${PAI_DIR}/hooks/stop-hook.ts`:
+# Working (orange) - inactive only
+kitten @ set-tab-color --self active_bg=#002B80 inactive_bg=#804000
 
-- Change word count (currently 4 words)
-- Modify verb tense (currently past tense)
-- Add custom prefixes or suffixes
-- Filter different stop words
+# Completed (green) - inactive only
+kitten @ set-tab-color --self active_bg=#002B80 inactive_bg=#022800
+
+# Awaiting input (teal) - inactive only
+kitten @ set-tab-color --self active_bg=#002B80 inactive_bg=#085050
+```
+
+**Note:** Always set `active_bg=#002B80` to maintain consistent dark blue for active tabs.
 
 ## Benefits
 
-- **Visual Task Tracking** - See what each tab accomplished at a glance
-- **Multi-Session Management** - Easily identify different Claude sessions
-- **Task History** - Tab titles persist as a record of completed work
-- **No Manual Updates** - Fully automatic, runs on every task completion
+- **Visual Task Tracking** - See state at a glance without reading titles
+- **Multi-Session Management** - Quickly identify which tabs need attention
+- **Color-Coded Priority** - Teal tabs need input, green tabs are done
+- **Automatic** - No manual updates needed, hooks handle everything
 
-## Integration with Voice System
+---
 
-The terminal tab system works alongside the voice notification system:
-- Both extract information from the COMPLETED line
-- Tab gets a 4-word visual summary
-- Voice speaks the completion message
-- Both provide immediate feedback through different channels
+**Last Updated:** 2026-01-13
+**Status:** Production - Implemented via hook system

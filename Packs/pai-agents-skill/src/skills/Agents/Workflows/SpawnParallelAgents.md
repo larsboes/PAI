@@ -4,22 +4,13 @@
 
 ## When to Use
 
-User says:
+{principal.name} says:
 - "Launch 5 agents to research these companies"
 - "Spin up agents to process this list"
 - "Create agents to analyze these files" (no "custom")
 - "Use interns to check these URLs"
 
 **KEY: No "custom" keyword = generic Intern agents (same voice, fast parallel execution)**
-
-**CRITICAL DISTINCTION:**
-
-| User Says | subagent_type | Voice |
-|-----------|---------------|-------|
-| "**custom** agents" | `general-purpose` | Custom from AgentFactory |
-| "agents" (no custom) | `Intern` | Same for all |
-
-If user says "custom" → use CreateCustomAgent workflow, NOT this one!
 
 ## The Workflow
 
@@ -127,9 +118,9 @@ Provide a brief assessment and any issues found.`,
 
 ## Example: Research 5 Companies
 
-**User:** "Launch agents to research these 5 AI security companies"
+**{principal.name}:** "Launch agents to research these 5 AI security companies"
 
-**Execution:**
+**{daidentity.name}'s Execution:**
 ```typescript
 // Single message with 5 Task calls:
 Task({
@@ -144,7 +135,24 @@ Task({
   subagent_type: "Intern",
   model: "sonnet"
 })
-// ... more agents
+Task({
+  description: "Research Cipher AI Defense",
+  prompt: "Research Cipher AI Defense: products, market, partnerships, tech stack",
+  subagent_type: "Intern",
+  model: "sonnet"
+})
+Task({
+  description: "Research Delta Threat Intel",
+  prompt: "Research Delta Threat Intelligence: products, market, partnerships, tech stack",
+  subagent_type: "Intern",
+  model: "sonnet"
+})
+Task({
+  description: "Research Echo AI Protection",
+  prompt: "Research Echo AI Protection Systems: products, market, partnerships, tech stack",
+  subagent_type: "Intern",
+  model: "sonnet"
+})
 
 // After results return, spotcheck:
 Task({
@@ -165,17 +173,65 @@ Task({
 **Action:** Create one agent per item, identical task structure
 **Model:** `haiku` for simple tasks, `sonnet` for analysis
 
+```typescript
+const items = ["Item1", "Item2", "Item3", "Item4", "Item5"];
+
+// Single message with all agents:
+items.forEach(item => {
+  Task({
+    description: `Process ${item}`,
+    prompt: `Analyze ${item} for: [criteria]`,
+    subagent_type: "Intern",
+    model: "haiku"
+  });
+});
+```
+
 ### Pattern 2: Multi-File Analysis
 
 **Input:** Multiple files to analyze
 **Action:** One agent per file, same analysis criteria
 **Model:** `sonnet` for code analysis, `haiku` for simple checks
 
+```typescript
+const files = ["src/auth.ts", "src/db.ts", "src/api.ts"];
+
+// Single message:
+files.forEach(file => {
+  Task({
+    description: `Analyze ${file}`,
+    prompt: `Review ${file} for security issues, focusing on: [checklist]`,
+    subagent_type: "Intern",
+    model: "sonnet"
+  });
+});
+```
+
 ### Pattern 3: Data Point Investigation
 
 **Input:** Multiple data points/questions
 **Action:** One agent per question, independent research
 **Model:** `sonnet` for research, `haiku` for fact-checking
+
+```typescript
+const questions = [
+  "What is OpenAI's current revenue?",
+  "How many employees does Anthropic have?",
+  "What's Google's AI chip roadmap?",
+  "When is GPT-5 releasing?",
+  "What's the latest on AI regulation in EU?"
+];
+
+// Single message:
+questions.forEach(q => {
+  Task({
+    description: `Research: ${q}`,
+    prompt: `Find reliable answer to: ${q}. Include sources.`,
+    subagent_type: "Intern",
+    model: "haiku"
+  });
+});
+```
 
 ## Spotcheck Pattern (Mandatory)
 
@@ -224,6 +280,23 @@ Task({ ... })  // Agent 3
 // All run simultaneously
 ```
 
+**❌ WRONG: Using ComposeAgent for generic agents**
+```bash
+# Overkill for simple parallel work
+bun run ComposeAgent.ts --traits "research,analytical"
+```
+
+**✅ RIGHT: Direct Intern launch**
+```typescript
+// Simple and fast
+Task({
+  description: "Research X",
+  prompt: "Research X and report findings",
+  subagent_type: "Intern",
+  model: "haiku"
+})
+```
+
 **❌ WRONG: Skipping spotcheck**
 ```typescript
 // Launch agents, get results, done
@@ -242,13 +315,27 @@ Task({ ... })  // Agent 3
 ```typescript
 // Each agent uses opus = slow + expensive
 Task({ ..., model: "opus" })
+Task({ ..., model: "opus" })
+Task({ ..., model: "opus" })
 ```
 
 **✅ RIGHT: Use haiku for grunt work**
 ```typescript
 // 10-20x faster, sufficient for simple tasks
 Task({ ..., model: "haiku" })
+Task({ ..., model: "haiku" })
+Task({ ..., model: "haiku" })
 ```
+
+## Voice Output
+
+All generic Intern agents use the same voice:
+- **Dev Patel** (d3MFdIuCfbAIwiu7jC4a)
+- High-energy genius generalist
+- 270 wpm speaking rate
+- Enthusiastic and eager
+
+This is intentional - for parallel grunt work, we don't need personality diversity. That's what custom agents are for.
 
 ## When to Use Custom Agents Instead
 
@@ -268,3 +355,9 @@ Use **SpawnParallelAgents workflow** when:
 
 - **CreateCustomAgent** - For agents with unique personalities/voices
 - **ListTraits** - Show available traits for custom agents
+
+## References
+
+- Agent personalities: `~/.claude/skills/Agents/AgentPersonalities.md`
+- Intern agent definition: Line 277-287 in AgentPersonalities.md
+- Delegation patterns: `~/.claude/skills/CORE/Workflows/Delegation.md`

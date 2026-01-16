@@ -1,46 +1,21 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/THEFABRICSYSTEM.md
-================================================================================
-
-PURPOSE:
-Native Fabric patterns execution reference. Documents how to use the 248+
-Fabric patterns for content analysis, extraction, and transformation.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/THEFABRICSYSTEM.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/THEFABRICSYSTEM.md
-
-CUSTOMIZATION:
-- [ ] Update patterns with: fabric -U
-- [ ] Add custom patterns to Patterns/ directory
-- [ ] Configure pattern aliases
-
-RELATED FILES:
-- TOOLS.md - CLI utilities reference
-- PAISYSTEMARCHITECTURE.md - Core architecture
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 ---
 name: FabricReference
-description: Native Fabric patterns execution details and CLI usage. Reference material for on-demand loading.
+description: Native Fabric patterns execution details and CLI usage. Reference material extracted from SKILL.md for on-demand loading.
+created: 2025-12-17
+extracted_from: SKILL.md lines 950-991
 ---
 
 # Native Fabric Patterns Reference
 
-**Quick reference for Fabric pattern execution.**
+**Quick reference in SKILL.md** → For full details, see this file
 
 ---
 
-## Native Fabric Patterns (Always Active)
+## 🧵 Native Fabric Patterns (Always Active)
 
-**Location:** `${PAI_DIR}/skills/CORE/Tools/fabric/Patterns/`
+**Location:** `~/.claude/skills/CORE/Tools/fabric/Patterns/`
 
-PAI maintains 248+ Fabric patterns locally for native execution—no CLI spawning needed.
+PAI maintains 248 Fabric patterns locally for native execution—no CLI spawning needed.
 
 ### Route Triggers
 - "use extract_wisdom" / "run extract_wisdom" → Native pattern execution
@@ -72,65 +47,12 @@ Only use `fabric` command for:
 ### Updating Patterns
 
 ```bash
-${PAI_DIR}/skills/CORE/Tools/fabric/update-patterns.sh
-```
-
-Or directly:
-
-```bash
-fabric -U
+~/.claude/skills/CORE/Tools/fabric/update-patterns.sh
 ```
 
 ---
 
-## Popular Patterns
-
-| Pattern | Purpose |
-|---------|---------|
-| `extract_wisdom` | Extract key insights from content |
-| `summarize` | Create concise summary |
-| `analyze_claims` | Fact-check claims |
-| `create_summary` | Structured summary with sections |
-| `improve_writing` | Enhance prose quality |
-| `explain_code` | Explain code functionality |
-| `create_mermaid_diagram` | Generate Mermaid diagrams |
-
----
-
-## Pattern Structure
-
-Each pattern directory contains:
-```
-Patterns/{pattern_name}/
-├── system.md    # The pattern prompt
-└── user.md      # Optional: user prompt template
-```
-
-**system.md format:**
-```markdown
-# IDENTITY and PURPOSE
-
-You are an expert at [domain]. Your task is to [purpose].
-
-# STEPS
-
-1. [Step one]
-2. [Step two]
-...
-
-# OUTPUT INSTRUCTIONS
-
-- Output in [format]
-- Include [sections]
-
-# INPUT
-
-INPUT:
-```
-
----
-
-## See Also
-
-- Fabric GitHub: https://github.com/danielmiessler/fabric
-- `${PAI_DIR}/skills/CORE/Tools/fabric/Patterns/` - All pattern definitions
+**See Also:**
+- SKILL.md > Fabric Patterns - Condensed reference
+- Prompting.md - Native Fabric Patterns section (comprehensive)
+- Tools/fabric/Patterns/ - All 248 pattern definitions

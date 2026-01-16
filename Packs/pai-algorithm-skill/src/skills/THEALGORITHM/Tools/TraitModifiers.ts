@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 
 /**
- * TraitModifiers - Map effort levels to AgentFactory trait modifiers
+ * TraitModifiers - Map effort levels to ComposeAgent trait modifiers
  *
- * THE ALGORITHM uses AgentFactory to compose custom agents.
+ * THE ALGORITHM uses ComposeAgent to compose custom agents.
  * This tool provides the trait modifiers that should be added
  * based on effort level.
  *
@@ -198,7 +198,7 @@ EXAMPLES:
   # Get verification traits
   bun run TraitModifiers.ts -e THOROUGH -p verify
 
-  # Get just the trait string for AgentFactory
+  # Get just the trait string for ComposeAgent
   bun run TraitModifiers.ts -e STANDARD -o traits-only
   # Output: analytical,systematic
 `);

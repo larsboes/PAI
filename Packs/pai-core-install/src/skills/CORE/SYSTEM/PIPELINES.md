@@ -1,32 +1,3 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/PIPELINES.md
-================================================================================
-
-PURPOSE:
-Orchestrating sequences of Actions with verification gates. Pipelines chain
-multiple Actions together into cohesive workflows with mandatory verification
-between each step.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/PIPELINES.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/PIPELINES.md
-
-CUSTOMIZATION:
-- Create new pipelines in ${PAI_DIR}/PIPELINES/
-- Follow Domain_Pipeline-Name naming convention
-- Define verification gates between each step
-
-RELATED FILES:
-- ACTIONS.md - Individual action definitions
-- SKILLSYSTEM.md - Skills vs Actions vs Pipelines
-- PAISYSTEMARCHITECTURE.md - Core architecture
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 # Pipelines
 
 **Orchestrating Sequences of Actions with Verification Gates**
@@ -64,7 +35,7 @@ Post.md → Validate-Frontmatter → Verify → Validate-Images → Verify → P
 
 ## PIPELINE.md Format
 
-Every pipeline lives in `${PAI_DIR}/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.md`
+Every pipeline lives in `~/.claude/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.md`
 
 ### Required Sections
 
@@ -91,7 +62,7 @@ Every pipeline lives in `${PAI_DIR}/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.
 
 ### Step 1: [Action_Name]
 
-**Action:** `${PAI_DIR}/ACTIONS/[Action_Name]/ACTION.md`
+**Action:** `~/.claude/ACTIONS/[Action_Name]/ACTION.md`
 
 **Input:**
 - [Required input 1]
@@ -122,7 +93,7 @@ Every pipeline lives in `${PAI_DIR}/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.
 ### Naming Convention
 
 ```
-${PAI_DIR}/PIPELINES/
+~/.claude/PIPELINES/
 ├── Blog_Publish-Post/          # Domain_Action-Format
 │   └── PIPELINE.md
 ├── Newsletter_Full-Cycle/
@@ -280,8 +251,8 @@ Map out the complete workflow:
 ### Step 2: Create Pipeline Directory
 
 ```bash
-mkdir -p ${PAI_DIR}/PIPELINES/[Domain]_[Pipeline-Name]
-cp ${PAI_DIR}/PIPELINES/PIPELINE-TEMPLATE.md ${PAI_DIR}/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.md
+mkdir -p ~/.claude/PIPELINES/[Domain]_[Pipeline-Name]
+cp ~/.claude/PIPELINES/PIPELINE-TEMPLATE.md ~/.claude/PIPELINES/[Domain]_[Pipeline-Name]/PIPELINE.md
 ```
 
 ### Step 3: Define Overview Table
@@ -317,6 +288,24 @@ The final verification ensures the **goal** was achieved:
 | # | Criterion | Oracle | Check |
 |---|-----------|--------|-------|
 | 1 | [Final check] | [oracle] | [specific check] |
+```
+
+### Step 6: Add Visual Execution Format
+
+Include the starting state with all steps in PENDING:
+
+```markdown
+## Visual Execution Format
+
+```
+Pipeline: [Pipeline_Name]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[1/N] ⏳ Action_One                    PENDING
+[2/N] ⏳ Action_Two                    PENDING
+...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Status: 0/N complete | Starting pipeline...
+```
 ```
 
 ---
@@ -389,6 +378,11 @@ Add a completed execution example showing all steps passed with their verificati
 
 ## Related Documentation
 
-- **Actions:** `${PAI_DIR}/skills/CORE/SYSTEM/ACTIONS.md`
-- **Architecture:** `${PAI_DIR}/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md`
-- **Template:** `${PAI_DIR}/PIPELINES/PIPELINE-TEMPLATE.md`
+- **Actions:** `~/.claude/skills/CORE/SYSTEM/ACTIONS.md`
+- **Architecture:** `~/.claude/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md`
+- **Template:** `~/.claude/PIPELINES/PIPELINE-TEMPLATE.md`
+- **Example:** `~/.claude/PIPELINES/Blog_Publish-Post/PIPELINE.md`
+
+---
+
+**Last Updated:** 2026-01-01

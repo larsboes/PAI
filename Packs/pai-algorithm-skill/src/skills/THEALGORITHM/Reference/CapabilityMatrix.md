@@ -10,7 +10,7 @@ This document describes what capabilities are unlocked at each effort level. Eff
 |--------------|--------|----------|--------|----------|----------|-----------|--------------|----------|
 | **TRIVIAL** | — | — | — | — | — | — | — | 0 |
 | **QUICK** | haiku | — | — | — | — | Intern | — | 1 |
-| **STANDARD** | haiku, sonnet | UltraThink | — | FirstPrinciples, Science | single | Engineer, QA, Designer | Browser, Skeptical | 1-3 |
+| **STANDARD** | haiku, sonnet | deep thinking | — | FirstPrinciples, Science | single | Engineer, QA, Designer | Browser, Skeptical | 1-3 |
 | **THOROUGH** | haiku, sonnet | All | Council | All | parallel | All + Architect, Pentester | All | 3-5 |
 | **DETERMINED** | all + opus | All | Council + RedTeam | All | all | unlimited | All | 10 |
 
@@ -37,7 +37,7 @@ This document describes what capabilities are unlocked at each effort level. Eff
 - **Capabilities:**
   - `models.haiku` - For spotchecks, parallel work
   - `models.sonnet` - Main reasoning model
-  - `thinking.ultrathink` - BeCreative for creative solutions
+  - `thinking.deep thinking` - BeCreative for creative solutions
   - `analysis.first_principles` - Challenge assumptions
   - `analysis.science` - Hypothesis-driven exploration
   - `research.*` (single) - One research agent at a time
@@ -46,7 +46,7 @@ This document describes what capabilities are unlocked at each effort level. Eff
   - `execution.designer` - UX/UI
   - `verification.browser` - Web validation
   - `verification.skeptical_verifier` - Independent verification
-  - `agent_composition` - AgentFactory for custom agents
+  - `agent_composition` - ComposeAgent for custom agents
 - **ISC Rows:** As many as needed to capture ideal state
 - **Traits Added:** analytical, systematic
 - **Max Parallel:** 3
@@ -115,7 +115,7 @@ Enhanced reasoning approaches.
 
 | Mode | Skill | When |
 |------|-------|------|
-| ultrathink | BeCreative | Creative solutions, novel approaches |
+| deep thinking | BeCreative | Creative solutions, novel approaches |
 | tree_of_thought | BeCreative (workflow) | Complex multi-factor decisions |
 | plan_mode | EnterPlanMode tool | Multi-step implementations needing approval |
 
@@ -184,14 +184,14 @@ The inline pattern is stripped from the request and effort is forced to the spec
 
 ```bash
 # Classify effort for a request
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/EffortClassifier.ts --request "your request"
+bun run ~/.claude/skills/THEALGORITHM/Tools/EffortClassifier.ts --request "your request"
 
 # Load capabilities for an effort level
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/CapabilityLoader.ts --effort STANDARD
+bun run ~/.claude/skills/THEALGORITHM/Tools/CapabilityLoader.ts --effort STANDARD
 
 # List all capabilities
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/CapabilityLoader.ts --list-all
+bun run ~/.claude/skills/THEALGORITHM/Tools/CapabilityLoader.ts --list-all
 
 # Select capabilities for an ISC row
-bun run $PAI_DIR/skills/THEALGORITHM/Tools/CapabilitySelector.ts --row "Research best practices" --effort STANDARD
+bun run ~/.claude/skills/THEALGORITHM/Tools/CapabilitySelector.ts --row "Research best practices" --effort STANDARD
 ```

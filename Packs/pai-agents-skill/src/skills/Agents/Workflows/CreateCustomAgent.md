@@ -1,178 +1,248 @@
 # CreateCustomAgent Workflow
 
-**Creates custom agents with unique personalities and voice IDs using AgentFactory.**
-
----
-
-## Pre-flight Checklist (MANDATORY)
-
-**STOP! Before proceeding, you MUST complete this checklist:**
-
-- [ ] I understand I must run `AgentFactory.ts` via Bash
-- [ ] I will NOT manually compose prompts from Traits.yaml
-- [ ] I will capture JSON output and use the `prompt` field verbatim
-- [ ] I will use `subagent_type: "general-purpose"` (NEVER "Intern")
-- [ ] Each agent will have DIFFERENT trait combinations
-
-**⚠️ VIOLATION: If you skip AgentFactory, you are NOT creating custom agents.**
-
----
+**Creates custom agents with unique personalities and voice IDs using ComposeAgent.**
 
 ## When to Use
 
-User says:
+{principal.name} says:
 - "Create custom agents to do X"
 - "Spin up custom agents for Y"
 - "I need specialized agents with Z expertise"
+- "Generate N custom agents to analyze..."
 
-**KEY TRIGGER: The word "custom" distinguishes from generic agents.**
+**KEY TRIGGER: The word "custom" is critical - this distinguishes from generic Intern agents.**
 
 ## The Workflow
 
-### Step 1: Determine Requirements
+### Step 1: Determine Agent Count & Requirements
 
-Extract from user's request:
-- How many agents? (Default: 1)
+Extract from {principal.name}'s request:
+- How many agents? (Default: 1 if not specified)
 - What's the task?
-- Are specific traits mentioned?
+- Are specific traits mentioned? (security, legal, skeptical, thorough, etc.)
 
-### Step 1.5: Choose Traits (RECOMMENDED) or Infer from Task
+### Step 2: For EACH Agent, Run ComposeAgent with DIFFERENT Traits
 
-**⚠️ RECOMMENDED: Use explicit `--traits` for precise control**
-
-Trait inference is convenient but may produce unexpected results for ambiguous tasks.
-
-| Approach | Precision | Example |
-|----------|-----------|---------|
-| **Explicit** ✅ | High - you control exactly which traits | `--traits "technical,meticulous,systematic"` |
-| **Inference** ⚠️ | Low - keywords may match wrong expertise | `--task "TypeScript transformation"` (might infer wrong traits) |
-
-**When to use explicit traits:**
-- Technical/programming tasks (avoid false matches with legal/medical)
-- When you need specific personality/approach combinations
-- When voice diversity matters
-
-**When inference is OK:**
-- Task description has very clear domain keywords
-- You're comfortable with defaults (analytical + thorough)
-
-**Pro tip:** Run `bun run AgentFactory.ts --list` to see all available traits before choosing.
-
-### Step 2: Run AgentFactory for EACH Agent (MANDATORY)
-
-**⚠️ THIS STEP IS NOT OPTIONAL - YOU MUST EXECUTE AGENTFACTORY.TS VIA BASH**
-
-**RECOMMENDED: Use explicit `--traits` parameter**
+**CRITICAL: Each agent MUST have different trait combinations to get unique voices.**
 
 ```bash
-# REQUIRED: Run for EACH agent with DIFFERENT traits
+# Example for 3 custom research agents:
 
 # Agent 1 - Enthusiastic Explorer
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
   --traits "research,enthusiastic,exploratory" \
-  --task "Research quantum computing" \
+  --task "Research quantum computing applications" \
   --output json
 
 # Agent 2 - Skeptical Analyst
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
   --traits "research,skeptical,systematic" \
-  --task "Research quantum computing" \
+  --task "Research quantum computing applications" \
   --output json
 
 # Agent 3 - Thorough Synthesizer
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
+bun run ~/.claude/skills/Agents/Tools/ComposeAgent.ts \
   --traits "research,analytical,synthesizing" \
-  --task "Research quantum computing" \
+  --task "Research quantum computing applications" \
   --output json
 ```
 
-**Alternative (inference - less precise):**
-```bash
-# AgentFactory will infer traits from task description
-bun run $PAI_DIR/skills/Agents/Tools/AgentFactory.ts \
-  --task "Research quantum computing with enthusiastic exploration" \
-  --output json
-```
+### Step 3: Extract Prompt and Voice ID from Each
 
-**What AgentFactory returns (JSON output):**
+ComposeAgent returns JSON with:
 ```json
 {
-  "name": "Research Specialist Enthusiastic Exploratory",
+  "name": "Research Enthusiastic Explorer",
+  "voice": "Jeremy",
+  "voice_id": "bVMeCyTHy58xNoL34h3p",
   "traits": ["research", "enthusiastic", "exploratory"],
-  "voice": "Energetic",
-  "voice_id": "muSxG4dqYjBCkbpXqbEl",
-  "prompt": "... full agent prompt ..."
+  "prompt": "# Dynamic Agent: Research Enthusiastic Explorer\n\nYou are a specialized agent..."
 }
 ```
 
-**You MUST use the `prompt` field from this output in your Task call.**
+### Step 4: Launch Agents with Task Tool
 
-### Step 3: Launch Agents in Parallel
-
-**CRITICAL: Use `subagent_type: "general-purpose"` - NEVER "Intern" for custom agents!**
-
-Using "Intern" would override the custom voice. We need "general-purpose" to respect the voice_id from AgentFactory.
-
-Use a SINGLE message with MULTIPLE Task calls:
+**Use a SINGLE message with MULTIPLE Task calls for parallel execution:**
 
 ```typescript
+// Send all in ONE message:
 Task({
   description: "Research agent 1 - enthusiastic",
   prompt: <agent1_full_prompt>,
-  subagent_type: "general-purpose",  // NEVER "Intern" for custom agents!
-  model: "sonnet"
+  subagent_type: "Intern",
+  model: "sonnet"  // or "haiku" for speed
 })
 Task({
   description: "Research agent 2 - skeptical",
   prompt: <agent2_full_prompt>,
-  subagent_type: "general-purpose",  // NEVER "Intern" for custom agents!
+  subagent_type: "Intern",
   model: "sonnet"
+})
+Task({
+  description: "Research agent 3 - analytical",
+  prompt: <agent3_full_prompt>,
+  subagent_type: "Intern",
+  model: "sonnet"
+})
+```
+
+**Note:** Store the voice_id from ComposeAgent output - you'll need it to voice the agent's results.
+
+### Step 5: Voice Agent Results
+
+**CRITICAL: The parent session voices agent output, not the agents themselves.**
+
+After receiving agent results:
+1. Extract the `🎯 COMPLETED:` line from each agent's output
+2. Send voice notification using that agent's voice_id:
+
+```bash
+curl -X POST http://localhost:8888/notify \
+  -H "Content-Type: application/json" \
+  -d '{"message":"<COMPLETED line content>","voice_id":"<agent_voice_id>","title":"<agent_name>"}'
+```
+
+This is more reliable than having agents voice themselves (they often skip curl commands).
+
+### Step 6: Spotcheck (Optional but Recommended)
+
+After all agents complete, launch one more to verify consistency:
+
+```typescript
+Task({
+  description: "Spotcheck custom agent results",
+  prompt: "Review these results for consistency and completeness: [results]",
+  subagent_type: "Intern",
+  model: "haiku"
 })
 ```
 
 ## Trait Variation Strategies
 
+When creating multiple custom agents, vary traits to ensure different voices:
+
 **For Research Tasks:**
-- Agent 1: research + enthusiastic + exploratory -> Energetic voice
-- Agent 2: research + skeptical + thorough -> Academic voice
-- Agent 3: research + analytical + systematic -> Professional voice
+- Agent 1: research + enthusiastic + exploratory → Jeremy (energetic)
+- Agent 2: research + skeptical + thorough → George (intellectual)
+- Agent 3: research + analytical + systematic → Drew (professional)
+- Agent 4: research + creative + bold → Fin (charismatic)
+- Agent 5: research + empathetic + synthesizing → Thomas (gentle)
 
 **For Security Analysis:**
-- Agent 1: security + adversarial + bold -> Intense voice
-- Agent 2: security + skeptical + meticulous -> Gritty voice
-- Agent 3: security + cautious + systematic -> Professional voice
+- Agent 1: security + adversarial + bold → Callum (edgy hacker)
+- Agent 2: security + skeptical + meticulous → Sam (gritty authentic)
+- Agent 3: security + cautious + systematic → Bill (trustworthy)
+
+**For Business Strategy:**
+- Agent 1: business + bold + rapid → Domi (assertive CEO)
+- Agent 2: business + analytical + comparative → Drew (balanced news)
+- Agent 3: business + pragmatic + consultative → Charlie (casual laid-back)
 
 ## Model Selection
 
-| Task Type | Model | Reason |
-|-----------|-------|--------|
-| Quick checks | `haiku` | 10-20x faster |
-| Standard analysis | `sonnet` | Balanced |
-| Deep reasoning | `opus` | Maximum intelligence |
+| Task Complexity | Model | Reason |
+|----------------|-------|--------|
+| Simple checks, quick research | `haiku` | 10-20x faster, sufficient for grunt work |
+| Standard analysis, investigation | `sonnet` | Balanced speed + capability |
+| Deep reasoning, strategic planning | `opus` | Maximum intelligence |
 
-## Common Mistakes
+**Parallel custom agents benefit from `sonnet` or `haiku` for speed.**
 
-**WRONG: Using named agent types for custom agents**
-```typescript
-// WRONG - forces same voice on all custom agents!
-Task({ prompt: <custom_prompt>, subagent_type: "Intern" })
-Task({ prompt: <custom_prompt>, subagent_type: "Designer" })
-```
+## Example Execution
 
-**RIGHT: Using general-purpose for custom agents**
-```typescript
-// CORRECT - respects the custom voice from AgentFactory
-Task({ prompt: <custom_prompt>, subagent_type: "general-purpose" })
-```
+**{principal.name}:** "Create 5 custom science agents to analyze this climate data"
 
-**WRONG: Same traits for all agents**
+**{daidentity.name}'s Internal Execution:**
 ```bash
-bun run AgentFactory.ts --traits "research,analytical"  # Agent 1
-bun run AgentFactory.ts --traits "research,analytical"  # Same voice!
+# Agent 1 - Climate Science Enthusiast
+bun run ComposeAgent.ts --traits "research,enthusiastic,thorough" --task "Analyze climate data patterns" --output json
+# Returns: voice="Jeremy", voice_id="bVMeCyTHy58xNoL34h3p"
+
+# Agent 2 - Skeptical Data Analyst
+bun run ComposeAgent.ts --traits "data,skeptical,systematic" --task "Analyze climate data patterns" --output json
+# Returns: voice="Daniel", voice_id="onwK4e9ZLuTAKqWW03F9"
+
+# Agent 3 - Creative Pattern Finder
+bun run ComposeAgent.ts --traits "data,creative,exploratory" --task "Analyze climate data patterns" --output json
+# Returns: voice="Freya", voice_id="jsCqWAovK2LkecY7zXl4"
+
+# Agent 4 - Meticulous Validator
+bun run ComposeAgent.ts --traits "research,meticulous,comparative" --task "Analyze climate data patterns" --output json
+# Returns: voice="Charlotte", voice_id="XB0fDUnXU5powFXDhCwa"
+
+# Agent 5 - Synthesizing Strategist
+bun run ComposeAgent.ts --traits "research,analytical,synthesizing" --task "Analyze climate data patterns" --output json
+# Returns: voice="Charlotte", voice_id="XB0fDUnXU5powFXDhCwa"
+
+# Launch all 5 in parallel (single message, 5 Task calls)
+# Each agent has unique personality and voice
 ```
 
-**RIGHT: Vary traits for unique voices**
+**Result:** 5 distinct agents with different analytical approaches and unique voices analyzing the data from different perspectives.
+
+## Common Mistakes to Avoid
+
+**❌ WRONG: Using same traits for all agents**
 ```bash
-bun run AgentFactory.ts --traits "research,enthusiastic,exploratory"
-bun run AgentFactory.ts --traits "research,skeptical,systematic"
+# All agents get same voice!
+bun run ComposeAgent.ts --traits "research,analytical" # Agent 1
+bun run ComposeAgent.ts --traits "research,analytical" # Agent 2 (same voice!)
+bun run ComposeAgent.ts --traits "research,analytical" # Agent 3 (same voice!)
 ```
+
+**✅ RIGHT: Varying traits for unique voices**
+```bash
+# Each agent gets different voice
+bun run ComposeAgent.ts --traits "research,enthusiastic,exploratory"  # Jeremy
+bun run ComposeAgent.ts --traits "research,skeptical,systematic"      # George
+bun run ComposeAgent.ts --traits "research,creative,synthesizing"     # Freya
+```
+
+**❌ WRONG: Launching agents sequentially**
+```typescript
+// Slow - waits for each to finish
+await Task({ ... }); // Agent 1
+await Task({ ... }); // Agent 2 (waits for 1)
+await Task({ ... }); // Agent 3 (waits for 2)
+```
+
+**✅ RIGHT: Launching agents in parallel**
+```typescript
+// Fast - all run simultaneously (single message, multiple calls)
+Task({ ... })  // Agent 1
+Task({ ... })  // Agent 2
+Task({ ... })  // Agent 3
+```
+
+## Voice Assignment Logic
+
+ComposeAgent automatically maps trait combinations to voices:
+
+1. **Exact combination matches** (highest priority)
+   - `["contrarian", "skeptical"]` → Clyde (gravelly intensity)
+   - `["enthusiastic", "creative"]` → Jeremy (high energy)
+
+2. **Personality fallbacks** (medium priority)
+   - `skeptical` → George (academic warmth)
+   - `enthusiastic` → Jeremy (excited)
+   - `bold` → Domi (assertive CEO)
+
+3. **Expertise fallbacks** (low priority)
+   - `security` → Callum (hacker character)
+   - `legal` → Alice (news authority)
+   - `research` → Adam (narratorial)
+
+4. **Default** (no matches)
+   - Daniel (BBC anchor authority)
+
+## Related Workflows
+
+- **ListTraits** - Show available traits for composition
+- **SpawnParallelAgents** - Launch generic Intern agents (not custom)
+
+## References
+
+- Trait definitions: `~/.claude/skills/Agents/Data/Traits.yaml`
+- Agent template: `~/.claude/skills/Agents/Templates/DynamicAgent.hbs`
+- ComposeAgent tool: `~/.claude/skills/Agents/Tools/ComposeAgent.ts`
+- Voice mappings: `~/.claude/skills/Agents/AgentPersonalities.md`

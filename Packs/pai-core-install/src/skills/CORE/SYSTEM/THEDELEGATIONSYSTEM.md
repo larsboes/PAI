@@ -1,29 +1,9 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/THEDELEGATIONSYSTEM.md
-================================================================================
-
-PURPOSE:
-Delegation and agent parallelization patterns. How to launch multiple agents,
-when to use different agent types, and model selection for optimal performance.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/THEDELEGATIONSYSTEM.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/THEDELEGATIONSYSTEM.md
-
-CUSTOMIZATION:
-- These patterns are generic and apply to all PAI implementations
-- User-specific agent rosters go in AGENTS.md
-- Voice configurations go in USER/IDENTITY.md or AGENTS.md
-
-RELATED FILES:
-- AGENTS.md - Agent configuration and traits
-- CORE/SKILL.md - Quick delegation reference
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
+---
+name: DelegationReference
+description: Comprehensive delegation and agent parallelization patterns. Reference material extracted from SKILL.md for on-demand loading.
+created: 2025-12-17
+extracted_from: SKILL.md lines 535-627
+---
 
 # Delegation & Parallelization Reference
 
@@ -31,7 +11,7 @@ VERSION: 1.1.0
 
 ---
 
-## Delegation & Parallelization (Always Active)
+## 🤝 Delegation & Parallelization (Always Active)
 
 **WHENEVER A TASK CAN BE PARALLELIZED, USE MULTIPLE AGENTS!**
 
@@ -92,26 +72,28 @@ The Intern Agent is your high-agency genius generalist - perfect for parallel ex
 - If task involves writing code → Use Development Skill with Engineer Agents
 - Interns can delegate to engineers when code changes are needed
 
-### Custom Agents vs Generic Agents
+### 🚨 CUSTOM AGENTS vs GENERIC AGENTS (Always Active)
 
 **The word "custom" is the KEY trigger:**
 
 | User Says | What to Use | Why |
 |-------------|-------------|-----|
-| "**custom agents**", "spin up **custom** agents" | **AgentFactory** | Unique prompts, unique voices |
+| "**custom agents**", "spin up **custom** agents" | **ComposeAgent** | Unique prompts, unique voices |
 | "spin up agents", "bunch of agents", "launch agents" | **Intern agents** | Generic parallel workers |
 | "interns", "use interns" | **Intern agents** | Obviously |
 
 **When user says "custom agents":**
 1. Invoke the Agents skill → CreateCustomAgent workflow
 2. Use DIFFERENT trait combinations to get unique voices
-3. Launch with the full AgentFactory-generated prompt
-4. Each agent gets a personality-matched voice
+3. Launch with the full ComposeAgent-generated prompt
+4. Each agent gets a personality-matched ElevenLabs voice
 
 **When user says "spin up agents" (no "custom"):**
-1. Use simple Intern agents
-2. All get the same voice (fine for grunt work)
-3. No AgentFactory needed
+1. Invoke the Agents skill → SpawnParallelAgents workflow
+2. All get the same Dev Patel voice (fine for grunt work)
+3. No ComposeAgent needed
+
+**Reference:** Agents skill (`~/.claude/skills/Agents/SKILL.md`)
 
 **Full Context Requirements:**
 When delegating, ALWAYS include:

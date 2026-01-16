@@ -41,10 +41,10 @@ For UI/UX verification, use the Browser skill:
 
 ```bash
 # Take screenshot
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot <url> /tmp/verify.png
+bun run ~/.claude/skills/Browser/Tools/Browse.ts screenshot <url> /tmp/verify.png
 
 # Verify element exists
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts verify <url> "button.logout"
+bun run ~/.claude/skills/Browser/Tools/Browse.ts verify <url> "button.logout"
 
 # View screenshot
 Read /tmp/verify.png
@@ -85,11 +85,11 @@ bun run ISCManager.ts verify --row 3 --result BLOCKED --reason "Button not visib
 
 ```bash
 # 1. Screenshot verification
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts screenshot http://localhost:3000 /tmp/navbar.png
+bun run ~/.claude/skills/Browser/Tools/Browse.ts screenshot http://localhost:3000 /tmp/navbar.png
 # Check: Is logout button visible top-right?
 
 # 2. Functional verification
-bun run $PAI_DIR/skills/Browser/Tools/Browse.ts open http://localhost:3000
+bun run ~/.claude/skills/Browser/Tools/Browse.ts open http://localhost:3000
 # Click logout, verify redirect to /login
 
 # 3. Test verification

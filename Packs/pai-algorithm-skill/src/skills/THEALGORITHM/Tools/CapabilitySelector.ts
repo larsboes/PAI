@@ -147,7 +147,7 @@ const SPECIFIC_SELECTORS = {
   codex: ["code", "technical", "implementation patterns", "architecture"],
 
   // Thinking modes
-  ultrathink: ["creative", "novel", "innovative", "quality thinking"],
+  deep thinking: ["creative", "novel", "innovative", "quality thinking"],
   tree_of_thought: ["complex decision", "branching", "multi-factor", "paths"],
   plan_mode: ["multi-step", "implementation", "approval needed"],
 
@@ -334,7 +334,7 @@ EXAMPLES:
   # → Suggests research.perplexity or research.claude
 
   bun run CapabilitySelector.ts -r "Generate novel solutions creatively" -e THOROUGH
-  # → Suggests thinking.ultrathink
+  # → Suggests thinking.deep thinking
 
   bun run CapabilitySelector.ts -r "Verify implementation against requirements"
   # → Suggests verification.skeptical_verifier

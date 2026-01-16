@@ -1,35 +1,8 @@
-<!--
-================================================================================
-PAI CORE - SYSTEM/CLIFIRSTARCHITECTURE.md
-================================================================================
-
-PURPOSE:
-CLI-First Architecture Pattern - build deterministic CLI tools first, then wrap
-them with AI prompting. The foundational pattern for all PAI systems.
-
-LOCATION:
-- Kai (Private): ${PAI_DIR}/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md
-- PAI Pack: Packs/pai-core-install/src/skills/CORE/SYSTEM/CLIFIRSTARCHITECTURE.md
-
-CUSTOMIZATION:
-- Apply this pattern to all new tools and systems
-- Use configuration flags for behavioral control
-- Map user intent to CLI flags in workflows
-
-RELATED FILES:
-- PAISYSTEMARCHITECTURE.md - Core philosophy
-- SKILLSYSTEM.md - Skill structure
-- TOOLS.md - CLI utilities reference
-
-LAST UPDATED: 2026-01-08
-VERSION: 1.1.0
-================================================================================
--->
-
 # CLI-First Architecture Pattern
 
 **Status**: Active Standard
-**Applies To**: All new tools, skills, and systems
+**Applies To**: All new PAI tools, skills, and systems
+**Created**: 2025-11-15
 **Philosophy**: Deterministic code execution > ad-hoc prompting
 
 ---
@@ -257,7 +230,7 @@ evals run --use-case newsletter-summary \
 
 **7. Configuration Flags (Behavioral Control)**
 
-CLI tools should expose configuration through flags that control execution behavior, enabling workflows to adapt without code changes.
+**Inspired by indydevdan's variable-centric patterns.** CLI tools should expose configuration through flags that control execution behavior, enabling workflows to adapt without code changes.
 
 ```bash
 # Execution mode flags
@@ -440,6 +413,38 @@ const failures = await bash('evals query runs --status failed --json');
 
 ---
 
+## Migration Strategy
+
+### For Existing PAI Systems
+
+**Assess Current State:**
+1. Identify systems using ad-hoc prompting
+2. Evaluate if CLI-First would improve them
+3. Prioritize high-value conversions
+
+**Gradual Migration:**
+1. Build CLI alongside existing prompting
+2. Migrate one command at a time
+3. Update prompting layer to use CLI
+4. Deprecate ad-hoc implementations
+5. Document and test
+
+**Example: Newsletter Parser**
+```bash
+# Before: Ad-hoc prompting reads/parses/stores content
+# After: CLI-First architecture
+
+# Step 1: Build CLI
+parser parse --url https://example.com --output content.json
+parser store --file content.json --collection newsletters
+parser query --collection newsletters --tag ai --limit 10
+
+# Step 2: Update prompting to use CLI
+# Instead of ad-hoc code, AI executes CLI commands
+```
+
+---
+
 ## Implementation Checklist
 
 When building a new CLI-First system:
@@ -483,6 +488,76 @@ When building a new CLI-First system:
 
 ---
 
+## Real-World Example: Evals System
+
+### Step 1: Requirements
+```
+Operations needed:
+- Create/manage use cases
+- Add/manage test cases
+- Add/manage golden outputs
+- Create/manage prompt versions
+- Run evaluations
+- Query results (by model, prompt, score, date)
+- Compare runs (models, prompts, versions)
+```
+
+### Step 2: CLI Design
+```bash
+# Use case management
+evals use-case create --name <name> --description <desc>
+evals use-case list
+evals use-case show --name <name>
+evals use-case delete --name <name>
+
+# Test case management
+evals test-case add --use-case <name> --id <id> --input <file>
+evals test-case list --use-case <name>
+evals test-case show --use-case <name> --id <id>
+
+# Golden output management
+evals golden add --use-case <name> --test-id <id> --file <file>
+evals golden update --use-case <name> --test-id <id> --file <file>
+
+# Prompt management
+evals prompt create --use-case <name> --version <ver> --file <file>
+evals prompt list --use-case <name>
+evals prompt show --use-case <name> --version <ver>
+
+# Run evaluations
+evals run --use-case <name> [--model <model>] [--prompt <ver>]
+evals run --use-case <name> --all-models
+evals run --use-case <name> --all-prompts
+
+# Query results
+evals query runs --use-case <name> [--limit N]
+evals query runs --model <model> [--score-min X]
+evals query runs --since <date>
+
+# Compare
+evals compare runs --run-a <id> --run-b <id>
+evals compare models --use-case <name> --prompt <ver>
+evals compare prompts --use-case <name> --model <model>
+```
+
+### Step 3: Prompting Integration
+```
+User: "Run evals for newsletter summary with Claude and GPT-4, then compare them"
+
+AI executes:
+1. evals run --use-case newsletter-summary --model claude-3-5-sonnet
+2. evals run --use-case newsletter-summary --model gpt-4o
+3. evals compare models --use-case newsletter-summary
+4. Summarize results in structured format
+
+User sees:
+- Run summaries (tests passed, scores)
+- Model comparison (which performed better)
+- Detailed results if requested
+```
+
+---
+
 ## Benefits Recap
 
 **For Development:**
@@ -515,9 +590,35 @@ AI should orchestrate deterministic tools, not replace them with ad-hoc promptin
 
 ## Related Documentation
 
-- **Architecture**: `${PAI_DIR}/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md`
-- **Skills**: `${PAI_DIR}/skills/CORE/SYSTEM/SKILLSYSTEM.md`
-- **Tools**: `${PAI_DIR}/skills/CORE/SYSTEM/TOOLS.md`
+- **Architecture**: `~/.claude/skills/CORE/SYSTEM/PAISYSTEMARCHITECTURE.md`
+- **Testing Philosophy**: `~/.claude/skills/CORE/TESTING.md`
+- **Git Workflow**: `~/.claude/skills/CORE/Workflows/Git-update-repo.md`
+
+---
+
+## Configuration Flags: Origin and Rationale
+
+**Added:** 2025-12-08
+
+The Configuration Flags pattern was added after analyzing indydevdan's "fork-repository-skill" approach, which uses variable blocks at the skill level to control behavior.
+
+**Key insight from analysis:**
+- Indydevdan's variables are powerful but belong at the **tool layer** (as CLI flags), not the skill layer
+- PAI's Skill → Workflow → Tool hierarchy is architecturally superior
+- Variables become CLI flags, maintaining CLI-First determinism
+- Workflows map user intent to flags, exposing tool flexibility
+
+**What we adopted:**
+- Configuration flags for behavioral control
+- Workflow-to-tool intent mapping tables
+- Natural language → flag translation pattern
+
+**What we didn't adopt:**
+- Skill-level variables (skills remain intent-focused)
+- IF-THEN conditional routing (implicit routing works fine)
+- Feature flag toggles (separate workflows instead)
+
+**The principle:** Tools are configurable via flags. Workflows interpret intent and construct flag-enriched commands. Skills define capability domains.
 
 ---
 
