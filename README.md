@@ -64,11 +64,11 @@
 
 </div>
 
-### ${\textsf{\color{#8B5CF6}1. We believe AI provides AN EXTRAORDINARY ADVANTAGE}}$ to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
+### 1. We believe AI provides **AN EXTRAORDINARY ADVANTAGE** to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
 
-### ${\textsf{\color{#F97316}2. We believe the most important part of an AI system is not the tech itself, but the person using it.}}$ This is why **customization to the principal (you)** is the central idea of the PAI system.
+### 2. We believe the most important part of an AI system is not the tech itself, but the person using it. This is why **customization to the principal (you)** is the central idea of the PAI system.
 
-### ${\textsf{\color{#22C55E}3. We believe the ideal AI system functions as a powerful assistant, friend, coach, and mentor}}$ that's continuously helping you [achieve your goals](https://danielmiessler.com/blog/personal-ai-maturity-model), rather than a narrow tool for coding or building applications.
+### 3. We believe the ideal AI system functions as a [powerful assistant, friend, coach, and mentor](https://danielmiessler.com/blog/personal-ai-maturity-model) that's continuously helping you achieve your goals, rather than a narrow tool for coding or building applications.
 
 The goal of the PAI system is to produce **Euphoric Surprise** with every result, which means  
 
