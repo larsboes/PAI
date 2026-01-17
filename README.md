@@ -1676,7 +1676,7 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 
 **[fayerman-source](https://github.com/fayerman-source)** — Google Cloud TTS provider integration and Linux audio support for the voice system.
 
-**Matt Espinosa** — Extensive testing, ideas, and feedback for the PAI 2.3 release, plus roadmap contributions.
+**Matt Espinoza** — Extensive testing, ideas, and feedback for the PAI 2.3 release, plus roadmap contributions.
 
 ---
 
