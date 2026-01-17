@@ -1,9 +1,9 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./pai-logo-v7.png">
-  <source media="(prefers-color-scheme: light)" srcset="./pai-logo-v7.png">
-  <img alt="PAI Logo" src="./pai-logo-v7.png" width="300">
+  <source media="(prefers-color-scheme: dark)" srcset="./images/pai-logo-v7.png">
+  <source media="(prefers-color-scheme: light)" srcset="./images/pai-logo-v7.png">
+  <img alt="PAI Logo" src="./images/pai-logo-v7.png" width="300">
 </picture>
 
 <br/>
@@ -115,7 +115,7 @@ Here are PAI's main differentiators:
 ## Unique PAI Components
 
 <p align="center">
-  <img src="./pai-unique-components-diagram.png" alt="Unique PAI Components - A system that knows you, not a tool harness" width="800">
+  <img src="./images/pai-unique-components-diagram.png" alt="Unique PAI Components - A system that knows you, not a tool harness" width="800">
 </p>
 
 A number of technical differences make up a completely different *feeling* when using PAI. These components work together to create the experience of working with a system that understands and knows you—as opposed to a tool harness that just executes commands.
@@ -123,7 +123,7 @@ A number of technical differences make up a completely different *feeling* when 
 ---
 
 <p align="center">
-  <img src="./pai-component-1-assistant-vs-agent.png" alt="Assistant vs Agent-Based Interaction" width="700">
+  <img src="./images/pai-component-1-assistant-vs-agent.png" alt="Assistant vs Agent-Based Interaction" width="700">
 </p>
 
 ### Assistant vs. Agent-Based AI Interaction
@@ -133,7 +133,7 @@ PAI treats AI as a [persistent assistant, friend, coach, and mentor](https://dan
 ---
 
 <p align="center">
-  <img src="./pai-component-2-skill-system.png" alt="Custom Skill System" width="700">
+  <img src="./images/pai-component-2-skill-system.png" alt="Custom Skill System" width="700">
 </p>
 
 ### A Custom Skill System
@@ -143,7 +143,7 @@ Highly focused on consistent results. It has a new structure that puts *determin
 ---
 
 <p align="center">
-  <img src="./pai-component-3-memory-system.png" alt="Custom Memory System" width="700">
+  <img src="./images/pai-component-3-memory-system.png" alt="Custom Memory System" width="700">
 </p>
 
 ### A Custom Memory System
@@ -153,7 +153,7 @@ Focused on continuous learning. Every interaction generates signals—ratings, s
 ---
 
 <p align="center">
-  <img src="./pai-component-4-ai-installation.png" alt="AI-Based Installation" width="700">
+  <img src="./images/pai-component-4-ai-installation.png" alt="AI-Based Installation" width="700">
 </p>
 
 ### AI-Based Installation and Management
@@ -163,7 +163,7 @@ Your AI assistant reads the packs, understands your system, and installs everyth
 ---
 
 <p align="center">
-  <img src="./pai-component-5-security-system.png" alt="Custom Security System" width="700">
+  <img src="./images/pai-component-5-security-system.png" alt="Custom Security System" width="700">
 </p>
 
 ### A Custom Security System
@@ -173,7 +173,7 @@ Defines system and user-level security policies by default. You don't have to ru
 ---
 
 <p align="center">
-  <img src="./pai-component-6-hook-system.png" alt="Custom Hook System" width="700">
+  <img src="./images/pai-component-6-hook-system.png" alt="Custom Hook System" width="700">
 </p>
 
 ### A Custom Hook System
@@ -183,7 +183,7 @@ Responds to lifecycle events—session start, tool use, task completion, and mor
 ---
 
 <p align="center">
-  <img src="./pai-component-7-terminal-ui.png" alt="Terminal-Based UI" width="700">
+  <img src="./images/pai-component-7-terminal-ui.png" alt="Terminal-Based UI" width="700">
 </p>
 
 ### A Terminal-Based UI
@@ -193,7 +193,7 @@ Rich tab titles and pane management. Dynamic status lines show learning signals,
 ---
 
 <p align="center">
-  <img src="./pai-component-8-notification-system.png" alt="Output and Notification System" width="700">
+  <img src="./images/pai-component-8-notification-system.png" alt="Output and Notification System" width="700">
 </p>
 
 ### A Custom Output and Notification System
@@ -203,7 +203,7 @@ Keeps you informed without being intrusive. Push notifications via ntfy for mobi
 ---
 
 <p align="center">
-  <img src="./pai-component-9-voice-system.png" alt="Custom Voice System" width="700">
+  <img src="./images/pai-component-9-voice-system.png" alt="Custom Voice System" width="700">
 </p>
 
 ### A Custom Voice System
@@ -228,7 +228,7 @@ You've probably used ChatGPT or Claude. Type a question, get an answer. Simple.
 You can think of it as **three levels**:
 
 <p align="center">
-  <img src="./pai-eli5-diagram.png" alt="The AI Evolution - From chatbots to your personal AI system" width="800">
+  <img src="./images/pai-eli5-diagram.png" alt="The AI Evolution - From chatbots to your personal AI system" width="800">
 </p>
 
 ### Level 1: Chatbots
@@ -281,7 +281,7 @@ This one unified algorithm works at every scale:
 The algorithm has 7 phases:
 
 <p align="center">
-  <img src="./pai-algorithm-diagram.png" alt="The Algorithm - 7 Phases" width="800">
+  <img src="./images/pai-algorithm-diagram.png" alt="The Algorithm - 7 Phases" width="800">
 </p>
 
 | Phase | What You Do |
@@ -646,7 +646,7 @@ The architecture consists of three main layers:
 3.  **The Content (Packs)**: Modular bundles of markdown files and scripts that define "Skills" (workflows), "Tools" (executable code), and "Identity" (system prompts).
 
 <p align="center">
-  <img src="./pai-architecture-diagram.png" alt="PAI Architecture" width="800">
+  <img src="./images/pai-architecture-diagram.png" alt="PAI Architecture" width="800">
 </p>
 
 ### 2. The Hook System (The "Magic")
@@ -1675,6 +1675,8 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 ### Contributors
 
 **[fayerman-source](https://github.com/fayerman-source)** — Google Cloud TTS provider integration and Linux audio support for the voice system.
+
+**Matt Espinosa** — Extensive testing, ideas, and feedback for the PAI 2.3 release, plus roadmap contributions.
 
 ---
 
