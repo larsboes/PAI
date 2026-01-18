@@ -199,24 +199,11 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 
 While the Principles describe the *philosophy* of PAI, the Primitives are the *architecture*—the core systems that make everything work.
 
-| Primitive | What It Does |
-|-----------|--------------|
-| 🧠 **Memory System** | Captures signals for continuous learning. Three-tier architecture (hot/warm/cold), phase-based learning directories |
-| ⚡ **Hook System** | Event-driven automation. 8 event types, sentiment detection, rating capture, failure logging |
-| 🔒 **Security System** | Protects system integrity. Command validation, repo separation, injection defense |
-| 📁 **User/System Separation** | Clean customization boundaries. Portable identity, upgrade-safe |
-| 🎯 **TELOS** | Deep goal understanding. 10 files capturing your mission, beliefs, strategies |
-| ⚙️ **Customization** | Adapt everything to your workflow. 6 levels from identity to memory |
-
----
-
-## PAI Components
-
 <p align="center">
-  <img src="./images/pai-unique-components-diagram.png" alt="Unique PAI Components - A system that knows you, not a tool harness" width="800">
+  <img src="./images/pai-unique-components-diagram.png" alt="PAI Primitives - A system that knows you, not a tool harness" width="800">
 </p>
 
-These components work together to create the experience of working with a system that understands and knows you—as opposed to a tool harness that just executes commands.
+These primitives work together to create the experience of working with a system that understands and knows you—as opposed to a tool harness that just executes commands.
 
 ---
 
@@ -231,22 +218,72 @@ PAI treats AI as a [persistent assistant, friend, coach, and mentor](https://dan
 ---
 
 <p align="center">
-  <img src="./images/pai-component-2-skill-system.png" alt="Custom Skill System" width="700">
+  <img src="./images/pai-primitive-telos.png" alt="TELOS - Deep Goal Understanding" width="700">
 </p>
 
-### Custom Skill System
+### TELOS (Deep Goal Understanding)
+
+10 files that capture who you are: MISSION.md, GOALS.md, PROJECTS.md, BELIEFS.md, MODELS.md, STRATEGIES.md, NARRATIVES.md, LEARNED.md, CHALLENGES.md, IDEAS.md. Your DA knows what you're working toward because it's all documented.
+
+---
+
+<p align="center">
+  <img src="./images/pai-primitive-user-system-separation.png" alt="User/System Separation" width="700">
+</p>
+
+### User/System Separation
+
+Your customizations live in USER/. PAI infrastructure lives in SYSTEM/. When PAI upgrades, your files are untouched. Portable identity, upgrade-safe.
+
+---
+
+<p align="center">
+  <img src="./images/pai-primitive-customization.png" alt="Granular Customization" width="700">
+</p>
+
+### Granular Customization
+
+Six layers of customization: Identity (name, voice, personality), Preferences (tech stack, tools), Workflows (how skills execute), Skills (what capabilities exist), Hooks (how events are handled), and Memory (what gets captured). Start with defaults, customize when needed.
+
+---
+
+<p align="center">
+  <img src="./images/pai-component-2-skill-system.png" alt="Skill System" width="700">
+</p>
+
+### Skill System
 
 Highly focused on consistent results. It has a structure that puts *deterministic outcomes first* by going from CODE -> CLI-BASED-TOOL -> PROMPT -> SKILL instead of a haphazard structure.
 
 ---
 
 <p align="center">
-  <img src="./images/pai-component-3-memory-system.png" alt="Custom Memory System" width="700">
+  <img src="./images/pai-component-3-memory-system.png" alt="Memory System" width="700">
 </p>
 
-### Custom Memory System
+### Memory System
 
-Focused on continuous learning. Every interaction generates signals—ratings, sentiment, successes, failures—that feed back into improving the system. PAI upgrades itself based on what works and what doesn't.
+Focused on continuous learning. Every interaction generates signals—ratings, sentiment, successes, failures—that feed back into improving the system. Three-tier architecture (hot/warm/cold) with phase-based learning directories.
+
+---
+
+<p align="center">
+  <img src="./images/pai-component-6-hook-system.png" alt="Hook System" width="700">
+</p>
+
+### Hook System
+
+Responds to lifecycle events—session start, tool use, task completion, and more. 8 event types enable voice notifications, automatic context loading, session capture, security validation, and observability.
+
+---
+
+<p align="center">
+  <img src="./images/pai-component-5-security-system.png" alt="Security System" width="700">
+</p>
+
+### Security System
+
+Defines system and user-level security policies by default. You don't have to run with `--dangerously-skip-permissions` to have an uninterrupted experience. PAI's security hooks validate commands before execution, blocking dangerous operations while allowing normal workflows to proceed smoothly.
 
 ---
 
@@ -254,29 +291,29 @@ Focused on continuous learning. Every interaction generates signals—ratings, s
   <img src="./images/pai-component-4-ai-installation.png" alt="AI-Based Installation" width="700">
 </p>
 
-### AI-Based Installation and Management
+### AI-Based Installation
 
 Your AI assistant reads the packs, understands your system, and installs everything for you. No manual configuration, no guessing—the AI handles it.
 
 ---
 
 <p align="center">
-  <img src="./images/pai-component-5-security-system.png" alt="Custom Security System" width="700">
+  <img src="./images/pai-component-8-notification-system.png" alt="Notification System" width="700">
 </p>
 
-### Custom Security System
+### Notification System
 
-Defines system and user-level security policies by default. You don't have to run with `--dangerously-skip-permissions` to have an uninterrupted experience. PAI's security hooks validate commands before execution, blocking dangerous operations while allowing normal workflows to proceed smoothly.
+Keeps you informed without being intrusive. Push notifications via ntfy for mobile alerts, Discord integration for team updates, and duration-aware routing that escalates for long-running tasks. Fire-and-forget design means notifications never block your workflow.
 
 ---
 
 <p align="center">
-  <img src="./images/pai-component-6-hook-system.png" alt="Custom Hook System" width="700">
+  <img src="./images/pai-component-9-voice-system.png" alt="Voice System" width="700">
 </p>
 
-### Custom Hook System
+### Voice System
 
-Responds to lifecycle events—session start, tool use, task completion, and more. Hooks enable voice notifications, automatic context loading, session capture, security validation, and observability.
+Powered by ElevenLabs TTS. Hear task completions, session summaries, and important updates spoken aloud. Prosody enhancement makes speech sound natural. Your AI has a voice.
 
 ---
 
@@ -287,26 +324,6 @@ Responds to lifecycle events—session start, tool use, task completion, and mor
 ### Terminal-Based UI
 
 Rich tab titles and pane management. Dynamic status lines show learning signals, context usage, and current task state. Your terminal is a command center.
-
----
-
-<p align="center">
-  <img src="./images/pai-component-8-notification-system.png" alt="Output and Notification System" width="700">
-</p>
-
-### Custom Output and Notification System
-
-Keeps you informed without being intrusive. Push notifications via ntfy for mobile alerts, Discord integration for team updates, and duration-aware routing that escalates for long-running tasks. Fire-and-forget design means notifications never block your workflow.
-
----
-
-<p align="center">
-  <img src="./images/pai-component-9-voice-system.png" alt="Custom Voice System" width="700">
-</p>
-
-### Custom Voice System
-
-Powered by ElevenLabs TTS. Hear task completions, session summaries, and important updates spoken aloud. Prosody enhancement makes speech sound natural. Your AI has a voice.
 
 ---
 
