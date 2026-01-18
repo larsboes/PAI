@@ -176,7 +176,7 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 
 | # | Principle | Summary |
 |---|-----------|---------|
-| 1 | **Customization for Your Goals** | PAI exists to help you accomplish your goals. Personalized agentic infrastructure that knows your goals, preferences, context, and history. |
+| 1 | **User Centricity** | PAI is built around you, not tooling. Your goals, preferences, and context come first—the infrastructure exists to serve them. |
 | 2 | **The Continuously Upgrading Algorithm** | Everything else exists to feed signals back into improving the core algorithm. Current → Ideal via verifiable iteration. |
 | 3 | **Clear Thinking First** | Good prompts come from clear thinking. Clarify the problem before writing the prompt. |
 | 4 | **Scaffolding > Model** | System architecture matters more than which model you use. |
