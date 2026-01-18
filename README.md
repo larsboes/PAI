@@ -15,13 +15,19 @@
 
 <br/>
 
-<!-- Status Badges -->
-![GitHub Release](https://img.shields.io/github/v/release/danielmiessler/PAI?style=flat&logo=github&logoColor=white&label=Release&color=8B5CF6)
-![GitHub Stars](https://img.shields.io/github/stars/danielmiessler/PAI?style=flat&logo=github&logoColor=white&color=FFD700)
-![Last Commit](https://img.shields.io/github/last-commit/danielmiessler/PAI?style=flat&logo=git&logoColor=white&color=F97316)
-![License](https://img.shields.io/github/license/danielmiessler/PAI?style=flat&color=22C55E)
+<!-- Social Proof -->
+![Stars](https://img.shields.io/github/stars/danielmiessler/PAI?style=social)
+![Forks](https://img.shields.io/github/forks/danielmiessler/PAI?style=social)
+![Watchers](https://img.shields.io/github/watchers/danielmiessler/PAI?style=social)
 
-<!-- Content Badges -->
+<!-- Project Health -->
+![Release](https://img.shields.io/github/v/release/danielmiessler/PAI?style=flat&logo=github&color=8B5CF6)
+![Last Commit](https://img.shields.io/github/last-commit/danielmiessler/PAI?style=flat&logo=git&color=22C55E)
+![Open Issues](https://img.shields.io/github/issues/danielmiessler/PAI?style=flat&logo=github&color=F97316)
+![Open PRs](https://img.shields.io/github/issues-pr/danielmiessler/PAI?style=flat&logo=githubaccessories&color=EC4899)
+![License](https://img.shields.io/github/license/danielmiessler/PAI?style=flat&color=60A5FA)
+
+<!-- Content -->
 [![Get Started](https://img.shields.io/badge/🚀_Get_Started-Quick_Install-22C55E?style=flat)](#-quick-start)
 [![Packs](https://img.shields.io/badge/📦_Packs-23-8B5CF6?style=flat)](Packs/)
 [![Bundles](https://img.shields.io/badge/🎁_Bundles-1-F97316?style=flat)](Bundles/)
@@ -1216,6 +1222,16 @@ If a pack becomes unmaintained, the community can fork and maintain a new versio
 **Special thanks:**
 - All early PAI users who provided feedback
 - The Claude Code team for building an incredible platform
+
+### Star History
+
+<a href="https://star-history.com/#danielmiessler/PAI&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=danielmiessler/PAI&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=danielmiessler/PAI&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=danielmiessler/PAI&type=Date" />
+ </picture>
+</a>
 
 ---
 
