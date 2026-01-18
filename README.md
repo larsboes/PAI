@@ -177,7 +177,7 @@ These principles guide how PAI systems are designed and built. **[Full breakdown
 | # | Principle | Summary |
 |---|-----------|---------|
 | 1 | **User Centricity** | PAI is built around you, not tooling. Your goals, preferences, and context come first—the infrastructure exists to serve them. |
-| 2 | **The Continuously Upgrading Algorithm** | Everything else exists to feed signals back into improving the core algorithm. Current → Ideal via verifiable iteration. |
+| 2 | **The Foundational Algorithm** | The scientific method as a universal problem-solving loop: Observe → Think → Plan → Build → Execute → Verify → Learn. Define the ideal state, iterate until you reach it. |
 | 3 | **Clear Thinking First** | Good prompts come from clear thinking. Clarify the problem before writing the prompt. |
 | 4 | **Scaffolding > Model** | System architecture matters more than which model you use. |
 | 5 | **Deterministic Infrastructure** | AI is probabilistic; your infrastructure shouldn't be. Use templates and patterns. |
