@@ -70,7 +70,7 @@
 
 Over 99.9% of humans are not *activated*. They don't believe they have valuable contributions to make. They think there are "special people"—and they aren't one of them. They've never asked who they are, what they're about, and have never articulated or written it down. This makes them catastrophically vulnerable to AI displacement. Without activation, there is no high agency.
 
-**The solution is [Human 3.0](https://danielmiessler.com/telos)**: a framework for helping people ask the fundamental questions, articulate who they are, write it down, share it, and work on problems that matter to them. H3 is the activation protocol. PAI is the infrastructure that makes it real.
+**Our approach to this is [Human 3.0](https://danielmiessler.com/telos)**: a framework for helping people ask the fundamental questions, articulate who they are, write it down, share it, and work on problems that matter to them. H3 is the activation protocol. PAI is the infrastructure that makes it real.
 
 **PAI's mission is twofold:**
 
@@ -79,7 +79,7 @@ Over 99.9% of humans are not *activated*. They don't believe they have valuable 
 
 That's why this is open-source instead of private. That's why we build in public. That's why the documentation works for humans AND AI assistants.
 
-> **Learn more:** [My Telos Framework →](https://danielmiessler.com/telos) | [Human 3.0 Overview →](https://danielmiessler.com/blog/human-3)
+> **Learn more:** [My Telos Framework →](https://danielmiessler.com/telos)
 
 ---
 
