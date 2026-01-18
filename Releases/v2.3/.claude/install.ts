@@ -933,7 +933,7 @@ function generateSettingsJson(config: Config): string {
     "techStack": {
       "terminal": "Kitty",
       "packageManager": "bun",
-      "pythonPackageManager": "pip",
+      "pythonPackageManager": "uv",
       "language": "TypeScript",
     },
     // PERMISSIONS: Pre-configured for smooth operation

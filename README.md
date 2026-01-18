@@ -66,20 +66,20 @@
 
 ## The Purpose of This Project
 
-**PAI exists to solve the Human Activation Crisis.**
+**PAI exists to solve what I believe is the [P0 problem](https://danielmiessler.com/telos) in the world:**
 
-Over 99.9% of humans are not *activated*. They don't believe they have valuable contributions to make. They think there are "special people"—and they aren't one of them. They've never asked who they are, what they're about, and have never articulated or written it down. This makes them catastrophically vulnerable to AI displacement. Without activation, there is no high agency.
+### Only a tiny fraction of humanity's creative potential is activated on Earth.
 
-**Our approach to this is [Human 3.0](https://danielmiessler.com/telos)**: a framework for helping people ask the fundamental questions, articulate who they are, write it down, share it, and work on problems that matter to them. H3 is the activation protocol. PAI is the infrastructure that makes it real.
+Most people don't believe they have valuable contributions to make. are "special" people—and they aren't one of them. They've never asked who they are, what they're about, and have never articulated or written it down. This makes them catastrophically vulnerable to AI displacement. Without activation, there is no high-agency.
+
+So our goal with PAI is to activate people.
 
 **PAI's mission is twofold:**
 
-1. **Activate everyone** — Help people identify, articulate, and pursue their own purpose in life through AI-augmented self-discovery
-2. **Democratize access** — Ensure this quality of AI infrastructure isn't reserved for the rich or technical elite—it belongs to *everyone*
+1. **Activate as many people as possible** — Help people identify, articulate, and pursue their own purpose in life through AI-augmented self-discovery
+2. **Make the best AI available in the world accessible to everyone.** — Ensure this quality of AI infrastructure isn't reserved for just the rich or technical elite.
 
-That's why this is open-source instead of private. That's why we build in public. That's why the documentation works for humans AND AI assistants.
-
-> **Learn more:** [My Telos Framework →](https://danielmiessler.com/telos)
+That's why this is an open-source project instead of private.
 
 ---
 
