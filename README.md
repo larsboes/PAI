@@ -64,13 +64,34 @@
 
 </div>
 
+## The Purpose of This Project
+
+**PAI exists to solve the Human Activation Crisis.**
+
+Over 99.9% of humans are not *activated*. They don't believe they have valuable contributions to make. They think there are "special people"—and they aren't one of them. They've never asked who they are, what they're about, and have never articulated or written it down. This makes them catastrophically vulnerable to AI displacement. Without activation, there is no high agency.
+
+**The solution is [Human 3.0](https://danielmiessler.com/telos)**: a framework for helping people ask the fundamental questions, articulate who they are, write it down, share it, and work on problems that matter to them. H3 is the activation protocol. PAI is the infrastructure that makes it real.
+
+**PAI's mission is twofold:**
+
+1. **Activate everyone** — Help people identify, articulate, and pursue their own purpose in life through AI-augmented self-discovery
+2. **Democratize access** — Ensure this quality of AI infrastructure isn't reserved for the rich or technical elite—it belongs to *everyone*
+
+That's why this is open-source instead of private. That's why we build in public. That's why the documentation works for humans AND AI assistants.
+
+> **Learn more:** [My Telos Framework →](https://danielmiessler.com/telos) | [Human 3.0 Overview →](https://danielmiessler.com/blog/human-3)
+
+---
+
+## What Drives PAI Internally
+
 ### 1. We believe AI provides **AN EXTRAORDINARY ADVANTAGE** to those who know how to use it, and we want that to be *everyone*, not just the rich or nerds like us. That's why this is open-source instead of private.
 
 ### 2. We believe the most important part of an AI system is not the tech itself, but the person using it. This is why **customization to the principal (you)** is the central idea of the PAI system.
 
 ### 3. We believe the ideal AI system functions as a [powerful assistant, friend, coach, and mentor](https://danielmiessler.com/blog/personal-ai-maturity-model) that's continuously helping you achieve your goals, rather than a narrow tool for coding or building applications.
 
-*The overarching goal of the PAI system is to produce **Euphoric Surprise** in how it executes every task.* 
+*The internal mechanism for achieving this is **Euphoric Surprise** in how PAI executes every task.*
 
 So, not just a good result, or a great result, but results so thorough, thoughtful, and wonderful that you generally can't wait to show someone.
 
@@ -1684,7 +1705,7 @@ v2.0.0 launched the Packs system. v2.0.1 adds:
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/Sponsor-❤️-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="Sponsor">
+<a href="https://github.com/sponsors/danielmiessler"><img src="https://img.shields.io/badge/Sponsor-❤️-EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white" alt="Sponsor"></a>
 
 **I spend hundreds of hours a year on open source. If you'd like to help support this project, you can sponsor me [here](https://github.com/sponsors/danielmiessler). 🙏🏼**
 
