@@ -4,7 +4,7 @@
 
 # PAI v2.4.0 — The Algorithm
 
-**A universal problem-solving system that pursues Euphoric Surprise**
+**Our first attempt at a general problem solver built into PAI to pursue Euphoric Surprise**
 
 [![GitHub Release](https://img.shields.io/badge/Release-v2.4.0-8B5CF6?style=flat&logo=github)](https://github.com/danielmiessler/PAI/releases/tag/v2.4.0)
 [![Skills](https://img.shields.io/badge/Skills-29-22C55E?style=flat)](skills/)
