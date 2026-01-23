@@ -15,11 +15,11 @@
 
 ---
 
-## The Headline Feature: The PAI Algorithm
+## The Algorithm
 
-v2.4 introduces **The Algorithm**—a structured, 7-phase approach to problem-solving that transforms how your AI assistant handles every task. This isn't incremental improvement; it's a fundamentally different way of working.
+v2.4 introduces **The Algorithm**—a structured, 7-phase approach to problem-solving. It's an experiment in making AI work more verifiable.
 
-### The Core Insight
+### The Problem We're Trying to Solve
 
 Most AI assistants work like this:
 ```
@@ -32,7 +32,7 @@ User asks → Understand true intent → Build verifiable criteria →
 Execute systematically → Verify against criteria → Learn from result
 ```
 
-The difference? **Verifiable outcomes.** Every task produces measurable results against criteria you can actually check.
+The idea is that if you can define testable criteria upfront, you can actually verify whether something worked.
 
 ### The 7 Phases
 
@@ -48,7 +48,7 @@ The difference? **Verifiable outcomes.** Every task produces measurable results 
 
 ### Ideal State Criteria (ISC)
 
-The secret sauce is **Ideal State Criteria**—exactly 8-word, binary-testable conditions that define success:
+The core mechanism is **Ideal State Criteria**—exactly 8-word, binary-testable conditions that define success:
 
 ```
 🎯 ISC TRACKER ════════════════════════════════════════════════════════════════
@@ -61,7 +61,7 @@ The secret sauce is **Ideal State Criteria**—exactly 8-word, binary-testable c
    SCORE: 3/3 verified │ ANTI: 0 triggered │ RESULT: COMPLETE
 ```
 
-**Why 8 words?** Forces precision. Can't be vague in 8 words. Each criterion becomes instantly testable—you can verify it in under 2 seconds.
+**Why 8 words?** It forces precision. You can't be vague in 8 words. Each criterion should be testable in under 2 seconds.
 
 ### Anti-Criteria
 
@@ -79,7 +79,7 @@ This prevents the common AI failure mode of solving one problem while creating a
 
 ## Capabilities System
 
-The Algorithm doesn't work alone. It orchestrates a rich ecosystem of capabilities:
+The Algorithm has access to various capabilities it can use during each phase:
 
 ### Available Capabilities
 
@@ -94,11 +94,9 @@ The Algorithm doesn't work alone. It orchestrates a rich ecosystem of capabiliti
 | **Browser** | Visual verification, screenshots | UI testing |
 | **Plan Mode** | Deep analysis before implementation | Major work |
 
-### Mandatory Capability Selection
+### Capability Selection
 
-Before every phase, the system asks: *"What capabilities would improve this phase?"*
-
-No more defaulting to "just do it directly." Every phase considers whether skills, agents, research, or other capabilities would produce better results.
+Before each phase, the system considers which capabilities might help. The goal is to avoid defaulting to "just do it directly" when a skill or agent would do better.
 
 ---
 
@@ -283,17 +281,17 @@ Specialized personalities for focused work:
 
 ---
 
-## The Philosophy: Euphoric Surprise
+## The Goal: Euphoric Surprise
 
-PAI pursues a singular goal—**Euphoric Surprise**. Not just task completion, but results so thorough and well-executed that you're genuinely delighted.
+The target we're aiming for is **Euphoric Surprise**—results thorough enough that you're genuinely delighted, not just satisfied.
 
-The Algorithm makes this measurable:
+The Algorithm tries to make this measurable:
 1. **Ideal State** — What would make you say "wow"?
 2. **Criteria** — Break that into testable conditions
 3. **Verification** — Prove each condition is met
 4. **Learning** — Capture what worked for next time
 
-This isn't aspirational. It's implemented in every phase, every response, every interaction.
+Whether it actually achieves this consistently is still being figured out.
 
 ---
 
@@ -332,8 +330,8 @@ cd ~/.claude && bun run PAIInstallWizard.ts
 
 <div align="center">
 
-**PAI v2.4.0** — The Algorithm for Euphoric Surprise
+**PAI v2.4.0** — The Algorithm
 
-*Problem-solving with verifiable outcomes.*
+*An experiment in verifiable problem-solving.*
 
 </div>
