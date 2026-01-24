@@ -70,7 +70,7 @@ cd PAI/Releases/v2.4
 cp -r .claude ~/
 
 # 4. Run the configuration wizard
-cd ~/.claude && bun run install.ts --setup
+cd ~/.claude && bun run PAIInstallWizard.ts
 
 # 5. Restart Claude Code to activate hooks
 ```
