@@ -20,7 +20,20 @@ This is the fastest way to get PAI running. Copy the directory, run the wizard, 
 
 ## Available Releases
 
-### v4.0.1 — Upgrade Path & Preferences (Current)
+### v4.0.2 — Bug Fix Patch (Current)
+
+13 surgical fixes — no new features, no breaking changes.
+
+- Linux compatibility: cross-platform OAuth token extraction, GNU coreutils `tr` fix
+- Installer: correct alias path, shell detection (bash/fish/zsh), headless CLI fallback
+- Statusline: width cache, algorithmVersion field, cross-platform OAuth
+- Hooks: inference guard (~15s savings), lineage tracking, dead code removal, exit codes, voice config
+
+**[Get v4.0.2 →](v4.0.2/)**
+
+---
+
+### v4.0.1 — Upgrade Path & Preferences
 
 Patch release addressing community feedback on upgrade difficulties and missing preferences.
 
@@ -108,7 +121,7 @@ The release that introduced persistent learning and sentiment capture.
 ```bash
 # 1. Clone the repo
 git clone https://github.com/danielmiessler/Personal_AI_Infrastructure.git
-cd Personal_AI_Infrastructure/Releases/v4.0.1
+cd Personal_AI_Infrastructure/Releases/v4.0.2
 
 # 2. Copy the release and run the installer
 cp -r .claude ~/ && cd ~/.claude && bash install.sh
