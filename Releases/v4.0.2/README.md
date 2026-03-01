@@ -97,12 +97,14 @@ bun ~/.claude/PAI/Tools/BuildCLAUDE.ts
 
 If you just want the bug fixes without re-running the installer, copy these files from this release over your existing ones:
 
-- `statusline-command.sh`
-- `hooks/handlers/DocCrossRefIntegrity.ts`
-- `hooks/handlers/UpdateCounts.ts`
-- `hooks/WorkCompletionLearning.hook.ts`
-- `hooks/RatingCapture.hook.ts`
-- `hooks/LoadContext.hook.ts`
+- `statusline-command.sh` — width cache, OAuth cross-platform, GNU tr fix
+- `hooks/handlers/DocCrossRefIntegrity.ts` — inference guard, voice ID from config
+- `hooks/handlers/UpdateCounts.ts` — algorithmVersion, OAuth cross-platform
+- `hooks/WorkCompletionLearning.hook.ts` — lineageSubKey fix
+- `hooks/RatingCapture.hook.ts` — dead code removal, source field
+- `hooks/LoadContext.hook.ts` — exit 0 on error
+- `PAI-Install/install.sh` — headless/SSH auto-detection
+- `PAI-Install/engine/actions.ts` — alias path fix, shell detection
 
 ---
 
