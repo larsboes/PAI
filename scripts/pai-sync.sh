@@ -19,7 +19,7 @@
 #
 # Skill discovery supports both:
 #   Flat:  {repo}/skills/{name}/SKILL.md
-#   Packs: {repo}/Packs/{Pack}/src/skills/{name}/SKILL.md
+#   Packs: {repo}/Packs/{Pack}/src/{name}/SKILL.md
 #
 # Sync tag in SKILL.md frontmatter:
 #   # @sync: public   → claude + gemini + pi  (default)
@@ -52,7 +52,8 @@ cleaned=0
 
 # ── Shared temp file (reused across all deploy calls) ────────────────────────
 TMP_EFFECTIVE=$(mktemp)
-trap 'rm -f "$TMP_EFFECTIVE"' EXIT
+TEMP_FILES=("$TMP_EFFECTIVE")
+trap 'rm -f "${TEMP_FILES[@]}"' EXIT
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -134,14 +135,19 @@ targets_for_tag() {
   esac
 }
 
-# build_effective <src_md> <target>
+# build_effective <src_md> <target> <skill_name>
 # Writes the target-specific SKILL.md content to $TMP_EFFECTIVE
 build_effective() {
   local src_md="$1"
   local target="$2"
+  local skill_name="$3"
   case "$target" in
-    pi)      sed "s|\${CLAUDE_SKILL_DIR}/scripts/|${PI_SCRIPTS}/|g" "$src_md" > "$TMP_EFFECTIVE" ;;
-    gemini)  sed "s|\${CLAUDE_SKILL_DIR}/scripts/|./scripts/|g" "$src_md" > "$TMP_EFFECTIVE" ;;
+    pi)      sed -e "s|\${CLAUDE_SKILL_DIR}/scripts/|${PI_SCRIPTS}/|g" \
+                 -e "s|\${CLAUDE_SKILL_DIR}|${PI_SKILLS}/${skill_name}|g" \
+                 "$src_md" > "$TMP_EFFECTIVE" ;;
+    gemini)  sed -e "s|\${CLAUDE_SKILL_DIR}/scripts/|./scripts/|g" \
+                 -e "s|\${CLAUDE_SKILL_DIR}|.|g" \
+                 "$src_md" > "$TMP_EFFECTIVE" ;;
     claude)  cp "$src_md" "$TMP_EFFECTIVE" ;;
   esac
 }
@@ -154,7 +160,7 @@ deploy_skill_md() {
   local target="$4"
   local dst_md="${dst_dir}/SKILL.md"
 
-  build_effective "$src_md" "$target"
+  build_effective "$src_md" "$target" "$name"
 
   if [[ ! -f "$dst_md" ]]; then
     if [[ "$STATUS_ONLY" == true ]]; then
@@ -198,22 +204,82 @@ deploy_scripts_to_dir() {
     script_name=$(basename "$script")
     dst="${dst_dir}/${script_name}"
 
-    if [[ ! -f "$dst" ]] || ! diff -q "$script" "$dst" > /dev/null 2>&1; then
+    if [[ ! -f "$dst" ]]; then
       if [[ "$STATUS_ONLY" == true ]]; then
         scripts_synced=$((scripts_synced + 1))
       elif [[ "$DRY_RUN" == true ]]; then
-        [[ -f "$dst" ]] && echo "  [UPDATE]  ${label}: ${script_name}" \
-                        || echo "  [CREATE] ${label}: ${script_name}"
+        echo "  [CREATE] ${label}: ${script_name}"
       else
         mkdir -p "$dst_dir"
         cp "$script" "$dst"
         chmod +x "$dst"
-        [[ -f "$dst" ]] && echo "  [UPDATED] ${label}: ${script_name}" \
-                        || echo "  [CREATED] ${label}: ${script_name}"
+        echo "  [CREATED] ${label}: ${script_name}"
+        scripts_synced=$((scripts_synced + 1))
+      fi
+    elif ! diff -q "$script" "$dst" > /dev/null 2>&1; then
+      if [[ "$STATUS_ONLY" == true ]]; then
+        scripts_synced=$((scripts_synced + 1))
+      elif [[ "$DRY_RUN" == true ]]; then
+        echo "  [UPDATE]  ${label}: ${script_name}"
+      else
+        cp "$script" "$dst"
+        chmod +x "$dst"
+        echo "  [UPDATED] ${label}: ${script_name}"
         scripts_synced=$((scripts_synced + 1))
       fi
     fi
   done
+}
+
+# deploy_skill_files <name> <skill_path> <dst_dir> <target>
+# Deploys all files in skill dir except SKILL.md and scripts/
+# Uses direct copy (no sed transforms — path rewriting only applies to SKILL.md)
+deploy_skill_files() {
+  local name="$1"
+  local skill_path="$2"
+  local dst_dir="$3"
+  local target="$4"
+
+  while IFS= read -r -d '' src_file; do
+    local rel_path="${src_file#${skill_path}/}"
+    local dst_file="${dst_dir}/${rel_path}"
+
+    if [[ ! -f "$dst_file" ]]; then
+      if [[ "$STATUS_ONLY" == true ]]; then
+        created=$((created + 1))
+      elif [[ "$DRY_RUN" == true ]]; then
+        echo "  [CREATE] ${target}: ${name}/${rel_path}"
+      else
+        mkdir -p "$(dirname "$dst_file")"
+        cp "$src_file" "$dst_file"
+        echo "  [CREATED] ${target}: ${name}/${rel_path}"
+        created=$((created + 1))
+      fi
+    elif ! diff -q "$src_file" "$dst_file" > /dev/null 2>&1; then
+      if [[ "$STATUS_ONLY" == true ]]; then
+        updated=$((updated + 1))
+      elif [[ "$DRY_RUN" == true ]]; then
+        echo "  [UPDATE]  ${target}: ${name}/${rel_path}"
+      else
+        cp "$src_file" "$dst_file"
+        echo "  [UPDATED] ${target}: ${name}/${rel_path}"
+        updated=$((updated + 1))
+      fi
+    else
+      if [[ "$DRY_RUN" == true && "$STATUS_ONLY" == false ]]; then
+        echo "  [OK]      ${target}: ${name}/${rel_path}"
+      fi
+      unchanged=$((unchanged + 1))
+    fi
+  done < <(
+    # Build find command, excluding sub-skill directories (dirs with their own SKILL.md)
+    find_cmd=(find "$skill_path" -type f ! -name "SKILL.md" ! -path "*/scripts/*")
+    for sub in "$skill_path"/*/; do
+      [[ -f "${sub}SKILL.md" ]] && find_cmd+=(! -path "${sub%/}/*")
+    done
+    find_cmd+=(-print0)
+    "${find_cmd[@]}"
+  )
 }
 
 # sync_skill <name> <skill_path> <tag>
@@ -235,6 +301,7 @@ sync_skill() {
     esac
 
     deploy_skill_md "$name" "$skill_md" "$target_dir" "$target"
+    deploy_skill_files "$name" "$skill_path" "$target_dir" "$target"
 
     if [[ -d "${skill_path}/scripts" ]]; then
       deploy_scripts_to_dir "$name" "${skill_path}/scripts" "${target_dir}/scripts" "$target"
@@ -288,7 +355,7 @@ total_skills=0
 
 # ── Phase 1: Collect all skills from all sources → temp file ─────────────────
 tmp_all=$(mktemp)
-trap 'rm -f "$TMP_EFFECTIVE" "$tmp_all"' EXIT
+TEMP_FILES+=("$tmp_all")
 
 while IFS= read -r raw_path || [[ -n "$raw_path" ]]; do
   [[ "$raw_path" =~ ^[[:space:]]*$ || "$raw_path" =~ ^# ]] && continue
@@ -299,7 +366,7 @@ done < "$SOURCES_CONF"
 
 # Deduplicate: first-seen order, last path wins.
 tmp_deduped=$(mktemp)
-trap 'rm -f "$TMP_EFFECTIVE" "$tmp_all" "$tmp_deduped"' EXIT
+TEMP_FILES+=("$tmp_deduped")
 
 python3 - "$tmp_all" > "$tmp_deduped" <<'PYEOF'
 import sys
@@ -346,7 +413,7 @@ if [[ "$CLEAN" == true ]]; then
   # We saved known_skills during Phase 2 loop above
   # Re-discover to get the name list (lightweight)
   tmp_names=$(mktemp)
-  trap 'rm -f "$TMP_EFFECTIVE" "$tmp_names"' EXIT
+  TEMP_FILES+=("$tmp_names")
 
   while IFS= read -r raw_path || [[ -n "$raw_path" ]]; do
     [[ "$raw_path" =~ ^[[:space:]]*$ || "$raw_path" =~ ^# ]] && continue
