@@ -1,5 +1,7 @@
 # Installing PAI on Pi — Step by Step
 
+> **Note:** This is v1.0.0 (alpha) — an early release. Expect rough edges as this evolves.
+
 This guide takes you from zero to a working PAI system on Pi. Total time: ~15 minutes.
 
 ## Prerequisites
