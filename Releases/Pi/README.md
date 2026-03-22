@@ -4,7 +4,7 @@
 
 > **PAI** (Personal AI Infrastructure) is a methodology and toolkit for building your own AI assistant. The primary PAI releases are built on [Claude Code](https://docs.anthropic.com/en/docs/claude-code), which is the most powerful AI coding harness available today. But many people want to use **local models**, **open-source models**, or a **mix of providers** — and that's what this scaffold is for.
 
-**[Pi](https://github.com/badlogic/pi)** is a model-agnostic coding agent that works with any LLM provider: Ollama (local), OpenAI, Anthropic, OpenRouter, or any OpenAI-compatible API. This directory contains everything you need to run PAI's core methodology inside Pi.
+**[Pi](https://github.com/badlogic/pi-mono)** is a model-agnostic coding agent that works with any LLM provider: Ollama (local), OpenAI, Anthropic, OpenRouter, or any OpenAI-compatible API. This directory contains everything you need to run PAI's core methodology inside Pi.
 
 ## Why Pi?
 
