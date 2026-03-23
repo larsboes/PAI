@@ -1,0 +1,8 @@
+{
+  "name": "obsidian",
+  "description": "Obsidian vault integration — keyword search, backlinks, UI control, vault health",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  }
+}

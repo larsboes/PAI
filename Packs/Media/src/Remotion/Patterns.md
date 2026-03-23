@@ -91,11 +91,35 @@ import { Sequence } from 'remotion'
 ## Audio with Video
 
 ```typescript
-import { Audio, Video, staticFile } from 'remotion'
+import { Audio, OffthreadVideo, staticFile } from 'remotion'
 
-<Video src={staticFile('video.mp4')} volume={0.5} />
+// OffthreadVideo: preferred over <Video> — extracts frames via FFmpeg,
+// no browser decode issues, correct results in renders
+<OffthreadVideo src={staticFile('video.mp4')} volume={0.5} />
 <Audio src={staticFile('music.mp3')} volume={0.3} startFrom={30} />
 ```
+
+## Series (Sequential Playback)
+
+Play compositions back-to-back without manually calculating `from` offsets:
+
+```typescript
+import { Series } from 'remotion'
+
+<Series>
+  <Series.Sequence durationInFrames={90}>
+    <TitleScene title="Hello World" />
+  </Series.Sequence>
+  <Series.Sequence durationInFrames={150}>
+    <ContentScene points={['Point 1', 'Point 2']} />
+  </Series.Sequence>
+  <Series.Sequence durationInFrames={60}>
+    <OutroScene />
+  </Series.Sequence>
+</Series>
+```
+
+Use `offset` prop for gaps (`offset={15}`) or overlaps (`offset={-15}`) between sequences.
 
 ## Video Size Presets
 
@@ -125,9 +149,6 @@ import { Audio, Video, staticFile } from 'remotion'
 
 ## Reference Documentation
 
-For detailed patterns on specific topics, see:
-```
-~/.claude/skills/Media/Remotion/Tools/Reference/
-```
+For detailed patterns on specific topics, see the `rules/` directory.
 
 Topics include: animations, audio, 3d, charts, captions, fonts, transitions, and more.

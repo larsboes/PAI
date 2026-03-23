@@ -40,7 +40,7 @@ This workflow handles ANY input via the Parser skill:
 **For YouTube:**
 ```bash
 # Get transcript via Parser skill
-# Load: ~/.claude/skills/Utilities/Parser/Workflows/ExtractYoutube.md
+# Use the Parser skill: ExtractYoutube workflow
 ```
 
 **For articles/blogs:**
@@ -347,22 +347,22 @@ Cannot proceed - fix logical issues before rendering
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ STEP 4: COMPONENT GENERATION                                                │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ Create project at: /tmp/remotion-{timestamp}/                              │
+│ Add to existing Remotion project: src/                          │
 │                                                                             │
-│ Files to generate:                                                          │
-│ • package.json                                                              │
-│ • src/Root.tsx (composition registration)                                   │
-│ • src/Video.tsx (main composition)                                          │
-│ • src/scenes/TitleScene.tsx                                                │
-│ • src/scenes/SectionScene.tsx                                              │
-│ • src/scenes/ConclusionScene.tsx                                           │
-│ • src/theme.ts (copy from skill)                                           │
+│ Files to create:                                                            │
+│ • src/{SlugName}/Video.tsx (main composition)                               │
+│ • src/{SlugName}/TitleScene.tsx                                             │
+│ • src/{SlugName}/SectionScene.tsx                                           │
+│ • src/{SlugName}/ConclusionScene.tsx                                        │
+│                                                                             │
+│ Files to update:                                                            │
+│ • src/Root.tsx — add new <Composition> entry                                │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 **MANDATORY: Apply PAI Theme**
 ```typescript
-import { PAI_THEME } from '~/.claude/skills/Media/Remotion/theme'
+import { PAI_THEME } from './Tools/Theme'
 
 // All components MUST use:
 // - PAI_THEME.colors for all colors
@@ -377,9 +377,9 @@ import { PAI_THEME } from '~/.claude/skills/Media/Remotion/theme'
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ STEP 5: RENDER                                                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ 1. Install dependencies: npm install                                        │
-│ 2. Render: npx remotion render {composition-id} ~/Downloads/{name}.mp4     │
-│ 3. Open for preview: open ~/Downloads/{name}.mp4                           │
+│ 1. cd <project-directory>                                                  │
+│ 2. Render: bunx remotion render {composition-id} output/{name}.mp4         │
+│ 3. Open for preview: open output/{name}.mp4                                │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -544,7 +544,5 @@ User: animate this content: "The three pillars of AI safety are..."
 
 ## Integration with Art Skill
 
-This workflow inherits visual theming from Art preferences:
-- Load: `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md`
-- Apply: Charcoal aesthetic, purple accents, organic animations
-- Reference: `~/.claude/skills/Media/Remotion/theme.ts`
+This workflow uses the default PAI theme from `Tools/Theme.ts`.
+Users can customize by placing preferences at `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md`.
