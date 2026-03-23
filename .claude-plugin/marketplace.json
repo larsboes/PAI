@@ -1,0 +1,54 @@
+{
+  "name": "pai-skills",
+  "owner": {
+    "name": "Lars Boes"
+  },
+  "metadata": {
+    "description": "PAI skill marketplace — coding, devtools, integrations, content, terminal, and more",
+    "pluginRoot": "./marketplace/plugins"
+  },
+  "plugins": [
+    {
+      "name": "coding",
+      "source": "./marketplace/plugins/coding",
+      "description": "TypeScript, Swift, Python/uv, architecture, data engineering, FluentBit",
+      "strict": false
+    },
+    {
+      "name": "content",
+      "source": "./marketplace/plugins/content",
+      "description": "HTML docs, Mermaid diagrams, transcription, web content fetching",
+      "strict": false
+    },
+    {
+      "name": "devtools",
+      "source": "./marketplace/plugins/devtools",
+      "description": "Context7, debugging, UI design, dev workflow, security audit, VS Code",
+      "strict": false
+    },
+    {
+      "name": "terminal",
+      "source": "./marketplace/plugins/terminal",
+      "description": "cmux and tmux terminal multiplexer control",
+      "strict": false
+    },
+    {
+      "name": "skillsmeta",
+      "source": "./marketplace/plugins/skillsmeta",
+      "description": "Skill forge, skill sync, pi-extender — meta tools for skill management",
+      "strict": false
+    },
+    {
+      "name": "integrations",
+      "source": "./marketplace/plugins/integrations",
+      "description": "GitHub, Google (Gmail, Calendar, Drive), Notion, Obsidian vault, Zotero",
+      "strict": false
+    },
+    {
+      "name": "obsidian",
+      "source": "./marketplace/plugins/obsidian",
+      "description": "Obsidian vault integration — keyword search, backlinks, UI control, vault health",
+      "strict": false
+    }
+  ]
+}

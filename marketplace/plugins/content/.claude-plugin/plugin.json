@@ -1,0 +1,8 @@
+{
+  "name": "content",
+  "description": "HTML docs, Mermaid diagrams, transcription, web content fetching",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  }
+}

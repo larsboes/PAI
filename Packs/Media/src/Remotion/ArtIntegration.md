@@ -1,87 +1,71 @@
 # Art Skill Integration
 
-**MANDATORY:** This skill inherits visual theming from the Art skill.
+Two built-in themes. Choose per video based on content, or ask the user.
 
-## Before Creating Any Video Content
+## Themes
 
-1. **Load Art preferences:**
-   ```
-   ~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md
-   ```
+| Theme | When to Use | Look |
+|-------|------------|------|
+| **apple** | Product demos, presentations, clean explainers | White background, blue accents, crisp snappy animations |
+| **charcoal** | Cinematic, moody, artistic, data viz, storytelling | Dark slate, purple accents, organic gestural animations |
 
-2. **Apply the PAI Theme** derived from Art preferences:
+**When unclear, ask the user:** "Apple-style (clean white) or charcoal (dark cinematic)?"
 
-| Art Preference | Remotion Application |
-|----------------|---------------------|
-| Core aesthetic (charcoal architectural) | Dark backgrounds, sketch-like feel |
-| Primary accent (purple/violet) | Accent colors, highlights, CTAs |
-| Cool atmospheric washes | Background gradients, overlays |
-| Paper ground (#F5F5F0) | Light text, subtle backgrounds |
-| Human-scale in vast spaces | Typography hierarchy, spacing |
+Users can also customize via `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md`.
 
-3. **Use Theme Constants:**
-   ```
-   ~/.claude/skills/Media/Remotion/Tools/Theme.ts
-   ```
-
-4. **Reference images** (when visual style reference needed):
-   ```
-   ~/.claude/skills/Media/Art/Examples/
-   ```
-
-## PAI Theme Quick Reference
+## Usage
 
 ```typescript
-import { PAI_THEME } from '~/.claude/skills/Media/Remotion/Tools/Theme'
+import { selectTheme, PAI_THEME } from './Tools/Theme'
 
-// Colors
-PAI_THEME.colors.background    // #0f172a - Deep slate
-PAI_THEME.colors.accent        // #8b5cf6 - Purple/violet
-PAI_THEME.colors.text          // #f1f5f9 - Light text
-PAI_THEME.colors.textMuted     // #94a3b8 - Muted text
+// Option 1: Select explicitly
+const theme = selectTheme('apple')    // or 'charcoal'
 
-// Typography
-PAI_THEME.typography.title     // { fontSize: 72, fontWeight: 'bold' }
-PAI_THEME.typography.subtitle  // { fontSize: 36 }
-PAI_THEME.typography.body      // { fontSize: 24 }
-
-// Animation
-PAI_THEME.animation.springDefault  // { damping: 12, stiffness: 100 }
-PAI_THEME.animation.fadeFrames     // 30 frames (~1 second)
-PAI_THEME.animation.staggerDelay   // 10 frames
-
-// Spacing
-PAI_THEME.spacing.page         // 100px edge padding
-PAI_THEME.spacing.section      // 60px between sections
-PAI_THEME.spacing.element      // 30px between elements
+// Option 2: Use default (charcoal)
+const theme = PAI_THEME
 ```
 
-## Using the Theme in Components
+## Theme Quick Reference
+
+### Apple (clean white)
+```
+background: #FFFFFF          accent: #0071E3 (Apple blue)
+text: #1D1D1F               animations: crisp, snappy springs
+```
+
+### Charcoal (dark cinematic)
+```
+background: #0f172a          accent: #8b5cf6 (purple)
+text: #f1f5f9               animations: organic, gestural springs
+```
+
+## Using Themes in Components
 
 ```typescript
-import { PAI_THEME, titleScreenStyle, fadeInterpolation } from '~/.claude/skills/Media/Remotion/Tools/Theme'
+import { selectTheme, titleScreenStyle, fadeInterpolation } from './Tools/Theme'
 
-export const MyScene: React.FC = () => {
+export const MyScene: React.FC<{ themeName: 'apple' | 'charcoal' }> = ({ themeName }) => {
+  const theme = selectTheme(themeName)
   const frame = useCurrentFrame()
   const { fps } = useVideoConfig()
 
   const opacity = interpolate(
     frame,
-    fadeInterpolation().inputRange,
-    fadeInterpolation().outputRange,
+    fadeInterpolation(theme).inputRange,
+    fadeInterpolation(theme).outputRange,
     { extrapolateRight: 'clamp' }
   )
 
   const scale = spring({
     frame, fps,
-    config: PAI_THEME.animation.springDefault
+    config: theme.animation.springDefault
   })
 
   return (
-    <AbsoluteFill style={titleScreenStyle}>
+    <AbsoluteFill style={titleScreenStyle(theme)}>
       <h1 style={{
-        ...PAI_THEME.typography.title,
-        color: PAI_THEME.colors.text,
+        ...theme.typography.title,
+        color: theme.colors.text,
         opacity,
         transform: `scale(${scale})`
       }}>
@@ -91,5 +75,3 @@ export const MyScene: React.FC = () => {
   )
 }
 ```
-
-**All videos MUST use this theme unless explicitly overridden.**

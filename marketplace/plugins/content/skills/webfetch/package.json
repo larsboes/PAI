@@ -1,0 +1,8 @@
+{
+	"name": "webfetch",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Unified web fetch + search via Jina AI Reader and Search (free, no API key)",
+	"license": "MIT",
+	"dependencies": {}
+}

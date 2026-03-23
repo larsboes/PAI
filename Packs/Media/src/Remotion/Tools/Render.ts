@@ -67,7 +67,7 @@ export interface RenderResult {
  * @returns Render result
  */
 export async function render(options: RenderOptions): Promise<RenderResult> {
-  const args: string[] = ['npx', 'remotion', 'render', options.compositionId, options.outputPath]
+  const args: string[] = ['bunx', 'remotion', 'render', options.compositionId, options.outputPath]
 
   if (options.codec) args.push('--codec', options.codec)
   if (options.crf !== undefined) args.push('--crf', String(options.crf))
@@ -123,7 +123,7 @@ export async function renderStill(options: {
   jpegQuality?: number
   scale?: number
 }): Promise<RenderResult> {
-  const args: string[] = ['npx', 'remotion', 'still', options.compositionId, options.outputPath]
+  const args: string[] = ['bunx', 'remotion', 'still', options.compositionId, options.outputPath]
 
   if (options.frame !== undefined) args.push('--frame', String(options.frame))
   if (options.imageFormat) args.push('--image-format', options.imageFormat)
@@ -162,7 +162,7 @@ export async function listCompositions(projectDir?: string): Promise<Composition
   const cwd = projectDir || process.cwd()
 
   try {
-    const result = await $`npx remotion compositions --json`.cwd(cwd).text()
+    const result = await $`bunx remotion compositions --json`.cwd(cwd).text()
     return JSON.parse(result)
   } catch (error: any) {
     console.error('Failed to list compositions:', error.message)
@@ -180,7 +180,7 @@ export async function startStudio(options?: {
   port?: number
   browserArgs?: string[]
 }): Promise<void> {
-  const args: string[] = ['npx', 'remotion', 'studio']
+  const args: string[] = ['bunx', 'remotion', 'studio']
 
   if (options?.port) args.push('--port', String(options.port))
 
@@ -202,7 +202,7 @@ export async function createProject(options: {
   template?: 'blank' | 'hello-world' | 'three' | 'audiogram' | 'tts'
   outputDir?: string
 }): Promise<{ success: boolean; path: string; error?: string }> {
-  const args: string[] = ['npx', 'create-video@latest', options.name]
+  const args: string[] = ['bunx', 'create-video@latest', options.name]
 
   if (options.template) {
     args.push('--template', options.template)
@@ -235,7 +235,7 @@ export async function upgrade(projectDir?: string): Promise<{ success: boolean; 
   const cwd = projectDir || process.cwd()
 
   try {
-    await $`npx remotion upgrade`.cwd(cwd).text()
+    await $`bunx remotion upgrade`.cwd(cwd).text()
     return { success: true }
   } catch (error: any) {
     return {
@@ -246,31 +246,45 @@ export async function upgrade(projectDir?: string): Promise<{ success: boolean; 
 }
 
 /**
- * Get video metadata using Mediabunny
+ * Get video metadata using Mediabunny (requires: bun add mediabunny in project)
  */
 export async function getVideoMetadata(videoPath: string): Promise<{
   width: number
   height: number
   durationInSeconds: number
-  fps: number
 } | null> {
   try {
-    // This requires @remotion/media-utils in the project
-    const result = await $`npx remotion parse-video ${videoPath} --json`.text()
-    return JSON.parse(result)
+    const { Input, ALL_FORMATS, FileSource } = await import('mediabunny')
+    const input = new Input({
+      formats: ALL_FORMATS,
+      source: new FileSource(videoPath),
+    })
+    const [videoTrack, durationInSeconds] = await Promise.all([
+      input.getPrimaryVideoTrack(),
+      input.computeDuration(),
+    ])
+    if (!videoTrack) return null
+    return {
+      width: videoTrack.displayWidth,
+      height: videoTrack.displayHeight,
+      durationInSeconds,
+    }
   } catch {
     return null
   }
 }
 
 /**
- * Get audio duration using Mediabunny
+ * Get audio duration using Mediabunny (requires: bun add mediabunny in project)
  */
 export async function getAudioDuration(audioPath: string): Promise<number | null> {
   try {
-    const result = await $`npx remotion parse-audio ${audioPath} --json`.text()
-    const data = JSON.parse(result)
-    return data.durationInSeconds
+    const { Input, ALL_FORMATS, FileSource } = await import('mediabunny')
+    const input = new Input({
+      formats: ALL_FORMATS,
+      source: new FileSource(audioPath),
+    })
+    return await input.computeDuration()
   } catch {
     return null
   }

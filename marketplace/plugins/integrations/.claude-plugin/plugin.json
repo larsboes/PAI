@@ -1,0 +1,8 @@
+{
+  "name": "integrations",
+  "description": "GitHub, Google, Notion, Obsidian, Zotero",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  }
+}
