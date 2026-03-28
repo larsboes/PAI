@@ -1,8 +1,11 @@
 {
   "name": "integrations",
-  "description": "GitHub, Google, Notion, Obsidian, Zotero",
+  "description": "Service integrations — Google CLI tools, GitHub, Notion, Obsidian vault, and Zotero citations",
   "version": "1.0.0",
   "author": {
     "name": "Lars Boes"
-  }
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#integrations",
+  "license": "MIT"
 }

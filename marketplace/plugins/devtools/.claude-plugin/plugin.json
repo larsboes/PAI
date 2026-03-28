@@ -1,8 +1,11 @@
 {
   "name": "devtools",
-  "description": "Context7, debugging, UI design, dev workflow, security audit, VS Code",
+  "description": "Developer tools — architecture review, debugging, dev workflow, design, code search, Swift, FluentBit, Python uv, VS Code, and security auditing",
   "version": "1.0.0",
   "author": {
     "name": "Lars Boes"
-  }
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#devtools",
+  "license": "MIT"
 }

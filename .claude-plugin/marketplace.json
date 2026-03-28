@@ -5,49 +5,162 @@
   },
   "metadata": {
     "description": "PAI skill marketplace — coding, devtools, integrations, content, terminal, and more",
-    "pluginRoot": "./marketplace/plugins"
+    "version": "1.0.0",
+    "pluginRoot": "./marketplace/plugins",
+    "repository": "https://github.com/larsboes/PAI",
+    "license": "MIT"
   },
   "plugins": [
     {
+      "name": "agents",
+      "source": "./marketplace/plugins/agents",
+      "description": "Custom agent composition from traits, voices, and personalities -- dynamic specialists with unique identities for parallel work",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
       "name": "coding",
       "source": "./marketplace/plugins/coding",
-      "description": "TypeScript, Swift, Python/uv, architecture, data engineering, FluentBit",
+      "description": "Language-specific coding knowledge, architecture patterns, and framework guides — deep reference for writing production-quality code in specific stacks.",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     },
     {
       "name": "content",
       "source": "./marketplace/plugins/content",
-      "description": "HTML docs, Mermaid diagrams, transcription, web content fetching",
+      "description": "Content processing — web fetching, file conversion, HTML docs, transcription, and Mermaid diagrams",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "contentanalysis",
+      "source": "./marketplace/plugins/contentanalysis",
+      "description": "Content-adaptive wisdom extraction from videos, podcasts, articles, and YouTube -- dynamic sections built from what the content actually contains",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     },
     {
       "name": "devtools",
       "source": "./marketplace/plugins/devtools",
-      "description": "Context7, debugging, UI design, dev workflow, security audit, VS Code",
+      "description": "Developer tools — architecture review, debugging, dev workflow, design, code search, Swift, FluentBit, Python uv, VS Code, and security auditing",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     },
     {
-      "name": "terminal",
-      "source": "./marketplace/plugins/terminal",
-      "description": "cmux and tmux terminal multiplexer control",
-      "strict": false
-    },
-    {
-      "name": "skillsmeta",
-      "source": "./marketplace/plugins/skillsmeta",
-      "description": "Skill forge, skill sync, pi-extender — meta tools for skill management",
+      "name": "infrastructure",
+      "source": "./marketplace/plugins/infrastructure",
+      "description": "Home infrastructure management — Fritz!Box router and Synology NAS via pure Python CLIs",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     },
     {
       "name": "integrations",
       "source": "./marketplace/plugins/integrations",
-      "description": "GitHub, Google (Gmail, Calendar, Drive), Notion, Obsidian vault, Zotero",
+      "description": "Service integrations — Google CLI tools, GitHub, Notion, Obsidian vault, and Zotero citations",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     },
     {
-      "name": "obsidian",
-      "source": "./marketplace/plugins/obsidian",
-      "description": "Obsidian vault integration — keyword search, backlinks, UI control, vault health",
+      "name": "investigation",
+      "source": "./marketplace/plugins/investigation",
+      "description": "OSINT and people-finding -- structured investigations, company intel, due diligence, and ethical people search across public records and social media",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "lifeos",
+      "source": "./marketplace/plugins/lifeos",
+      "description": "Life management workflows — learning paths, trip planning, periodic reviews, and inbox processing with Obsidian vault integration",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "media",
+      "source": "./marketplace/plugins/media",
+      "description": "Visual and video content creation — illustrations, diagrams, infographics, header images, thumbnails, comics, and programmatic video via Remotion",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "research",
+      "source": "./marketplace/plugins/research",
+      "description": "Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and 242+ Fabric patterns",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "scraping",
+      "source": "./marketplace/plugins/scraping",
+      "description": "Web scraping via progressive escalation (Bright Data proxy) and social media platform actors (Apify) — from simple URL fetch to CAPTCHA-solving proxy networks",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "security",
+      "source": "./marketplace/plugins/security",
+      "description": "Security assessment and intelligence — network reconnaissance, web app security testing, prompt injection testing, security news monitoring, and annual report analysis",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "skillsmeta",
+      "source": "./marketplace/plugins/skillsmeta",
+      "description": "Skill lifecycle management — quality standards, cross-platform sync, and pi extension development",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "telos",
+      "source": "./marketplace/plugins/telos",
+      "description": "Life OS and project analysis — goals, dependencies, beliefs, wisdom, books, movies, narrative points, interview extraction, McKinsey reports, and project dashboards",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "terminal",
+      "source": "./marketplace/plugins/terminal",
+      "description": "Terminal multiplexer control — tmux session management and cmux workspace automation",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "thinking",
+      "source": "./marketplace/plugins/thinking",
+      "description": "Multi-mode analytical and creative thinking — first principles decomposition, iterative depth analysis, creative brainstorming, multi-agent council debates, adversarial red teaming, world threat modeling, and scientific hypothesis testing",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "usmetrics",
+      "source": "./marketplace/plugins/usmetrics",
+      "description": "68 US economic indicators from FRED, EIA, Treasury, BLS, Census APIs with trend analysis and cross-metric correlation",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
+      "strict": false
+    },
+    {
+      "name": "utilities",
+      "source": "./marketplace/plugins/utilities",
+      "description": "Developer utilities and tools -- CLI generation, skill scaffolding, agent delegation, system upgrades, evals, documents, parsing, audio editing, Fabric patterns, Cloudflare infrastructure, browser automation, meta-prompting, and aphorisms",
+      "repository": "https://github.com/larsboes/PAI",
+      "license": "MIT",
       "strict": false
     }
   ]

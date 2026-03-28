@@ -1,0 +1,11 @@
+{
+  "name": "thinking",
+  "description": "Multi-mode analytical and creative thinking — first principles decomposition, iterative depth analysis, creative brainstorming, multi-agent council debates, adversarial red teaming, world threat modeling, and scientific hypothesis testing",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#thinking",
+  "license": "MIT"
+}

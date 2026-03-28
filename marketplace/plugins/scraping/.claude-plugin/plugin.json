@@ -1,0 +1,11 @@
+{
+  "name": "scraping",
+  "description": "Web scraping via progressive escalation (Bright Data proxy) and social media platform actors (Apify) — from simple URL fetch to CAPTCHA-solving proxy networks",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#scraping",
+  "license": "MIT"
+}

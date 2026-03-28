@@ -1,8 +1,11 @@
 {
   "name": "skillsmeta",
-  "description": "Skill forge, skill sync, pi-extender",
+  "description": "Skill lifecycle management — quality standards, cross-platform sync, and pi extension development",
   "version": "1.0.0",
   "author": {
     "name": "Lars Boes"
-  }
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#skillsmeta",
+  "license": "MIT"
 }

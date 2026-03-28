@@ -1,0 +1,11 @@
+{
+  "name": "utilities",
+  "description": "Developer utilities and tools -- CLI generation, skill scaffolding, agent delegation, system upgrades, evals, documents, parsing, audio editing, Fabric patterns, Cloudflare infrastructure, browser automation, meta-prompting, and aphorisms",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#utilities",
+  "license": "MIT"
+}

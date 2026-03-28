@@ -39,10 +39,10 @@ Production-ready Notion CLI und Library für Lesen, Schreiben, Exportieren und S
 echo 'export NOTION_API_TOKEN=secret_xxx' >> ~/.zshrc
 
 # 2. Build
-cd ${CLAUDE_PLUGIN_ROOT} && npm install && npm run build
+cd ${CLAUDE_SKILL_DIR} && npm install && npm run build
 
 # 3. Alias (optional)
-alias notion='node ${CLAUDE_PLUGIN_ROOT}/dist/scripts/notion.js'
+alias notion='node ${CLAUDE_SKILL_DIR}/dist/scripts/notion.js'
 ```
 
 ## CLI Usage
@@ -179,7 +179,7 @@ https://www.notion.so/Workspace/Title-1a2b3c4d5e6f7g8h9i0j1k2l
 ## Project Structure
 
 ```
-${CLAUDE_PLUGIN_ROOT}/
+${CLAUDE_SKILL_DIR}/
 ├── docs/
 │   ├── prd.md              # Product Requirements
 │   └── plan.md             # Implementation Plan
@@ -198,7 +198,7 @@ ${CLAUDE_PLUGIN_ROOT}/
 ## Development
 
 ```bash
-cd ${CLAUDE_PLUGIN_ROOT}
+cd ${CLAUDE_SKILL_DIR}
 npm run dev      # Watch mode
 npm run build    # Compile
 ```

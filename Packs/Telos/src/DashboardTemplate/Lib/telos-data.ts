@@ -9,7 +9,12 @@ export interface TelosFile {
   type: 'markdown' | 'csv'
 }
 
-const TELOS_DIR = path.join(os.homedir(), '.claude/PAI/USER/TELOS')
+// Prefer vault path if VAULT_PATH is set, fall back to PAI USER directory
+const VAULT_PATH = process.env.VAULT_PATH
+const VAULT_TELOS = process.env.VAULT_TELOS || 'Atlas/TELOS'
+const TELOS_DIR = VAULT_PATH
+  ? path.join(VAULT_PATH.replace('~', os.homedir()), VAULT_TELOS)
+  : path.join(os.homedir(), '.claude/PAI/USER/TELOS')
 
 export function getAllTelosData(): TelosFile[] {
   const files: TelosFile[] = []

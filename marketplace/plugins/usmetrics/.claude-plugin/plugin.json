@@ -1,0 +1,11 @@
+{
+  "name": "usmetrics",
+  "description": "68 US economic indicators from FRED, EIA, Treasury, BLS, Census APIs with trend analysis and cross-metric correlation",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#usmetrics",
+  "license": "MIT"
+}

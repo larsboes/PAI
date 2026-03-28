@@ -1,0 +1,11 @@
+{
+  "name": "media",
+  "description": "Visual and video content creation — illustrations, diagrams, infographics, header images, thumbnails, comics, and programmatic video via Remotion",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#media",
+  "license": "MIT"
+}

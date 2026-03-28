@@ -118,7 +118,7 @@ Or mark as personal:
 
 **Tool Names:** PascalCase → PascalCase (already compatible)
 **Unsupported Tools:** Strip or warn
-**Path Patterns:** `{baseDir}/` → `${CLAUDE_PLUGIN_ROOT}/`
+**Path Patterns:** `{baseDir}/` → `${CLAUDE_SKILL_DIR}/`
 
 ### Antigravity Adaptations
 

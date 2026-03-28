@@ -1,0 +1,11 @@
+{
+  "name": "contentanalysis",
+  "description": "Content-adaptive wisdom extraction from videos, podcasts, articles, and YouTube -- dynamic sections built from what the content actually contains",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#contentanalysis",
+  "license": "MIT"
+}

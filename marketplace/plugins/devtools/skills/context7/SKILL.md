@@ -167,16 +167,16 @@ Save JSON, then extract code examples:
 bash: c7 typescript generics -t json -s -k 2000
 
 # Extract all code blocks
-bash: uv run ${CLAUDE_PLUGIN_ROOT}/scripts/extract_code.py typescript-generics.json
+bash: uv run ${CLAUDE_SKILL_DIR}/scripts/extract_code.py typescript-generics.json
 
 # Filter by language
-bash: uv run ${CLAUDE_PLUGIN_ROOT}/scripts/extract_code.py typescript-generics.json -l typescript
+bash: uv run ${CLAUDE_SKILL_DIR}/scripts/extract_code.py typescript-generics.json -l typescript
 
 # Output as JSON for further processing
-bash: uv run ${CLAUDE_PLUGIN_ROOT}/scripts/extract_code.py typescript-generics.json -f json
+bash: uv run ${CLAUDE_SKILL_DIR}/scripts/extract_code.py typescript-generics.json -f json
 
 # Pipe directly (no file)
-bash: c7 pandas groupby -t json | uv run ${CLAUDE_PLUGIN_ROOT}/scripts/extract_code.py -l python
+bash: c7 pandas groupby -t json | uv run ${CLAUDE_SKILL_DIR}/scripts/extract_code.py -l python
 ```
 
 **extract_code.py options:**

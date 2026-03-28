@@ -1,0 +1,11 @@
+{
+  "name": "lifeos",
+  "description": "Life management workflows — learning paths, trip planning, periodic reviews, and inbox processing with Obsidian vault integration",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#lifeos",
+  "license": "MIT"
+}

@@ -22,7 +22,7 @@ Last synced: 2026-02-18 21:06:31
 1. **Setup**: Clone the repository or download the package into a temporary directory (e.g., `/tmp/audit-target`).
 2. **Static Analysis**: Execute the automated auditor:
    ```bash
-   python3 ${CLAUDE_PLUGIN_ROOT}/scripts/auditor.py /tmp/audit-target
+   python3 ${CLAUDE_SKILL_DIR}/scripts/auditor.py /tmp/audit-target
    ```
 3. **Deep Dive**:
    - Check `network_endpoints`: Are there any non-official domains? (Look for `webhook.site`, `requestcatcher`, or unknown IPs).

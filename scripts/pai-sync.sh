@@ -77,6 +77,22 @@ expand_path() {
   echo "${1/#\~/$HOME}"
 }
 
+# to_kebab <TitleCaseName>
+# Converts TitleCase/PascalCase to kebab-case for pi compatibility.
+# Preserves known acronyms as single tokens (CLI→cli, OSINT→osint, etc).
+to_kebab() {
+  python3 -c "
+import re, sys
+name = sys.argv[1]
+acronyms = {'CLI':'cli','OSINT':'osint','PAI':'pai','SEC':'sec','US':'us','API':'api'}
+for acr, rep in sorted(acronyms.items(), key=lambda x: -len(x[0])):
+    name = name.replace(acr, '_' + rep + '_')
+parts = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name).lower()
+parts = [p for p in re.split(r'[_]+', parts) if p]
+print('-'.join(parts))
+" "$1"
+}
+
 # discover_skills <repo>
 # Prints "name:path" pairs to stdout, one per skill
 discover_skills() {
@@ -144,6 +160,7 @@ build_effective() {
   case "$target" in
     pi)      sed -e "s|\${CLAUDE_SKILL_DIR}/scripts/|${PI_SCRIPTS}/|g" \
                  -e "s|\${CLAUDE_SKILL_DIR}|${PI_SKILLS}/${skill_name}|g" \
+                 -e "s|^name: .*|name: ${skill_name}|" \
                  "$src_md" > "$TMP_EFFECTIVE" ;;
     gemini)  sed -e "s|\${CLAUDE_SKILL_DIR}/scripts/|./scripts/|g" \
                  -e "s|\${CLAUDE_SKILL_DIR}|.|g" \
@@ -293,15 +310,22 @@ sync_skill() {
   read -ra targets <<< "$(targets_for_tag "$tag")"
 
   for target in "${targets[@]}"; do
+    local deploy_name="$name"
     local target_dir
+
+    # Pi requires kebab-case skill names
+    if [[ "$target" == "pi" ]]; then
+      deploy_name=$(to_kebab "$name")
+    fi
+
     case "$target" in
-      claude) target_dir="${CLAUDE_SKILLS}/${name}" ;;
-      gemini) target_dir="${GEMINI_SKILLS}/${name}" ;;
-      pi)     target_dir="${PI_SKILLS}/${name}" ;;
+      claude) target_dir="${CLAUDE_SKILLS}/${deploy_name}" ;;
+      gemini) target_dir="${GEMINI_SKILLS}/${deploy_name}" ;;
+      pi)     target_dir="${PI_SKILLS}/${deploy_name}" ;;
     esac
 
-    deploy_skill_md "$name" "$skill_md" "$target_dir" "$target"
-    deploy_skill_files "$name" "$skill_path" "$target_dir" "$target"
+    deploy_skill_md "$deploy_name" "$skill_md" "$target_dir" "$target"
+    deploy_skill_files "$deploy_name" "$skill_path" "$target_dir" "$target"
 
     if [[ -d "${skill_path}/scripts" ]]; then
       deploy_scripts_to_dir "$name" "${skill_path}/scripts" "${target_dir}/scripts" "$target"
@@ -403,6 +427,54 @@ rm -f "$tmp_deduped"
 
 [[ "$STATUS_ONLY" == false ]] && echo ""
 
+# ── Phase 2b: Sync USER directories ──────────────────────────────────────────
+# Last repo's USER/ wins (same precedence as skills: PAI < pai-personal < pai-work)
+
+PAI_USER_DIR="${HOME}/.pai/USER"
+user_synced=0
+
+while IFS= read -r raw_path || [[ -n "$raw_path" ]]; do
+  [[ "$raw_path" =~ ^[[:space:]]*$ || "$raw_path" =~ ^# ]] && continue
+  local_repo=$(expand_path "$raw_path")
+  [[ -d "${local_repo}/USER" ]] || continue
+
+  if [[ "$STATUS_ONLY" == false && "$DRY_RUN" == false ]]; then
+    mkdir -p "$PAI_USER_DIR"
+  fi
+
+  # Sync all files from repo USER/ to ~/.pai/USER/ (recursive, preserving structure)
+  while IFS= read -r -d '' src_file; do
+    rel_path="${src_file#${local_repo}/USER/}"
+    dst_file="${PAI_USER_DIR}/${rel_path}"
+
+    if [[ ! -f "$dst_file" ]]; then
+      if [[ "$STATUS_ONLY" == true ]]; then
+        user_synced=$((user_synced + 1))
+      elif [[ "$DRY_RUN" == true ]]; then
+        echo "  [CREATE] USER: ${rel_path}"
+      else
+        mkdir -p "$(dirname "$dst_file")"
+        cp "$src_file" "$dst_file"
+        echo "  [CREATED] USER: ${rel_path}"
+        user_synced=$((user_synced + 1))
+      fi
+    elif ! diff -q "$src_file" "$dst_file" > /dev/null 2>&1; then
+      if [[ "$STATUS_ONLY" == true ]]; then
+        user_synced=$((user_synced + 1))
+      elif [[ "$DRY_RUN" == true ]]; then
+        echo "  [UPDATE]  USER: ${rel_path}"
+      else
+        cp "$src_file" "$dst_file"
+        echo "  [UPDATED] USER: ${rel_path}"
+        user_synced=$((user_synced + 1))
+      fi
+    fi
+  done < <(find "${local_repo}/USER" -type f -print0)
+done < "$SOURCES_CONF"
+
+[[ "$STATUS_ONLY" == false && "$DRY_RUN" == false && $user_synced -gt 0 ]] && echo "  USER: $user_synced files synced"
+[[ "$STATUS_ONLY" == false ]] && echo ""
+
 # ── Phase 3: Clean orphaned skills from targets ──────────────────────────────
 
 if [[ "$CLEAN" == true ]]; then
@@ -421,6 +493,15 @@ if [[ "$CLEAN" == true ]]; then
     [[ -d "$local_repo" ]] || continue
     discover_skills "$local_repo"
   done < "$SOURCES_CONF" | cut -d: -f1 | sort -u > "$tmp_names"
+
+  # Also add kebab-case versions for pi matching
+  tmp_kebab=$(mktemp)
+  TEMP_FILES+=("$tmp_kebab")
+  while IFS= read -r sname; do
+    echo "$sname"
+    to_kebab "$sname"
+  done < "$tmp_names" | sort -u > "$tmp_kebab"
+  mv "$tmp_kebab" "$tmp_names"
 
   # Scan each target directory
   for target_label_dir in "claude:${CLAUDE_SKILLS}" "gemini:${GEMINI_SKILLS}" "pi:${PI_SKILLS}"; do
@@ -466,6 +547,7 @@ if [[ "$STATUS_ONLY" == true ]]; then
   echo "  To update      : $updated"
   echo "  Up to date     : $unchanged"
   echo "  Pi scripts     : $scripts_synced changes"
+  echo "  USER files     : $user_synced changes"
   echo ""
   [[ $((created + updated)) -gt 0 ]] \
     && echo "  Run: pai-sync.sh --confirm  to apply" \
@@ -479,6 +561,7 @@ else
   else
     echo "  Created : $created  Updated: $updated  Unchanged: $unchanged"
     [[ $scripts_synced -gt 0 ]] && echo "  Pi scripts: $scripts_synced synced"
+    [[ $user_synced -gt 0 ]] && echo "  USER: $user_synced files synced"
     [[ $cleaned -gt 0 ]] && echo "  Cleaned : $cleaned orphaned skills removed"
   fi
   echo "════════════════════════════════════════════════════════════════════"

@@ -1,0 +1,11 @@
+{
+  "name": "security",
+  "description": "Security assessment and intelligence — network reconnaissance, web app security testing, prompt injection testing, security news monitoring, and annual report analysis",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#security",
+  "license": "MIT"
+}

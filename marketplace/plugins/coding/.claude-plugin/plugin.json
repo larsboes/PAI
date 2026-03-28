@@ -1,8 +1,11 @@
 {
   "name": "coding",
-  "description": "TypeScript, Swift, Python/uv, architecture, data engineering, FluentBit",
+  "description": "Language-specific coding knowledge, architecture patterns, and framework guides — deep reference for writing production-quality code in specific stacks.",
   "version": "1.0.0",
   "author": {
     "name": "Lars Boes"
-  }
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#coding",
+  "license": "MIT"
 }

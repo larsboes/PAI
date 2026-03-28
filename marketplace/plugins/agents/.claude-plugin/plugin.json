@@ -1,0 +1,11 @@
+{
+  "name": "agents",
+  "description": "Custom agent composition from traits, voices, and personalities -- dynamic specialists with unique identities for parallel work",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#agents",
+  "license": "MIT"
+}

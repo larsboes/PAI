@@ -1,0 +1,11 @@
+{
+  "name": "investigation",
+  "description": "OSINT and people-finding -- structured investigations, company intel, due diligence, and ethical people search across public records and social media",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#investigation",
+  "license": "MIT"
+}

@@ -1,8 +1,11 @@
 {
   "name": "terminal",
-  "description": "cmux and tmux terminal multiplexer control",
+  "description": "Terminal multiplexer control — tmux session management and cmux workspace automation",
   "version": "1.0.0",
   "author": {
     "name": "Lars Boes"
-  }
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#terminal",
+  "license": "MIT"
 }

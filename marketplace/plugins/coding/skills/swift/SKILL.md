@@ -284,13 +284,13 @@ Use the bundled LSP script for code intelligence when needed. Requires `npx` (co
 
 ```bash
 # Check status and workspace info
-${CLAUDE_PLUGIN_ROOT}/scripts/lsp.ts status
+${CLAUDE_SKILL_DIR}/scripts/lsp.ts status
 
 # Go to definition (1-indexed line:column)
-${CLAUDE_PLUGIN_ROOT}/scripts/lsp.ts goto ./MyFile.swift 42 15
+${CLAUDE_SKILL_DIR}/scripts/lsp.ts goto ./MyFile.swift 42 15
 
 # Get hover info/type docs
-${CLAUDE_PLUGIN_ROOT}/scripts/lsp.ts hover ./MyFile.swift 42 15
+${CLAUDE_SKILL_DIR}/scripts/lsp.ts hover ./MyFile.swift 42 15
 ```
 
 The LSP client auto-detects:

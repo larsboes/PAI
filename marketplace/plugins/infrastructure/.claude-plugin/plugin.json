@@ -1,0 +1,11 @@
+{
+  "name": "infrastructure",
+  "description": "Home infrastructure management — Fritz!Box router and Synology NAS via pure Python CLIs",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lars Boes"
+  },
+  "repository": "https://github.com/larsboes/PAI",
+  "homepage": "https://github.com/larsboes/PAI#infrastructure",
+  "license": "MIT"
+}

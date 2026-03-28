@@ -36,7 +36,7 @@ Use for known terms, filenames, dates (e.g. "FluentBit", "2026-02-17", "GraphRAG
 - `query`: Search string (supports regex).
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py search "{query}"
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py search "{query}"
 ```
 
 ### obsidian_backlinks
@@ -46,7 +46,7 @@ Essential for understanding a note's position in the knowledge graph.
 - `path`: Filename or path to find backlinks for.
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py backlinks "{path}"
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py backlinks "{path}"
 ```
 
 ### obsidian_daily_note_path
@@ -54,14 +54,14 @@ Get the absolute path for today's daily note.
 Use this to read/write the daily note with standard file tools.
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py daily
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py daily
 ```
 
 ### obsidian_active_file
 Get the file currently open in the Obsidian UI.
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py active
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py active
 ```
 
 ### obsidian_open
@@ -70,7 +70,7 @@ Open a specific note in the Obsidian UI.
 - `path`: Path to the file to open.
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py open "{path}"
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py open "{path}"
 ```
 
 ### obsidian_health
@@ -78,7 +78,7 @@ Vault diagnostics — orphaned notes, broken wikilinks, duplicate titles, file s
 Run weekly or after bulk imports.
 
 ```bash
-uv run ${CLAUDE_PLUGIN_ROOT}/scripts/client.py health
+uv run ${CLAUDE_SKILL_DIR}/scripts/client.py health
 ```
 
 ## References
