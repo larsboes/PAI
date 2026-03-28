@@ -1,11 +1,8 @@
 {
   "name": "pai",
+  "description": "PAI skill marketplace — coding, devtools, integrations, content, terminal, and more",
   "owner": {
     "name": "Lars Boes"
-  },
-  "metadata": {
-    "description": "PAI skill marketplace — coding, devtools, integrations, content, terminal, and more",
-    "version": "1.0.0"
   },
   "plugins": [
     {
