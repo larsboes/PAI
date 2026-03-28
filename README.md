@@ -1,3 +1,9 @@
+> **Fork of [danielmiessler/Personal_AI_Infrastructure](https://github.com/danielmiessler/Personal_AI_Infrastructure)** — extended with marketplace sync, LifeOS, Infrastructure packs, and Obsidian vault integration.
+>
+> ```bash
+> claude mcp add-marketplace larsboes/PAI
+> ```
+
 <div align="center">
 
 <picture>
