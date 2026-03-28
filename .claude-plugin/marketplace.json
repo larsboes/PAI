@@ -5,163 +5,103 @@
   },
   "metadata": {
     "description": "PAI skill marketplace — coding, devtools, integrations, content, terminal, and more",
-    "version": "1.0.0",
-    "pluginRoot": "./marketplace/plugins",
-    "repository": "https://github.com/larsboes/PAI",
-    "license": "MIT"
+    "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "agents",
       "source": "./marketplace/plugins/agents",
-      "description": "Custom agent composition from traits, voices, and personalities -- dynamic specialists with unique identities for parallel work",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Custom agent composition from traits, voices, and personalities -- dynamic specialists with unique identities for parallel work"
     },
     {
       "name": "coding",
       "source": "./marketplace/plugins/coding",
-      "description": "Language-specific coding knowledge, architecture patterns, and framework guides — deep reference for writing production-quality code in specific stacks.",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Language-specific coding knowledge, architecture patterns, and framework guides — deep reference for writing production-quality code in specific stacks."
     },
     {
       "name": "content",
       "source": "./marketplace/plugins/content",
-      "description": "Content processing — web fetching, file conversion, HTML docs, transcription, and Mermaid diagrams",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Content processing — web fetching, file conversion, HTML docs, transcription, and Mermaid diagrams"
     },
     {
       "name": "contentanalysis",
       "source": "./marketplace/plugins/contentanalysis",
-      "description": "Content-adaptive wisdom extraction from videos, podcasts, articles, and YouTube -- dynamic sections built from what the content actually contains",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Content-adaptive wisdom extraction from videos, podcasts, articles, and YouTube -- dynamic sections built from what the content actually contains"
     },
     {
       "name": "devtools",
       "source": "./marketplace/plugins/devtools",
-      "description": "Developer tools — architecture review, debugging, dev workflow, design, code search, Swift, FluentBit, Python uv, VS Code, and security auditing",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Developer tools — architecture review, debugging, dev workflow, design, code search, Swift, FluentBit, Python uv, VS Code, and security auditing"
     },
     {
       "name": "infrastructure",
       "source": "./marketplace/plugins/infrastructure",
-      "description": "Home infrastructure management — Fritz!Box router and Synology NAS via pure Python CLIs",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Home infrastructure management — Fritz!Box router and Synology NAS via pure Python CLIs"
     },
     {
       "name": "integrations",
       "source": "./marketplace/plugins/integrations",
-      "description": "Service integrations — Google CLI tools, GitHub, Notion, Obsidian vault, and Zotero citations",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Service integrations — Google CLI tools, GitHub, Notion, Obsidian vault, and Zotero citations"
     },
     {
       "name": "investigation",
       "source": "./marketplace/plugins/investigation",
-      "description": "OSINT and people-finding -- structured investigations, company intel, due diligence, and ethical people search across public records and social media",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "OSINT and people-finding -- structured investigations, company intel, due diligence, and ethical people search across public records and social media"
     },
     {
       "name": "lifeos",
       "source": "./marketplace/plugins/lifeos",
-      "description": "Life management workflows — learning paths, trip planning, periodic reviews, and inbox processing with Obsidian vault integration",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Life management workflows — learning paths, trip planning, periodic reviews, and inbox processing with Obsidian vault integration"
     },
     {
       "name": "media",
       "source": "./marketplace/plugins/media",
-      "description": "Visual and video content creation — illustrations, diagrams, infographics, header images, thumbnails, comics, and programmatic video via Remotion",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Visual and video content creation — illustrations, diagrams, infographics, header images, thumbnails, comics, and programmatic video via Remotion"
     },
     {
       "name": "research",
       "source": "./marketplace/plugins/research",
-      "description": "Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and 242+ Fabric patterns",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and 242+ Fabric patterns"
     },
     {
       "name": "scraping",
       "source": "./marketplace/plugins/scraping",
-      "description": "Web scraping via progressive escalation (Bright Data proxy) and social media platform actors (Apify) — from simple URL fetch to CAPTCHA-solving proxy networks",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Web scraping via progressive escalation (Bright Data proxy) and social media platform actors (Apify) — from simple URL fetch to CAPTCHA-solving proxy networks"
     },
     {
       "name": "security",
       "source": "./marketplace/plugins/security",
-      "description": "Security assessment and intelligence — network reconnaissance, web app security testing, prompt injection testing, security news monitoring, and annual report analysis",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Security assessment and intelligence — network reconnaissance, web app security testing, prompt injection testing, security news monitoring, and annual report analysis"
     },
     {
       "name": "skillsmeta",
       "source": "./marketplace/plugins/skillsmeta",
-      "description": "Skill lifecycle management — quality standards, cross-platform sync, and pi extension development",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Skill lifecycle management — quality standards, cross-platform sync, and pi extension development"
     },
     {
       "name": "telos",
       "source": "./marketplace/plugins/telos",
-      "description": "Life OS and project analysis — goals, dependencies, beliefs, wisdom, books, movies, narrative points, interview extraction, McKinsey reports, and project dashboards",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Life OS and project analysis — goals, dependencies, beliefs, wisdom, books, movies, narrative points, interview extraction, McKinsey reports, and project dashboards"
     },
     {
       "name": "terminal",
       "source": "./marketplace/plugins/terminal",
-      "description": "Terminal multiplexer control — tmux session management and cmux workspace automation",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Terminal multiplexer control — tmux session management and cmux workspace automation"
     },
     {
       "name": "thinking",
       "source": "./marketplace/plugins/thinking",
-      "description": "Multi-mode analytical and creative thinking — first principles decomposition, iterative depth analysis, creative brainstorming, multi-agent council debates, adversarial red teaming, world threat modeling, and scientific hypothesis testing",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Multi-mode analytical and creative thinking — first principles decomposition, iterative depth analysis, creative brainstorming, multi-agent council debates, adversarial red teaming, world threat modeling, and scientific hypothesis testing"
     },
     {
       "name": "usmetrics",
       "source": "./marketplace/plugins/usmetrics",
-      "description": "68 US economic indicators from FRED, EIA, Treasury, BLS, Census APIs with trend analysis and cross-metric correlation",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "68 US economic indicators from FRED, EIA, Treasury, BLS, Census APIs with trend analysis and cross-metric correlation"
     },
     {
       "name": "utilities",
       "source": "./marketplace/plugins/utilities",
-      "description": "Developer utilities and tools -- CLI generation, skill scaffolding, agent delegation, system upgrades, evals, documents, parsing, audio editing, Fabric patterns, Cloudflare infrastructure, browser automation, meta-prompting, and aphorisms",
-      "repository": "https://github.com/larsboes/PAI",
-      "license": "MIT",
-      "strict": false
+      "description": "Developer utilities and tools -- CLI generation, skill scaffolding, agent delegation, system upgrades, evals, documents, parsing, audio editing, Fabric patterns, Cloudflare infrastructure, browser automation, meta-prompting, and aphorisms"
     }
   ]
 }
