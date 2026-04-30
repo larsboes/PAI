@@ -173,6 +173,20 @@ Plugins/marketplaces/.chrome-profile/
 !PAI/PAI-Install/public/assets/*.svg
 !PAI/PAI-Install/public/assets/*.ico
 
+# Pulse menu-bar icons — ship in public release
+!PAI/PULSE/MenuBar/*.png
+!PAI/PULSE/MenuBar/*.jpg
+!PAI/PULSE/MenuBar/*.svg
+!PAI/PULSE/MenuBar/*.ico
+
+# Pulse Observability built dashboard — ship in public release so fresh installs
+# get a working dashboard immediately (no `bun run build` step required).
+# Broad un-ignore covers the entire built tree including pai-logo.png at root.
+!PAI/PULSE/Observability/out/**
+
+# Pulse Observability lockfile — ship for reproducible installs
+!PAI/PULSE/Observability/bun.lock
+
 # Python virtual environments
 .venv/
 

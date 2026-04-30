@@ -1,9 +1,7 @@
 # dependencies (bun install)
 node_modules
-bun.lock
 
-# output
-out
+# output (built dashboard ships in public release; only dist/.next/.tgz stay ignored)
 dist
 .next
 *.tgz
