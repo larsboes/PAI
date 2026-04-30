@@ -4,12 +4,15 @@
 
 **The biggest release in PAI history.** PAI is no longer "AI scaffolding" — it is a **Life Operating System** with a unified daemon, a Life Dashboard, a personalized Digital Assistant, and a fully-articulated execution algorithm.
 
+[![Docs](https://img.shields.io/badge/📚_Full_Docs-docs.ourpai.ai-2563EB?style=flat)](https://docs.ourpai.ai)
 [![Skills](https://img.shields.io/badge/Skills-45-22C55E?style=flat)](.claude/skills/)
 [![Hooks](https://img.shields.io/badge/Hooks-37-F97316?style=flat)](.claude/hooks/)
 [![Workflows](https://img.shields.io/badge/Workflows-171-8B5CF6?style=flat)](.claude/skills/)
 [![Algorithm](https://img.shields.io/badge/Algorithm-v6.3.0-D97706?style=flat)](.claude/PAI/ALGORITHM/)
 [![Memory](https://img.shields.io/badge/Memory-v7.6-EC4899?style=flat)](.claude/PAI/MEMORY/)
 [![Pulse](https://img.shields.io/badge/Pulse-included-3B82F6?style=flat)](.claude/PAI/PULSE/)
+
+**📚 Full documentation lives at [docs.ourpai.ai](https://docs.ourpai.ai)** — every subsystem (Algorithm, ISA, Memory, Skills, Hooks, Pulse, Containment) has its own deep-dive page with diagrams, examples, and reference material.
 
 <br />
 
@@ -57,11 +60,7 @@ If you're upgrading from v4.x, this is a **different system**, not a patch. Read
 
 ## The Core Shift — Your DA is the center of your AI universe
 
-<div align="center">
-
-<img src="./da-at-center.jpg" alt="A diagram showing the Principal at the center, your DA wrapping around them as the most prominent node, with skills, memory, algorithm, hooks, agents, and Pulse orbiting as satellites, and APIs, devices, robots, the web, and friends' DAs in the outer ring." width="780" />
-
-</div>
+![A diagram showing the Principal at the center, your DA wrapping around them as the most prominent node, with skills, memory, algorithm, hooks, agents, and Pulse orbiting as satellites, and APIs, devices, robots, the web, and friends' DAs in the outer ring.](./da-at-center.jpg)
 
 PAI v4.x was scaffolding for AI. **PAI v5.0.0 is the Life Operating System** — and the way you experience that OS is one named DA.
 
@@ -124,11 +123,7 @@ Both files are **loaded at session start** so the DA always has them in context.
 
 ### 3. The Algorithm v6.3.0 — Current State → Ideal State, formalized
 
-<div align="center">
-
-<img src="./algorithm-current-to-ideal.jpg" alt="A diagram showing CURRENT STATE on the left and IDEAL STATE on the right, connected by a circular seven-phase loop labeled OBSERVE, THINK, PLAN, BUILD, EXECUTE, VERIFY, LEARN with arrows going clockwise. Below the loop is a horizontal track of twelve ISC checkboxes representing criteria filling in over iterations." width="780" />
-
-</div>
+![A diagram showing CURRENT STATE on the left and IDEAL STATE on the right, connected by a circular seven-phase loop labeled OBSERVE, THINK, PLAN, BUILD, EXECUTE, VERIFY, LEARN with arrows going clockwise. Below the loop is a horizontal track of twelve ISC checkboxes representing criteria filling in over iterations.](./algorithm-current-to-ideal.jpg)
 
 **`PAI/ALGORITHM/v6.3.0.md`** is doctrine. Every non-trivial task runs through the seven phases: **OBSERVE → THINK → PLAN → BUILD → EXECUTE → VERIFY → LEARN**. The Algorithm is the centerpiece of PAI — everything else feeds it.
 
@@ -144,11 +139,7 @@ What's new in v6.x:
 
 This is the second-biggest shift in v5.0.0. **The Ideal State Artifact replaces the PRD as the unit of work across PAI.**
 
-<div align="center">
-
-<img src="./isa-twelve-sections.jpg" alt="A diagram of the ISA showing twelve numbered sections — Problem, Vision, Out of Scope, Principles, Constraints, Goal, Criteria, Test Strategy, Features, Decisions, Changelog, Verification — with five callout arrows pointing to its five identities: Ideal State Articulation, Test Harness, Build Verification, Done Condition, System of Record." width="780" />
-
-</div>
+![A diagram of the ISA showing twelve numbered sections — Problem, Vision, Out of Scope, Principles, Constraints, Goal, Criteria, Test Strategy, Features, Decisions, Changelog, Verification — with five callout arrows pointing to its five identities: Ideal State Articulation, Test Harness, Build Verification, Done Condition, System of Record.](./isa-twelve-sections.jpg)
 
 Old PRDs were task-shaped: a description of a thing to build, separate from how you'd verify it, separate from where the build's truth lived. The ISA collapses all of that into one document with five identities at once:
 
@@ -180,11 +171,7 @@ PAI's privacy boundary is now enforced **at the file system level**, not by hand
 
 ### 6. The Skills system — 45 public skills, 171 workflows
 
-<div align="center">
-
-<img src="./skills-constellation.jpg" alt="A diagram with YOUR DA at the center surrounded by five clusters of skills — THINKING (Council, RedTeam, FirstPrinciples), CONTENT (Art, WriteStory, Fabric), RESEARCH (Research, Knowledge, ArXiv), AGENTS (Interceptor, Browser, Agents), BUILD (ISA, CreateSkill, Prompting) — with the caption 'plus 30 more skills in your install' and three insights '171 workflows', 'self-activating', 'your DA picks the tool'." width="780" />
-
-</div>
+![A diagram with YOUR DA at the center surrounded by five clusters of skills — THINKING (Council, RedTeam, FirstPrinciples), CONTENT (Art, WriteStory, Fabric), RESEARCH (Research, Knowledge, ArXiv), AGENTS (Interceptor, Browser, Agents), BUILD (ISA, CreateSkill, Prompting) — with the caption 'plus 30 more skills in your install' and three insights '171 workflows', 'self-activating', 'your DA picks the tool'.](./skills-constellation.jpg)
 
 Skills are self-activating composable domain units. Your DA selects them at runtime based on intent. The public release ships **45 skills** (private skills with `_ALLCAPS` names stay in your install).
 
