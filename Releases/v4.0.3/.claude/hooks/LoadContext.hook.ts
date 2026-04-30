@@ -81,6 +81,28 @@ function loadSettings(paiDir: string): Settings {
 }
 
 /**
+ * Load TELOS context from Obsidian vault (source of truth for life goals).
+ * Uses VAULT_PATH env var — independent of settings.json.
+ */
+function loadTelosContext(): string | null {
+  const vaultPath = process.env.VAULT_PATH;
+  if (!vaultPath) return null;
+  const telosPath = join(vaultPath, 'Atlas/TELOS/TELOS.md');
+  if (!existsSync(telosPath)) {
+    console.error(`⚠️ TELOS not found at ${telosPath}`);
+    return null;
+  }
+  try {
+    const content = readFileSync(telosPath, 'utf-8').trim();
+    console.error(`🎯 Loaded TELOS from vault (${content.length} chars)`);
+    return content;
+  } catch (err) {
+    console.error(`⚠️ Failed to load TELOS: ${err}`);
+    return null;
+  }
+}
+
+/**
  * Load files listed in settings.json → loadAtStartup.files
  * Reads each file and injects as a system-reminder block.
  */
@@ -461,6 +483,12 @@ async function main() {
     const startupContent = loadStartupFiles(paiDir, settings);
     if (startupContent) {
       console.log(`<system-reminder>\n${startupContent}\n</system-reminder>`);
+    }
+
+    // Load TELOS from vault — source of truth, independent of settings.json
+    const telosContent = loadTelosContext();
+    if (telosContent) {
+      console.log(`<system-reminder>\n${telosContent}\n</system-reminder>`);
     }
 
     // Load relationship context (lightweight summary)
