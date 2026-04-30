@@ -67,30 +67,19 @@ Current live version: `v4.0.3`.
 ## Branch Strategy
 
 ```
-upstream/main   danielmiessler/Personal_AI_Infrastructure
-                      │
-            git merge upstream/main (occasionally)
-                      │
-                      ▼
-dev             integration branch — merge upstream here,
-                cherry-pick useful changes, resolve conflicts
-                      │
-            git merge dev (when stable)
-                      │
-                      ▼
-main            always stable — our full PAI system
+main    = pure upstream mirror (never commit here)
+dev     = upstream + our PAI additions (work here always)
 ```
 
-**Upgrade flow:**
+**Upgrade flow (when upstream releases something useful):**
 ```bash
 git checkout dev
 git fetch upstream
 git merge upstream/main
-# keep our README on conflicts: git checkout --ours README.md
-git checkout main
-git merge dev
-git push origin main
+# keep our README: git checkout --ours README.md
 git push origin dev
+# optionally sync main:
+git checkout main && git merge upstream/main && git push origin main && git checkout dev
 ```
 
 ---
