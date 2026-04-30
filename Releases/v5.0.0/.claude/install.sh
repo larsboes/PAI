@@ -251,29 +251,28 @@ export PAI_BUNDLE_DIR="$SCRIPT_DIR"
 bun run "$INSTALLER_DIR/main.ts" --mode "$INSTALL_MODE"
 INSTALL_EXIT=$?
 
-# Post-wizard handoff. Three paths, in priority order:
+# Post-wizard handoff. Two paths, in priority order:
 #
-# 1. Interactive TTY available (user ran `bash install.sh` directly, or CLI
-#    mode in a terminal): exec into zsh -i -c 'source ~/.zshrc && pai' so the
-#    user lands directly in pai in the same window. exec replaces this
-#    process — there's no return.
+# 1. Controlling terminal accessible (any path where the user can see/type:
+#    direct `bash install.sh`, SSH session running `curl … | sh`, local
+#    `curl … | sh` in Terminal): redirect stdin from /dev/tty and exec into
+#    `zsh -i -c 'source ~/.zshrc && pai'`. The /dev/tty redirect is what
+#    makes this work under `curl | sh` — stdin to the install.sh process is
+#    the curl pipe (not a TTY), but /dev/tty still resolves to the user's
+#    actual controlling terminal, so the new zsh + pai inherit a real TTY
+#    and Claude Code can read keystrokes. Without the redirect, pai would
+#    launch with a closed-pipe stdin and immediately fail or hang.
 #
-# 2. macOS without a TTY (the `curl https://ourpai.ai/install.sh | sh` path
-#    pipes stdin from curl, so [ -t 0 ] is false even though stdout is a
-#    terminal): use osascript to open a fresh Terminal window running pai.
-#    The user keeps their original terminal AND gets a new one with pai live.
-#
-# 3. Headless / no TTY / no osascript (Linux SSH, CI harness): print the
-#    explicit command so the user can run it themselves.
+# 2. No controlling terminal (true headless: CI harness, daemon spawn): print
+#    the explicit one-liner. We deliberately do NOT fall through to
+#    `osascript … Terminal` here — on a remote/headless macOS box that
+#    silently opens a window the user can't see, leaving them thinking
+#    nothing happened (the bug Daniel hit on server.baylander.lan).
 if [ "$INSTALL_EXIT" -eq 0 ]; then
   echo ""
-  if [ -t 0 ] && [ -t 1 ]; then
+  if [ -r /dev/tty ]; then
     info "Launching pai..."
-    exec zsh -i -c 'source ~/.zshrc && pai'
-  elif [ "$(uname)" = "Darwin" ] && command -v osascript >/dev/null 2>&1; then
-    info "Opening a new Terminal window for pai..."
-    osascript -e 'tell application "Terminal" to do script "source ~/.zshrc && pai"' >/dev/null 2>&1 || \
-      info "Could not auto-launch — run:  ${BOLD}source ~/.zshrc && pai${RESET}"
+    exec zsh -i -c 'source ~/.zshrc && pai' < /dev/tty
   else
     info "Install complete. To start pai, run:  ${BOLD}source ~/.zshrc && pai${RESET}"
   fi
