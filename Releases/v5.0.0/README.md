@@ -51,7 +51,7 @@ open http://localhost:31337    # the Life Dashboard
 - **Pulse** = the **Life Dashboard** + central daemon (port 31337)
 - **The Algorithm** = the universal Current State → Ideal State execution loop
 
-If you're upgrading from v4.x, this is a **paradigm shift**, not a patch. Read the [Migration Guide](#migration-guide-from-v4x) before installing.
+If you're upgrading from v4.x, this is a **different system**, not a patch. Read the [Migration Guide](#migration-guide-from-v4x) before installing.
 
 ---
 

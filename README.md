@@ -70,7 +70,7 @@
 >
 > **One-line install:** `curl -sSL https://ourpai.ai/install.sh | bash`
 >
-> Upgrading from v4.x? This is a paradigm shift, not a patch. Read the [migration guide](Releases/v5.0.0/README.md#migration-guide-from-v4x) first.
+> Upgrading from v4.x? This is a different system, not a patch. Read the [migration guide](Releases/v5.0.0/README.md#migration-guide-from-v4x) first.
 
 <div align="center">
 
@@ -450,7 +450,7 @@ This is the most important step. **Without TELOS, your DA has nothing to optimiz
 ### Upgrading from v4.x
 
 > [!IMPORTANT]
-> v5.0.0 is a paradigm shift, not a patch. Read the **[full migration guide](Releases/v5.0.0/README.md#migration-guide-from-v4x)** before installing.
+> v5.0.0 is a different system, not a patch. Read the **[full migration guide](Releases/v5.0.0/README.md#migration-guide-from-v4x)** before installing.
 
 Quick path:
 
