@@ -54,9 +54,16 @@ Route to this sub-skill when:
 
 Once in this sub-skill, route to specific workflows:
 
+**Programmatic Workflow (PythonPptx) — PREFERRED for data-driven content:**
+- KPI dashboards, charts, tables, Gantt timelines
+- DT Telekom CI branded decks
+- Batch slide generation from data
+- Need native PowerPoint charts (editable in PowerPoint)
+- → Read `PythonPptx/SKILL.md` completely, use SlideBuilder/SlideRecipes/ChartBuilder/GanttBuilder
+
 **Creation Workflow (html2pptx):**
 - "create presentation", "new slides", "build from scratch"
-- No template mentioned
+- No template mentioned, complex visual layouts
 - → Read `html2pptx.md` completely, use html2pptx.js
 
 **Template Workflow:**
