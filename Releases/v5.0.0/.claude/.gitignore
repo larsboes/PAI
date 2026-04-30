@@ -164,6 +164,15 @@ Plugins/marketplaces/.chrome-profile/
 *.svg
 *.ico
 
+# Installer wizard assets — ship in public release (re-include after blanket image ignore above)
+!PAI/PAI-Install/public/assets/*.png
+!PAI/PAI-Install/public/assets/*.jpg
+!PAI/PAI-Install/public/assets/*.jpeg
+!PAI/PAI-Install/public/assets/*.gif
+!PAI/PAI-Install/public/assets/*.webp
+!PAI/PAI-Install/public/assets/*.svg
+!PAI/PAI-Install/public/assets/*.ico
+
 # Python virtual environments
 .venv/
 
