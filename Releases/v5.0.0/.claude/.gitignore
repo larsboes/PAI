@@ -114,7 +114,6 @@ PAI/Releases/
 PAI/ide/
 PAI/IDE/
 PAI/voice-server
-PAI/PAI-Install/
 PAI/PAIWorker/
 
 # Wrangler/Playwright caches (inside Arbol and elsewhere)
