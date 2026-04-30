@@ -46,7 +46,6 @@ WebsiteDevServer/
 *-cache.json
 
 # Embedded repos
-VoiceServer/
 plugins/marketplaces/browser-tools/
 scratchpad/dotfiles-private-repo/
 history/recovery/snapshots/
