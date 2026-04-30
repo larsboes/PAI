@@ -11,6 +11,10 @@
 [![Memory](https://img.shields.io/badge/Memory-v7.6-EC4899?style=flat)](.claude/PAI/MEMORY/)
 [![Pulse](https://img.shields.io/badge/Pulse-included-3B82F6?style=flat)](.claude/PAI/PULSE/)
 
+<br />
+
+<img src="./pai-stack.jpg" alt="Three-layer PAI architecture: engines (Claude Code, OpenCode, Pi) at the bottom, PAI context-based Life Operating System (Memory, Skills, Hooks, Agents, Voice, Learning, Security, Statusline) in the middle, and You (work, health, goals, relationships, creative, finances, learning, life) at the top, with context beams flowing through all three layers." width="780" />
+
 </div>
 
 ---
