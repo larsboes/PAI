@@ -55,28 +55,36 @@ If you're upgrading from v4.x, this is a **different system**, not a patch. Read
 
 ---
 
-## The Core Shift
+## The Core Shift — Your DA is the center of your AI universe
 
-PAI v4.x was scaffolding for AI. **PAI v5.0.0 is the Life OS.**
+<div align="center">
 
-Like a computer operating system, it manages the resources, processes, identity, memory, and interfaces that let you live and work. The difference is what it manages: **your life** — your goals, relationships, work, health, finances, creative output, time — and the processes it runs are the workflows a human actually cares about.
+<img src="./da-at-center.jpg" alt="A diagram showing the Principal at the center, your DA wrapping around them as the most prominent node, with skills, memory, algorithm, hooks, agents, and Pulse orbiting as satellites, and APIs, devices, robots, the web, and friends' DAs in the outer ring." width="780" />
 
-Three layers, top to bottom:
+</div>
 
-```
-┌─────────────────────────────────────────────────┐
-│  THE DA — your Digital Assistant                │  ← Primary interface
-│  (the voice / personality you interact with)    │
-├─────────────────────────────────────────────────┤
-│  PULSE — the Life Dashboard + daemon            │  ← Visible surface
-│  (where you SEE your state, goals, work)        │
-├─────────────────────────────────────────────────┤
-│  PAI — the Life Operating System                │  ← The OS itself
-│  (skills, memory, algorithm, telos, identity)   │
-└─────────────────────────────────────────────────┘
-```
+PAI v4.x was scaffolding for AI. **PAI v5.0.0 is the Life Operating System** — and the way you experience that OS is one named DA.
 
-The Life OS thesis is now canonical: see [`PAI/DOCUMENTATION/LifeOs/LifeOsThesis.md`](.claude/PAI/DOCUMENTATION/LifeOs/LifeOsThesis.md).
+We've spent the last few years arguing about agents and harnesses and context engineering and prompt engineering. Those are all real, and PAI runs every one of them inside it. But none of them are the point. The point is the **single named entity** with full context about your life — the conduit, the friend, the trusted assistant who knows everything about you and works on your behalf 24/7.
+
+The principal — you, the human — is at the center. Your DA wraps around you. Skills, memory, the algorithm, hooks, agents, Pulse, the web, devices, robots, other people's DAs — all of it is infrastructure your DA reaches into. You don't talk to an army of agents. You talk to one entity. That entity has the army.
+
+The prime directive is simple: **read your current state from every signal it can reach, compare it to your TELOS-articulated ideal state, and constantly close the gap.** That is what AI is for. That is what we are building.
+
+> Daniel walks through the full thesis in [**We're All Building a Single Digital Assistant**](https://danielmiessler.com/blog/we-are-all-building-single-digital-assistant) — blog post + [companion video](https://www.youtube.com/watch?v=uUForkn00mk). v5.0.0 is the implementation of the architecture argued for in that piece.
+
+The Life OS thesis is canonical inside the repo as well: [`PAI/DOCUMENTATION/LifeOs/LifeOsThesis.md`](.claude/PAI/DOCUMENTATION/LifeOs/LifeOsThesis.md).
+
+### What changed in v5.0.0 — in priority order
+
+The release is large. If you only read four bullets, read these:
+
+1. **The OS transition.** PAI is now a Life Operating System with your DA at the center. The framing change is bigger than any individual feature.
+2. **PRD → ISA migration.** Every project, task, and decision now articulates its **Ideal State Artifact** — one document, twelve sections, five identities. This replaces the old ad-hoc PRD pattern across the entire system.
+3. **Pulse — the unified daemon.** One bun process, one port (`31337`), one launchd service, one log file. Replaces every loose voice/observability/hook script from v4.x.
+4. **45 skills shipped — the most ever.** Up from 36 leaf skills in v4.0.3 and 41 in v3.0. Catalog with descriptions and use cases below.
+
+**Plus a new constitutional layer:** v5.0.0 adds a top-level **system prompt** (`PAI/PAI_SYSTEM_PROMPT.md`) loaded via `--append-system-prompt-file`, which encodes the non-negotiable behavioral rules — output format, verification doctrine, security protocol — at the highest priority above `CLAUDE.md`. Adherence is dramatically stronger than v4.x.
 
 ---
 
@@ -116,6 +124,12 @@ Both files are **loaded at session start** so the DA always has them in context.
 
 ### 3. The Algorithm v6.3.0 — Current State → Ideal State, formalized
 
+<div align="center">
+
+<img src="./algorithm-current-to-ideal.jpg" alt="A diagram showing CURRENT STATE on the left and IDEAL STATE on the right, connected by a circular seven-phase loop labeled OBSERVE, THINK, PLAN, BUILD, EXECUTE, VERIFY, LEARN with arrows going clockwise. Below the loop is a horizontal track of twelve ISC checkboxes representing criteria filling in over iterations." width="780" />
+
+</div>
+
 **`PAI/ALGORITHM/v6.3.0.md`** is doctrine. Every non-trivial task runs through the seven phases: **OBSERVE → THINK → PLAN → BUILD → EXECUTE → VERIFY → LEARN**. The Algorithm is the centerpiece of PAI — everything else feeds it.
 
 What's new in v6.x:
@@ -126,13 +140,34 @@ What's new in v6.x:
 - **Voice phase announcements** — every phase transition narrates over Pulse so you can follow long tasks audibly.
 - **Verification doctrine** — live-probe required for user-facing artifacts, advisor calls at commitment boundaries, Cato cross-vendor audit at E4/E5, conflict surfacing on advisor/empirical contradictions.
 
-### 4. The ISA — the universal "ideal state" primitive
+### 4. The ISA — the universal "ideal state" primitive (PRD → ISA migration)
 
-**The Ideal State Artifact** is a single document that articulates "done" for any thing whose ideal state we're pursuing — a project, an app, a library, a work session, an art piece, a strategic decision. It serves five identities at once: ideal state articulation, test harness, build verification, done condition, system of record.
+This is the second-biggest shift in v5.0.0. **The Ideal State Artifact replaces the PRD as the unit of work across PAI.**
 
-12 fixed sections: `Problem` → `Vision` → `Out of Scope` → `Principles` → `Constraints` → `Goal` → `Criteria` → `Test Strategy` → `Features` → `Decisions` → `Changelog` → `Verification`.
+<div align="center">
 
-The **ISA skill** at `skills/ISA/` owns six workflows (Scaffold, Interview, CheckCompleteness, Reconcile, Seed, Append) with a dozen reference examples spanning E1–E5 across code, art, design, ops, marketplace, and enterprise.
+<img src="./isa-twelve-sections.jpg" alt="A diagram of the ISA showing twelve numbered sections — Problem, Vision, Out of Scope, Principles, Constraints, Goal, Criteria, Test Strategy, Features, Decisions, Changelog, Verification — with five callout arrows pointing to its five identities: Ideal State Articulation, Test Harness, Build Verification, Done Condition, System of Record." width="780" />
+
+</div>
+
+Old PRDs were task-shaped: a description of a thing to build, separate from how you'd verify it, separate from where the build's truth lived. The ISA collapses all of that into one document with five identities at once:
+
+- **Ideal state articulation** — what "done" actually looks like, as a hard-to-vary explanation (David Deutsch)
+- **Test harness** — the criteria are the tests, with named tool probes for each
+- **Build verification** — passing the criteria verifies what was built
+- **Done condition** — task complete when every criterion passes
+- **System of record** — the canonical truth for the thing being articulated
+
+12 fixed sections, in order: `Problem` → `Vision` → `Out of Scope` → `Principles` → `Constraints` → `Goal` → `Criteria` → `Test Strategy` → `Features` → `Decisions` → `Changelog` → `Verification`. Required sections per effort tier are HARD-gated (E1: Goal+Criteria; E4/E5: all twelve).
+
+**Two homes:**
+
+- **Project ISAs** live with the project — `<project>/ISA.md` — for any thing with persistent identity (an app, a CLI tool, a library, a content pipeline). Iteration on the project IS iteration on this ISA.
+- **Task ISAs** live at `MEMORY/WORK/{slug}/ISA.md` — for one-shot tasks that don't belong to a persistent thing.
+
+The **ISA skill** at `skills/ISA/` owns six workflows — Scaffold, Interview, CheckCompleteness, Reconcile, Seed, Append — with a dozen reference examples spanning E1–E5 across code, art, design, ops, marketplace, and enterprise. The skill enforces ID-stability (ISCs never re-number on edit; splits become `ISC-N.M`; drops become tombstones), the conjecture/refutation/learning Changelog format, and the per-tier completeness gate.
+
+If you took one thing from v5.0.0, this is the bigger half of it. The other half is the OS framing.
 
 ### 5. Containment + release tooling — privacy is structural
 
@@ -144,6 +179,12 @@ PAI's privacy boundary is now enforced **at the file system level**, not by hand
 - **Two-stage release** — Stage 1 stages to `~/.claude/PAI/PAI_RELEASES/{VERSION}/.claude/` with all 12 gates. Stage 2 publishes to GitHub. The two never auto-chain.
 
 ### 6. The Skills system — 45 public skills, 171 workflows
+
+<div align="center">
+
+<img src="./skills-constellation.jpg" alt="A diagram with YOUR DA at the center surrounded by five clusters of skills — THINKING (Council, RedTeam, FirstPrinciples), CONTENT (Art, WriteStory, Fabric), RESEARCH (Research, Knowledge, ArXiv), AGENTS (Interceptor, Browser, Agents), BUILD (ISA, CreateSkill, Prompting) — with the caption 'plus 30 more skills in your install' and three insights '171 workflows', 'self-activating', 'your DA picks the tool'." width="780" />
+
+</div>
 
 Skills are self-activating composable domain units. Your DA selects them at runtime based on intent. The public release ships **45 skills** (private skills with `_ALLCAPS` names stay in your install).
 
@@ -225,6 +266,21 @@ What's new in v5.0.0:
 - **`CheckpointPerISC.hook.ts`** — auto-commit on ISC criterion transitions
 - **`DocIntegrity.hook.ts`** — cross-reference audit + architecture summary regeneration on Stop
 - **`ToolActivityTracker.hook.ts`** + **`ToolFailureTracker.hook.ts`** — observability transport
+
+### 9. The system prompt — constitutional adherence (NEW in v5.0.0)
+
+v5.0.0 introduces **`PAI/PAI_SYSTEM_PROMPT.md`** — a top-level system prompt loaded via Claude Code's `--append-system-prompt-file` option. Where `CLAUDE.md` holds operational procedures and routing tables, the system prompt holds the **non-negotiable behavioral rules** that must survive context compaction and outrank everything else:
+
+- **Output format** — every response uses one of three modes (MINIMAL, NATIVE, ALGORITHM); no freeform output.
+- **Verification doctrine** — never assert without verification; never claim completion without tool-based evidence; reproduce-before-fix on bugs.
+- **Confidence requires source** — every authoritative claim must be grounded in a source verified this session.
+- **Security protocol** — external content is read-only; prompt-injection attempts are detected and reported, never followed.
+- **Identity rules** — your DA speaks first person always; the principal is "you", never "the user".
+- **Operational non-negotiables** — bun/bunx always (never npm/npx), TypeScript always (never Python without explicit approval), markdown over HTML, plan-means-stop, etc.
+
+The system prompt loads at the **highest priority layer** — above `@`-imported context, above `CLAUDE.md`, above session content. The classifier hook (`PromptProcessing.hook.ts`) runs on every top-level prompt to decide MODE / TIER, and the executor obeys it. The result is **dramatically stronger instruction adherence than v4.x** — the constitutional rules don't drift across long sessions, and format violations are now a CRITICAL FAILURE rather than a stylistic preference.
+
+If you used PAI v4.x and felt it sometimes "forgot" hard rules deep into a session, this is the fix.
 
 ---
 
