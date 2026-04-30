@@ -34,6 +34,7 @@
 
 import { readFileSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
+import { homedir } from 'os';
 import { getPaiDir } from './lib/paths';
 import { recordSessionStart } from './lib/notifications';
 import { loadLearningDigest, loadWisdomFrames, loadFailurePatterns, loadSignalTrends } from './lib/learning-readback';
@@ -210,6 +211,42 @@ function loadRelationshipContext(paiDir: string): string | null {
 ${parts.join('\n')}
 
 *Full details: PAI/USER/OPINIONS.md, MEMORY/RELATIONSHIP/*
+`;
+}
+
+/**
+ * Load pi session summaries from ~/.pai/MEMORY/DAILY/ (written by cortex extension).
+ * Only injects today and yesterday — gives CC visibility into pi work without bloat.
+ */
+function loadPiDailySummaries(): string | null {
+  const paiMemoryDir = join(homedir(), '.pai', 'MEMORY', 'DAILY');
+  if (!existsSync(paiMemoryDir)) return null;
+
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const formatDate = (d: Date) => d.toISOString().split('T')[0];
+  const formatMonth = (d: Date) => d.toISOString().slice(0, 7);
+
+  const parts: string[] = [];
+  for (const date of [today, yesterday]) {
+    const filePath = join(paiMemoryDir, formatMonth(date), `${formatDate(date)}.md`);
+    if (!existsSync(filePath)) continue;
+    try {
+      const content = readFileSync(filePath, 'utf-8').trim();
+      if (content) parts.push(content);
+    } catch { /* skip */ }
+  }
+
+  if (parts.length === 0) return null;
+
+  return `
+## Pi Session Summaries (recent)
+
+${parts.join('\n\n---\n\n')}
+
+*Full details: ~/.pai/MEMORY/DAILY/*
 `;
 }
 
@@ -527,11 +564,18 @@ async function main() {
       console.error('⏭️ Skipped learning readback (disabled)');
     }
 
+    // Load pi session summaries from ~/.pai/MEMORY/DAILY/ (written by cortex)
+    const piDailySummaries = loadPiDailySummaries();
+    if (piDailySummaries) {
+      console.error(`🔄 Loaded pi daily summaries (${piDailySummaries.length} chars)`);
+    }
+
     // Inject dynamic context if we have any
-    if (relationshipContext || learningContext) {
+    if (relationshipContext || learningContext || piDailySummaries) {
+      const piSection = piDailySummaries ? '\n---\n' + piDailySummaries : '';
       const message = `<system-reminder>
 PAI Dynamic Context (Auto-loaded at Session Start)
-${relationshipContext ?? ''}${learningContext ? '\n---\n' + learningContext : ''}
+${relationshipContext ?? ''}${piSection}${learningContext ? '\n---\n' + learningContext : ''}
 ---
 Dynamic context loaded. Core identity, rules, and format are in CLAUDE.md.
 </system-reminder>`;
