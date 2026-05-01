@@ -262,17 +262,28 @@ Your AI walks through a 5-phase wizard: system analysis, user questions, backup,
 | [ContextSearch](Packs/ContextSearch/) | `/context-search` and `/cs` — instant recall of prior work sessions |
 | [Agents](Packs/Agents/) | Custom agent composition from traits, voices, and personalities |
 | [ContentAnalysis](Packs/ContentAnalysis/) | Wisdom extraction from videos, podcasts, articles, and YouTube |
-| [Investigation](Packs/Investigation/) | OSINT and investigation — company intel, people search, domain lookup |
+| [Investigation](Packs/Investigation/) | People search, identity verification, public-records investigation |
 | [Media](Packs/Media/) | AI image generation, diagrams, infographics, and Remotion video |
-| [Research](Packs/Research/) | Multi-agent research — quick, standard, extensive, and deep modes |
+| [Research](Packs/Research/) | Multi-agent research — quick, standard, extensive, deep — plus arXiv academic papers |
 | [Scraping](Packs/Scraping/) | Web scraping via Bright Data proxy and Apify social media actors |
-| [Security](Packs/Security/) | Recon, web app testing, prompt injection testing, security news |
-| [Telos](Packs/Telos/) | Life OS — goals, beliefs, wisdom, project dashboards, McKinsey reports |
-| [Thinking](Packs/Thinking/) | First principles, council debates, red team, brainstorming, science |
+| [Telos](Packs/Telos/) | Life OS — goals, beliefs, wisdom, the ISA primitive, conversational interview, content migration |
+| [Thinking](Packs/Thinking/) | First principles, council, red team, science, systems thinking, root cause, aperture oscillation, evolutionary ideation, BPE |
 | [USMetrics](Packs/USMetrics/) | 68 US economic indicators from FRED, EIA, Treasury, BLS, Census |
-| [Utilities](Packs/Utilities/) | CLI generation, skill scaffolding, Fabric patterns, Cloudflare, browser automation |
+| [Utilities](Packs/Utilities/) | CLI generation, skill scaffolding, Fabric patterns, browser automation, Interceptor verification, knowledge archive, iterative loops, hill-climb optimization |
 
 Each pack works standalone — install one, install five, or install all of them. They're designed to give you PAI-level capabilities whether or not you run the full PAI system.
+
+### Coming Next (v5.0.x Pack Roadmap)
+
+These v5.0.0 skills ship in the base install today and will get standalone Packs in upcoming releases:
+
+| Planned Pack | Skill(s) | Capability |
+|------|------|------|
+| **Writing** | WriteStory | Fiction across seven narrative layers — Storr, Pressfield, Forsyth |
+| **Sales** | Sales | Sales-ready narrative + charcoal sketch + talking points pipeline |
+| **Webdesign** | Webdesign | Web/UI design via Claude Design (claude.ai/design) |
+| **Daemon** | Daemon | Public daemon profile — living digital presence, security-filtered |
+| **Security** *(rebuild)* | TBD | The previous Security pack bundled private-only skills; the v5.0.x rebuild will ship from a curated public-skill set |
 
 **[Browse all packs →](Packs/)**
 
