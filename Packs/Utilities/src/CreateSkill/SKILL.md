@@ -1,34 +1,7 @@
 ---
 name: CreateSkill
-description: Scaffold new PAI skills with proper YAML front matter, TitleCase naming, flat folder structure (SKILL.md + Workflows/ + Tools/), and validation against SkillSystem.md. USE WHEN create skill, new skill, skill structure, canonicalize, validate skill, update skill, fix skill structure, scaffold skill.
+description: "Scaffold new PAI skills with proper structure — SKILL.md, Workflows/, references/, scripts/. Use when creating, validating, or restructuring skills."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/CreateSkill/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the CreateSkill skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **CreateSkill** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # CreateSkill
 
@@ -58,9 +31,9 @@ MANDATORY skill creation framework for ALL skill creation requests.
 
 ---
 
-## Flat Folder Structure (MANDATORY)
+## Flat Folder Structure
 
-**CRITICAL: Keep folder structure FLAT - maximum 2 levels deep.**
+Keep folder structure flat — maximum 2 levels deep.
 
 ### The Rule
 
@@ -133,7 +106,7 @@ skills/SkillName/Tools/Utils/Helper.ts           # THREE levels - NO
 - They provide specific handling instructions
 - Can reference Workflows/, Tools/, etc.
 
-### 🚨 CRITICAL: NO Context/ Subdirectory 🚨
+### No Context/ Subdirectory
 
 **NEVER create Context/ or Docs/ subdirectories.**
 
@@ -221,7 +194,6 @@ Brief description.
 **See:** `~/.claude/PAI/SkillSystem.md` (Dynamic Loading Pattern section)
 
 ---
-
 
 ## Workflow Routing
 

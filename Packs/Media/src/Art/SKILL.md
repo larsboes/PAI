@@ -1,52 +1,18 @@
 ---
 name: Art
-description: Generate illustrations, technical diagrams, mermaid flowcharts, infographics, header images, thumbnails, comics, and PAI pack icons using multiple rendering backends. USE WHEN art, header images, visualizations, mermaid, flowchart, technical diagram, infographic, PAI icon, pack icon, YouTube thumbnails, ad hoc thumbnails, annotated screenshots, aphorisms, comics, comparisons, D3 dashboards, embossed logo wallpaper, essay illustration, frameworks, maps, recipe cards, remove background, stats, taxonomies, timelines, brand wallpaper, visualize, generate image, Midjourney, compose thumbnail, generate prompt.
+description: "Generate illustrations, diagrams, mermaid flowcharts, infographics, thumbnails, comics, and more using multiple rendering backends. Use when creating any visual content or images."
 ---
 
 # Art Skill
 
 Complete visual content system for creating illustrations, diagrams, and visual content.
 
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Art/`
-
-If this directory exists, load and apply:
-- `PREFERENCES.md` - Aesthetic preferences, default model, output location
-- `CharacterSpecs.md` - Character design specifications
-- `SceneConstruction.md` - Scene composition guidelines
-
-These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Art skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Art** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
-
-## 🚨🚨🚨 MANDATORY: Output to Downloads First 🚨🚨🚨
+## Output Location
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  ALL GENERATED IMAGES GO TO ~/Downloads/ FIRST                   ⚠️
-⚠️  NEVER output directly to project directories                    ⚠️
-⚠️  User MUST preview in Finder/Preview before use                  ⚠️
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+All generated images go to ~/Downloads/ first.
+Never output directly to project directories.
+User previews before deciding where to use.
 ```
 
 **This applies to ALL workflows in this skill.**
@@ -126,7 +92,7 @@ Each model accepts different `--size` formats. Using the wrong format causes val
 
 **Note:** `nano-banana-pro` uses `--size` for resolution quality and a separate `--aspect-ratio` flag for aspect ratio (defaults to `16:9`).
 
-### 🚨 CRITICAL: Always Output to Downloads First
+### Output Rules
 
 **ALL generated images MUST go to `~/Downloads/` first for preview and selection.**
 

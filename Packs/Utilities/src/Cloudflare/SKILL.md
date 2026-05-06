@@ -1,34 +1,7 @@
 ---
 name: Cloudflare
-description: Deploy and manage Cloudflare Workers, Pages, and services via Code Mode MCP (API queries) + wrangler (deploys). OAuth auth for wrangler (tokens lack Pages perms). USE WHEN Cloudflare, worker, deploy, Pages, MCP server, wrangler, DNS, KV, R2, D1, Vectorize.
+description: "Deploy and manage Cloudflare Workers, Pages, KV, R2, D1, and DNS via wrangler CLI and Code Mode MCP. Use when deploying to Cloudflare or managing its services."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Cloudflare/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Cloudflare skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Cloudflare** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Cloudflare Skill
 
@@ -54,9 +27,6 @@ Deploy and manage Cloudflare Workers, Pages, and services. Uses **two complement
 
 ## Workflow Routing
 
-**When executing a workflow, output this notification directly:**
-
-```
 Running the **WorkflowName** workflow in the **Cloudflare** skill to ACTION...
 ```
 

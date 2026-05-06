@@ -22,7 +22,6 @@ Before starting, greet the user:
 This skill adds capabilities for:
 - CLI generation, skill scaffolding, agent delegation
 - Document processing, content parsing, audio editing
-- Evaluations, Fabric patterns, Cloudflare deployment
 - Browser automation, meta-prompting, aphorisms
 
 Let me analyze your system and guide you through installation."
@@ -58,7 +57,6 @@ else
 fi
 
 # Check for existing sub-skill directories
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
   if [ -d "$CLAUDE_DIR/skills/Utilities/$subskill" ]; then
     echo "WARNING Existing $subskill sub-skill found"
   fi
@@ -77,7 +75,6 @@ echo "Optional dependency checks:"
 command -v bun &>/dev/null && echo "  OK bun runtime available" || echo "  INFO bun not found (needed for TypeScript tools in CreateCLI, Evals, PAIUpgrade, Parser)"
 command -v ffmpeg &>/dev/null && echo "  OK ffmpeg available" || echo "  INFO ffmpeg not found (needed for AudioEditor sub-skill)"
 command -v wrangler &>/dev/null && echo "  OK wrangler available" || echo "  INFO wrangler not found (needed for Cloudflare sub-skill)"
-command -v fabric &>/dev/null && echo "  OK fabric available" || echo "  INFO fabric not found (needed for Fabric sub-skill)"
 ```
 
 ### 1.2 Present Findings
@@ -93,7 +90,6 @@ Optional dependencies (not required for installation):
 - bun: [found / not found -- used by CreateCLI, Evals, PAIUpgrade, Parser]
 - ffmpeg: [found / not found -- used by AudioEditor]
 - wrangler: [found / not found -- used by Cloudflare]
-- fabric: [found / not found -- used by Fabric]
 
 Note: All sub-skills install regardless of dependencies. Missing dependencies only
 affect specific workflows at runtime."
@@ -130,7 +126,6 @@ affect specific workflows at runtime."
   "question": "Which sub-skills would you like to install?",
   "multiSelect": false,
   "options": [
-    {"label": "All 13 sub-skills (Recommended)", "description": "Installs the full Utilities suite -- CreateCLI, CreateSkill, Delegation, PAIUpgrade, Evals, Documents, Parser, AudioEditor, Fabric, Cloudflare, Browser, Prompting, Aphorisms"},
     {"label": "Let me choose", "description": "Select individual sub-skills to install"}
   ]
 }
@@ -166,7 +161,6 @@ affect specific workflows at runtime."
 - ~/.claude/skills/Utilities/Delegation/ (parallel agent coordination)
 - ~/.claude/skills/Utilities/Documents/ (document processing)
 - ~/.claude/skills/Utilities/Evals/ (evaluation framework)
-- ~/.claude/skills/Utilities/Fabric/ (pattern execution)
 - ~/.claude/skills/Utilities/PAIUpgrade/ (system improvement)
 - ~/.claude/skills/Utilities/Parser/ (data extraction)
 - ~/.claude/skills/Utilities/Prompting/ (meta-prompting)
@@ -249,7 +243,6 @@ echo "Installed Utilities routing file"
 PACK_DIR="$(pwd)"
 CLAUDE_DIR="$HOME/.claude"
 
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
   if [ -d "$PACK_DIR/src/$subskill" ]; then
     cp -r "$PACK_DIR/src/$subskill" "$CLAUDE_DIR/skills/Utilities/$subskill"
     echo "Installed $subskill"
@@ -282,7 +275,6 @@ echo "Checking routing file..."
 
 # Check all sub-skill directories
 echo "Checking sub-skill directories..."
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
   if [ -d "$CLAUDE_DIR/skills/Utilities/$subskill" ]; then
     echo "OK $subskill/"
     # Check for SKILL.md in each sub-skill
@@ -333,7 +325,6 @@ What's available (13 sub-skills):
 - Documents -- process PDF, DOCX, XLSX, PPTX files
 - Parser -- extract structured data from URLs and content
 - AudioEditor -- clean and edit audio files
-- Fabric -- run Fabric patterns
 - Cloudflare -- deploy Workers, Pages, and infrastructure
 - Browser -- automate browser interactions
 - Prompting -- meta-prompting and template engineering
@@ -375,7 +366,6 @@ Check that the sub-skill's SKILL.md exists in its directory. The routing table i
 Individual sub-skills may require external tools:
 - **AudioEditor**: Install ffmpeg (`brew install ffmpeg`)
 - **Cloudflare**: Install wrangler (`npm install -g wrangler`)
-- **Fabric**: Install fabric (see fabric docs)
 - **CreateCLI, Evals, PAIUpgrade, Parser**: Install bun (`curl -fsSL https://bun.sh/install | bash`)
 
 ### Large installation size
@@ -398,7 +388,6 @@ The Utilities pack is the largest PAI pack because it contains 13 sub-skills wit
 | `src/Delegation/` | Delegation | SKILL.md |
 | `src/Documents/` | Documents | SKILL.md, Docx/, Pdf/, Pptx/, Xlsx/, Workflows/ |
 | `src/Evals/` | Evals | SKILL.md, PROJECT.md, BestPractices.md, CLIReference.md, ScienceMapping.md, ScorerTypes.md, TemplateIntegration.md, Data/, Graders/, Results/, Suites/, Tools/, Types/, UseCases/, Workflows/ |
-| `src/Fabric/` | Fabric | SKILL.md, Patterns/, Workflows/ |
 | `src/PAIUpgrade/` | PAIUpgrade | SKILL.md, sources.json, youtube-channels.json, Logs/, State/, Tools/, Workflows/ |
 | `src/Parser/` | Parser | SKILL.md, README.md, EntitySystem.md, entity-index.json, Lib/, Prompts/, Schema/, Tests/, Utils/, Web/, Workflows/ |
 | `src/Prompting/` | Prompting | SKILL.md, Standards.md, Templates/, Tools/ |

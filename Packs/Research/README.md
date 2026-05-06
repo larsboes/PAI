@@ -3,7 +3,7 @@ name: Research
 pack-id: danielmiessler-research-v1.0.0
 version: 1.0.0
 author: danielmiessler
-description: Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and 242+ Fabric patterns
+description: Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and deep investigation modes
 type: skill
 purpose-type: [research, analysis, content-extraction, intelligence]
 platform: claude-code

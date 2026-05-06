@@ -1,34 +1,7 @@
 ---
 name: FirstPrinciples
-description: Decompose to axioms, challenge inherited assumptions, reconstruct from verified truths. USE WHEN first principles, fundamental, root cause, decompose, challenge assumptions, rebuild from scratch.
+description: "Decompose problems to fundamental truths, challenge inherited assumptions, and reconstruct solutions from verified axioms. Use when stuck, facing constraints, or wanting to rebuild from scratch."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/FirstPrinciples/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the FirstPrinciples skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **FirstPrinciples** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # FirstPrinciples Skill
 
@@ -59,9 +32,6 @@ Foundational reasoning methodology based on Elon Musk's physics-based thinking f
 
 Route to the appropriate workflow based on the request.
 
-**When executing a workflow, output this notification directly:**
-
-```
 Running the **WorkflowName** workflow in the **FirstPrinciples** skill to ACTION...
 ```
 
@@ -211,3 +181,13 @@ When using FirstPrinciples, output should include:
 ---
 
 **Attribution**: Framework derived from Elon Musk's first principles methodology as documented by James Clear, Mayo Oshin, and public interviews.
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/decompose.sh` | Generate first-principles decomposition template |
+
+## Output Contract
+- **Always produces:** Decomposition document (Deconstruct → Challenge → Reconstruct)
+- **Format:** Assumptions table + constraints classification + rebuilt solution

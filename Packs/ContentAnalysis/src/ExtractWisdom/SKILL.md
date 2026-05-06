@@ -1,14 +1,7 @@
 ---
 name: ExtractWisdom
-description: Content-adaptive wisdom extraction — detects what domains exist in content and builds custom sections (not static IDEAS/QUOTES). Produces tailored insight reports from videos, podcasts, articles. USE WHEN extract wisdom, analyze video, analyze podcast, extract insights, what's interesting, extract from YouTube, what did I miss, key takeaways.
+description: "Extract wisdom from videos, podcasts, and articles with content-adaptive sections — detects what domains exist and builds custom sections around them. Use when analyzing content for key insights and takeaways."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/ExtractWisdom/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
 
 # ExtractWisdom — Dynamic Content Extraction
 
@@ -227,3 +220,13 @@ Before delivering output, verify:
 - [ ] No inventory sections (just listing facts without insight)
 - [ ] "If You Only Have 2 Minutes" bullets are each under 20 words
 - [ ] Reading the output makes you want to consume the original content
+
+## When to Use ExtractWisdom vs Parser vs Research
+
+| You Want... | Use |
+|-------------|-----|
+| Insight extraction with personality/voice | **ExtractWisdom** |
+| "What's interesting?" / key takeaways | **ExtractWisdom** |
+| Structured JSON / schema validation | **Parser** |
+| Find NEW information on a topic | **Research** |
+| Process existing content you already have | **ExtractWisdom** |

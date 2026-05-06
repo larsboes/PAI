@@ -19,7 +19,6 @@ CLAUDE_DIR="$HOME/.claude"
 
 ```bash
 CLAUDE_DIR="$HOME/.claude"
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
   [ -d "$CLAUDE_DIR/skills/Utilities/$subskill" ] && echo "OK $subskill/" || echo "MISSING $subskill/"
 done
 ```
@@ -30,7 +29,6 @@ done
 
 ```bash
 CLAUDE_DIR="$HOME/.claude"
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
   if [ -d "$CLAUDE_DIR/skills/Utilities/$subskill" ]; then
     [ -f "$CLAUDE_DIR/skills/Utilities/$subskill/SKILL.md" ] && echo "OK $subskill/SKILL.md" || echo "MISSING $subskill/SKILL.md"
   fi
@@ -58,7 +56,6 @@ fi
 CLAUDE_DIR="$HOME/.claude"
 if [ -f "$CLAUDE_DIR/skills/Utilities/SKILL.md" ]; then
   echo "Checking routing table..."
-  for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Delegation Documents Evals Fabric PAIUpgrade Parser Prompting; do
     grep -q "$subskill" "$CLAUDE_DIR/skills/Utilities/SKILL.md" && echo "  OK $subskill referenced in routing table" || echo "  WARNING $subskill not found in routing table"
   done
 fi
@@ -72,7 +69,6 @@ fi
 CLAUDE_DIR="$HOME/.claude"
 
 # Check sub-skills with Workflows/ directories
-for subskill in Aphorisms AudioEditor Browser Cloudflare CreateCLI CreateSkill Documents Evals Fabric PAIUpgrade Parser Prompting; do
   if [ -d "$CLAUDE_DIR/skills/Utilities/$subskill" ]; then
     [ -d "$CLAUDE_DIR/skills/Utilities/$subskill/Workflows" ] && echo "OK $subskill/Workflows/" || echo "INFO $subskill/Workflows/ not present"
   fi
@@ -113,7 +109,6 @@ echo "Dependencies:"
 command -v bun &>/dev/null && echo "  AVAILABLE bun runtime ($(bun --version))" || echo "  UNAVAILABLE bun (needed by CreateCLI, Evals, PAIUpgrade, Parser)"
 command -v ffmpeg &>/dev/null && echo "  AVAILABLE ffmpeg" || echo "  UNAVAILABLE ffmpeg (needed by AudioEditor)"
 command -v wrangler &>/dev/null && echo "  AVAILABLE wrangler" || echo "  UNAVAILABLE wrangler (needed by Cloudflare)"
-command -v fabric &>/dev/null && echo "  AVAILABLE fabric" || echo "  UNAVAILABLE fabric (needed by Fabric)"
 ```
 
 ---
@@ -140,7 +135,6 @@ Mark each item as complete:
 - [ ] Delegation/ with SKILL.md
 - [ ] Documents/ with SKILL.md, Docx/, Pdf/, Pptx/, Xlsx/, Workflows/
 - [ ] Evals/ with SKILL.md, Data/, Graders/, Suites/, Tools/, Workflows/
-- [ ] Fabric/ with SKILL.md, Patterns/, Workflows/
 - [ ] PAIUpgrade/ with SKILL.md, Tools/, Workflows/
 - [ ] Parser/ with SKILL.md, Lib/, Prompts/, Schema/, Workflows/
 - [ ] Prompting/ with SKILL.md, Templates/, Tools/

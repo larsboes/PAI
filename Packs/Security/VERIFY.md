@@ -19,7 +19,6 @@ CLAUDE_DIR="$HOME/.claude"
 
 ```bash
 CLAUDE_DIR="$HOME/.claude"
-for subdir in Recon WebAssessment PromptInjection SECUpdates AnnualReports; do
   [ -f "$CLAUDE_DIR/skills/Security/$subdir/SKILL.md" ] && echo "OK $subdir/SKILL.md" || echo "MISSING $subdir/SKILL.md"
 done
 ```
@@ -45,12 +44,7 @@ echo "WebAssessment directories:"
 echo "PromptInjection directories:"
 [ -d "$CLAUDE_DIR/skills/Security/PromptInjection/Workflows" ] && echo "  OK PromptInjection/Workflows/" || echo "  MISSING PromptInjection/Workflows/"
 
-echo "SECUpdates directories:"
-[ -d "$CLAUDE_DIR/skills/Security/SECUpdates/Workflows" ] && echo "  OK SECUpdates/Workflows/" || echo "  MISSING SECUpdates/Workflows/"
-[ -d "$CLAUDE_DIR/skills/Security/SECUpdates/State" ] && echo "  OK SECUpdates/State/" || echo "  MISSING SECUpdates/State/"
 
-echo "AnnualReports directories:"
-[ -d "$CLAUDE_DIR/skills/Security/AnnualReports/Tools" ] && echo "  OK AnnualReports/Tools/" || echo "  MISSING AnnualReports/Tools/"
 ```
 
 **Expected:** All directories present.
@@ -64,8 +58,6 @@ for skill_file in \
   "$CLAUDE_DIR/skills/Security/Recon/SKILL.md" \
   "$CLAUDE_DIR/skills/Security/WebAssessment/SKILL.md" \
   "$CLAUDE_DIR/skills/Security/PromptInjection/SKILL.md" \
-  "$CLAUDE_DIR/skills/Security/SECUpdates/SKILL.md" \
-  "$CLAUDE_DIR/skills/Security/AnnualReports/SKILL.md"; do
   if [ -f "$skill_file" ]; then
     basename_dir=$(echo "$skill_file" | sed "s|$CLAUDE_DIR/skills/Security/||")
     head -1 "$skill_file" | grep -q "^---" && echo "OK $basename_dir frontmatter" || echo "ERROR $basename_dir missing frontmatter"
@@ -87,9 +79,7 @@ for tool in SubdomainEnum.ts PortScan.ts DnsUtils.ts WhoisParser.ts CidrUtils.ts
   [ -f "$CLAUDE_DIR/skills/Security/Recon/Tools/$tool" ] && echo "  OK $tool" || echo "  MISSING $tool"
 done
 
-echo "AnnualReports tools:"
 for tool in FetchReport.ts ListSources.ts UpdateSources.ts; do
-  [ -f "$CLAUDE_DIR/skills/Security/AnnualReports/Tools/$tool" ] && echo "  OK $tool" || echo "  MISSING $tool"
 done
 ```
 
@@ -129,13 +119,10 @@ Mark each item as complete:
 - [ ] Recon/SKILL.md installed with Tools/, Workflows/, Data/ directories
 - [ ] WebAssessment/SKILL.md installed with Workflows/, BugBountyTool/, FfufResources/, OsintTools/
 - [ ] PromptInjection/SKILL.md installed with Workflows/ directory
-- [ ] SECUpdates/SKILL.md installed with Workflows/, State/ directories
-- [ ] AnnualReports/SKILL.md installed with Tools/ directory
 - [ ] All SKILL.md files have valid YAML frontmatter
 
 ### Functional (manual test)
 - [ ] Saying "do recon on example.com" triggers the Recon sub-domain
-- [ ] Saying "security updates" triggers the SECUpdates sub-domain
 - [ ] Saying "test for prompt injection" triggers the PromptInjection sub-domain
 ```
 

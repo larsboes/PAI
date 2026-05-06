@@ -37,8 +37,6 @@ The Security skill provides a unified router across five security sub-domains, e
 1. **Recon** -- Network reconnaissance with subdomain enumeration, port scanning, DNS/WHOIS/ASN lookups, CIDR/netblock analysis, endpoint discovery, mass scanning, passive recon, corporate structure mapping, and bounty program tracking
 2. **WebAssessment** -- Full web application security testing with threat modeling, OWASP methodology, ffuf fuzzing, Playwright browser automation, bug bounty tooling, OSINT, and AI-assisted vulnerability analysis
 3. **PromptInjection** -- LLM security testing with direct injection, indirect injection, multi-stage attacks, system prompt extraction, guardrail bypass techniques, and comprehensive assessment workflows
-4. **SECUpdates** -- Security news aggregation from tldrsec, Krebs on Security, Schneier on Security, and other sources, ranked and categorized
-5. **AnnualReports** -- Fetch, analyze, and synthesize annual security reports from major vendors to extract trends and compare threat landscapes year-over-year
 
 The top-level SKILL.md routes requests to the correct sub-domain based on keyword matching. Each sub-domain has its own SKILL.md, workflows, tools, and supporting data.
 
@@ -71,15 +69,8 @@ This pack is designed for AI-assisted installation. Give this directory to your 
 | PromptInjection skill | `src/PromptInjection/SKILL.md` | LLM prompt injection testing coordination |
 | PromptInjection workflows | `src/PromptInjection/Workflows/` | 5 workflows: complete assessment, direct injection, indirect injection, multi-stage attacks, reconnaissance |
 | PromptInjection references | `src/PromptInjection/` | Attack taxonomy, defense mechanisms, app recon methodology, quick start guide, automated testing tools |
-| SECUpdates skill | `src/SECUpdates/SKILL.md` | Security news aggregation and ranking |
-| SECUpdates workflows | `src/SECUpdates/Workflows/` | Update workflow for fetching and ranking news |
-| SECUpdates data | `src/SECUpdates/sources.json` | Configured news sources |
-| SECUpdates state | `src/SECUpdates/State/` | Last-check timestamp tracking |
-| AnnualReports skill | `src/AnnualReports/SKILL.md` | Annual report analysis coordination |
-| AnnualReports tools | `src/AnnualReports/Tools/` | 3 TypeScript tools: fetch report, list sources, update sources |
 
 **Summary:**
-- **Sub-domains:** 5 (Recon, WebAssessment, PromptInjection, SECUpdates, AnnualReports)
 - **Workflows:** 20+
 - **Tools:** 15+ TypeScript/Python tools
 - **Dependencies:** None (works standalone, enhanced by PAI infrastructure)
@@ -109,8 +100,6 @@ The Security skill is not a replacement for those tools -- it is an orchestratio
 | "pentest this web app" | Routes to WebAssessment -- runs full pentest methodology with threat modeling and OWASP testing |
 | "fuzz the API endpoints" | Routes to WebAssessment -- runs ffuf workflow with appropriate wordlists and request templates |
 | "test this chatbot for prompt injection" | Routes to PromptInjection -- runs complete assessment with direct, indirect, and multi-stage attacks |
-| "what's new in security?" | Routes to SECUpdates -- fetches and ranks recent security news from configured sources |
-| "analyze the CrowdStrike annual report" | Routes to AnnualReports -- fetches report, extracts trends, produces threat intelligence summary |
 | "create a threat model for this application" | Routes to WebAssessment -- runs threat model creation workflow |
 | "check for bounty programs on example.com" | Routes to Recon -- queries bounty program database for the target |
 
@@ -159,7 +148,6 @@ Report: 3 critical findings, 2 moderate, system prompt partially extractable...
 User: security updates
 
 AI responds:
-Running the Update workflow in the SECUpdates skill to check security news...
 
 [Fetches from tldrsec, Krebs, Schneier, and other sources]
 [Ranks by severity and relevance]
@@ -181,7 +169,6 @@ Optional configuration points:
 
 | Configuration | Location | Purpose |
 |--------------|----------|---------|
-| News sources | `SECUpdates/sources.json` | Add or remove security news feeds |
 | Bounty programs | `Recon/Data/BountyPrograms.json` | Update bounty program database |
 | OSINT API keys | `WebAssessment/OsintTools/api-config-template.env` | Configure API keys for OSINT tools |
 | Skill customizations | `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Security/` | Per-user preferences and overrides |
@@ -198,7 +185,6 @@ No customization needed -- the skill works as-is with sensible defaults across a
 
 | Customization | Location | Impact |
 |--------------|----------|--------|
-| Add news sources | `SECUpdates/sources.json` | Expands security news coverage |
 | Update bounty database | `Recon/Data/BountyPrograms.json` | Keeps bounty program data current |
 | Configure OSINT APIs | `WebAssessment/OsintTools/api-config-template.env` | Enables API-based OSINT tools (Shodan, Censys, etc.) |
 | Add custom wordlists | `WebAssessment/FfufResources/WORDLISTS.md` | Extends ffuf fuzzing coverage |
@@ -231,7 +217,6 @@ No customization needed -- the skill works as-is with sensible defaults across a
 
 ### 1.0.0 - 2026-03-15
 - Initial release
-- Five sub-domains: Recon, WebAssessment, PromptInjection, SECUpdates, AnnualReports
 - Unified routing from top-level SKILL.md
 - 20+ workflows across all sub-domains
 - 15+ TypeScript/Python tools for reconnaissance, fuzzing, OSINT, and report analysis

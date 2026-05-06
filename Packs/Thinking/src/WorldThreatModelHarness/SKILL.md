@@ -1,6 +1,6 @@
 ---
 name: WorldThreatModelHarness
-description: Stress-test ideas, strategies, and investments across 11 time horizons (6mo-50yr). Update and view world models. USE WHEN threat model, world model, test idea, test strategy, future analysis, test investment, test against future, stress test idea, time horizon analysis, update models, view models, refresh models, model status.
+description: "Stress-test ideas, strategies, and investments against 11 persistent world models spanning 6 months to 50 years. Use when evaluating how decisions hold up across future scenarios."
 ---
 
 # World Threat Model Harness
@@ -65,16 +65,14 @@ This skill orchestrates multiple PAI capabilities:
 - **Council** — Multi-perspective debate on idea viability across horizons
 - **Research** — Deep research for model creation and updates
 
-## Voice Notification
 
-Before any workflow execution:
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running WORKFLOW_NAME in the World Threat Model Harness", "voice_id": "fTtv3eikoepIosk8dTZ5"}'
-```
+## Scripts
 
-## Customization Check
+| Script | Purpose |
+|--------|---------|
+| `scripts/check-freshness.sh` | Check age of world model files, flag stale ones |
 
-Before execution, check for user customizations at:
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/WorldThreatModelHarness/`
+## Output Contract
+- **Always produces:** Viability assessment across all 11 time horizons
+- **Saved to:** Alongside world models in `$PAI_DIR/MEMORY/RESEARCH/WorldModels/`
+- **Format:** Per-horizon verdict + synthesis + overall recommendation

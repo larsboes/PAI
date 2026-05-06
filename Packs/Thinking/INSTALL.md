@@ -21,7 +21,6 @@ Before starting, greet the user:
 
 This pack adds the Thinking skill with seven modes:
 - FirstPrinciples — decompose to axioms, challenge assumptions, reconstruct
-- IterativeDepth — multi-angle deep exploration through progressive lenses
 - BeCreative — divergent idea generation with six creativity workflows
 - Council — multi-agent debate with visible transcripts
 - RedTeam — adversarial validation and stress testing
@@ -61,7 +60,6 @@ else
 fi
 
 # Check for existing sub-domain directories
-for subdir in FirstPrinciples IterativeDepth BeCreative Council RedTeam WorldThreatModelHarness Science; do
   if [ -d "$CLAUDE_DIR/skills/Thinking/$subdir" ]; then
     echo "WARNING Existing sub-domain found: Thinking/$subdir"
   fi
@@ -139,7 +137,6 @@ immediately after installation."
 "Directories to be created:
 - ~/.claude/skills/Thinking/
 - ~/.claude/skills/Thinking/FirstPrinciples/ (with Workflows/)
-- ~/.claude/skills/Thinking/IterativeDepth/ (with Workflows/)
 - ~/.claude/skills/Thinking/BeCreative/ (with Assets/, Workflows/)
 - ~/.claude/skills/Thinking/Council/ (with Workflows/)
 - ~/.claude/skills/Thinking/RedTeam/ (with Workflows/)
@@ -199,7 +196,6 @@ echo "Backup created at: $BACKUP_DIR"
 CLAUDE_DIR="$HOME/.claude"
 mkdir -p "$CLAUDE_DIR/skills/Thinking"
 mkdir -p "$CLAUDE_DIR/skills/Thinking/FirstPrinciples/Workflows"
-mkdir -p "$CLAUDE_DIR/skills/Thinking/IterativeDepth/Workflows"
 mkdir -p "$CLAUDE_DIR/skills/Thinking/BeCreative/Assets"
 mkdir -p "$CLAUDE_DIR/skills/Thinking/BeCreative/Workflows"
 mkdir -p "$CLAUDE_DIR/skills/Thinking/Council/Workflows"
@@ -248,13 +244,11 @@ echo "Checking top-level skill file..."
 
 # Check sub-domain SKILL.md files
 echo "Checking thinking mode skill files..."
-for subdir in FirstPrinciples IterativeDepth BeCreative Council RedTeam WorldThreatModelHarness Science; do
   [ -f "$CLAUDE_DIR/skills/Thinking/$subdir/SKILL.md" ] && echo "OK $subdir/SKILL.md" || echo "MISSING $subdir/SKILL.md"
 done
 
 # Check key workflow directories
 echo "Checking workflow directories..."
-for subdir in FirstPrinciples IterativeDepth BeCreative Council RedTeam WorldThreatModelHarness Science; do
   [ -d "$CLAUDE_DIR/skills/Thinking/$subdir/Workflows" ] && echo "OK $subdir/Workflows/" || echo "MISSING $subdir/Workflows/"
 done
 
@@ -279,7 +273,6 @@ echo "=== Verification Complete ==="
 
 What's available (7 modes):
 - FirstPrinciples — 'decompose this from first principles'
-- IterativeDepth — 'explore this topic in depth'
 - BeCreative — 'be creative about solving this', 'brainstorm ideas'
 - Council — 'council debate on this decision'
 - RedTeam — 'red team this plan', 'stress test this architecture'
@@ -330,7 +323,6 @@ The Science skill has nine distinct workflows. For iterative investigation, use 
 |-----------|---------|
 | `src/SKILL.md` | Top-level router for all seven thinking modes |
 | `src/FirstPrinciples/` | Axiom decomposition with Deconstruct, Challenge, Reconstruct workflows |
-| `src/IterativeDepth/` | Multi-lens deep exploration with scientific foundation |
 | `src/BeCreative/` | Six creativity workflows with principles, templates, examples, and assets |
 | `src/Council/` | Multi-agent debate with member definitions, round structure, and output format |
 | `src/RedTeam/` | Adversarial validation with philosophy guide and integration notes |

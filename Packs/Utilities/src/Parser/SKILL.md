@@ -1,34 +1,7 @@
 ---
 name: Parser
-description: Extract structured JSON from URLs, files, videos, PDFs with entity extraction and batch support. USE WHEN parse, extract, URL, transcript, entities, JSON, batch, content, YouTube, PDF, article, newsletter, Twitter, browser extension, collision detection, detect content type, extract article, extract newsletter, extract YouTube, extract PDF, parse content.
+description: "Extract structured JSON from URLs, files, videos, and PDFs with entity extraction, schema validation, and deduplication. Use when parsing content into structured data."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Parser/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Parser skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Parser** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Parser
 
@@ -36,14 +9,7 @@ Parse any content into structured JSON with entity extraction and collision dete
 
 ---
 
-
 ## Workflow Routing
-
-**When executing a workflow, output this notification:**
-
-```
-Running the **WorkflowName** workflow in the **Parser** skill to ACTION...
-```
 
 | Workflow | Trigger | File |
 |----------|---------|------|
@@ -93,8 +59,6 @@ User: "parse this YouTube video for the newsletter"
 --> Extracts transcript via YouTube API
 --> Identifies people, companies, topics mentioned
 --> Returns structured JSON with entities and key insights
-```
-
 **Example 2: Batch parse article URLs**
 ```
 User: "parse these 5 URLs into JSON for the database"
@@ -103,8 +67,6 @@ User: "parse these 5 URLs into JSON for the database"
 --> Extracts entities with collision detection
 --> Assigns GUIDs, checks for duplicates
 --> Returns validated JSON per schema
-```
-
 **Example 3: Check for duplicate content**
 ```
 User: "have I already parsed this article?"
@@ -112,8 +74,6 @@ User: "have I already parsed this article?"
 --> Checks URL against entity index
 --> Returns existing content ID if found
 --> Skips re-parsing, saves time
-```
-
 ---
 
 ## Quick Reference
@@ -122,3 +82,14 @@ User: "have I already parsed this article?"
 - **Output Format:** JSON validated against `Schema/content-schema.json`
 - **Entity Types:** people, companies, links, sources, topics
 - **Deduplication:** Via entity-index.json with UUID v4 GUIDs
+
+## When to Use Parser vs ExtractWisdom
+
+| You Want... | Use |
+|-------------|-----|
+| Structured JSON with schema validation | **Parser** |
+| Entity extraction with GUIDs/dedup | **Parser** |
+| Batch processing N URLs into database | **Parser** |
+| Insight extraction with personality/voice | **ExtractWisdom** |
+| "What's interesting in this video?" | **ExtractWisdom** |
+| Key takeaways in conversational tone | **ExtractWisdom** |

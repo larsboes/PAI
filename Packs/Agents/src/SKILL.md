@@ -1,6 +1,6 @@
 ---
 name: Agents
-description: Compose CUSTOM agents from Base Traits + Voice + Specialization for specialized perspectives. USE WHEN create custom agents, spin up agents, specialized agents, agent personalities, available traits, list traits, agent voices, compose agent, load agent context, agent profile, spawn parallel agents, launch agents. NOT for agent teams/swarms (use Delegation skill → TeamCreate).
+description: "Compose custom agents from base traits, voices, and specializations for specialized perspectives. Use when you need unique agent personalities for parallel analysis, reviews, or creative work."
 ---
 
 ## 🚨 SCOPE BOUNDARY — This Skill vs Agent Teams
@@ -16,25 +16,6 @@ description: Compose CUSTOM agents from Base Traits + Voice + Specialization for
 - **Agent teams** (Delegation → TeamCreate) = persistent coordinated teams with shared task lists, messaging, multi-turn collaboration
 
 ---
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Agents skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Agents** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Agents - Custom Agent Composition System
 

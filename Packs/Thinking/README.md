@@ -13,7 +13,7 @@ keywords: [first-principles, iterative-depth, creative, brainstorm, council, deb
 
 # Thinking
 
-> Seven distinct thinking modes in one unified skill -- from first principles decomposition to adversarial red teaming to scientific hypothesis testing, routed automatically based on what you need.
+> Six distinct thinking modes in one unified skill -- from first principles decomposition to adversarial red teaming to scientific hypothesis testing, routed automatically based on what you need.
 
 ---
 
@@ -27,17 +27,16 @@ Complex problems require different kinds of thinking. A startup pivot needs firs
 - **Reinventing frameworks** -- asking for "think about this differently" without a systematic methodology behind it
 - **Mixing modes** -- wanting creative brainstorming but getting analytical critique, or wanting critique but getting brainstorming
 
-The fundamental issue: thinking is not one skill. It is at least seven distinct cognitive modes, each with its own methodology, and an AI needs explicit structure to shift between them.
+The fundamental issue: thinking is not one skill. It is at least six distinct cognitive modes, each with its own methodology, and an AI needs explicit structure to shift between them.
 
 ---
 
 ## The Solution
 
-The Thinking skill provides seven distinct thinking modes, each with its own methodology, workflows, and output format:
+The Thinking skill provides six distinct thinking modes, each with its own methodology, workflows, and output format:
 
 1. **FirstPrinciples** -- Decompose problems to fundamental axioms, challenge inherited assumptions, and reconstruct solutions from verified truths. Three workflows: Deconstruct, Challenge, Reconstruct.
 
-2. **IterativeDepth** -- Multi-angle deep exploration that examines a topic through multiple lenses (technical, economic, social, historical, etc.) with progressive depth. Grounded in scientific foundations for structured investigation.
 
 3. **BeCreative** -- Divergent idea generation with six workflows ranging from standard creativity to maximum creativity to tree-of-thoughts exploration. Includes domain-specific creativity, technical creativity with Gemini integration, and research-backed creative principles.
 
@@ -65,12 +64,8 @@ This pack is designed for AI-assisted installation. Give this directory to your 
 
 | Component | Path | Purpose |
 |-----------|------|---------|
-| Skill router | `src/SKILL.md` | Top-level routing to thinking modes based on request pattern |
 | FirstPrinciples skill | `src/FirstPrinciples/SKILL.md` | First principles decomposition and reconstruction |
 | FirstPrinciples workflows | `src/FirstPrinciples/Workflows/` | 3 workflows: Deconstruct, Challenge, Reconstruct |
-| IterativeDepth skill | `src/IterativeDepth/SKILL.md` | Multi-angle deep exploration through progressive lenses |
-| IterativeDepth workflows | `src/IterativeDepth/Workflows/` | 1 workflow: Explore |
-| IterativeDepth references | `src/IterativeDepth/` | Scientific foundation and lens definitions |
 | BeCreative skill | `src/BeCreative/SKILL.md` | Divergent creative thinking and idea generation |
 | BeCreative workflows | `src/BeCreative/Workflows/` | 6 workflows: StandardCreativity, MaximumCreativity, TreeOfThoughts, IdeaGeneration, DomainSpecific, TechnicalCreativityGemini3 |
 | BeCreative resources | `src/BeCreative/` | Principles, examples, templates, research foundation, and asset templates |
@@ -88,7 +83,6 @@ This pack is designed for AI-assisted installation. Give this directory to your 
 | Science references | `src/Science/` | Methodology, protocol, examples, and templates |
 
 **Summary:**
-- **Thinking modes:** 7 (FirstPrinciples, IterativeDepth, BeCreative, Council, RedTeam, WorldThreatModelHarness, Science)
 - **Workflows:** 26 across all modes
 - **Supporting documents:** 15+ reference files (principles, methodology, templates, examples)
 - **Dependencies:** None (works standalone)
@@ -116,7 +110,6 @@ The Thinking skill is not a collection of prompt tricks -- it is seven complete 
 |---------|--------------|
 | "decompose this problem from first principles" | Routes to FirstPrinciples -- runs Deconstruct workflow to identify axioms |
 | "challenge the assumptions in this plan" | Routes to FirstPrinciples -- runs Challenge workflow |
-| "explore this topic in depth" | Routes to IterativeDepth -- runs Explore with progressive lens analysis |
 | "be creative about solving this" | Routes to BeCreative -- runs StandardCreativity or MaximumCreativity workflow |
 | "brainstorm 20 ideas for this" | Routes to BeCreative -- runs IdeaGeneration workflow |
 | "tree of thoughts on this decision" | Routes to BeCreative -- runs TreeOfThoughts workflow |
@@ -230,7 +223,6 @@ No customization needed -- all seven thinking modes work as-is with sensible def
 | Red team philosophy | `RedTeam/Philosophy.md` | Adjust adversarial validation approach |
 | Science methodology | `Science/METHODOLOGY.md` | Modify scientific method stages |
 | World model template | `WorldThreatModelHarness/ModelTemplate.md` | Change world model structure |
-| Iterative depth lenses | `IterativeDepth/TheLenses.md` | Add or modify analysis lenses |
 
 ---
 
@@ -259,7 +251,6 @@ No customization needed -- all seven thinking modes work as-is with sensible def
 
 ### 1.0.0 - 2026-03-15
 - Initial release
-- Seven thinking modes: FirstPrinciples, IterativeDepth, BeCreative, Council, RedTeam, WorldThreatModelHarness, Science
 - Unified routing from top-level SKILL.md
 - 26 workflows across all modes
 - 15+ supporting reference documents (principles, methodology, templates, examples)

@@ -1,34 +1,7 @@
 ---
 name: CreateCLI
-description: Generate production-ready TypeScript CLIs with 3-tier template system (simple argv, yargs, oclif), type safety, error handling, and documentation. USE WHEN create CLI, build CLI, command-line tool, wrap API, add command, upgrade tier, TypeScript CLI.
+description: "Generate production-ready TypeScript CLIs with 3-tier template system (simple argv, yargs, oclif). Use when building command-line tools with proper argument parsing and documentation."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/CreateCLI/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the CreateCLI skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **CreateCLI** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # CreateCLI
 
@@ -38,14 +11,10 @@ Generate production-ready TypeScript CLIs with comprehensive documentation, type
 
 ---
 
-
 ## Workflow Routing
 
 Route to the appropriate workflow based on the request.
 
-**When executing a workflow, output this notification directly:**
-
-```
 Running the **WorkflowName** workflow in the **CreateCLI** skill to ACTION...
 ```
 

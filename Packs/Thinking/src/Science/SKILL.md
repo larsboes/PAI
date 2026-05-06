@@ -1,34 +1,7 @@
 ---
 name: Science
-description: Hypothesis-test-analyze cycles for systematic problem-solving — the meta-skill governing all others. Includes define goal, generate hypotheses, design experiment, measure results, analyze results, iterate, full cycle, quick diagnosis, and structured investigation. USE WHEN think about, figure out, try approaches, experiment with, iterate on, improve, optimize, define goal, generate hypotheses, design experiment, measure results, analyze results, full cycle, quick diagnosis, structured investigation, science, hypothesis.
+description: "Hypothesis-test-analyze cycles for systematic problem-solving. Define goals, generate hypotheses, run experiments, measure results, iterate. Use when figuring things out empirically."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Science/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Science skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Science** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Science - The Universal Algorithm
 
@@ -57,7 +30,6 @@ ITERATE --> Adjust hypothesis and repeat
 **The goal is CRITICAL.** Without clear success criteria, you cannot judge results.
 
 ---
-
 
 ## Workflow Routing
 
@@ -165,3 +137,14 @@ ITERATE --> Adjust hypothesis and repeat
 7. **Iterate** - Adjust and repeat
 
 **The answer emerges from the cycle, not from guessing.**
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/experiment-log.sh` | Track hypothesis→experiment→result iterations |
+
+## Output Contract
+- **Always produces:** Experiment log with iterations
+- **Saved to:** Active experiment file (use `scripts/experiment-log.sh show`)
+- **Format:** Goal → Iterations (Hypothesis/Experiment/Result/Conclusion) → Verdict

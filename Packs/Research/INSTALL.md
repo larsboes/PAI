@@ -21,7 +21,6 @@ Before starting, greet the user:
 
 This pack adds the Research skill with:
 - 4 research modes (Quick / Standard / Extensive / Deep Investigation)
-- 14 specialized workflows (content extraction, Fabric patterns, AI trends, etc.)
 - 2 domain templates for deep investigation
 - Mandatory URL verification on all outputs
 
@@ -80,11 +79,8 @@ else
   echo "INFO Perplexity API key not found (needed for Quick/Standard/Extensive research modes)"
 fi
 
-# Check for Fabric CLI
 if command -v fabric &>/dev/null; then
-  echo "OK Fabric CLI found: $(which fabric)"
 else
-  echo "INFO Fabric CLI not found (needed for Fabric patterns and YouTube extraction)"
 fi
 
 # Check for PAI MEMORY structure
@@ -110,7 +106,6 @@ Tell the user what you found:
 - Skills directory: [exists / will be created]
 - Existing Research skill: [found -- will ask about conflict / not found]
 - Perplexity API key: [found / not found -- needed for multi-agent research]
-- Fabric CLI: [found / not found -- needed for Fabric patterns]
 - PAI MEMORY: [found / not found]
 - Research customizations: [found / not found]
 
@@ -118,7 +113,6 @@ Tell the user what you found:
 modes use Perplexity for web search. Without a Perplexity API key, you can still use
 Claude Research (free, built-in WebSearch) and all content analysis workflows.
 
-[If Fabric not found]: Note: The Fabric workflow and YouTube extraction use the Fabric CLI.
 Install it with: brew install fabric (or see https://github.com/danielmiessler/fabric)"
 ```
 
@@ -291,7 +285,6 @@ head -1 "$CLAUDE_DIR/skills/Research/SKILL.md" | grep -q "^---" && echo "OK SKIL
 
 # Check key workflows exist
 echo "Checking key workflows..."
-for wf in QuickResearch.md StandardResearch.md ExtensiveResearch.md DeepInvestigation.md ExtractAlpha.md Fabric.md; do
   [ -f "$CLAUDE_DIR/skills/Research/Workflows/$wf" ] && echo "  OK $wf" || echo "  MISSING $wf"
 done
 
@@ -312,7 +305,6 @@ echo "=== Verification Complete ==="
 
 What's available:
 - 4 research modes: Quick (10-15s) / Standard (15-30s) / Extensive (60-90s) / Deep (3-60min)
-- 14 specialized workflows (content extraction, Fabric patterns, AI trends, etc.)
 - 2 deep investigation templates (Market Research, Threat Landscape)
 
 Try it now:
@@ -333,7 +325,6 @@ The skill is ready, but no Perplexity API key was detected.
 Right now, you can use:
 - Claude Research (free, uses built-in WebSearch)
 - Extract Alpha, Extract Knowledge, Enhance (content analysis)
-- Fabric patterns (if Fabric CLI is installed)
 
 For full multi-agent research (Quick/Standard/Extensive modes), add a Perplexity API key."
 ```
@@ -362,9 +353,7 @@ The Research skill is triggered by the word "research" in natural language, not 
 
 Check that your Perplexity API key is valid and has credits. The key should be in your PAI .env file or exported as `PERPLEXITY_API_KEY`.
 
-### Fabric patterns not working
 
-Install the Fabric CLI: `brew install fabric` or follow instructions at https://github.com/danielmiessler/fabric
 
 ### Deep investigation not persisting
 
@@ -391,7 +380,6 @@ Ensure `~/.claude/MEMORY/RESEARCH/` directory exists. If PAI MEMORY is not insta
 | `src/Workflows/ClaudeResearch.md` | Free Claude WebSearch |
 | `src/Workflows/InterviewResearch.md` | Interview preparation |
 | `src/Workflows/AnalyzeAiTrends.md` | AI trends analysis |
-| `src/Workflows/Fabric.md` | 242+ Fabric pattern processing |
 | `src/Workflows/Enhance.md` | Content enhancement |
 | `src/Workflows/ExtractKnowledge.md` | Structured knowledge extraction |
 | `src/Templates/MarketResearch.md` | Deep investigation domain template |

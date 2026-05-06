@@ -1,13 +1,13 @@
 ---
 name: Delegation
-description: Parallelize work via background/foreground agents, built-in types, custom agents, or agent teams/swarms. USE WHEN 3+ independent workstreams, parallel execution, agent specialization, Extended+ effort, agent team, swarm, create an agent team.
+description: "Parallelize work via background/foreground agents, built-in types, custom agents, or agent teams. Use when 3+ independent workstreams exist or tasks need agent specialization."
 ---
 
 # Delegation — Agent Orchestration & Parallelization
 
 **Auto-invoked by the Algorithm when work can be parallelized or requires agent specialization.**
 
-## 🚨 CRITICAL ROUTING — Two COMPLETELY Different Systems
+## Routing — Two Different Systems
 
 | {PRINCIPAL.NAME} Says | System | Tool | What Happens |
 |-------------|--------|------|-------------|

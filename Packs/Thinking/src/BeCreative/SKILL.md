@@ -1,34 +1,7 @@
 ---
 name: BeCreative
-description: Divergent ideation via Verbalized Sampling + extended thinking (1.6-2.1x diversity). USE WHEN be creative, deep thinking, brainstorm, divergent ideas, creative solutions, maximum creativity, tree of thoughts, idea generation, domain specific creativity, technical creativity, standard creativity.
+description: "Divergent ideation using Verbalized Sampling and extended thinking for 1.6-2.1x diversity increase. Use when brainstorming, generating creative solutions, or pushing past conventional ideas."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/BeCreative/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the BeCreative skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **BeCreative** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # BeCreative Skill
 
@@ -36,13 +9,10 @@ Enhance AI creativity using deep thinking + Verbalized Sampling. Combines resear
 
 ---
 
-
 ## Workflow Routing
 
 Route to the appropriate workflow based on the request.
 
-**When executing a workflow, output this notification:**
-```
 Running the **WorkflowName** workflow in the **BeCreative** skill to ACTION...
 ```
 
@@ -123,3 +93,8 @@ User: "deep thinking this architecture problem"
 ---
 
 **Research-backed creative enhancement: 1.6-2.1x diversity, 25.7% quality improvement.**
+
+## Output Contract
+- **Always produces:** Single best creative output (after internally generating 5 diverse options)
+- **Shows:** Brief mention of the 5 directions explored before presenting the winner
+- **Format:** The creative output itself + reasoning for why this direction won

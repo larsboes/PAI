@@ -1,34 +1,7 @@
 ---
 name: Council
-description: Multi-agent debate with visible transcripts where agents respond to each other. USE WHEN council, debate, perspectives, weigh options, deliberate, multiple viewpoints. Unlike RedTeam (adversarial), Council is collaborative-adversarial.
+description: "Multi-agent debate where specialized agents discuss in rounds and respond to each other's points. Produces visible transcripts. Use when weighing options or deliberating important decisions."
 ---
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Council/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Council skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Council** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Council Skill
 
@@ -41,9 +14,6 @@ Multi-agent debate system where specialized agents discuss topics in rounds, res
 
 Route to the appropriate workflow based on the request.
 
-**When executing a workflow, output this notification directly:**
-
-```
 Running the **WorkflowName** workflow in the **Council** skill to ACTION...
 ```
 
@@ -104,3 +74,14 @@ Running the **WorkflowName** workflow in the **Council** skill to ACTION...
 ---
 
 **Last Updated:** 2025-12-20
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/council-transcript.sh` | Generate and save debate transcript |
+
+## Output Contract
+- **Always produces:** Visible debate transcript + synthesis with convergence/tension points
+- **Saved to:** `~/.pai/artifacts/councils/{date}_{topic}.md`
+- **Format:** Round-by-round transcript with final synthesis

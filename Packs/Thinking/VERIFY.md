@@ -19,7 +19,6 @@ CLAUDE_DIR="$HOME/.claude"
 
 ```bash
 CLAUDE_DIR="$HOME/.claude"
-for subdir in FirstPrinciples IterativeDepth BeCreative Council RedTeam WorldThreatModelHarness Science; do
   [ -f "$CLAUDE_DIR/skills/Thinking/$subdir/SKILL.md" ] && echo "OK $subdir/SKILL.md" || echo "MISSING $subdir/SKILL.md"
 done
 ```
@@ -30,7 +29,6 @@ done
 
 ```bash
 CLAUDE_DIR="$HOME/.claude"
-for subdir in FirstPrinciples IterativeDepth BeCreative Council RedTeam WorldThreatModelHarness Science; do
   [ -d "$CLAUDE_DIR/skills/Thinking/$subdir/Workflows" ] && echo "OK $subdir/Workflows/" || echo "MISSING $subdir/Workflows/"
 done
 ```
@@ -47,8 +45,6 @@ for wf in Deconstruct.md Challenge.md Reconstruct.md; do
   [ -f "$CLAUDE_DIR/skills/Thinking/FirstPrinciples/Workflows/$wf" ] && echo "  OK $wf" || echo "  MISSING $wf"
 done
 
-echo "IterativeDepth workflows:"
-[ -f "$CLAUDE_DIR/skills/Thinking/IterativeDepth/Workflows/Explore.md" ] && echo "  OK Explore.md" || echo "  MISSING Explore.md"
 
 echo "BeCreative workflows:"
 for wf in StandardCreativity.md MaximumCreativity.md TreeOfThoughts.md IdeaGeneration.md DomainSpecific.md TechnicalCreativityGemini3.md; do
@@ -99,9 +95,6 @@ echo "RedTeam references:"
 [ -f "$CLAUDE_DIR/skills/Thinking/RedTeam/Philosophy.md" ] && echo "  OK Philosophy.md" || echo "  MISSING Philosophy.md"
 [ -f "$CLAUDE_DIR/skills/Thinking/RedTeam/Integration.md" ] && echo "  OK Integration.md" || echo "  MISSING Integration.md"
 
-echo "IterativeDepth references:"
-[ -f "$CLAUDE_DIR/skills/Thinking/IterativeDepth/TheLenses.md" ] && echo "  OK TheLenses.md" || echo "  MISSING TheLenses.md"
-[ -f "$CLAUDE_DIR/skills/Thinking/IterativeDepth/ScientificFoundation.md" ] && echo "  OK ScientificFoundation.md" || echo "  MISSING ScientificFoundation.md"
 
 echo "WorldThreatModelHarness references:"
 [ -f "$CLAUDE_DIR/skills/Thinking/WorldThreatModelHarness/ModelTemplate.md" ] && echo "  OK ModelTemplate.md" || echo "  MISSING ModelTemplate.md"
@@ -123,7 +116,6 @@ CLAUDE_DIR="$HOME/.claude"
 for skill_file in \
   "$CLAUDE_DIR/skills/Thinking/SKILL.md" \
   "$CLAUDE_DIR/skills/Thinking/FirstPrinciples/SKILL.md" \
-  "$CLAUDE_DIR/skills/Thinking/IterativeDepth/SKILL.md" \
   "$CLAUDE_DIR/skills/Thinking/BeCreative/SKILL.md" \
   "$CLAUDE_DIR/skills/Thinking/Council/SKILL.md" \
   "$CLAUDE_DIR/skills/Thinking/RedTeam/SKILL.md" \
@@ -169,7 +161,6 @@ Mark each item as complete:
 ### Files
 - [ ] Top-level SKILL.md installed at ~/.claude/skills/Thinking/SKILL.md
 - [ ] FirstPrinciples/SKILL.md installed with Workflows/ (3 workflows)
-- [ ] IterativeDepth/SKILL.md installed with Workflows/ (1 workflow) and reference files
 - [ ] BeCreative/SKILL.md installed with Workflows/ (6 workflows), Assets/, and reference files
 - [ ] Council/SKILL.md installed with Workflows/ (2 workflows) and reference files
 - [ ] RedTeam/SKILL.md installed with Workflows/ (2 workflows) and reference files

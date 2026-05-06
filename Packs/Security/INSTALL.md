@@ -23,8 +23,6 @@ This pack adds the Security skill with five sub-domains:
 - Recon — network reconnaissance and enumeration
 - WebAssessment — web app security testing
 - PromptInjection — LLM security testing
-- SECUpdates — security news aggregation
-- AnnualReports — vendor report analysis
 
 Let me analyze your system and guide you through installation."
 ```
@@ -59,7 +57,6 @@ else
 fi
 
 # Check for existing sub-domain directories
-for subdir in Recon WebAssessment PromptInjection SECUpdates AnnualReports; do
   if [ -d "$CLAUDE_DIR/skills/Security/$subdir" ]; then
     echo "WARNING Existing sub-domain found: Security/$subdir"
   fi
@@ -147,8 +144,6 @@ https://github.com/danielmiessler/Personal_AI_Infrastructure"
 - ~/.claude/skills/Security/Recon/ (with Tools/, Workflows/, Data/)
 - ~/.claude/skills/Security/WebAssessment/ (with BugBountyTool/, FfufResources/, OsintTools/, Workflows/, WebappScripts/, WebappExamples/)
 - ~/.claude/skills/Security/PromptInjection/ (with Workflows/)
-- ~/.claude/skills/Security/SECUpdates/ (with Workflows/, State/)
-- ~/.claude/skills/Security/AnnualReports/ (with Tools/)
 
 Files to be created: 60+ files across all sub-domains (SKILL.md files, workflows, tools, data, examples)
 
@@ -214,9 +209,6 @@ mkdir -p "$CLAUDE_DIR/skills/Security/WebAssessment/Workflows/osint"
 mkdir -p "$CLAUDE_DIR/skills/Security/WebAssessment/Workflows/pentest"
 mkdir -p "$CLAUDE_DIR/skills/Security/WebAssessment/Workflows/webapp"
 mkdir -p "$CLAUDE_DIR/skills/Security/PromptInjection/Workflows"
-mkdir -p "$CLAUDE_DIR/skills/Security/SECUpdates/Workflows"
-mkdir -p "$CLAUDE_DIR/skills/Security/SECUpdates/State"
-mkdir -p "$CLAUDE_DIR/skills/Security/AnnualReports/Tools"
 echo "Created all skill directories"
 ```
 
@@ -259,13 +251,11 @@ echo "Checking top-level skill file..."
 
 # Check sub-domain SKILL.md files
 echo "Checking sub-domain skill files..."
-for subdir in Recon WebAssessment PromptInjection SECUpdates AnnualReports; do
   [ -f "$CLAUDE_DIR/skills/Security/$subdir/SKILL.md" ] && echo "OK $subdir/SKILL.md" || echo "MISSING $subdir/SKILL.md"
 done
 
 # Check key directories
 echo "Checking directories..."
-for dir in Recon/Tools Recon/Workflows Recon/Data WebAssessment/Workflows PromptInjection/Workflows SECUpdates/Workflows AnnualReports/Tools; do
   [ -d "$CLAUDE_DIR/skills/Security/$dir" ] && echo "OK $dir/" || echo "MISSING $dir/"
 done
 
@@ -292,8 +282,6 @@ What's available:
 - Recon — 'do recon on example.com', 'passive recon on 10.0.0.0/24'
 - WebAssessment — 'pentest this web app', 'create a threat model'
 - PromptInjection — 'test this chatbot for prompt injection'
-- SECUpdates — 'what's new in security?'
-- AnnualReports — 'analyze the CrowdStrike annual report'
 
 The skill routes automatically based on your request. Just describe what you need
 and the Security skill handles the rest."
@@ -337,7 +325,5 @@ Some tools require external dependencies (e.g., nmap for port scanning, ffuf for
 | `src/Recon/` | Network reconnaissance tools, workflows, and data |
 | `src/WebAssessment/` | Web app security testing with fuzzing, OSINT, and automation |
 | `src/PromptInjection/` | LLM prompt injection testing methodology and workflows |
-| `src/SECUpdates/` | Security news aggregation from multiple sources |
-| `src/AnnualReports/` | Annual vendor report fetching and analysis tools |
 
 All files in `src/` are copied to `~/.claude/skills/Security/` during installation.

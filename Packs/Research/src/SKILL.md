@@ -1,47 +1,21 @@
 ---
 name: Research
-description: Comprehensive research and content extraction — quick/standard/extensive/deep modes with multi-agent parallel research, content retrieval, AI trends analysis, and 242+ Fabric patterns. USE WHEN research, do research, quick research, extensive research, deep investigation, find information, investigate, extract alpha, analyze content, retrieve content, use fabric, AI trends, Claude research, enhance content, extract knowledge, interview research, web scraping, YouTube extraction, standard research.
+description: "Multi-mode research system — quick (1 agent), standard (3 agents), extensive (12 agents), or deep investigation (iterative). Use when researching topics, finding information, or analyzing content at any depth level."
 ---
 
-## ⚠️ MANDATORY TRIGGER
+## Modes
 
-**When user says "research" (in any form), ALWAYS invoke this skill.**
-
-| User Says | Action |
-|-----------|--------|
-| "research" / "do research" / "research this" | → Standard mode (3 agents) |
+| Request | Mode |
+|---------|------|
+| "research" / "do research" | Standard (3 agents) |
+| "quick research" | Quick (1 agent) |
+| "extensive research" / "deep research" | Extensive (12 agents) |
+| "deep investigation" / "investigate" | Deep Investigation (iterative) |
 | "quick research" / "minor research" | → Quick mode (1 agent) |
 | "extensive research" / "deep research" | → Extensive mode (12 agents) |
 | "deep investigation" / "investigate [topic]" / "map the [X] landscape" | → Deep Investigation (iterative) |
 
 **"Research" alone = Standard mode. No exceptions.**
-
-## Customization
-
-**Before executing, check for user customizations at:**
-`~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/Research/`
-
-If this directory exists, load and apply any PREFERENCES.md, configurations, or resources found there. These override default behavior. If the directory does not exist, proceed with skill defaults.
-
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Research skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **Research** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Research Skill
 
@@ -54,7 +28,6 @@ Comprehensive research, analysis, and content extraction system.
 Research agents hallucinate URLs. A single broken link is a catastrophic failure.
 
 ---
-
 
 ## Workflow Routing
 
@@ -82,8 +55,6 @@ Route to the appropriate workflow based on the request.
 - Interview preparation (Tyler Cowen style) -> `Workflows/InterviewResearch.md`
 - AI trends analysis -> `Workflows/AnalyzeAiTrends.md`
 
-### Fabric Pattern Processing
-- Use Fabric patterns (242+ specialized prompts) -> `Workflows/Fabric.md`
 
 ### Content Enhancement
 - Enhance/improve content -> `Workflows/Enhance.md`

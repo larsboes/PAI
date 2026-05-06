@@ -63,7 +63,6 @@ CLAUDE_DIR="$HOME/.claude"
 echo "Workflows:"
 for wf in QuickResearch.md StandardResearch.md ExtensiveResearch.md DeepInvestigation.md \
           ExtractAlpha.md Retrieve.md YoutubeExtraction.md WebScraping.md \
-          ClaudeResearch.md InterviewResearch.md AnalyzeAiTrends.md Fabric.md \
           Enhance.md ExtractKnowledge.md; do
   [ -f "$CLAUDE_DIR/skills/Research/Workflows/$wf" ] && echo "  OK $wf" || echo "  MISSING $wf"
 done
@@ -107,11 +106,8 @@ else
   echo "  UNAVAILABLE Perplexity API key (Quick/Standard/Extensive modes need this)"
 fi
 
-# Fabric CLI
 if command -v fabric &>/dev/null; then
-  echo "  AVAILABLE Fabric CLI ($(which fabric))"
 else
-  echo "  UNAVAILABLE Fabric CLI (Fabric patterns and YouTube extraction need this)"
 fi
 
 # PAI MEMORY structure
@@ -154,11 +150,9 @@ Mark each item as complete:
 - [ ] ExtensiveResearch.md
 - [ ] DeepInvestigation.md
 - [ ] ExtractAlpha.md
-- [ ] Fabric.md
 
 ### Dependencies (informational)
 - [ ] Perplexity API key available
-- [ ] Fabric CLI installed
 - [ ] PAI MEMORY directory exists
 
 ### Functional (manual test)
