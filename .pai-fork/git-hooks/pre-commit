@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+# ═══════════════════════════════════════════════════════════════════════
+#  pre-commit — Catch unmanifested edits to upstream files + regenerate INVENTORY.md
+#
+#  For each staged file:
+#    1. If file exists in upstream/main AND content differs from upstream's
+#       AND file is not in manifest AND not in exclusions:
+#       → WARN and offer to add it to the manifest
+#    2. Always regenerate INVENTORY.md if any Packs/ file changed
+# ═══════════════════════════════════════════════════════════════════════
+set -euo pipefail
+
+REPO_DIR="$(git rev-parse --show-toplevel)"
+FORK_DIR="$REPO_DIR/.pai-fork"
+MANIFEST="$FORK_DIR/manifest.yaml"
+EXCLUSIONS="$FORK_DIR/exclusions.yaml"
+
+# Skip if .pai-fork doesn't exist (fresh clone before init)
+[[ -d "$FORK_DIR" ]] || exit 0
+
+YELLOW='\033[0;33m'; GREEN='\033[0;32m'; BLUE='\033[0;34m'; DIM='\033[2m'; RESET='\033[0m'
+
+# ── Helpers ─────────────────────────────────────────────────────────────
+read_manifest_paths() {
+  grep -E '^\s*-\s*path:' "$MANIFEST" 2>/dev/null \
+    | sed -E 's/^\s*-\s*path:\s*//;s/\s*$//'
+}
+
+read_exclusions() {
+  grep -E '^\s*-\s+' "$EXCLUSIONS" 2>/dev/null \
+    | sed -E 's/^\s*-\s+//;s/\s*$//' | grep -v '^#' | grep -v '^$'
+}
+
+is_excluded() {
+  local path="$1"
+  while IFS= read -r pattern; do
+    [[ -z "$pattern" ]] && continue
+    case "$path" in $pattern) return 0 ;; esac
+    if [[ "$pattern" == *"**" ]]; then
+      local prefix="${pattern%/\*\*}"
+      [[ "$path" == "$prefix"/* || "$path" == "$prefix" ]] && return 0
+    fi
+  done < <(read_exclusions)
+  return 1
+}
+
+is_manifested() {
+  local p="$1"
+  read_manifest_paths | grep -qxF "$p"
+}
+
+upstream_has_file() {
+  git cat-file -e "upstream/main:$1" 2>/dev/null
+}
+
+differs_from_upstream() {
+  local local_sha upstream_sha
+  local_sha="$(git hash-object "$1" 2>/dev/null || echo "")"
+  upstream_sha="$(git ls-tree upstream/main -- "$1" 2>/dev/null | awk '{print $3}' || echo "")"
+  [[ -n "$local_sha" && -n "$upstream_sha" && "$local_sha" != "$upstream_sha" ]]
+}
+
+# ── 1. Detect unmanifested upstream edits ───────────────────────────────
+mapfile -t STAGED < <(git diff --cached --name-only --diff-filter=AM)
+
+unmanifested=()
+for f in "${STAGED[@]}"; do
+  is_excluded "$f" && continue
+  is_manifested "$f" && continue
+  upstream_has_file "$f" || continue
+  differs_from_upstream "$f" || continue
+  unmanifested+=("$f")
+done
+
+if [[ ${#unmanifested[@]} -gt 0 ]]; then
+  echo -e "${YELLOW}⚠  Unmanifested customizations detected:${RESET}"
+  for f in "${unmanifested[@]}"; do
+    echo -e "    - $f"
+  done
+  echo
+  echo -e "${DIM}  These files exist upstream but you've changed them locally without"
+  echo -e "  declaring why. Future syncs will auto-backup them, but the manifest"
+  echo -e "  is the better practice.${RESET}"
+  echo
+  echo -e "  Add them with:"
+  for f in "${unmanifested[@]}"; do
+    echo -e "    ${BLUE}.pai-fork/tools/add-customization.sh${RESET} \"$f\" \"<reason>\""
+  done
+  echo
+  # Non-interactive: warn but allow commit (hook stdin is the diff in some setups).
+  # Set PAI_FORK_STRICT=1 to block.
+  if [[ "${PAI_FORK_STRICT:-0}" == "1" ]]; then
+    echo -e "${YELLOW}  Strict mode: blocking commit. Set PAI_FORK_STRICT=0 to allow.${RESET}"
+    exit 1
+  fi
+fi
+
+# ── 2. Regenerate INVENTORY.md if Packs/ changed ────────────────────────
+packs_changed=false
+for f in "${STAGED[@]}"; do
+  [[ "$f" == Packs/* ]] && packs_changed=true && break
+done
+
+if $packs_changed && [[ -x "$FORK_DIR/tools/generate-inventory.sh" ]]; then
+  if "$FORK_DIR/tools/generate-inventory.sh" >/dev/null 2>&1; then
+    if ! git diff --quiet -- Packs/INVENTORY.md 2>/dev/null; then
+      git add Packs/INVENTORY.md
+      echo -e "${GREEN}✓${RESET} Auto-regenerated Packs/INVENTORY.md"
+    fi
+  fi
+fi
+
+# ── 3. Regenerate .gitattributes if manifest.yaml changed ────────────────
+manifest_changed=false
+for f in "${STAGED[@]}"; do
+  [[ "$f" == ".pai-fork/manifest.yaml" ]] && manifest_changed=true && break
+done
+
+if $manifest_changed && [[ -x "$FORK_DIR/tools/rebuild-gitattributes.sh" ]]; then
+  if "$FORK_DIR/tools/rebuild-gitattributes.sh" >/dev/null 2>&1; then
+    if ! git diff --quiet -- .gitattributes 2>/dev/null; then
+      git add .gitattributes
+      echo -e "${GREEN}✓${RESET} Auto-regenerated .gitattributes"
+    fi
+  fi
+fi
+
+exit 0

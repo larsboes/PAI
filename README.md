@@ -1,3 +1,7 @@
+> **Fork:** [larsboes/PAI](https://github.com/larsboes/PAI) — extends [danielmiessler/Personal_AI_Infrastructure](https://github.com/danielmiessler/Personal_AI_Infrastructure) with 16 original packs for [Pi](https://github.com/badlogic/pi-mono) and Claude Code.
+
+---
+
 <div align="center">
 
 <picture>

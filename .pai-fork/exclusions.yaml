@@ -1,0 +1,40 @@
+# ─────────────────────────────────────────────────────────────────────────
+#  Exclusions — paths sync NEVER touches (regardless of upstream state)
+# ─────────────────────────────────────────────────────────────────────────
+#
+#  Format: glob patterns, gitignore-style.
+#  Used by sync.sh to filter out fork-only files Daniel doesn't have.
+#
+# ─────────────────────────────────────────────────────────────────────────
+
+# Fork infrastructure (never sync)
+- .pai-fork/**
+
+# Custom packs unique to this fork (not in upstream)
+- Packs/ApiPatterns/**
+- Packs/Bazel/**
+- Packs/Brainstorm/**
+- Packs/Cloudflare/**
+- Packs/DeepAnalysis/**
+- Packs/DeepDebug/**
+- Packs/Docker/**
+- Packs/FluentBit/**
+- Packs/GitWorkflow/**
+- Packs/LlmApi/**
+- Packs/Logstash/**
+- Packs/SystemAdmin/**
+- Packs/WorldThreatModelHarness/**
+- Packs/revealjs/**
+
+# Fork-only documentation
+- ADDITIONS.md
+- PLAN.md
+- Packs/ADDITIONS.md
+
+# Custom install/sync scripts (don't import Daniel's wizard)
+- install.sh
+- sync-hooks.sh
+
+# Local environment / not in upstream
+- .env
+- .pai-protected.json

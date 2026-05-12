@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────────────────
+#  Fork Manifest — files we customize on top of Daniel's upstream
+# ─────────────────────────────────────────────────────────────────────────
+#
+#  Format:
+#    customizations:
+#      - path: <repo-relative path>
+#        reason: <one-line why we override>
+#        added: <YYYY-MM-DD>
+#
+#  Sync behavior:
+#    - Files in this manifest are OUR territory. When upstream touches them,
+#      sync.sh backs ours up, takes upstream's, and writes a REPORT.md asking
+#      us to reintegrate.
+#    - Files NOT in this manifest are Daniel's territory. Upstream wins
+#      automatically. If we silently edited one and upstream also changed it,
+#      sync.sh AUTO-BACKUPS ours into .pai-fork/backups/ before overwriting.
+#    - Files only in our fork (not upstream) are left alone — neither tracked
+#      nor synced.
+#
+#  Maintenance:
+#    - Run `tools/add-customization.sh <path> "<reason>"` after intentional edits.
+#    - Run `tools/sync.sh lint` to validate manifest paths exist.
+#
+# ─────────────────────────────────────────────────────────────────────────
+
+customizations:
+  # ── Top-level fork identity ─────────────────────────────────────────
+  - path: README.md
+    reason: Fork badge + larsboes install instructions; Pi integration framing
+    added: 2026-05-11
+
+  - path: Packs/README.md
+    reason: Custom packs context + ADDITIONS pointer
+    added: 2026-05-11
+
+  # ── Re-purposed skills ──────────────────────────────────────────────
+  - path: Packs/Browser/README.md
+    reason: Rewrote for agent-browser (Rust CLI); Daniel's is generic v5 manifest
+    added: 2026-05-11
+
+  - path: Packs/Apify/README.md
+    reason: Kept full 385-line documentation; Daniel cut to manifest stub
+    added: 2026-05-11
+
+  - path: Packs/Webdesign/README.md
+    reason: Customized for our integration patterns
+    added: 2026-05-11

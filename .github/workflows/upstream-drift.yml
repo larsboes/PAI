@@ -1,0 +1,131 @@
+name: Upstream Drift Report
+
+# Weekly check for new upstream commits + opens an issue if drift detected.
+# Runs Mondays 09:00 UTC (= ~10:00 Berlin winter / 11:00 summer).
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # allow manual run from Actions tab
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need full history for diff
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/danielmiessler/Personal_AI_Infrastructure.git
+          git fetch upstream --quiet
+
+      - name: Compute drift
+        id: drift
+        run: |
+          LAST_SYNCED="$(tr -d '[:space:]' < .pai-fork/last-synced.ref 2>/dev/null || echo '')"
+          UPSTREAM_SHA="$(git rev-parse upstream/main)"
+
+          if [[ -z "$LAST_SYNCED" || "$LAST_SYNCED" == "$UPSTREAM_SHA" ]]; then
+            echo "needs_sync=false" >> "$GITHUB_OUTPUT"
+            echo "Up to date with upstream."
+            exit 0
+          fi
+
+          NUM_COMMITS=$(git rev-list --count "${LAST_SYNCED}..${UPSTREAM_SHA}")
+          NUM_FILES=$(git diff --name-only "${LAST_SYNCED}..${UPSTREAM_SHA}" | wc -l)
+
+          # Run sync.sh status (no apply) to get human-readable summary
+          chmod +x .pai-fork/tools/sync.sh
+          STATUS_OUTPUT=$(.pai-fork/tools/sync.sh status 2>&1 || true)
+
+          # Save outputs (escape for GH)
+          {
+            echo "needs_sync=true"
+            echo "num_commits=$NUM_COMMITS"
+            echo "num_files=$NUM_FILES"
+            echo "upstream_sha=${UPSTREAM_SHA:0:7}"
+            echo "last_synced=${LAST_SYNCED:0:7}"
+          } >> "$GITHUB_OUTPUT"
+
+          {
+            echo 'status_report<<DRIFT_EOF'
+            echo "$STATUS_OUTPUT"
+            echo 'DRIFT_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Find existing drift issue
+        if: steps.drift.outputs.needs_sync == 'true'
+        id: find_issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'upstream-drift'
+            });
+            const existing = issues.data.find(i => i.title.startsWith('[upstream-drift]'));
+            return existing ? existing.number : 0;
+          result-encoding: string
+
+      - name: Open or update drift issue
+        if: steps.drift.outputs.needs_sync == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const num = parseInt('${{ steps.find_issue.outputs.result }}') || 0;
+            const title = `[upstream-drift] ${{ steps.drift.outputs.num_commits }} commits behind upstream@${{ steps.drift.outputs.upstream_sha }}`;
+            const body = [
+              '## Upstream Drift Report',
+              '',
+              `- **Last synced:** \`${{ steps.drift.outputs.last_synced }}\``,
+              `- **Upstream HEAD:** \`${{ steps.drift.outputs.upstream_sha }}\``,
+              `- **Commits behind:** ${{ steps.drift.outputs.num_commits }}`,
+              `- **Files changed:** ${{ steps.drift.outputs.num_files }}`,
+              '',
+              '### Sync Status',
+              '',
+              '```',
+              `${{ steps.drift.outputs.status_report }}`,
+              '```',
+              '',
+              '### Action',
+              '',
+              'Run locally:',
+              '```bash',
+              'cd ~/Developer/PAI',
+              './.pai-fork/tools/sync.sh status   # review',
+              './.pai-fork/tools/sync.sh apply    # sync + backup customizations',
+              './.pai-fork/tools/reintegrate.sh   # walk backups',
+              '```',
+              '',
+              `_Auto-updated by [.github/workflows/upstream-drift.yml](../blob/main/.github/workflows/upstream-drift.yml)._`
+            ].join('\n');
+
+            if (num > 0) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: num,
+                title,
+                body
+              });
+              console.log(`Updated issue #${num}`);
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: ['upstream-drift']
+              });
+              console.log('Created new drift issue');
+            }
