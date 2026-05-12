@@ -72,6 +72,29 @@ Your DA reads `INSTALL.md` and walks through a 5-phase wizard: system analysis, 
 
 ---
 
+## Fork Additions (larsboes — 16)
+
+| Skill | What it does |
+|-------|--------------|
+| [ApiPatterns](ApiPatterns/) | Direct HTTP patterns — raw curl/fetch for OpenAI, Anthropic, GitHub APIs without SDKs |
+| [Bazel](Bazel/) | Modern Bazel builds — bzlmod, custom rules, CI integration, debugging |
+| [Brainstorm](Brainstorm/) | Dual-mode thinking partner — critical frameworks for decisions, dump mode for processing |
+| [Cloudflare](Cloudflare/) | Deploy and manage Cloudflare Workers, Pages, KV, R2, D1 via wrangler and MCP |
+| [DeepAnalysis](DeepAnalysis/) | Multi-lens analysis — domain mapping, system mapping, impact tracing, tradeoff analysis |
+| [DeepDebug](DeepDebug/) | Systematic debugging methodology — understand, investigate, isolate with escalation patterns |
+| [Docker](Docker/) | Build, compose, debug containers — Dockerfile patterns, multi-stage builds, troubleshooting |
+| [Documents](Documents/) | Read, write, convert documents — PDF, DOCX, XLSX creation, editing, format conversion |
+| [FluentBit](FluentBit/) | Lua filter development for FluentBit — LuaJIT semantics, flat-key patterns, CI testing |
+| [GitWorkflow](GitWorkflow/) | Advanced git — worktrees, interactive rebase, bisect, reflog, conflict resolution |
+| [Logstash](Logstash/) | Logstash pipeline development — Ruby filters, grok patterns, stdin testing |
+| [OSINT](OSINT/) | Structured OSINT investigations — people, companies, domains, organizations from public sources |
+| [Parser](Parser/) | Extract structured JSON from URLs, files, videos, PDFs with entity extraction and batch |
+| [SystemAdmin](SystemAdmin/) | Linux administration — systemd, journalctl, networking, disk analysis, port checking |
+| [WorldThreatModelHarness](WorldThreatModelHarness/) | Stress-test ideas against 11 time horizons (6mo–50yr) with world model updates |
+| [revealjs](revealjs/) | Create reveal.js presentations — themes, multi-column, code highlighting, speaker notes |
+
+---
+
 ## Curated Bundles
 
 Pre-built combinations with their own install wizards. Useful when you want a thematic grouping installed in one shot.
