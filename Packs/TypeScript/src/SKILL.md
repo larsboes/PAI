@@ -1,5 +1,5 @@
 ---
-name: typescript
+name: type-script
 description: "TypeScript patterns, Bun runtime/tooling, and React component architecture — type-level programming, async patterns, tsconfig, monorepo, Bun as runtime/bundler/test/package manager, React hooks/state/performance. Use when TypeScript, TS, type gymnastics, generics, Bun, bunx, React, hooks, component patterns, tsconfig, monorepo, type-safe, discriminated union, conditional types, template literal types, Bun test, Bun build."
 allowed-tools: Read, Edit, Write, Grep, Glob, Bash
 ---

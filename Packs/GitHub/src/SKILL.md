@@ -1,5 +1,5 @@
 ---
-name: github
+name: git-hub
 description: "Interact with GitHub using the `gh` CLI. Scripts for PR creation, review, releases, and CI management."
 ---
 
