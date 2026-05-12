@@ -1,30 +1,45 @@
 # skills.yaml — Which packs to deploy to coding assistants
 #
-# Only packs listed under `active:` are deployed by sync-deploy.sh.
-# All others remain in the repo but aren't copied to agent skill dirs.
+# Only packs listed under `active:` get symlinked by sync-deploy.sh.
+# All others remain in the repo but aren't accessible to agents.
 #
 # Usage:
-#   ./sync-deploy.sh              — deploy active skills
-#   ./sync-deploy.sh --profile security  — add a profile's skills temporarily
+#   ./sync-deploy.sh              — symlink active skills to all agents
+#   ./sync-deploy.sh --profile security  — include a profile's skills
+#   ./sync-deploy.sh --clean      — wipe + rebuild all symlinks
 #
-# Pi also reads from PAI/Packs directly via customDirectories.
-# To exclude packs from pi's recursive scan, add them to Packs/.ignore
+# Agents read skills via symlinks that point to PAI/Packs/X/src/.
+# Edits in-session write through to source (git tracked).
 
 active:
   # --- Fork originals ---
   - ApiPatterns
+  - Architecture
   - Brainstorm
   - Cloudflare
+  - DataEngineer
   - DeepAnalysis
   - DeepDebug
   - Docker
   - Documents
   - FluentBit
+  - GitHub
   - GitWorkflow
+  - HtmlDocs
+  - Learn
   - Logstash
+  - Mermaid
+  - Notion
   - OSINT
+  - Obsidian
   - Parser
+  - SkillForge
+  - Swift
   - SystemAdmin
+  - Tmux
+  - TripPlanning
+  - TypeScript
+  - Uv
   - WorldThreatModelHarness
   - revealjs
 
