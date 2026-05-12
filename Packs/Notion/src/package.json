@@ -1,0 +1,16 @@
+{
+  "name": "notion-skill",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "undici": "^7.22.0"
+  }
+}
