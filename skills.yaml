@@ -15,6 +15,7 @@ active:
   # --- Fork originals ---
   - ApiPatterns
   - Architecture
+  - BlindSpot
   - Brainstorm
   - Cloudflare
   - DataEngineer
