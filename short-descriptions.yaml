@@ -1,0 +1,78 @@
+# short-descriptions.yaml — Pi-compatible descriptions (≤1024 chars)
+#
+# Pi agent enforces a 1024-char limit on SKILL.md description fields.
+# This file provides shortened descriptions used at deploy-time by sync-deploy.sh.
+# Source SKILL.md files are NEVER modified.
+#
+# Only packs that exceed 1024 chars need entries here.
+# Packs not listed use their original description as-is.
+
+ApertureOscillation: "3-pass scope oscillation — narrow tactical, wide strategic, then synthesis. Surfaces design tensions single-pass analysis misses. USE WHEN aperture, oscillate, scope, zoom in out, tension analysis. NOT FOR simple questions or single-perspective work."
+
+Aphorisms: "Curated aphorism collection — search by theme, add with metadata, research thinkers, match quotes to content. USE WHEN aphorism, quote, saying, find quote, research thinker, add aphorism, search aphorisms."
+
+Apify: "Scrape social media and business data via Apify actors — Instagram, LinkedIn, TikTok, YouTube, Facebook, Google Maps, Amazon. Auto-update actor catalog. USE WHEN Twitter, Instagram, LinkedIn, TikTok, YouTube, Facebook, Google Maps, Amazon scraping, Apify, social media scraping, lead generation."
+
+ArXiv: "Search and retrieve arXiv academic papers with AI-enriched summaries. Keyword search, paper retrieval, citation context. USE WHEN arxiv, paper, academic, research paper, citations, preprint."
+
+Art: "Generate static visuals — illustrations, diagrams, mermaid flowcharts, infographics, headers, thumbnails, comics, icons via Flux/GPT-Image-1. 20+ named workflows. USE WHEN art, illustration, diagram, flowchart, infographic, header image, thumbnail, visualize, generate image, mermaid. NOT FOR video (use Remotion)."
+
+AudioEditor: "AI-powered audio/video editing — Whisper transcription, intelligent cut detection, automated editing with crossfades. USE WHEN clean audio, edit audio, remove filler words, clean podcast, remove ums, fix audio, cut dead air, polish recording, transcribe and edit."
+
+BeCreative: "Divergent ideation via Verbalized Sampling + extended thinking (1.6-2.1x diversity). USE WHEN be creative, deep thinking, brainstorm, divergent ideas, creative solutions, maximum creativity, tree of thoughts, idea generation, technical creativity."
+
+BitterPillEngineering: "Audit AI instruction sets for over-prompting. Classify rules as CUT/RESOLVE/MERGE/KEEP. Measures instruction bloat against model capability. USE WHEN audit prompts, reduce instructions, bitter pill, over-prompting, instruction bloat, trim system prompt. NOT FOR network security testing."
+
+BrightData: "4-tier progressive URL scraping — WebFetch, Chrome-header curl, Playwright browser, Bright Data proxy. Auto-escalates when lower tiers fail. USE WHEN scrape URL, web scraping, site blocking, bot detection, CAPTCHA, crawl, spider, progressive scraping."
+
+Browser: "Headless browser automation via Playwright CLI — navigate, interact, extract data, capture screenshots. Parallel execution with isolated sessions. USE WHEN browser, screenshot, debug web, verify UI, automate browser, web automation, review stories."
+
+Council: "Multi-agent collaborative debate with round-by-round transcripts. Agents respond to each other with intellectual friction until convergence. USE WHEN council, debate, perspectives, weigh options, deliberate, multiple viewpoints. Unlike RedTeam (adversarial), Council is collaborative."
+
+CreateCLI: "Generate production TypeScript CLIs with 3-tier templates (simple argv, yargs, oclif). Type safety, error handling, documentation. USE WHEN create CLI, build CLI, command-line tool, wrap API, add command, TypeScript CLI."
+
+Evals: "Agent evaluation framework with code-based, model-based, and human graders. Pass@k/pass^k scoring, failure-to-task conversion, scenario transcripts. USE WHEN eval, evaluate, test agent, benchmark, verify behavior, regression test, compare models, compare prompts."
+
+ExtractWisdom: "Content-adaptive wisdom extraction — detects domains in content and builds custom sections. Produces tailored insight reports from videos, podcasts, articles. USE WHEN extract wisdom, analyze video, analyze podcast, extract insights, key takeaways, what did I miss."
+
+Fabric: "Execute any of 240+ Fabric prompt patterns natively — content analysis, extraction, transformation, threat models. Sync patterns from repo. USE WHEN fabric, fabric pattern, run fabric, summarize, create threat model, analyze with fabric."
+
+FirstPrinciples: "Physics-based reasoning — decompose to axioms, challenge inherited assumptions, reconstruct from verified truths. USE WHEN first principles, fundamental, root cause, decompose, challenge assumptions, rebuild from scratch."
+
+ISA: "Ideal State Artifact — articulate what 'done' looks like for any creative task. Decomposes into discrete ISCs (verification criteria). USE WHEN define done, ideal state, ISA, acceptance criteria, what does success look like."
+
+Ideate: "Evolutionary ideation engine — 9-phase loop: MINE → MUTATE → MATE → TEST → SELECT → STEAL → GROW → KILL → PRESENT. Generates novel solutions. USE WHEN ideate, generate ideas, brainstorm solutions, novel approach, creative problem solving, full cycle."
+
+Interceptor: "Real Chrome browser automation with zero CDP fingerprint. Mandatory for visual verification of web content. USE WHEN interceptor, visual verify, check website, open URL, record flow, replay flow."
+
+Interview: "Phased conversational interview across PAI context files — TELOS first, then preferences, identity. USE WHEN interview, capture context, get to know me, onboard."
+
+IterativeDepth: "Multi-angle exploration through 2-8 sequential passes from different scientific lenses. Surfaces hidden requirements single-pass analysis misses. USE WHEN iterative depth, deep exploration, multi-angle, multiple perspectives, surface hidden requirements."
+
+Knowledge: "Manage typed Knowledge Archive across People, Companies, Ideas, Research with 8 link types. USE WHEN knowledge, archive, store insight, link entities, knowledge graph."
+
+Migrate: "Intake external content (Obsidian, Notion, Apple Notes, journals) and classify into PAI taxonomy. USE WHEN migrate, import notes, intake content, move from Obsidian, convert notes."
+
+PAIUpgrade: "Generate prioritized PAI upgrade recommendations via 4 parallel research threads — Anthropic ecosystem, YouTube, algorithm analysis, reflection mining. USE WHEN upgrade PAI, improve system, check Anthropic, new features, algorithm upgrade."
+
+PrivateInvestigator: "Ethical people-finding using 15 parallel research agents (45 search threads) across public records, social media, reverse lookups. Public data only. USE WHEN find person, locate, reconnect, people search, reverse lookup, social media search, verify identity."
+
+Prompting: "Meta-prompting system — generate optimized prompts using templates, standards, and patterns. Structured prompts with role, context, output format. USE WHEN meta-prompting, prompt optimization, prompt engineering, render template."
+
+RedTeam: "Adversarial analysis — 32 parallel expert agents stress-test ideas, strategies, and plans. Two workflows: ParallelAnalysis (decompose → attack → synthesize) and AdversarialValidation. USE WHEN red team, attack idea, critique, stress test, devil's advocate, find weaknesses, poke holes."
+
+Remotion: "Programmatic video with React via Remotion — compositions, animations, transitions, audio, captions, 3D, charts. Content-to-animation workflows. USE WHEN Remotion, video, animation, motion graphics, create video, animate content, programmatic video."
+
+RootCauseAnalysis: "Structured incident investigation — 5 Whys, Fishbone/Ishikawa, Fault Tree, Kepner-Tregoe, Postmortem. Method selection guidance. USE WHEN root cause, postmortem, incident review, why did this fail, 5 whys, fault tree, fishbone."
+
+Sales: "Transform product docs into sales narratives with visual art and talking points. USE WHEN sales package, pitch deck, sales narrative, product positioning."
+
+Science: "Scientific method as problem-solving algorithm — define goal, generate hypotheses, design experiments, measure, analyze, iterate. USE WHEN think about, figure out, experiment, hypothesis, quick diagnosis, structured investigation, full cycle."
+
+SystemsThinking: "Structural analysis via Iceberg Model, Causal Loop Diagrams, System Archetypes, Leverage Points, Concept Maps. USE WHEN systems thinking, find leverage, concept map, causal loop, system dynamics, structural analysis."
+
+Utilities: "Developer utilities bundle — CLI generation, skill scaffolding, agent delegation, evals, documents, parsing, audio editing, Fabric patterns, Cloudflare, browser automation, meta-prompting. USE WHEN utility, tool."
+
+WorldThreatModel: "Stress-test ideas, strategies, investments against 11 time horizons (6mo to 50yr). Maintain and query world models. USE WHEN threat model, world model, test idea, test strategy, future analysis, stress test, time horizon analysis."
+
+WriteStory: "Fiction writing across seven narrative layers — Storr (psychological), Pressfield (resistance), Forsyth (craft). Bible building, chapter writing, revision. USE WHEN write story, fiction, novel, narrative, chapter, creative writing, story structure."

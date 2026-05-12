@@ -1,0 +1,90 @@
+# skills.yaml — Which packs to deploy to coding assistants
+#
+# Only packs listed under `active:` are deployed by sync-deploy.sh.
+# All others remain in the repo but aren't copied to agent skill dirs.
+#
+# Usage:
+#   ./sync-deploy.sh              — deploy active skills
+#   ./sync-deploy.sh --profile security  — add a profile's skills temporarily
+#
+# Pi also reads from PAI/Packs directly via customDirectories.
+# To exclude packs from pi's recursive scan, add them to Packs/.ignore
+
+active:
+  # --- Fork originals ---
+  - ApiPatterns
+  - Brainstorm
+  - Cloudflare
+  - DeepAnalysis
+  - DeepDebug
+  - Docker
+  - Documents
+  - FluentBit
+  - GitWorkflow
+  - Logstash
+  - OSINT
+  - Parser
+  - SystemAdmin
+  - WorldThreatModelHarness
+  - revealjs
+
+  # --- Upstream picks ---
+  - Agents
+  - Art
+  - Apify
+  - AudioEditor
+  - BeCreative
+  - Browser
+  - BrightData
+  - ContentAnalysis
+  - Council
+  - CreateCLI
+  - Delegation
+  - Evals
+  - ExtractWisdom
+  - FirstPrinciples
+  - Ideate
+  - IterativeDepth
+  - PAIUpgrade
+  - PrivateInvestigator
+  - Prompting
+  - RedTeam
+  - Remotion
+  - Research
+  - RootCauseAnalysis
+  - Science
+  - Scraping
+  - Security
+  - SystemsThinking
+  - Telos
+  - Thinking
+  - USMetrics
+  - Utilities
+  - Webdesign
+  - WriteStory
+
+# --- Profiles: activate extra skills by context ---
+profiles:
+  security:
+    - Security
+    - OSINT
+    - PrivateInvestigator
+    - BrightData
+    - Scraping
+  writing:
+    - WriteStory
+    - ExtractWisdom
+    - BeCreative
+  devops:
+    - Docker
+    - FluentBit
+    - Logstash
+    - Bazel
+    - SystemAdmin
+  thinking:
+    - FirstPrinciples
+    - Council
+    - RedTeam
+    - Science
+    - IterativeDepth
+    - SystemsThinking
