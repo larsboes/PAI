@@ -5,7 +5,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the UpdateSkill workflow in the CreateSkill skill to modify existing skill"}' \
   > /dev/null 2>&1 &

@@ -5,7 +5,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the ListTraits workflow in the Agents skill to show traits"}' \
   > /dev/null 2>&1 &

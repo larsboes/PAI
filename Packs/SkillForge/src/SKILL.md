@@ -1,5 +1,5 @@
 ---
-name: skill-forge
+name: SkillForge
 description: "Use when you need deep knowledge about skill quality standards, the skill-vs-extension decision, or how to structure skills for maximum effectiveness. NOT needed for routine skill creation."
 ---
 

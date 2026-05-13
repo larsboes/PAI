@@ -1,5 +1,5 @@
 ---
-name: architecture
+name: Architecture
 description: "Software architecture patterns — Clean Architecture review/check/fix, DDD tactical patterns (aggregates, value objects, domain events, repositories), DDD strategic patterns (bounded contexts, context maps, anti-corruption layers), hexagonal/ports-and-adapters, CQRS, and event sourcing. Use when architecture, DDD, domain-driven, bounded context, aggregate, clean architecture, hexagonal, ports and adapters, CQRS, event sourcing, context map, anti-corruption layer, design module, design workflow."
 allowed-tools: Read, Edit, Write, Grep, Glob
 ---

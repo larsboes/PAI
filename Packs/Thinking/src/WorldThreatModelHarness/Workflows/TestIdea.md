@@ -39,7 +39,7 @@ If models older than 30 days: warn user but proceed.
 ### Step 1: Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Testing your idea against all eleven world threat models at TIER tier", "voice_id": "fTtv3eikoepIosk8dTZ5"}'
 ```
@@ -105,7 +105,7 @@ Use the template in `OutputFormat.md` (loaded from skill root). Ensure:
 ### Step 5: Voice Summary
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Analysis complete. SUMMARY_OF_EXECUTIVE_VERDICT", "voice_id": "fTtv3eikoepIosk8dTZ5"}'
 ```

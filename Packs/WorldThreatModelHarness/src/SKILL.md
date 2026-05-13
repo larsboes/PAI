@@ -1,6 +1,6 @@
 ---
 name: WorldThreatModelHarness
-description: "Stress-test ideas, strategies, and investments against 11 persistent world models spanning 6 months to 50 years. Use when evaluating how decisions hold up across future scenarios."
+description: "Stress-test ideas, strategies, plans, and investments against 11 persistent world models spanning 6 months to 50 years — geopolitical, technological, climate, and economic scenarios. USE WHEN stress test strategy, future scenarios, world models, how does this hold up, test investment thesis, scenario planning, geopolitical risk, long-term thinking, evaluate across futures, horizon scanning, WorldThreatModel, what if analysis."
 ---
 
 # World Threat Model Harness

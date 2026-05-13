@@ -1,6 +1,6 @@
 ---
-name: uv
-description: "Python packaging with uv. Project templates, dependency management, CI/CD patterns, and migration guides. Includes executable scripts for scaffolding."
+name: Uv
+description: "Python packaging and environment management with uv — project scaffolding, dependency management, virtual environments, CI/CD patterns, and migration from pip/poetry/pyenv. USE WHEN uv, python project, python packaging, create python project, add python dependency, virtual env, python venv, uv run, uv add, uv sync, migrate from pip, migrate from poetry, python CI, python lockfile, requirements.txt."
 ---
 
 # uv Skill

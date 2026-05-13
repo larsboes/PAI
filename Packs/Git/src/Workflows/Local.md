@@ -1,13 +1,8 @@
----
-name: GitWorkflow
-description: "Advanced git patterns for power users — worktrees, interactive rebase, bisect, reflog recovery, subtrees, hooks, and conflict resolution. Direct commands, no wrappers. Use when doing complex git operations, recovering lost commits, managing parallel branches, or setting up git workflows."
----
+# Git Local — Advanced Patterns
 
-# Git — Advanced Patterns
+Beyond add-commit-push. Direct commands, no wrappers.
 
-Beyond add-commit-push. The patterns that save your ass.
-
-## Quick Reference: Daily Power Moves
+## Daily Power Moves
 
 ```bash
 # See what you've been doing
@@ -44,7 +39,7 @@ git blame -w -M -C file.ts
 ## Worktrees (Parallel Branch Work)
 
 ```bash
-# Create worktree for a branch (no need to stash/switch)
+# Create worktree for a branch (no stash/switch needed)
 git worktree add ../project-feature feature-branch
 
 # Create worktree with NEW branch
@@ -60,7 +55,7 @@ git worktree remove ../project-feature
 git worktree prune
 ```
 
-**Use case:** Work on hotfix without disrupting current feature branch.
+**Use case:** Work on a hotfix without disrupting current feature branch. Claude Code uses this pattern for isolated agent edits.
 
 ## Interactive Rebase (Rewrite History)
 
@@ -76,8 +71,8 @@ git commit --fixup=COMMIT_HASH
 git rebase -i --autosquash main
 ```
 
-**Commands in rebase editor:**
-- `pick` — keep commit as-is
+**Rebase editor commands:**
+- `pick` — keep as-is
 - `reword` — change commit message
 - `edit` — stop and amend
 - `squash` — merge into previous (keep message)
@@ -91,15 +86,12 @@ git rebase -i --autosquash main
 git bisect start
 git bisect bad          # current commit is broken
 git bisect good v1.0.0  # this tag was working
-# Git checks out middle commit — test it, then:
-git bisect good  # or: git bisect bad
-# Repeat until found, then:
+git bisect good         # or: git bisect bad — repeat until found
 git bisect reset
 
 # Automated bisect with test script
 git bisect start HEAD v1.0.0
-git bisect run ./scripts/test.sh
-# Exits 0 = good, non-zero = bad
+git bisect run ./scripts/test.sh  # exit 0 = good, non-zero = bad
 ```
 
 ## Reflog (Recovery)
@@ -116,26 +108,31 @@ git checkout -b feature-branch HEAD@{3}
 git reflog
 git reset --hard HEAD@{5}  # before the rebase
 
-# Recover after reset --hard
+# Recover a specific file after reset --hard
 git reflog
-git checkout HEAD@{1} -- file.ts  # get specific file back
+git checkout HEAD@{1} -- file.ts
 ```
 
-## Workflow Routing
+## Conflict Resolution
 
-| Trigger | Workflow |
-|---------|----------|
-| "rewrite history", "clean commits", "squash" | `Workflows/Rebase.md` |
-| "find bug commit", "when did this break" | `Workflows/Bisect.md` |
-| "recover", "lost commit", "undo" | `Workflows/Recovery.md` |
-| "parallel branches", "worktree" | `Workflows/Worktrees.md` |
-| "git hooks", "pre-commit", "automation" | `Workflows/Hooks.md` |
-| "subtree", "monorepo" | `Workflows/Subtrees.md` |
+```bash
+# Accept incoming (theirs) for a file
+git checkout --theirs path/to/file && git add path/to/file
+
+# Accept current (ours) for a file
+git checkout --ours path/to/file && git add path/to/file
+
+# Use rerere (reuse recorded resolution)
+git config --global rerere.enabled true
+
+# Merge with explicit strategy
+git merge feature --strategy-option=theirs
+```
 
 ## Deep References
 
 - `references/rebase-patterns.md` — Complex rebase scenarios, conflict strategies
-- `references/hooks.md` — All hook types with examples (pre-commit, prepare-commit-msg, etc.)
+- `references/hooks.md` — All hook types with examples
 - `references/subtrees-submodules.md` — Monorepo patterns, vendor management
 - `references/conflict-resolution.md` — Merge strategies, rerere, ours/theirs
 - `references/config.md` — Useful git config tweaks
@@ -148,7 +145,3 @@ git checkout HEAD@{1} -- file.ts  # get specific file back
 | `scripts/git-cleanup.sh` | Delete merged branches (local + remote) |
 | `scripts/git-fixup.sh` | Quick fixup commit targeting specific commit |
 | `scripts/git-recover.sh` | Interactive reflog recovery |
-
-## Output
-- Produces: Git commands to execute (or executes directly)
-- Format: Shell commands with explanations

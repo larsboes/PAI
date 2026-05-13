@@ -5,7 +5,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the CreateCustomAgent workflow in the Agents skill to create agents"}' \
   > /dev/null 2>&1 &
@@ -112,12 +112,12 @@ Task({
 
 Each agent's prompt includes:
 - Their assigned voice_id from ComposeAgent
-- Instructions to call `curl -X POST http://localhost:8888/notify` with their voice_id
+- Instructions to call `curl -X POST http://localhost:31337/notify` with their voice_id
 - The requirement to voice their `🎯 COMPLETED:` message
 
 **Fallback:** If an agent fails to voice itself, you can manually voice their result:
 ```bash
-curl -X POST http://localhost:8888/notify \
+curl -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message":"<COMPLETED line content>","voice_id":"<agent_voice_id>","title":"<agent_name>","voice_enabled":true}'
 ```

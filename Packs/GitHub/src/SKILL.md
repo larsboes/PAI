@@ -1,6 +1,6 @@
 ---
-name: git-hub
-description: "Interact with GitHub using the `gh` CLI. Scripts for PR creation, review, releases, and CI management."
+name: GitHub
+description: "GitHub workflows via `gh` CLI — PR creation, review, merge, releases, CI management, issue tracking, repo management, secrets, branch protection, Actions status. USE WHEN create PR, review PR, merge PR, GitHub release, CI check, gh CLI, list issues, create issue, open PR, view workflow run, repo settings, GitHub Actions, push branch, clone repo, fork repo, compare branches."
 ---
 
 <!--

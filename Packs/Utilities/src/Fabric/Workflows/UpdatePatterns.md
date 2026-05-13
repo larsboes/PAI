@@ -20,7 +20,7 @@ go install github.com/danielmiessler/fabric@latest
 ### Step 1: Send Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Updating Fabric patterns from upstream repository"}' \
   > /dev/null 2>&1 &

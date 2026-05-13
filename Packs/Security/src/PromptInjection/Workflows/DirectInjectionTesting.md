@@ -3,7 +3,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the DirectInjectionTesting workflow in the PromptInjection skill to test direct attacks"}' \
   > /dev/null 2>&1 &

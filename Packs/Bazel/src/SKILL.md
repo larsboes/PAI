@@ -1,6 +1,6 @@
 ---
 name: Bazel
-description: "Bazel build system — MODULE.bazel (bzlmod), custom rules, test targets, Starlark, CI integration, and remote caching. Use when setting up or debugging Bazel builds."
+description: "Bazel build system — MODULE.bazel (bzlmod), custom rules, test targets, Starlark scripting, CI integration, and remote caching. USE WHEN bazel, bazel build, MODULE.bazel, bzlmod, bazel rule, starlark, BUILD file, bazel test, bazel CI, bazel remote cache, bazel query, bazel run, bazel error, custom rule, bazel workspace, bazel dependency."
 ---
 
 # Bazel

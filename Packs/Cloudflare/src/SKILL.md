@@ -1,6 +1,6 @@
 ---
 name: Cloudflare
-description: "Deploy and manage Cloudflare Workers, Pages, KV, R2, D1, and DNS via wrangler CLI and Code Mode MCP. Use when deploying to Cloudflare or managing its services."
+description: "Deploy and manage Cloudflare infrastructure — Workers, Pages, KV, R2, D1, Vectorize, DNS, and MCP server via wrangler CLI and Code Mode. USE WHEN Cloudflare, worker, Cloudflare Worker, wrangler, deploy worker, Cloudflare Pages, KV store, R2 bucket, D1 database, Cloudflare DNS, Cloudflare MCP, Vectorize, rate limit, Cloudflare cache, worker script, edge function."
 ---
 
 # Cloudflare Skill

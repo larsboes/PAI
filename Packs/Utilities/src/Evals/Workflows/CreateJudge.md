@@ -5,7 +5,7 @@ Create a custom LLM-as-Judge using templates.
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:8888/notify \
+curl -s -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the CreateJudge workflow in the Evals skill to create LLM judge"}' \
   > /dev/null 2>&1 &

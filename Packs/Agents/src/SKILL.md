@@ -23,7 +23,7 @@ description: Compose CUSTOM agents from Base Traits + Voice + Specialization for
 
 1. **Send voice notification**:
    ```bash
-   curl -s -X POST http://localhost:8888/notify \
+   curl -s -X POST http://localhost:31337/notify \
      -H "Content-Type: application/json" \
      -d '{"message": "Running the WORKFLOWNAME workflow in the Agents skill to ACTION"}' \
      > /dev/null 2>&1 &

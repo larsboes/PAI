@@ -1,6 +1,6 @@
 ---
 name: Logstash
-description: "Logstash Ruby filter development and CI pipeline patterns. Use when writing Ruby filters, testing Logstash configs, or building Logstash CI pipelines."
+description: "Logstash Ruby filter development, testing, and CI pipeline patterns — event.get/set, filter logic, field mapping, ECS v8 migration, container-based testing. USE WHEN logstash, ruby filter, logstash filter, logstash config, logstash CI, logstash pipeline, logstash test, event.set, event.get, logstash ruby, ECS migration, logstash input, logstash output, logstash debug."
 ---
 
 # Logstash
@@ -15,6 +15,14 @@ Ruby filter development and CI/CD patterns for Logstash 8.x.
 - **ECS v8:** Field paths changed (e.g. `[path]` → `[log][file][path]`). Test, don't assume.
 - **Container user:** Runs as `logstash` (UID 1000), cannot chmod root-owned files
 - **JVM startup:** ~12s cold start. Plan CI accordingly.
+
+## Workflow Routing
+
+| Trigger | Workflow |
+|---------|----------|
+| Write a Ruby filter, scaffold filter | `Workflows/WriteRubyFilter.md` |
+| Test pipeline, run tests, verify output | `Workflows/TestPipeline.md` |
+| CI pipeline, GitLab CI, container testing | `Workflows/CI.md` |
 
 ## References
 

@@ -1,6 +1,6 @@
 ---
-name: notion
-description: "Use when interacting with Notion workspaces - reading pages, writing content, querying databases, and basic page/database operations via the Notion API."
+name: Notion
+description: "Notion workspace integration — read pages, write content, query databases, create/update pages and database entries, manage properties, and handle blocks via the Notion API. USE WHEN Notion, notion page, notion database, read notion, write to notion, create notion page, update notion, notion query, notion block, notion property, notion workspace, notion API, search notion, notion table."
 ---
 
 <!--

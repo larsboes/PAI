@@ -193,6 +193,15 @@ Every analysis produces structured output. Never a wall of text.
 
 ---
 
+## References
+
+| Need | File |
+|------|------|
+| 5 dimensions quick reference + depth selector | [references/analysis-lenses.md](references/analysis-lenses.md) |
+| Structured output templates per workflow type | [references/output-formats.md](references/output-formats.md) |
+| Questions to ask per dimension (pick 3-5) | [references/question-bank.md](references/question-bank.md) |
+| Common mistakes and quality checks | [references/anti-patterns.md](references/anti-patterns.md) |
+
 ## Output Contract
 
 - **Always produces:** Structured multi-dimensional analysis (not prose summary)

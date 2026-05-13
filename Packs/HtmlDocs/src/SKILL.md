@@ -1,5 +1,5 @@
 ---
-name: html-docs
+name: HtmlDocs
 description: "Use when creating standalone HTML documentation sites for projects — architecture overviews, feature catalogs, component references, or configuration docs. Zero-build, no framework, just HTML/CSS/JS."
 ---
 

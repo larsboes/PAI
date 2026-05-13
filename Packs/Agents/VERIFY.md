@@ -112,7 +112,7 @@ else
 fi
 
 # Voice server
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/health 2>/dev/null | grep -q "200" && echo "  AVAILABLE Voice server at localhost:8888" || echo "  UNAVAILABLE Voice server (agents work without it, text-only)"
+curl -s -o /dev/null -w "%{http_code}" http://localhost:31337/health 2>/dev/null | grep -q "200" && echo "  AVAILABLE Voice server at localhost:31337" || echo "  UNAVAILABLE Voice server (agents work without it, text-only)"
 
 # User customizations
 if [ -d "$CLAUDE_DIR/PAI/USER/SKILLCUSTOMIZATIONS/Agents" ]; then

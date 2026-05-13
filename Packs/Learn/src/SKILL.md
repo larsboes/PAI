@@ -1,5 +1,5 @@
 ---
-name: learn
+name: Learn
 description: "Two-phase learning skill. Phase 1: design a structured learning path (goal clarification, phases, resources, milestones). Phase 2: build interactive HTML learning modules. Use when 'teach me X', 'how should I learn X', 'explain', 'learning module', 'build tutorial'."
 argument-hint: "[topic]"
 user-invocable: true

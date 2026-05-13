@@ -142,6 +142,31 @@ while IFS= read -r pack; do
     continue
   fi
 
+  # Validation gate: name + description must exist
+  if ! grep -q "^name:" "$SRC/SKILL.md"; then
+    warn "$pack — SKILL.md missing 'name:' field, skipping"
+    ((SKIPPED++)) || true
+    continue
+  fi
+  if ! grep -q "^description:" "$SRC/SKILL.md"; then
+    warn "$pack — SKILL.md missing 'description:' field, skipping"
+    ((SKIPPED++)) || true
+    continue
+  fi
+
+  # Case-insensitive dedup: skip if another PAI symlink with same name (different case) exists
+  for target in "${TARGETS[@]}"; do
+    existing=$(find "$target" -maxdepth 1 -type l -iname "$pack" -not -name "$pack" 2>/dev/null | while read -r link; do
+      dest=$(readlink "$link" 2>/dev/null || true)
+      [[ "$dest" == *"/PAI/Packs/"* ]] && echo "$link" && break
+    done)
+    if [[ -n "$existing" ]]; then
+      warn "$pack — case-insensitive duplicate of $(basename "$existing"), skipping"
+      ((SKIPPED++)) || true
+      continue 2
+    fi
+  done
+
   if $DRY_RUN; then
     ok "$pack → src/"
     ((DEPLOYED++)) || true

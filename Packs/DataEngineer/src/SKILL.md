@@ -1,5 +1,5 @@
 ---
-name: data-engineer
+name: DataEngineer
 description: "Data engineering workflows — exploratory data analysis, schema design, synthetic dataset generation, data cleaning/transformation, data mapping/lineage, cross-source validation, and materialized view design. Use when EDA, data model, schema design, dataset generation, synthetic data, data cleaning, data transformation, ETL, data mapping, data lineage, data validation, cross-reference, gap analysis, materialized views, data profiling, DynamoDB schema, JSON schema, CSV, data pipeline."
 allowed-tools: Read, Edit, Write, Grep, Glob, Bash
 ---

@@ -1,7 +1,7 @@
 # skills.yaml — Which packs to deploy to coding assistants
 #
-# Only packs listed under `active:` get symlinked by sync-deploy.sh.
-# All others remain in the repo but aren't accessible to agents.
+# Only uncommented packs under `active:` get symlinked by sync-deploy.sh.
+# Comment out to deactivate; uncomment to re-enable.
 #
 # Usage:
 #   ./sync-deploy.sh              — symlink active skills to all agents
@@ -12,74 +12,100 @@
 # Edits in-session write through to source (git tracked).
 
 active:
-  # --- Fork originals ---
-  - ApiPatterns
+  # ── Core thinking & analysis ──────────────────────────────
   - Architecture
   - BlindSpot
   - Brainstorm
-  - Cloudflare
-  - DataEngineer
   - DeepAnalysis
   - DeepDebug
+  - FirstPrinciples
+  - IterativeDepth
+  - RootCauseAnalysis
+  - SystemsThinking
+  - Telos
+
+  # ── AI / agents ───────────────────────────────────────────
+  - Agents
+  - BeCreative
+  - Council
+  - Delegation
+  - Evals
+  - Ideate
+  - PAIUpgrade
+  - RedTeam
+  - Research
+
+  # ── Dev tooling ───────────────────────────────────────────
+  - ApiPatterns
+  - CreateCLI
+  - DataEngineer
   - Docker
   - Documents
   - FluentBit
-  - GitHub
-  - GitWorkflow
+  #- GitHub                # Daniel's stub — superseded by Git pack
+  - Git
   - HtmlDocs
   - Learn
   - Logstash
   - Mermaid
-  - Notion
-  - OSINT
   - Obsidian
-  - Parser
-  - SkillForge
-  - Swift
-  - SystemAdmin
-  - Tmux
-  - TripPlanning
-  - TypeScript
-  - Uv
-  - WorldThreatModelHarness
-  - revealjs
-
-  # --- Upstream picks ---
-  - Agents
-  - Art
-  - Apify
-  - AudioEditor
-  - BeCreative
-  - Browser
-  - BrightData
-  - ContentAnalysis
-  - Council
-  - CreateCLI
-  - Delegation
-  - Evals
-  - ExtractWisdom
-  - FirstPrinciples
-  - Ideate
-  - IterativeDepth
-  - PAIUpgrade
-  - PrivateInvestigator
-  - Prompting
-  - RedTeam
-  - Remotion
-  - Research
-  - RootCauseAnalysis
-  - Science
-  - Scraping
   - Security
-  - SystemsThinking
-  - Telos
-  - Thinking
-  - USMetrics
+  #- TypeScript
+  #- Uv
   - Utilities
-  - Webdesign
-  - WriteStory
 
-# --- Profiles: activate extra skills by context ---
+  # ── Media & creative ──────────────────────────────────────
+  - Art
+
+  # ── Inactive (uncomment to re-enable) ────────────────────
+  #- ApertureOscillation   # scope/zoom analysis
+  #- Apify                 # social scraping
+  #- ArXiv                 # paper search
+  #- AudioEditor           # podcast/audio cleanup
+  #- Bazel                 # Bazel build system
+  #- BitterPillEngineering # AI instruction auditing
+  #- BrightData            # proxy scraping
+  #- Browser               # headless browser automation
+  #- Cloudflare            # CF infra management
+  #- ContentAnalysis       # video/podcast extraction
+  #- ContextSearch         # context search
+  #- CreateSkill           # skill scaffolding
+  #- Daemon                # background daemon patterns
+  #- ExtractWisdom         # wisdom extraction
+  #- Fabric                # 240+ prompt patterns
+  #- ISA                   # ISA patterns
+  #- Ideate                # (already active above)
+  #- Interceptor           # bot-detection bypass browser
+  #- Interview             # interview prep
+  #- Investigation         # OSINT/people search
+  #- Knowledge             # knowledge base
+  #- Loop                  # loop patterns
+  #- Media                 # visual/video creation
+  #- Migrate               # migration patterns
+  #- Notion                # Notion integration
+  #- OSINT                 # OSINT research
+  #- Optimize              # optimization patterns
+  #- Parser                # parsing patterns
+  #- PrivateInvestigator   # people search
+  #- Prompting             # prompt engineering
+  #- Remotion              # programmatic video
+  #- Sales                 # sales patterns
+  #- Science               # hypothesis/experiment
+  #- Scraping              # web scraping
+  #- SkillForge            # skill quality guide
+  #- Swift                 # Swift/macOS development
+  #- SystemAdmin           # sysadmin patterns
+  #- Thinking              # thinking patterns
+  #- TripPlanning          # travel planning
+  #- Tmux                  # tmux remote control
+  #- USMetrics             # US-specific metrics
+  #- Webdesign             # frontend/UI design
+  #- WorldThreatModel      # world threat scenarios
+  #- WorldThreatModelHarness # threat model harness
+  #- WriteStory            # creative writing
+  #- revealjs              # presentation slides
+
+# ── Profiles: activate extra skills by context ────────────
 profiles:
   security:
     - Security

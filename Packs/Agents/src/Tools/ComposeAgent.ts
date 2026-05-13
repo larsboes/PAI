@@ -652,7 +652,7 @@ ${approachBlock}
 
 1. **Send voice notification that you're loading:**
 \`\`\`bash
-curl -X POST http://localhost:8888/notify \\
+curl -X POST http://localhost:31337/notify \\
   -H "Content-Type: application/json" \\
   -d '{"message":"${agent.name} loading and ready to work","voice_id":"${agent.voiceId}","title":"${agent.name}"}'
 \`\`\`
@@ -668,7 +668,7 @@ curl -X POST http://localhost:8888/notify \\
 **YOU MUST SEND VOICE NOTIFICATION BEFORE EVERY RESPONSE:**
 
 \`\`\`bash
-curl -X POST http://localhost:8888/notify \\
+curl -X POST http://localhost:31337/notify \\
   -H "Content-Type: application/json" \\
   -d '{"message":"Your COMPLETED line content here","voice_id":"${agent.voiceId}","title":"${agent.name}"}'
 \`\`\`

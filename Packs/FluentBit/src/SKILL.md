@@ -1,6 +1,6 @@
 ---
 name: FluentBit
-description: "FluentBit Lua filter development, testing, and CI patterns with Lua 5.1/LuaJIT semantics. Use when writing Lua filters, testing FluentBit configs, or debugging flat-key issues."
+description: "FluentBit Lua filter development, testing, and CI pipeline patterns — cb_filter entry point, return codes, flat-key field access, LuaJIT 2.1/Lua 5.1 semantics, config YAML/conf format, container-based testing. USE WHEN FluentBit, fluent-bit, Lua filter, fluentbit config, cb_filter, fluentbit CI, fluentbit test, fluent bit pipeline, fluentbit debug, flat key, fluentbit Lua, fluentbit YAML, log processing pipeline."
 ---
 
 # FluentBit + Lua
@@ -14,6 +14,14 @@ Lua filter development for FluentBit (LuaJIT 2.1 / Lua 5.1 semantics).
 - **#1 rule:** Flat dot-keys only (`record["a.b"] = x`), NEVER nested tables
 - **Testing:** FluentBit itself as test runner (<100ms startup), `exit_on_eof: true`
 - **CI image:** `fluent/fluent-bit:4.2.2-debug` (standard image has no shell)
+
+## Workflow Routing
+
+| Trigger | Workflow |
+|---------|----------|
+| Write a new Lua filter, scaffold filter | `Workflows/WriteLuaFilter.md` |
+| Test a filter, run tests, verify output | `Workflows/TestFilter.md` |
+| CI pipeline, GitLab CI, container testing | `Workflows/CI.md` |
 
 ## References
 

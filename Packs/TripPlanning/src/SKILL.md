@@ -1,6 +1,6 @@
 ---
-name: trip-planning
-description: "Use when planning trips, conferences, travel, or events. Orchestrates research, note creation, and structured decision-making for travel."
+name: TripPlanning
+description: "Trip and event planning — research destinations, hotels, transport, create itineraries, manage bookings, conference prep, and travel notes in Obsidian. USE WHEN plan trip, travel planning, book hotel, find flights, conference prep, plan event, create itinerary, travel research, packing list, trip budget, plan vacation, plan conference attendance, travel schedule."
 ---
 
 # Trip Planning

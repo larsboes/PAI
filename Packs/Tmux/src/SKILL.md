@@ -1,6 +1,6 @@
 ---
-name: tmux
-description: "Remote control tmux sessions for interactive CLIs (python, gdb, node, etc.) by sending keystrokes and scraping pane output. Includes session presets, save/restore, and JSON capture."
+name: Tmux
+description: "Remote control tmux sessions — send keystrokes to interactive CLIs (python REPL, gdb, node, psql), scrape pane output, session presets, save/restore sessions, and JSON capture. USE WHEN tmux, tmux session, tmux pane, send keys to terminal, control tmux, interactive REPL, python session, gdb session, node repl, postgres psql, scrape terminal output, tmux preset, tmux capture."
 license: Vibecoded
 ---
 

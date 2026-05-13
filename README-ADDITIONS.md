@@ -2,7 +2,7 @@
 
 What this fork adds beyond [`danielmiessler/Personal_AI_Infrastructure`](https://github.com/danielmiessler/Personal_AI_Infrastructure).
 
-All additions follow upstream's `src/` convention. Upstream files are never modified (zero merge conflicts on `git merge upstream/main`).
+Upstream files are modified minimally and tracked explicitly — see **Upstream Modifications** section below.
 
 ---
 
@@ -21,7 +21,7 @@ Complete skill packs — SKILL.md, Workflows, references, scripts.
 | `Packs/Docker/` | Build, compose, debug containers — Dockerfile patterns |
 | `Packs/Documents/` | PDF, DOCX, XLSX creation, editing, format conversion |
 | `Packs/FluentBit/` | Lua filter development — LuaJIT semantics, flat-key patterns, CI |
-| `Packs/GitWorkflow/` | Advanced git — worktrees, rebase, bisect, reflog |
+| `Packs/Git/` | Git unified — local (worktrees/rebase/bisect/reflog), GitHub (gh CLI), GitLab (glab + REST, env-var-based) |
 | `Packs/Logstash/` | Pipeline development — Ruby filters, grok patterns |
 | `Packs/OSINT/` | Structured investigations — people, companies, domains |
 | `Packs/Parser/` | Extract structured JSON from URLs, files, PDFs |
@@ -70,12 +70,45 @@ Enrichments to Daniel's packs — new reference docs and utility scripts inside 
 
 ---
 
-## Planned (Not Yet Implemented)
+## Fork Infrastructure
 
-| Feature | Description |
-|---------|-------------|
-| `skills.yaml` | Manifest declaring which packs are active for deployment |
-| `short-descriptions.yaml` | Pi-compatible ≤1024 char descriptions (deploy-time override) |
-| `sync-deploy.sh` | Deploy selected packs to `~/.claude/skills/` and `~/.pi/agent/skills/` |
+| Path | Purpose |
+|------|---------|
+| `skills.yaml` | Active pack selection — comment/uncomment to toggle, profiles for security/devops/etc |
+| `sync-deploy.sh` | Symlink active packs to `~/.claude/skills/`, `~/.pi/agent/skills/`, `~/.gemini/skills/` |
 | `sync-capture.sh` | Pull agent improvements back into PAI source |
-| Use-case profiles | Activate skill sets by context (security, writing, devops) |
+| `sync-hooks.sh` | Hooks version migration between PAI releases |
+| `.pai-fork/manifest.yaml` | Tracks intentionally customized upstream files |
+| `.pai-fork/tools/sync.sh` | Upstream sync with backup + conflict report |
+| `.pai-fork/exclusions.yaml` | Files excluded from sync |
+| `.github/workflows/upstream-drift.yml` | Weekly CI check for upstream divergence |
+| `install.sh` | Fresh machine setup (Bun, Git, PAI clone) |
+
+Deploy: `task pai:sync` (root Taskfile) or `./sync-deploy.sh` directly.
+
+---
+
+## Upstream Modifications
+
+Changes made to Daniel's files — watch these on merge:
+
+### Bulk fixes (2026-05-13)
+- **Voice port**: All `localhost:8888` → `localhost:31337` in 167 files across `Packs/` (bug fix, worth PRing upstream)
+- **`name:` fields normalized** to TitleCase in 14 packs: Architecture, DataEngineer, GitHub, HtmlDocs, Learn, Mermaid, Notion, Obsidian, SkillForge, Swift, TripPlanning, Tmux, TypeScript, Uv
+- **Descriptions expanded** on 14 packs with weak descriptions: GitHub, Mermaid, Obsidian, TripPlanning, Uv, Logstash, Bazel, Tmux, Cloudflare, Documents, FluentBit, Parser, WorldThreatModelHarness, Notion
+- **`Utilities` description** trimmed from 2020 → ~450 chars (over-verbose, listed every sub-skill trigger)
+- **`Telos`**: Added `effort: medium` field
+- **`GitWorkflow`**: Renamed to `Git`, expanded with GitHub + GitLab workflow files
+
+### On next upstream merge
+1. Run `.pai-fork/tools/sync.sh status` to see what drifted
+2. Expect conflicts in modified SKILL.md files above
+3. Re-apply bulk fixes if Daniel pushed new packs with `:8888`
+4. Re-run `task pai:sync` after resolving
+
+### Potential upstream PRs
+| Item | Priority |
+|------|----------|
+| Voice port `:8888` → `:31337` | HIGH — real bug in his SKILL.md + Workflow files |
+| Description expansions | MEDIUM |
+| `Git` pack (GitHub.md + GitLab.md) | LOW — needs his buy-in on consolidation |

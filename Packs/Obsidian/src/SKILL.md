@@ -1,6 +1,6 @@
 ---
-name: obsidian
-description: Full Obsidian vault integration — search, canvas generation, base management, bulk property ops, structure validation, and vault diagnostics.
+name: Obsidian
+description: "Full Obsidian vault integration — search notes, generate canvas files, manage bases, bulk property operations, structure validation, and vault diagnostics. USE WHEN search obsidian, find note, obsidian vault, canvas, create canvas, obsidian search, note properties, bulk update frontmatter, validate vault structure, obsidian diagnostics, find notes by tag, search knowledge base."
 argument-hint: "[search query]"
 allowed-tools: Bash(uv run *)
 user-invocable: true

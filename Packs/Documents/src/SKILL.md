@@ -1,6 +1,6 @@
 ---
 name: Documents
-description: "Read, write, convert, and analyze documents — PDF, DOCX, XLSX, PPTX creation, editing, extraction, and format conversion. Use when working with any office document format."
+description: "Read, write, convert, and analyze office documents — PDF, DOCX, XLSX, PPTX creation, editing, extraction, tracked changes, redlining, and format conversion. USE WHEN PDF, Word document, DOCX, Excel, XLSX, PowerPoint, PPTX, create document, extract text from PDF, convert document, tracked changes, redline, document analysis, large PDF, merge PDF, fill form, office document."
 ---
 
 # Documents Skill

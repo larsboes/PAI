@@ -172,7 +172,7 @@ voice_mappings:
       characteristics: ["gruff", "veteran", "weathered"]
       description: "War veteran voice, gruff and experienced"
 
-    {PRINCIPAL.NAME}:
+    "{PRINCIPAL.NAME}":
       voice_id: "onwK4e9ZLuTAKqWW03F9"
       gender: "male"
       characteristics: ["authoritative", "measured", "intellectual", "british"]

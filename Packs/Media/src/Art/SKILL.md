@@ -26,7 +26,7 @@ These override default behavior. If the directory does not exist, proceed with s
 
 1. **Send voice notification**:
    ```bash
-   curl -s -X POST http://localhost:8888/notify \
+   curl -s -X POST http://localhost:31337/notify \
      -H "Content-Type: application/json" \
      -d '{"message": "Running the WORKFLOWNAME workflow in the Art skill to ACTION"}' \
      > /dev/null 2>&1 &

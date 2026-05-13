@@ -1,5 +1,5 @@
 ---
-name: swift
+name: Swift
 description: "Use when working with Swift code, especially macOS SwiftUI apps with modern concurrency, plugin architectures, and dependency injection. Covers @MainActor, @Observable, structured concurrency, protocol-based design, and Swift 6 migration."
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: Parser
-description: "Extract structured JSON from URLs, files, videos, and PDFs with entity extraction, schema validation, and deduplication. Use when parsing content into structured data."
+description: "Extract structured JSON from any content source — URLs, articles, newsletters, YouTube videos, PDFs, browser extensions, Twitter/X posts — with entity extraction, schema validation, collision detection, and deduplication. USE WHEN parse, extract, extract from URL, extract article, extract newsletter, extract YouTube, extract PDF, entity extraction, parse content, detect content type, structured data from URL, JSON from article, batch extract, browser extension parse."
 ---
 
 # Parser
