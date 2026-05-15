@@ -20,14 +20,3 @@
 *.gif binary
 *.ico binary
 *.pdf binary
-
-
-# >>> pai-fork manifested paths (auto-managed — do not edit)
-# Manifested files use 3-way merge driver — preserves both sides on git merge
-# Driver registered in .git/config (run .pai-fork/tools/install-hooks.sh once)
-Packs/Apify/README.md merge=pai-fork-3way
-Packs/Browser/README.md merge=pai-fork-3way
-Packs/README.md merge=pai-fork-3way
-Packs/Webdesign/README.md merge=pai-fork-3way
-README.md merge=pai-fork-3way
-# <<< end pai-fork manifested paths
