@@ -1,0 +1,3 @@
+# Context7 — Installation
+
+See SKILL.md for configuration and prerequisites.

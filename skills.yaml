@@ -37,8 +37,12 @@ active:
 
   # ── Dev tooling ───────────────────────────────────────────
   - ApiPatterns
+  - Cmux
+  - Context7
   - CreateCLI
   - DataEngineer
+  - DevOps
+  - DevWorkflow
   - Docker
   - Documents
   - FluentBit
@@ -53,6 +57,20 @@ active:
   #- TypeScript
   #- Uv
   - Utilities
+
+  # ── Integrations ──────────────────────────────────────────
+  - Azure
+  - Confluence
+  - GitLab
+  - Google
+  - Jira
+  - MailCraft
+  - Outlook
+  - PPTX
+
+  # ── Personal (vault-based, config via ~/.env) ─────────────
+  - HomeInfra        # fritz, synology, whatsapp, apartment-scout
+  - Personal         # daily, review-workflow, focus-alignment, inbox, application-writer, pai-memory
 
   # ── Media & creative ──────────────────────────────────────
   - Art

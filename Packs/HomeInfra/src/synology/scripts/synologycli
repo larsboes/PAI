@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""
+Synology NAS CLI — SMB mounting and management.
+Reads credentials from ~/.env
+"""
+
+import os
+import sys
+import subprocess
+import json
+from pathlib import Path
+
+# Load .env manually
+def load_env():
+    env = {}
+    env_path = Path.home() / ".env"
+    if env_path.exists():
+        with open(env_path) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, val = line.split('=', 1)
+                    env[key.strip()] = val.strip().strip('"').strip("'")
+    return env
+
+env = load_env()
+
+SYNOLOGY_HOST = env.get("SYNOLOGY_HOST")
+if not SYNOLOGY_HOST:
+    print("Error: SYNOLOGY_HOST must be set in ~/.env", file=sys.stderr)
+    sys.exit(1)
+SYNOLOGY_USER = env.get("SYNOLOGY_USER")
+SYNOLOGY_PASSWORD = env.get("SYNOLOGY_PASSWORD")
+MOUNT_BASE = Path.home() / "Synology"
+
+
+def require_credentials():
+    if not SYNOLOGY_USER or not SYNOLOGY_PASSWORD:
+        print("❌ Error: SYNOLOGY_USER and SYNOLOGY_PASSWORD not set in ~/.env")
+        sys.exit(1)
+
+
+def run_cmd(cmd, check=True):
+    """Execute shell command and return output."""
+    try:
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=False)
+        if check and result.returncode != 0:
+            print(f"❌ Error: {result.stderr.strip()}")
+            return None
+        return result.stdout.strip() if result.stdout else result.stderr.strip()
+    except Exception as e:
+        print(f"❌ Command failed: {e}")
+        return None
+
+
+def status():
+    """Check if Synology is reachable."""
+    cmd = f"ping -c 1 -W 1 {SYNOLOGY_HOST} 2>/dev/null"
+    result = subprocess.run(cmd, shell=True, capture_output=True)
+    if result.returncode == 0:
+        print(f"✓ Synology reachable at {SYNOLOGY_HOST}")
+        return True
+    else:
+        print(f"❌ Synology unreachable at {SYNOLOGY_HOST}")
+        return False
+
+
+def shares():
+    """List available shares (via SMB discovery)."""
+    require_credentials()
+    # Use smbclient to list shares
+    cmd = f"smbclient -L //{SYNOLOGY_HOST} -U {SYNOLOGY_USER}%{SYNOLOGY_PASSWORD} -N 2>/dev/null | grep '^\t' | awk '{{print $1}}'"
+    output = run_cmd(cmd, check=False)
+    if output:
+        shares_list = [s.strip() for s in output.split('\n') if s.strip() and s.strip() not in ['Sharename', 'Type', '---']]
+        print("\n=== Available Shares ===")
+        for share in shares_list:
+            print(f"  • {share}")
+    else:
+        print("❌ Could not list shares. Check credentials.")
+
+
+def mount(share_name):
+    """Mount SMB share locally."""
+    require_credentials()
+
+    # Create mount point
+    mount_path = MOUNT_BASE / share_name
+    mount_path.mkdir(parents=True, exist_ok=True)
+
+    # Check if already mounted
+    check = run_cmd(f"mount | grep '{mount_path}'", check=False)
+    if check:
+        print(f"✓ Already mounted at {mount_path}")
+        return
+
+    # Mount share
+    smb_path = f"smb://{SYNOLOGY_USER}:{SYNOLOGY_PASSWORD}@{SYNOLOGY_HOST}/{share_name}"
+    cmd = f"mount_smbfs -o nobrowse '{smb_path}' '{mount_path}' 2>&1"
+
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    if result.returncode == 0:
+        print(f"✓ Mounted {share_name} at {mount_path}")
+    else:
+        print(f"❌ Mount failed: {result.stderr.strip()}")
+        sys.exit(1)
+
+
+def umount(share_name):
+    """Unmount SMB share."""
+    mount_path = MOUNT_BASE / share_name
+
+    cmd = f"umount '{mount_path}' 2>&1"
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+    if result.returncode == 0:
+        print(f"✓ Unmounted {share_name}")
+    else:
+        print(f"❌ Unmount failed: {result.stderr.strip()}")
+        sys.exit(1)
+
+
+def mounted():
+    """List mounted Synology shares."""
+    cmd = f"mount | grep {SYNOLOGY_HOST}"
+    output = run_cmd(cmd, check=False)
+
+    if output:
+        print("\n=== Mounted Shares ===")
+        for line in output.split('\n'):
+            if line:
+                print(f"  {line}")
+    else:
+        print("No Synology shares currently mounted")
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: synologycli <command> [args]")
+        print("\nCommands:")
+        print("  status              Check if NAS is reachable")
+        print("  shares              List available shares")
+        print("  mount <share>       Mount share locally")
+        print("  umount <share>      Unmount share")
+        print("  mounted             Show mounted shares")
+        sys.exit(1)
+
+    cmd = sys.argv[1]
+
+    if cmd == "status":
+        status()
+    elif cmd == "shares":
+        shares()
+    elif cmd == "mount":
+        if len(sys.argv) < 3:
+            print("Usage: synologycli mount <share_name>")
+            sys.exit(1)
+        mount(sys.argv[2])
+    elif cmd == "umount":
+        if len(sys.argv) < 3:
+            print("Usage: synologycli umount <share_name>")
+            sys.exit(1)
+        umount(sys.argv[2])
+    elif cmd == "mounted":
+        mounted()
+    else:
+        print(f"Unknown command: {cmd}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

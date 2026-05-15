@@ -1,0 +1,304 @@
+#!/usr/bin/env python3
+"""Fritz!Box CLI — interact with Fritz!Box routers via data.lua API.
+
+Requires env vars (loaded from ~/.env):
+  FRITZBOX_HOST=<router-ip>
+  FRITZBOX_USER=<username>
+  FRITZBOX_PASSWORD=<password>
+"""
+
+import argparse
+import hashlib
+import json
+import os
+import sys
+import urllib.request
+import urllib.parse
+import ssl
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+
+# --- Config ---
+def load_env():
+    env_path = Path.home() / ".env"
+    if env_path.exists():
+        for line in env_path.read_text().splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, _, val = line.partition("=")
+                os.environ.setdefault(key.strip(), val.strip())
+
+
+load_env()
+
+HOST = os.environ.get("FRITZBOX_HOST", "")
+USER = os.environ.get("FRITZBOX_USER", "")
+PASSWORD = os.environ.get("FRITZBOX_PASSWORD", "")
+
+if not HOST or not PASSWORD:
+    print("Error: FRITZBOX_HOST and FRITZBOX_PASSWORD must be set in ~/.env", file=sys.stderr)
+    sys.exit(1)
+
+BASE = f"https://{HOST}"
+
+CTX = ssl.create_default_context()
+CTX.check_hostname = False
+CTX.verify_mode = ssl.CERT_NONE
+
+
+# --- Auth (PBKDF2 challenge-response, Fritz!OS 7.24+) ---
+def get_sid():
+    resp = urllib.request.urlopen(
+        f"{BASE}/login_sid.lua?version=2", context=CTX
+    ).read().decode()
+    root = ET.fromstring(resp)
+    sid = root.findtext("SID")
+    if sid and sid != "0000000000000000":
+        return sid
+
+    challenge = root.findtext("Challenge")
+    if not challenge:
+        print("Error: No challenge received", file=sys.stderr)
+        sys.exit(1)
+
+    parts = challenge.split("$")
+    if parts[0] == "2":
+        iter1 = int(parts[1])
+        salt1 = bytes.fromhex(parts[2])
+        iter2 = int(parts[3])
+        salt2 = bytes.fromhex(parts[4])
+        hash1 = hashlib.pbkdf2_hmac("sha256", PASSWORD.encode(), salt1, iter1)
+        hash2 = hashlib.pbkdf2_hmac("sha256", hash1, salt2, iter2)
+        response = f"{parts[4]}${hash2.hex()}"
+    else:
+        md5_str = f"{challenge}-{PASSWORD}".encode("utf-16-le")
+        response = f"{challenge}-{hashlib.md5(md5_str).hexdigest()}"
+
+    login_data = urllib.parse.urlencode(
+        {"username": USER, "response": response}
+    ).encode()
+    resp = urllib.request.urlopen(
+        f"{BASE}/login_sid.lua?version=2", data=login_data, context=CTX
+    ).read().decode()
+    root = ET.fromstring(resp)
+    sid = root.findtext("SID")
+    if not sid or sid == "0000000000000000":
+        block = root.findtext("BlockTime")
+        print(f"Login failed. BlockTime: {block}s", file=sys.stderr)
+        sys.exit(1)
+    return sid
+
+
+def logout(sid):
+    data = urllib.parse.urlencode({"sid": sid, "logout": "1"}).encode()
+    try:
+        urllib.request.urlopen(f"{BASE}/login_sid.lua", data=data, context=CTX)
+    except Exception:
+        pass
+
+
+def api(sid, page=None, **extra):
+    params = {"sid": sid}
+    if page:
+        params["page"] = page
+    params.update(extra)
+    encoded = urllib.parse.urlencode(params).encode()
+    req = urllib.request.Request(f"{BASE}/data.lua", data=encoded)
+    resp = urllib.request.urlopen(req, context=CTX).read().decode()
+    try:
+        return json.loads(resp)
+    except json.JSONDecodeError:
+        return {"_raw": resp}
+
+
+# --- Commands ---
+def cmd_overview(args):
+    sid = get_sid()
+    try:
+        r = api(sid)
+        d = r.get("data", r)
+        fb = d.get("fritzos", {})
+        wan = d.get("wan", {})
+        wlan = d.get("wlan", [])
+        inet = d.get("internet", {})
+
+        print(f"{'Model:':<16} {fb.get('Productname', 'N/A')}")
+        print(f"{'Fritz!OS:':<16} {fb.get('nspver', 'N/A')}")
+        print(f"{'Energy:':<16} {fb.get('energy', 'N/A')}%")
+        print(f"{'WAN:':<16} {wan.get('txt', 'N/A')}")
+        print()
+
+        conns = inet.get("connections", [])
+        for c in conns:
+            print(f"{'Provider:':<16} {c.get('provider', 'N/A')}")
+            print(f"{'Down/Up:':<16} {c.get('downstream', 0)} / {c.get('upstream', 0)} kbit/s")
+            ipv4 = c.get("ipv4", {})
+            if ipv4:
+                print(f"{'IPv4:':<16} {ipv4.get('ip', 'N/A')}")
+            ipv6 = c.get("ipv6", {})
+            if ipv6:
+                print(f"{'IPv6:':<16} {ipv6.get('ip', 'N/A')}")
+            print(f"{'Medium:':<16} {c.get('medium', 'N/A')} ({c.get('type', '')})")
+            print()
+
+        print("WLAN:")
+        for w in wlan if isinstance(wlan, list) else [wlan]:
+            led = "ON" if "green" in w.get("led", "") else "OFF"
+            print(f"  [{led}] {w.get('txt', 'N/A')}")
+    finally:
+        logout(sid)
+
+
+def cmd_wlan(args):
+    sid = get_sid()
+    try:
+        r = api(sid, page="wSet")
+        d = r.get("data", r)
+        ws = d.get("wlanSettings", {})
+        if args.json:
+            print(json.dumps(ws, indent=2, ensure_ascii=False))
+        else:
+            print(f"{'WLAN enabled:':<22} {ws.get('isWlanEnabled', 'N/A')}")
+            print(f"{'Guest enabled:':<22} {ws.get('isGuestEnabled', 'N/A')}")
+            ssids = ws.get("ssids", [])
+            for s in ssids:
+                print(f"  {s.get('band', '?')}: {s.get('ssid', '?')} (active: {s.get('active', '?')})")
+    finally:
+        logout(sid)
+
+
+def cmd_devices(args):
+    sid = get_sid()
+    try:
+        r = api(sid, page="net")
+        d = r.get("data", r)
+        devices = d.get("net", {}).get("devices", [])
+        if not devices:
+            # Try netMesh page
+            r2 = api(sid, page="netDev")
+            d2 = r2.get("data", r2)
+            devices = d2 if isinstance(d2, list) else d2.get("devices", [])
+
+        if not devices:
+            print("No device data available.")
+            return
+
+        active = [dev for dev in devices if dev.get("state", {}).get("class", "") == "led_green"]
+        inactive = [dev for dev in devices if dev.get("state", {}).get("class", "") != "led_green"]
+
+        print(f"=== Active ({len(active)}) ===")
+        for dev in sorted(active, key=lambda x: x.get("name", "")):
+            name = dev.get("name", "?")
+            ip = dev.get("ip", "N/A")
+            conn = dev.get("conn", "N/A")
+            speed = dev.get("speed", "")
+            print(f"  {name:<28} {ip:<18} {conn} {speed}")
+
+        if args.all:
+            print(f"\n=== Inactive ({len(inactive)}) ===")
+            for dev in sorted(inactive, key=lambda x: x.get("name", "")):
+                name = dev.get("name", "?")
+                ip = dev.get("ip", "N/A")
+                conn = dev.get("conn", "N/A")
+                print(f"  {name:<28} {ip:<18} {conn}")
+    finally:
+        logout(sid)
+
+
+def cmd_energy(args):
+    sid = get_sid()
+    try:
+        r = api(sid, page="energy")
+        d = r.get("data", r)
+        if args.json:
+            print(json.dumps(d, indent=2, ensure_ascii=False))
+        else:
+            drain = d.get("drain", {})
+            for k, v in drain.items():
+                if isinstance(v, dict):
+                    print(f"{k}:")
+                    for kk, vv in v.items():
+                        print(f"  {kk}: {vv}")
+                else:
+                    print(f"{k}: {v}")
+    finally:
+        logout(sid)
+
+
+def cmd_raw(args):
+    sid = get_sid()
+    try:
+        extra = {}
+        if args.params:
+            for p in args.params:
+                k, _, v = p.partition("=")
+                extra[k] = v
+        r = api(sid, page=args.page if args.page != "overview" else None, **extra)
+        print(json.dumps(r, indent=2, ensure_ascii=False))
+    finally:
+        logout(sid)
+
+
+def cmd_pages(args):
+    """List known API pages."""
+    pages = [
+        ("overview", "Fritz!Box overview (default, no page param)"),
+        ("net", "Full network overview (WAN, LAN, WLAN, DSL, VPN, DECT)"),
+        ("wSet", "WLAN settings (SSIDs, channels, bands)"),
+        ("netDev", "Network devices"),
+        ("energy", "Energy/power consumption"),
+        ("dslOv", "DSL overview"),
+        ("wKey", "WLAN keys"),
+        ("wGuest", "Guest WLAN settings"),
+        ("chan", "WLAN channel settings"),
+        ("secSet", "Security settings"),
+        ("fwSet", "Firmware/update settings"),
+        ("ipRoute", "IP routing table"),
+        ("dnsSet", "DNS settings"),
+        ("portFwd", "Port forwarding rules"),
+    ]
+    for name, desc in pages:
+        print(f"  {name:<14} {desc}")
+
+
+# --- Main ---
+def main():
+    parser = argparse.ArgumentParser(prog="fritzcli", description="Fritz!Box CLI")
+    sub = parser.add_subparsers(dest="command")
+
+    sub.add_parser("overview", aliases=["ov"], help="Fritz!Box overview")
+
+    wlan_p = sub.add_parser("wlan", help="WLAN settings")
+    wlan_p.add_argument("--json", "-j", action="store_true")
+
+    dev_p = sub.add_parser("devices", aliases=["dev"], help="Network devices")
+    dev_p.add_argument("--all", "-a", action="store_true", help="Include inactive")
+
+    energy_p = sub.add_parser("energy", help="Energy consumption")
+    energy_p.add_argument("--json", "-j", action="store_true")
+
+    raw_p = sub.add_parser("raw", help="Raw API call")
+    raw_p.add_argument("page", help="Page name (use 'overview' for default)")
+    raw_p.add_argument("params", nargs="*", help="key=value pairs")
+
+    sub.add_parser("pages", help="List known API pages")
+
+    args = parser.parse_args()
+    if not args.command:
+        parser.print_help()
+        sys.exit(0)
+
+    cmd_map = {
+        "overview": cmd_overview, "ov": cmd_overview,
+        "wlan": cmd_wlan,
+        "devices": cmd_devices, "dev": cmd_devices,
+        "energy": cmd_energy,
+        "raw": cmd_raw,
+        "pages": cmd_pages,
+    }
+    cmd_map[args.command](args)
+
+
+if __name__ == "__main__":
+    main()
