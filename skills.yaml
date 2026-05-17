@@ -101,7 +101,7 @@ active:
   #- OSINT                 # covered by Investigation
   #- Optimize              # optimization patterns
   #- Parser                # parsing patterns
-  #- PrivateInvestigator   # people search
+  #- PrivateInvestigator   # absorbed into Investigation
   #- Prompting             # prompt engineering
   #- Remotion              # programmatic video
   #- Sales                 # sales patterns
