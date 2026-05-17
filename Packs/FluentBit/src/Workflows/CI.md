@@ -74,19 +74,19 @@ echo "Results: $PASS passed, $FAIL failed"
 Use `changes:` rules per-filter directory:
 
 ```yaml
-test:onkz:
+test:enrich:
   extends: .test-filter
   variables:
-    FILTER_DIR: filters/onkz
+    FILTER_DIR: filters/enrich
   rules:
-    - changes: ["filters/onkz/**"]
+    - changes: ["filters/enrich/**"]
 
-test:geo:
+test:normalize:
   extends: .test-filter
   variables:
-    FILTER_DIR: filters/geo
+    FILTER_DIR: filters/normalize
   rules:
-    - changes: ["filters/geo/**"]
+    - changes: ["filters/normalize/**"]
 ```
 
 ## Common CI Failures

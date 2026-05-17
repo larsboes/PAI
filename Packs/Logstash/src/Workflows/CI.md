@@ -51,19 +51,19 @@ test:filters:
   script:
     - ./scripts/run-logstash-stdin.sh "configs/test_${FILTER}.conf" "tests/${FILTER}.ndjson"
 
-test:onkz:
+test:enrich:
   extends: .test-filter
   variables:
-    FILTER: onkz
+    FILTER: enrich
   rules:
-    - changes: ["filters/onkz/**"]
+    - changes: ["filters/enrich/**"]
 
-test:geo:
+test:normalize:
   extends: .test-filter
   variables:
-    FILTER: geo
+    FILTER: normalize
   rules:
-    - changes: ["filters/geo/**"]
+    - changes: ["filters/normalize/**"]
 ```
 
 ## JVM Startup Optimization
