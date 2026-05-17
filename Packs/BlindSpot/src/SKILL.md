@@ -1,6 +1,6 @@
 ---
 name: BlindSpot
-description: "Structured blind spot analysis — surface what was missed, unconsidered, or implicitly assumed in any decision, design, plan, or analysis. Five lenses: Stakeholders (who wasn't consulted?), Failure Modes (what breaks first?), Assumptions (what are we taking for granted?), Second-Order Effects (what happens after the first effect?), Temporal (what changes in 6mo/2yr/5yr?). Use when wrapping up work, before committing to a decision, or when something feels incomplete but you can't name why. USE WHEN what did we miss, blind spot, what didn't we consider, premortem, assumption check, second-order effects, who did we forget, failure modes, sanity check before shipping."
+description: "Surface what was missed, unconsidered, or assumed in any decision, design, or plan — five lenses: Stakeholders, Failure Modes, Assumptions, Second-Order Effects, Temporal. USE WHEN what did we miss, blind spot, what didn't we consider, premortem, assumption check, second-order effects, failure modes, sanity check before shipping."
 ---
 
 # BlindSpot — What Didn't We Consider?

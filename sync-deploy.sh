@@ -54,12 +54,12 @@ done
 
 # Parse skills.yaml
 parse_active_skills() {
-  sed -n '/^active:/,/^[a-z]/{/^  - /p}' "$SKILLS_YAML" | sed 's/^  - //'
+  sed -n '/^active:/,/^[a-z]/{/^  - /p}' "$SKILLS_YAML" | sed 's/^  - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
 }
 
 parse_profile_skills() {
   local profile="$1"
-  sed -n "/^  $profile:/,/^  [a-z]/{/^    - /p}" "$SKILLS_YAML" | sed 's/^    - //'
+  sed -n "/^  $profile:/,/^  [a-z]/{/^    - /p}" "$SKILLS_YAML" | sed 's/^    - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
 }
 
 # Gather active skills

@@ -1,6 +1,6 @@
 ---
 name: Daemon
-description: "Manage the public daemon profile — a living digital representation of what you're working on, thinking about, reading, and building. DaemonAggregator.ts reads PAI sources (TELOS missions/goals/books/wisdom, KNOWLEDGE/Ideas titles, PROJECTS.md, MEMORY/WORK themes, PRINCIPAL_IDENTITY bio) and writes to daemon-data.json. SecurityFilter.ts applies deterministic pattern-matching (NOT LLM judgment) to strip names, paths, credentials, and internal refs. Structurally excludes CONTACTS, FINANCES, HEALTH, OUR_STORY, OPINIONS. deploy.sh builds the VitePress static site and deploys to Cloudflare Pages. Two-repo pattern: public framework (danielmiessler/Daemon, forkable) + private content (daemon-dm). Workflows: UpdateDaemon, ReadDaemon, PreviewDaemon, DeployDaemon. USE WHEN daemon, update daemon, daemon profile, deploy daemon, preview daemon, read daemon, check daemon, daemon status, public profile, digital presence. NOT FOR internal PAI system management (use _PAI)."
+description: "Manage your public Daemon profile — a living digital representation of current work, reading, and building, filtered and deployed to Cloudflare Pages. USE WHEN daemon, update daemon, daemon profile, deploy daemon, preview daemon, read daemon, check daemon, daemon status, public profile, digital presence. NOT FOR internal PAI system management."
 effort: medium
 ---
 
