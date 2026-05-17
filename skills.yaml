@@ -16,8 +16,7 @@ active:
   - Architecture
   - BlindSpot
   - Brainstorm
-  - DeepAnalysis
-  - DeepDebug
+  - Deep
   - FirstPrinciples
   - IterativeDepth
   - RootCauseAnalysis
