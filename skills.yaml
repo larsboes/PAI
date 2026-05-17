@@ -46,10 +46,9 @@ active:
   - Docker
   - Documents
   - FluentBit
-  #- GitHub                # Daniel's stub — superseded by Git pack
   - Git
-  - HtmlDocs
-  - Learn
+  #- HtmlDocs
+  #- Learn
   - Logstash
   - Mermaid
   - Obsidian
@@ -59,18 +58,18 @@ active:
   - Utilities
 
   # ── Integrations ──────────────────────────────────────────
-  - Azure
-  - Confluence
-  - GitLab
-  - Google
-  - Jira
-  - MailCraft
-  - Outlook
-  - PPTX
+  #- Azure
+  #- Confluence
+  #- GitLab                # covered by Git pack
+  #- Google
+  #- Jira
+  #- MailCraft
+  #- Outlook
+  #- PPTX
 
   # ── Personal (vault-based, config via ~/.env) ─────────────
-  - HomeInfra        # fritz, synology, whatsapp, apartment-scout
-  - Personal         # daily, review-workflow, focus-alignment, inbox, application-writer, pai-memory
+  #- HomeInfra        # fritz, synology, whatsapp, apartment-scout
+  #- Personal         # daily, review-workflow, focus-alignment, inbox, application-writer, pai-memory
 
   # ── Media & creative ──────────────────────────────────────
   - Art
@@ -88,20 +87,19 @@ active:
   #- ContentAnalysis       # video/podcast extraction
   #- ContextSearch         # context search
   #- CreateSkill           # skill scaffolding
-  #- Daemon                # background daemon patterns
+  - Daemon                # background daemon patterns
   #- ExtractWisdom         # wisdom extraction
   #- Fabric                # 240+ prompt patterns
-  #- ISA                   # ISA patterns
-  #- Ideate                # (already active above)
+  - ISA                   # ISA patterns
   #- Interceptor           # bot-detection bypass browser
   #- Interview             # interview prep
-  #- Investigation         # OSINT/people search
-  #- Knowledge             # knowledge base
-  #- Loop                  # loop patterns
+  - Investigation         # OSINT/people search
+  - Knowledge             # knowledge base
+  - Loop                  # loop patterns
   #- Media                 # visual/video creation
   #- Migrate               # migration patterns
   #- Notion                # Notion integration
-  #- OSINT                 # OSINT research
+  #- OSINT                 # covered by Investigation
   #- Optimize              # optimization patterns
   #- Parser                # parsing patterns
   #- PrivateInvestigator   # people search
@@ -113,7 +111,7 @@ active:
   #- SkillForge            # skill quality guide
   #- Swift                 # Swift/macOS development
   #- SystemAdmin           # sysadmin patterns
-  #- Thinking              # thinking patterns
+  - Thinking              # Daniel's router (active: Daniel's upstream)
   #- TripPlanning          # travel planning
   #- Tmux                  # tmux remote control
   #- USMetrics             # US-specific metrics
