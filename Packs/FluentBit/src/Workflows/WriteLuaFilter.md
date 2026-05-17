@@ -68,8 +68,8 @@ record["target.second"] = parts[2]
 ### Conditional field mapping
 ```lua
 local mapping = {
-    ["APP"] = "call_detail_record",
-    ["SVC"] = "registration",
+    ["APP"] = "application",
+    ["SVC"] = "service",
 }
 record["target.type"] = mapping[record["source.type"]] or "unknown"
 ```

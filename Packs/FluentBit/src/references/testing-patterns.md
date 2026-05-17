@@ -144,17 +144,17 @@ A build step (`luajit build.lua`) converts CSV → JSON-Lines with `_test_expect
 ### Lua Direct (programmatic, complex cases)
 
 ```lua
--- tests/data/sites_positions.lua
+-- tests/data/service_positions.lua
 local positions = {
     {"request.upstream.host", "upstream"},
-    {"request.origin.host", "origin"},
+    {"request.origin.host",   "origin"},
 }
 local cases = {}
 for _, pos in ipairs(positions) do
     table.insert(cases, {
         name = string.format("Host on %s", pos[2]),
         input = { [pos[1]] = "api-gateway-01" },
-        expected = { [pos[2] .. ".geo.lat"] = 37.7749 }
+        expected = { [pos[2] .. ".region"] = "us-east-1" }
     })
 end
 return cases

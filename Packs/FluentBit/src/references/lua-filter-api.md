@@ -47,12 +47,12 @@ FluentBit records use **flat dot-notation strings** as keys. The dot is literal,
 
 ```lua
 -- CORRECT: Flat key
-record["request.method"] = "49221"
-record["source.region.code"] = "EU-W1"
+record["request.method"] = "GET"
+record["source.region.code"] = "us-east-1"
 
 -- WRONG: Nested table (silent Elasticsearch mapping conflict!)
-record["calling_party"] = { method = "49221" }
-record["source"] = { region = { code = "EU-W1" } }
+record["request"] = { method = "GET" }
+record["source"] = { region = { code = "us-east-1" } }
 ```
 
 **Why dangerous:** No runtime error. Breaks silently in Elasticsearch with mapping conflicts.

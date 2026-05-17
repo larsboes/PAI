@@ -78,7 +78,7 @@ event.get("[@metadata][key]") # metadata (not in output)
 
 ### Conditional field mapping
 ```ruby
-mapping = { "APP" => "call_detail", "SVC" => "registration" }
+mapping = { "APP" => "application", "SVC" => "service" }
 event.set("[type]", mapping[event.get("[raw_type]")] || "unknown")
 ```
 

@@ -208,19 +208,19 @@ test:
       fi
       export FILTER_DATA_DIR="$RUN_DIR/source"
       export FILTER_MODE="$MODE"
-      export FILTER_MODE="$MODE"
+      
       luajit "$TESTS_DIR/unit/test_enrich.lua" "$FILTER" "$MODE"
       for test_file in "$TESTS_DIR"/properties/test_*.lua; do
         luajit "$test_file" "$FILTER" "$MODE"
       done
 ```
 
-## 8. Real-World Example: log-pipeline
+## 8. Example: Shared CI Template
 
-The entire test pattern originates from the **log-pipeline** project. It has been running there in the production GitLab CI pipeline for months:
+A common pattern is to share the FluentBit base config via GitLab CI `include`:
 
 ```yaml
-# log-pipeline/.gitlab-ci.yml (excerpt — real production code)
+# .gitlab-ci.yml (excerpt)
 include:
   - project: 'your-group/cicd-templates'
     file: ['fluentbit-cicd.yml']
@@ -253,10 +253,7 @@ unit_tests_demo:
     expire_in: 1 hour
 ```
 
-> [!tip] Production-proven
-> This is not a theoretical example. This code runs in the GitLab CI of the log-pipeline project and validates Lua filters on every push. The pattern works — we didn't invent it, we adopted and extended it.
-
-What log-pipeline demonstrates:
+What this pattern demonstrates:
 
 - The `.test_config` template with `!reference` instead of `extends` for script blocks
 - Storing FluentBit output as an artifact for later analysis
@@ -322,5 +319,5 @@ The CI integration consists of a few clearly separated building blocks:
 5. **Artifacts: always store** — `when: always` ensures debugging output is never lost
 
 > [!tip] Key Takeaway
-> The pattern is proven (log-pipeline), scalable (parallel matrix), and debuggable (artifacts:when:always). The same tests run locally in under 1 second and in CI with the exact same FluentBit.
+> The pattern is proven in production, scalable (parallel matrix), and debuggable (artifacts:when:always). The same tests run locally in under 1 second and in CI with the exact same FluentBit.
 
