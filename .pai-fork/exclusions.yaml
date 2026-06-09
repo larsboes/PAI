@@ -10,19 +10,49 @@
 # Fork infrastructure (never sync)
 - .pai-fork/**
 
-# Custom packs unique to this fork (not in upstream)
+# Custom packs unique to this fork (not in upstream).
+# Reconciled 2026-06-09 against `comm -23 <fork Packs> <upstream/main Packs>` (41 packs).
+# Note: earlier entries DeepAnalysis/DeepDebug→Deep, GitWorkflow→Git,
+# OSINT/PrivateInvestigator→Investigation, LlmApi→ApiPatterns were merged/renamed.
 - Packs/ApiPatterns/**
+- Packs/Architecture/**
+- Packs/Azure/**
 - Packs/Bazel/**
+- Packs/BlindSpot/**
 - Packs/Brainstorm/**
 - Packs/Cloudflare/**
-- Packs/DeepAnalysis/**
-- Packs/DeepDebug/**
+- Packs/Cmux/**
+- Packs/Confluence/**
+- Packs/Context7/**
+- Packs/DataEngineer/**
+- Packs/Deep/**
+- Packs/DevOps/**
+- Packs/DevWorkflow/**
 - Packs/Docker/**
+- Packs/Documents/**
 - Packs/FluentBit/**
-- Packs/GitWorkflow/**
-- Packs/LlmApi/**
+- Packs/Git/**
+- Packs/Google/**
+- Packs/HomeInfra/**
+- Packs/HtmlDocs/**
+- Packs/Jira/**
+- Packs/Learn/**
 - Packs/Logstash/**
+- Packs/MailCraft/**
+- Packs/Mermaid/**
+- Packs/Notion/**
+- Packs/Obsidian/**
+- Packs/Outlook/**
+- Packs/PPTX/**
+- Packs/Parser/**
+- Packs/Personal/**
+- Packs/SkillForge/**
+- Packs/Swift/**
 - Packs/SystemAdmin/**
+- Packs/Tmux/**
+- Packs/TripPlanning/**
+- Packs/TypeScript/**
+- Packs/Uv/**
 - Packs/WorldThreatModelHarness/**
 - Packs/revealjs/**
 
