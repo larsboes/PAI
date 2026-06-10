@@ -53,7 +53,7 @@ These exist only in `~/.claude` and carry machine/personal specifics, so they ar
   (Only matters when launched via the `pai` launcher, which passes `--append-system-prompt-file`; plain `claude` doesn't load it. Identity also loads via LoadTelos regardless.)
 - **`~/.claude/.env`**, **`.pai-protected.json`** — secrets / protection config.
 
-**Privacy (F2) — verified clean 2026-06-09.** No vault content, no real personal data, and no secrets are committed: `git grep -w Lars -- 'Packs/**'` is empty; Personal/Telos packs reference the *mechanism* (`$VAULT_PATH`, `PERSONAL_CONTEXT.md`) not data; `.env`/credentials are untracked. **Known divergence:** this work put Lars-specific `$VAULT_PATH` references into the repo *release-template* `PAI_SYSTEM_PROMPT.md` and Algorithm `v6.4.0.md` LEARN-router — env-var *names*, not content, so still F2-clean, but the template is no longer fully generic. Harmless for Lars (his install source; LoadTelos skips a missing vault). **If ever publishing a clean generic release, genericize those two files back to the `USER/*_IDENTITY.md` convention.**
+**Privacy (F2) — verified clean 2026-06-09.** No vault content, no real personal data, and no secrets are committed: `git grep -w Lars -- 'Packs/**'` is empty; Personal/Telos packs reference the *mechanism* (`$VAULT_PATH`, `PERSONAL_CONTEXT.md`) not data; `.env`/credentials are untracked. **Template genericity restored 2026-06-10:** the earlier `$VAULT_PATH/Atlas/...` references in the release-template `PAI_SYSTEM_PROMPT.md` and Algorithm `v6.4.0.md` LEARN-router were reverted to upstream's generic `USER/DA_IDENTITY.md` / `USER/PRINCIPAL_IDENTITY.md` / `USER/TELOS/*` convention. The vault is now bridged to those standard paths by **install-time symlinks** (see §6), so the template is fully generic *and* identity stays private — no genericize-before-publish step needed.
 
 ## 4. Fork-only packs (41) — excluded from sync
 
@@ -77,7 +77,12 @@ Personal identity/goals live **only** in the private Obsidian vault (`$VAULT_PAT
 
 - `Releases/v5.0.0/.claude/hooks/LoadTelos.hook.ts` — SessionStart hook; reads `$VAULT_PATH`, injects TELOS as a `<system-reminder>`. Mirrors `LoadContext.hook.ts`'s contract. Toggle: `settings.json` `dynamicContext.telosContext`.
 - **Algorithm v6.4.0** consults TELOS (GOALS/MISSION/BELIEFS/CHALLENGES) when building Ideal State Criteria in OBSERVE, so planning aligns to the principal's actual goals.
-- **Break-3 repoint:** the Algorithm LEARN-router `identity` target and `PAI_SYSTEM_PROMPT.md` persona refs point at `$VAULT_PATH/Atlas/TELOS/{IDENTITY,SOUL}.md` — **not** `USER/DA_IDENTITY.md` / `USER/PRINCIPAL_IDENTITY.md` (which this fork does not use). This is a deliberate divergence from upstream's `USER/*_IDENTITY.md` convention.
+- **Identity via symlinks (2026-06-10 — replaces the v6.4.0 break-3 repoint).** Upstream's `USER/` convention is kept verbatim in `PAI_SYSTEM_PROMPT.md` and the Algorithm LEARN-router; `install.sh` symlinks those standard paths to the private vault:
+  - `USER/TELOS` → `$VAULT_PATH/Atlas/TELOS` (directory — covers GOALS/MISSION/BELIEFS/CHALLENGES/STRATEGIES/SOUL/IDENTITY/… and any new file)
+  - `USER/DA_IDENTITY.md` → `$VAULT_PATH/Atlas/TELOS/IDENTITY.md`
+  - `USER/PRINCIPAL_IDENTITY.md` → `$VAULT_PATH/Atlas/Personal/PERSONAL_CONTEXT.md`
+
+  The vault filenames are a **superset** of upstream's `USER/TELOS/*` names, so the directory symlink resolves every expected path. Net: the fork is *more* upstream-compliant (no `$VAULT_PATH` baked into template/Algorithm), the vault remains the private source of truth, and the ~29 packs referencing `PAI/USER` resolve to it. The symlinks live only in `~/.claude` (not git); recreate via `install.sh` (vault-guarded) or by hand. `LoadTelos.hook.ts` still injects TELOS at session start by reading `$VAULT_PATH` directly — belt-and-suspenders with the symlinks.
 - Orphan: `TelosSummarySync.hook.ts` targets a non-existent `PAI/USER/TELOS/` — legacy, do not build on it.
 
 ## 7. Upstream files modified in-place (keep on sync)
@@ -91,6 +96,11 @@ Tracked here so `sync.sh` can 3-way-merge rather than clobber. These are **upstr
 | `Packs/{Art,Media}/src/**` | removed Midjourney/Discord libs (6 files) + stale trigger keywords | upstream Art security removal |
 
 **Verified N/A to this fork** (do not re-flag): plansDirectory #672 (no such config key), case-colliding #621 (no `pai-observability-server`), wiki Algorithm #1273 (fork casing is internally consistent), PAI-Install #1267 (fork ships its own `install.sh`).
+
+## 8. Sibling repos & parked work
+
+- **Plugin marketplace → separate repo `larsboes/pai-marketplace`.** A Claude Code marketplace must be its own repo root with `.claude-plugin/marketplace.json` at the top (so `claude plugin marketplace add larsboes/pai-marketplace` works). It is **generated from the current `Packs/`** by `marketplace-sync.sh` (in this repo) — not hand-maintained, not committed here. Plugin→pack grouping (7 plugins: coding, content, devtools, terminal, skillsmeta, integrations, obsidian) lives in that script's mapping block. Re-run after adding/regrouping packs.
+- **PAI-on-Pi → parked on `feat/migrate-generic-skills`** (not on `main`). `Releases/Pi/` is a self-contained v1.0.0 port to the `pi` runtime (`@mariozechner/pi-coding-agent`): a `pai-core` extension (voice/security/session/PRD/learning), config, memory scaffold, and 9 simplified skills. **Based on PAI v4.0.3 — stale vs current Algorithm 6.4.0.** Revisit (modernize + cherry-pick) when actually running `pi`. The same branch also carries an alternate Packs taxonomy (Coding/Utilities/SkillsMeta mega-packs) — **do not** merge that wholesale; it conflicts with main's per-skill `Packs/`.
 
 ---
 

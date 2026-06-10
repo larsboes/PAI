@@ -83,6 +83,19 @@ cp "$RELEASE_DIR/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
 cp "$RELEASE_DIR/commands/"* "$CLAUDE_DIR/commands/" 2>/dev/null || true
 ok "Agents + Commands"
 
+# ── Identity symlinks (private vault → standard USER/ paths) ─
+# Bridges upstream's USER/ convention to the private Obsidian vault so identity
+# stays out of the repo. LoadTelos.hook.ts also guards a missing vault.
+if [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Atlas/TELOS" ]; then
+  mkdir -p "$CLAUDE_DIR/PAI/USER"
+  ln -sfn "$VAULT_PATH/Atlas/TELOS"                        "$CLAUDE_DIR/PAI/USER/TELOS"
+  ln -sfn "$VAULT_PATH/Atlas/TELOS/IDENTITY.md"            "$CLAUDE_DIR/PAI/USER/DA_IDENTITY.md"
+  ln -sfn "$VAULT_PATH/Atlas/Personal/PERSONAL_CONTEXT.md" "$CLAUDE_DIR/PAI/USER/PRINCIPAL_IDENTITY.md"
+  ok "TELOS vault symlinks (USER/ → \$VAULT_PATH)"
+else
+  info "VAULT_PATH unset / no Atlas/TELOS — skipping identity symlinks (LoadTelos guards this)"
+fi
+
 # ── Deploy skill Packs ─────────────────────────────────────
 info "Deploying skill Packs..."
 if [ -x "$SCRIPT_DIR/sync-deploy.sh" ]; then
