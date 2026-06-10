@@ -71,3 +71,7 @@ customizations:
   - path: Packs/Telos/src/SKILL.md
     reason: Added FocusAlignment sub-skill routing row + description keywords (fork-only skill)
     added: 2026-06-10
+
+  - path: .gitignore
+    reason: Fork-specific ignores (.marketplace-build build checkout for marketplace-sync.sh)
+    added: 2026-06-11
