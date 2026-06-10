@@ -12,7 +12,11 @@
 
 import { existsSync, writeFileSync, mkdirSync, readdirSync, unlinkSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
+
+// Socket path must look like "unix:/path" (or similar) — reject anything that
+// could carry shell metacharacters before it is ever passed to a subprocess.
+const SOCKET_PATH_RE = /^[a-zA-Z0-9_\-]+:[a-zA-Z0-9/_\-.]+$/;
 import { TAB_COLORS, PHASE_TAB_CONFIG, ACTIVE_TAB_BG, ACTIVE_TAB_FG, INACTIVE_TAB_FG, type TabState, type AlgorithmTabPhase } from './tab-constants';
 
 /** Detect if we're running inside cmux */
@@ -59,21 +63,21 @@ function setCmuxState(title: string, state: TabState, phase?: string): void {
     const config = phase ? PHASE_TAB_CONFIG[phase] : null;
     const phaseLabel = config ? `${config.symbol} ${phase}` : state.toUpperCase();
 
-    // Status pill: shows current phase/state at a glance
-    execSync(`cmux set-status phase "${phaseLabel}"`, { stdio: 'ignore', timeout: 2000 });
+    // Status pill: shows current phase/state at a glance.
+    // execFileSync (no shell) — title/phaseLabel are passed as argv, never interpolated.
+    execFileSync('cmux', ['set-status', 'phase', phaseLabel], { stdio: 'ignore', timeout: 2000 });
 
     // Log entry: shows what's happening with color-coded level
-    const escaped = title.replace(/"/g, '\\"');
-    execSync(`cmux log ${logLevel} "${escaped}"`, { stdio: 'ignore', timeout: 2000 });
+    execFileSync('cmux', ['log', logLevel, title], { stdio: 'ignore', timeout: 2000 });
 
     // Clear on idle/complete
     if (state === 'idle') {
-      execSync(`cmux clear-status phase`, { stdio: 'ignore', timeout: 2000 });
-      execSync(`cmux clear-progress`, { stdio: 'ignore', timeout: 2000 });
-      execSync(`cmux clear-log`, { stdio: 'ignore', timeout: 2000 });
+      execFileSync('cmux', ['clear-status', 'phase'], { stdio: 'ignore', timeout: 2000 });
+      execFileSync('cmux', ['clear-progress'], { stdio: 'ignore', timeout: 2000 });
+      execFileSync('cmux', ['clear-log'], { stdio: 'ignore', timeout: 2000 });
     }
 
-    console.error(`[tab-setter] cmux sidebar: "${phaseLabel}" — ${escaped}`);
+    console.error(`[tab-setter] cmux sidebar: "${phaseLabel}" — ${title}`);
   } catch (err) {
     console.error(`[tab-setter] cmux error:`, err);
   }
@@ -96,14 +100,15 @@ const KITTY_SESSIONS_DIR = paiPath('MEMORY', 'STATE', 'kitty-sessions');
 /**
  * Resolve the `kitten` binary path. When tab-setter runs from the Claude Code
  * process (inherits user PATH) `kitten` is on PATH. When it runs from the Pulse
- * daemon (launchd-restricted PATH) `kitten` is not on PATH and execSync fails
+ * daemon (launchd-restricted PATH) `kitten` is not on PATH and the lookup fails
  * with "command not found". Fall back to the kitty.app location.
  */
 let kittenBinCached: string | null = null;
 function kittenBin(): string {
   if (kittenBinCached) return kittenBinCached;
   try {
-    const path = execSync('command -v kitten', { encoding: 'utf-8', timeout: 1000 }).trim();
+    // `which` (no shell) instead of the shell builtin `command -v`.
+    const path = execFileSync('which', ['kitten'], { encoding: 'utf-8', timeout: 1000 }).trim();
     if (path) { kittenBinCached = path; return path; }
   } catch { /* fall through */ }
   kittenBinCached = '/Applications/kitty.app/Contents/MacOS/kitten';
@@ -214,12 +219,20 @@ function cleanupStaleStateFiles(): void {
     const defaultSocket = `/tmp/kitty-${process.env.USER}`;
     const socketPath = process.env.KITTY_LISTEN_ON || (existsSync(defaultSocket) ? `unix:${defaultSocket}` : null);
     if (!socketPath) return; // No socket — skip cleanup to avoid escape sequence IPC
-    const liveOutput = execSync(`kitten @ --to="${socketPath}" ls 2>/dev/null | jq -r ".[].tabs[].windows[].id" 2>/dev/null`, {
+    // Validate socket path before passing to execFileSync (prevent injection via env var)
+    if (!SOCKET_PATH_RE.test(socketPath)) return;
+    const rawLs = execFileSync(kittenBin(), ['@', `--to=${socketPath}`, 'ls'], {
       encoding: 'utf-8', timeout: 2000,
     }).trim();
-    if (!liveOutput) return;
+    if (!rawLs) return;
 
-    const liveIds = new Set(liveOutput.split('\n').map(id => id.trim()));
+    // Parse kitten's JSON directly instead of shelling out to jq.
+    const liveIds = new Set<string>();
+    try {
+      const osWindows = JSON.parse(rawLs) as Array<{ tabs: Array<{ windows: Array<{ id: number }> }> }>;
+      for (const os of osWindows) for (const tab of os.tabs) for (const win of tab.windows) liveIds.add(String(win.id));
+    } catch { return; }
+    if (liveIds.size === 0) return;
 
     for (const file of files) {
       const winId = file.replace('.json', '');
@@ -256,34 +269,30 @@ export function setTabState(opts: SetTabOptions): void {
       return;
     }
 
-    const escaped = title.replace(/"/g, '\\"');
     // Set BOTH tab title AND window title. Kitty's tab_title_template uses
     // {active_window.title} (the window title). OSC escape codes from Claude Code
     // reset set-tab-title overrides, so the template falls back to window title.
     // By setting both, our title survives OSC resets.
-    const toFlag = `--to="${kittyEnv.listenOn}"`;
+    // execFileSync (no shell): title/socket/window-id are argv elements, so no
+    // quoting/escaping is needed and shell injection is impossible.
+    const toArg = `--to=${kittyEnv.listenOn}`;
     // When called from a process without a focused kitty window (e.g. the Pulse
     // daemon) we must target by window id — otherwise kitten defaults to the
     // currently focused window, which may belong to a different session.
-    const matchFlag = kittyEnv.windowId ? `--match="id:${kittyEnv.windowId}"` : '';
+    const matchArg = kittyEnv.windowId ? `--match=id:${kittyEnv.windowId}` : null;
+    const matchArgs = matchArg ? [matchArg] : [];
     const kitten = kittenBin();
-    console.error(`[tab-setter] Setting tab: "${escaped}" with toFlag: ${toFlag} matchFlag: ${matchFlag}`);
-    execSync(`"${kitten}" @ ${toFlag} set-tab-title ${matchFlag} "${escaped}"`, { stdio: 'ignore', timeout: 2000 });
-    execSync(`"${kitten}" @ ${toFlag} set-window-title ${matchFlag} "${escaped}"`, { stdio: 'ignore', timeout: 2000 });
+    console.error(`[tab-setter] Setting tab: "${title}" via ${toArg} ${matchArg ?? '(no match)'}`);
+    execFileSync(kitten, ['@', toArg, 'set-tab-title', ...matchArgs, title], { stdio: 'ignore', timeout: 2000 });
+    execFileSync(kitten, ['@', toArg, 'set-window-title', ...matchArgs, title], { stdio: 'ignore', timeout: 2000 });
 
     // set-tab-color targets the current tab (--self) or a matched tab. Keep --self
     // when called from the tab's own process; add --match when called externally.
-    const colorTarget = matchFlag || '--self';
+    const colorTarget = matchArg ?? '--self';
     if (state === 'idle') {
-      execSync(
-        `"${kitten}" @ ${toFlag} set-tab-color ${colorTarget} active_bg=none active_fg=none inactive_bg=none inactive_fg=none`,
-        { stdio: 'ignore', timeout: 2000 }
-      );
+      execFileSync(kitten, ['@', toArg, 'set-tab-color', colorTarget, 'active_bg=none', 'active_fg=none', 'inactive_bg=none', 'inactive_fg=none'], { stdio: 'ignore', timeout: 2000 });
     } else {
-      execSync(
-        `"${kitten}" @ ${toFlag} set-tab-color ${colorTarget} active_bg=${ACTIVE_TAB_BG} active_fg=${ACTIVE_TAB_FG} inactive_bg=${colors.inactiveBg} inactive_fg=${INACTIVE_TAB_FG}`,
-        { stdio: 'ignore', timeout: 2000 }
-      );
+      execFileSync(kitten, ['@', toArg, 'set-tab-color', colorTarget, `active_bg=${ACTIVE_TAB_BG}`, `active_fg=${ACTIVE_TAB_FG}`, `inactive_bg=${colors.inactiveBg}`, `inactive_fg=${INACTIVE_TAB_FG}`], { stdio: 'ignore', timeout: 2000 });
     }
     console.error(`[tab-setter] Tab commands completed successfully`);
   } catch (err) {
@@ -437,9 +446,9 @@ export function setPhaseTab(phase: AlgorithmTabPhase, sessionId: string, summary
     try {
       const progress = phaseProgress[phase] ?? 0;
       if (progress > 0) {
-        execSync(`cmux set-progress ${progress}`, { stdio: 'ignore', timeout: 2000 });
+        execFileSync('cmux', ['set-progress', String(progress)], { stdio: 'ignore', timeout: 2000 });
       } else {
-        execSync(`cmux clear-progress`, { stdio: 'ignore', timeout: 2000 });
+        execFileSync('cmux', ['clear-progress'], { stdio: 'ignore', timeout: 2000 });
       }
     } catch { /* silent */ }
     return;
@@ -455,27 +464,21 @@ export function setPhaseTab(phase: AlgorithmTabPhase, sessionId: string, summary
       return;
     }
 
-    const escaped = title.replace(/"/g, '\\"');
-    const toFlag = `--to="${kittyEnv.listenOn}"`;
-    const matchFlag = kittyEnv.windowId ? `--match="id:${kittyEnv.windowId}"` : '';
-    const colorTarget = matchFlag || '--self';
+    const toArg = `--to=${kittyEnv.listenOn}`;
+    const matchArg = kittyEnv.windowId ? `--match=id:${kittyEnv.windowId}` : null;
+    const matchArgs = matchArg ? [matchArg] : [];
+    const colorTarget = matchArg ?? '--self';
     const kitten = kittenBin();
 
-    execSync(`"${kitten}" @ ${toFlag} set-tab-title ${matchFlag} "${escaped}"`, { stdio: 'ignore', timeout: 2000 });
-    execSync(`"${kitten}" @ ${toFlag} set-window-title ${matchFlag} "${escaped}"`, { stdio: 'ignore', timeout: 2000 });
+    execFileSync(kitten, ['@', toArg, 'set-tab-title', ...matchArgs, title], { stdio: 'ignore', timeout: 2000 });
+    execFileSync(kitten, ['@', toArg, 'set-window-title', ...matchArgs, title], { stdio: 'ignore', timeout: 2000 });
 
     if (phase === 'IDLE') {
-      execSync(
-        `"${kitten}" @ ${toFlag} set-tab-color ${colorTarget} active_bg=none active_fg=none inactive_bg=none inactive_fg=none`,
-        { stdio: 'ignore', timeout: 2000 }
-      );
+      execFileSync(kitten, ['@', toArg, 'set-tab-color', colorTarget, 'active_bg=none', 'active_fg=none', 'inactive_bg=none', 'inactive_fg=none'], { stdio: 'ignore', timeout: 2000 });
     } else {
-      execSync(
-        `"${kitten}" @ ${toFlag} set-tab-color ${colorTarget} active_bg=${ACTIVE_TAB_BG} active_fg=${ACTIVE_TAB_FG} inactive_bg=${config.inactiveBg} inactive_fg=${INACTIVE_TAB_FG}`,
-        { stdio: 'ignore', timeout: 2000 }
-      );
+      execFileSync(kitten, ['@', toArg, 'set-tab-color', colorTarget, `active_bg=${ACTIVE_TAB_BG}`, `active_fg=${ACTIVE_TAB_FG}`, `inactive_bg=${config.inactiveBg}`, `inactive_fg=${INACTIVE_TAB_FG}`], { stdio: 'ignore', timeout: 2000 });
     }
-    console.error(`[tab-setter] Phase tab: "${escaped}" (${phase}, bg=${config.inactiveBg})`);
+    console.error(`[tab-setter] Phase tab: "${title}" (${phase}, bg=${config.inactiveBg})`);
   } catch (err) {
     console.error(`[tab-setter] Error setting phase tab:`, err);
   }

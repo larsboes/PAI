@@ -46,3 +46,20 @@ customizations:
   - path: Packs/Webdesign/README.md
     reason: Customized for our integration patterns
     added: 2026-05-11
+
+  # ── Fork Algorithm doctrine + identity wiring (2026-06-09) ───────────
+  - path: Releases/v5.0.0/.claude/PAI/ALGORITHM/LATEST
+    reason: Fork Algorithm version pointer (6.4.0 — TELOS-aware); never take upstream's
+    added: 2026-06-09
+
+  - path: Releases/v5.0.0/.claude/PAI/ALGORITHM/changelog.md
+    reason: Fork Algorithm changelog (v6.4.0 TELOS C/R/L history)
+    added: 2026-06-09
+
+  - path: Releases/v5.0.0/.claude/PAI/PAI_SYSTEM_PROMPT.md
+    reason: Identity/persona refs repointed to private vault (break-3); not USER/*_IDENTITY.md
+    added: 2026-06-09
+
+  - path: Releases/v5.0.0/.claude/hooks/lib/tab-setter.ts
+    reason: execFileSync security port + fork-only cmux call sites (diverges from upstream)
+    added: 2026-06-09
