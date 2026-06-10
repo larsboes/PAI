@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
 #  PAI Fork Install — larsboes/PAI
-#  Installs PAI v5.0.0 system to ~/.claude/ and deploys skill Packs
+#  Installs the latest PAI release (auto-detected from Releases/) to ~/.claude/
+#  and deploys skill Packs. Override the release with PAI_RELEASE=vX.Y.Z.
 #
 #  Usage: bash install.sh
 # ═══════════════════════════════════════════════════════════
@@ -14,7 +15,12 @@ warn() { echo -e "  ${YELLOW}⚠${RESET} $1"; }
 fail() { echo -e "  ${RED}✗${RESET} $1"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-RELEASE_DIR="$SCRIPT_DIR/Releases/v5.0.0/.claude"
+# Auto-detect the newest Releases/vX.Y.Z dir (semver order) so install always ships
+# the latest release + the Algorithm version it carries. Override: PAI_RELEASE=v5.0.0
+RELEASE_VER="${PAI_RELEASE:-$(ls -1d "$SCRIPT_DIR"/Releases/v*/ 2>/dev/null | xargs -n1 basename | sort -V | tail -1)}"
+[ -n "$RELEASE_VER" ] || fail "No Releases/v* directory found"
+RELEASE_DIR="$SCRIPT_DIR/Releases/$RELEASE_VER/.claude"
+[ -d "$RELEASE_DIR" ] || fail "Release dir missing: $RELEASE_DIR"
 CLAUDE_DIR="$HOME/.claude"
 ALGO_VERSION="$(cat "$RELEASE_DIR/PAI/ALGORITHM/LATEST" 2>/dev/null || echo '?.?.?')"
 
@@ -36,7 +42,7 @@ if [ -d "$CLAUDE_DIR/PAI" ]; then
 fi
 
 # ── Install system from release ────────────────────────────
-info "Installing PAI system from Releases/v5.0.0..."
+info "Installing PAI system from Releases/${RELEASE_VER}..."
 
 mkdir -p "$CLAUDE_DIR/PAI/Algorithm"
 cp -r "$RELEASE_DIR/PAI/ALGORITHM/"* "$CLAUDE_DIR/PAI/Algorithm/"
