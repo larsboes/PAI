@@ -41,8 +41,19 @@ Deploy paths:
 These exist only in `~/.claude` and carry machine/personal specifics, so they are intentionally untracked. To reproduce on a new machine:
 
 - **`~/.claude/CLAUDE.md`** — operational rules + context routing. Personal context is loaded by the **LoadTelos hook** (§6), not by `@import`. (Claude Code does **not** expand `${VAULT_PATH}` in `@import` paths — that pattern silently fails; the hook reads the env var instead.)
-- **`~/.claude/settings.json`** — must register on **SessionStart**: `LoadTelos.hook.ts`, `LoadContext.hook.ts`. Optional `dynamicContext.telosContext: false` to disable TELOS injection. (`PreToolUse` → `SecurityPipeline.hook.ts` is already present.)
+- **`~/.claude/settings.json`** — registers the hook lifecycle (reproduce verbatim; Claude Code rejects unknown top-level keys, so DA/principal names can NOT live here):
+  - **SessionStart:** `KittyEnvPersist`, `LoadTelos`, `LoadContext`, `KVSync`(async)
+  - **UserPromptSubmit:** `PromptGuard`(sync,10s), `PromptProcessing`(async,30s — the Sonnet mode/tier classifier), `RepeatDetection`(5s), `SatisfactionCapture`(async,20s)
+  - **SessionEnd:** `WorkCompletionLearning`, `SessionCleanup`, `RelationshipMemory`, `UpdateCounts`, `IntegrityCheck`
+  - **PreCompact:** `PreCompact`
+  - **PreToolUse:** `SecurityPipeline` (Bash/Read/Write/Edit/MultiEdit)
+  - Optional `dynamicContext.telosContext: false` disables TELOS injection. Deferred (add if wanted): full SessionEnd `ULWorkSync`(missing file), `Stop`/`PostToolUse` observability + voice (Pulse-dependent).
+- **`~/.claude/PAI/PAI_SYSTEM_PROMPT.md`** — **resolved** copy: `{{DA_NAME}}`/`{{DA_FULL_NAME}}`→`Jarvis`, `{{PRINCIPAL_NAME}}`→`Lars`. The repo/release copy stays **tokenized** (generic template, zero personal names — F2-clean). `install.sh` `cp`s the tokenized template raw and does NOT substitute, so re-resolve after install:
+  `sed -i 's/{{DA_FULL_NAME}}/Jarvis/g; s/{{DA_NAME}}/Jarvis/g; s/{{PRINCIPAL_NAME}}/Lars/g' ~/.claude/PAI/PAI_SYSTEM_PROMPT.md`
+  (Only matters when launched via the `pai` launcher, which passes `--append-system-prompt-file`; plain `claude` doesn't load it. Identity also loads via LoadTelos regardless.)
 - **`~/.claude/.env`**, **`.pai-protected.json`** — secrets / protection config.
+
+**Privacy (F2) — verified clean 2026-06-09.** No vault content, no real personal data, and no secrets are committed: `git grep -w Lars -- 'Packs/**'` is empty; Personal/Telos packs reference the *mechanism* (`$VAULT_PATH`, `PERSONAL_CONTEXT.md`) not data; `.env`/credentials are untracked. **Known divergence:** this work put Lars-specific `$VAULT_PATH` references into the repo *release-template* `PAI_SYSTEM_PROMPT.md` and Algorithm `v6.4.0.md` LEARN-router — env-var *names*, not content, so still F2-clean, but the template is no longer fully generic. Harmless for Lars (his install source; LoadTelos skips a missing vault). **If ever publishing a clean generic release, genericize those two files back to the `USER/*_IDENTITY.md` convention.**
 
 ## 4. Fork-only packs (41) — excluded from sync
 
