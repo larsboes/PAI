@@ -63,3 +63,11 @@ customizations:
   - path: Releases/v5.0.0/.claude/hooks/lib/tab-setter.ts
     reason: execFileSync security port + fork-only cmux call sites (diverges from upstream)
     added: 2026-06-09
+
+  - path: Packs/Thinking/src/SKILL.md
+    reason: Added BrainDump sub-skill routing row + description keywords (fork-only skill)
+    added: 2026-06-10
+
+  - path: Packs/Telos/src/SKILL.md
+    reason: Added FocusAlignment sub-skill routing row + description keywords (fork-only skill)
+    added: 2026-06-10
