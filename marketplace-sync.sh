@@ -95,6 +95,7 @@ for entry in "${PLUGINS[@]}"; do
     if [ ! -d "$src" ]; then warn "[$key] pack '$pack' has no src/ — skipped"; continue; fi
     rsync -a --delete \
       --exclude 'node_modules' --exclude '.git' --exclude 'dist' --exclude '*.log' \
+      --exclude '.cursor' --exclude '.DS_Store' \
       "$src/" "$pdir/skills/$pack/"
     count=$((count+1)); TOTAL_SKILLS=$((TOTAL_SKILLS+1)); ASSIGNED="$ASSIGNED $pack"
   done
