@@ -72,7 +72,7 @@ if [ -d "$BUILD_DIR/.git" ]; then
   info "Updating build checkout…"
   git -C "$BUILD_DIR" fetch -q origin && git -C "$BUILD_DIR" reset -q --hard origin/HEAD 2>/dev/null || true
 else
-  info "Cloning $MARKET_REPO…"
+  info "Cloning ${MARKET_REPO}…"
   git clone -q "$MARKET_REPO" "$BUILD_DIR" 2>/dev/null || { mkdir -p "$BUILD_DIR"; git -C "$BUILD_DIR" init -q; git -C "$BUILD_DIR" remote add origin "$MARKET_REPO" 2>/dev/null || true; }
 fi
 
