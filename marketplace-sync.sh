@@ -29,34 +29,18 @@ BUILD_DIR="${MARKET_BUILD_DIR:-$SCRIPT_DIR/.marketplace-build}"
 PUSH=0; [ "${1:-}" = "--push" ] && PUSH=1
 
 MARKET_NAME="pai-skills"
-MARKET_DESC="PAI skill marketplace — coding, content, devtools, terminal, integrations, thinking, and more"
+MARKET_DESC="PAI skill marketplace — one installable plugin per PAI pack"
 OWNER="Lars Boes"
 
-# ── Plugin taxonomy ─────────────────────────────────────────
-# One entry per plugin: "key|description". Membership in PLUGIN_PACKS below.
-# Edit freely — re-run to regenerate. Unassigned packs are reported, never dropped silently.
-PLUGINS=(
-  "coding|TypeScript, Swift, Python/uv, architecture, data engineering, APIs, Docker, CI/CD"
-  "content|HTML docs, Mermaid diagrams, office documents, video, content extraction"
-  "devtools|Context7 docs, deep debugging, web/UI design, security, git, evals, browser"
-  "terminal|cmux + tmux multiplexer control, background daemons, loop patterns"
-  "skillsmeta|Skill forge, skill creation, PAI upgrade, prompting — meta tooling"
-  "integrations|GitHub, Google, Notion, Jira, Confluence, Outlook, mail, cloud, metrics"
-  "obsidian|Obsidian vault + knowledge base + OSINT investigation"
-  "thinking|First principles, systems thinking, council, red team, ideation, research"
-)
-
-# Plugin → packs (space-separated current Packs/ dir names).
-declare -A PLUGIN_PACKS=(
-  [coding]="Architecture ApiPatterns DataEngineer FluentBit Logstash Swift TypeScript Uv CreateCLI DevOps Docker Bazel DevWorkflow"
-  [content]="HtmlDocs Mermaid Documents PPTX ContentAnalysis ExtractWisdom Parser Remotion Art Media revealjs"
-  [devtools]="Context7 Deep Webdesign Security Git Evals Interceptor Browser BrightData Apify Scraping"
-  [terminal]="Cmux Tmux Daemon Loop"
-  [skillsmeta]="SkillForge CreateSkill PAIUpgrade Prompting BitterPillEngineering"
-  [integrations]="Google Notion Confluence Jira Outlook MailCraft Azure Cloudflare USMetrics"
-  [obsidian]="Obsidian Knowledge Investigation"
-  [thinking]="Thinking Council RedTeam FirstPrinciples SystemsThinking RootCauseAnalysis IterativeDepth ApertureOscillation BlindSpot Brainstorm BeCreative Ideate Science Research"
-)
+# ── Publishing model ────────────────────────────────────────
+# ONE plugin per pack: every Packs/<Name>/src that has a SKILL.md becomes its own
+# plugin, mirroring PAI 1:1. Each plugin's description is read from the pack's own
+# SKILL.md frontmatter.
+#
+# Packs are TOOLING — private data lives in the Obsidian vault (USER/), never in a pack,
+# and the PAI source repo is already public. So nothing is excluded by default. Add a pack
+# dir name here only if a specific pack ever embeds runtime secrets/PII.
+EXCLUDE_PACKS=""
 
 command -v jq &>/dev/null || fail "jq not found"
 command -v git &>/dev/null || fail "git not found"
@@ -80,46 +64,52 @@ fi
 rm -rf "$BUILD_DIR/.claude-plugin" "$BUILD_DIR/marketplace"
 mkdir -p "$BUILD_DIR/.claude-plugin" "$BUILD_DIR/marketplace/plugins"
 
-# ── Generate plugins ────────────────────────────────────────
+# ── Generate one plugin per pack ────────────────────────────
 PLUGIN_JSON_ENTRIES=()
 TOTAL_SKILLS=0
-ASSIGNED=""
+EXCLUDED=""
 
-for entry in "${PLUGINS[@]}"; do
-  key="${entry%%|*}"; desc="${entry#*|}"
+for pack in $(ls -1 "$PACKS_DIR"); do
+  src="$PACKS_DIR/$pack/src"
+  [ -d "$src" ] || continue
+  [ -f "$src/SKILL.md" ] || { warn "$pack has src/ but no SKILL.md — skipped"; continue; }
+  case " $EXCLUDE_PACKS " in *" $pack "*) EXCLUDED="$EXCLUDED $pack"; continue ;; esac
+
+  # plugin slug: CamelCase pack dir → kebab-case lowercase (e.g. ApiPatterns → api-patterns)
+  key=$(printf '%s' "$pack" | sed -E 's/([a-z0-9])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]')
+  # description from the pack's own SKILL.md frontmatter (first line); fall back to pack name
+  desc=$(awk 'NR>1 && /^---[[:space:]]*$/{exit} sub(/^description:[[:space:]]*/,""){print; exit}' "$src/SKILL.md" | sed -E 's/^"//; s/"$//')
+  [ -n "$desc" ] || desc="$pack"
+
   pdir="$BUILD_DIR/marketplace/plugins/$key"
   mkdir -p "$pdir/.claude-plugin" "$pdir/skills"
-  count=0
-  for pack in ${PLUGIN_PACKS[$key]:-}; do
-    src="$PACKS_DIR/$pack/src"
-    if [ ! -d "$src" ]; then warn "[$key] pack '$pack' has no src/ — skipped"; continue; fi
-    rsync -a --delete \
-      --exclude 'node_modules' --exclude '.git' --exclude 'dist' --exclude '*.log' \
-      --exclude '.cursor' --exclude '.DS_Store' \
-      "$src/" "$pdir/skills/$pack/"
-    count=$((count+1)); TOTAL_SKILLS=$((TOTAL_SKILLS+1)); ASSIGNED="$ASSIGNED $pack"
-  done
+  rsync -a --delete \
+    --exclude 'node_modules' --exclude '.git' --exclude 'dist' --exclude '*.log' \
+    --exclude '.cursor' --exclude '.DS_Store' \
+    "$src/" "$pdir/skills/$pack/"
   jq -n --arg n "$key" --arg d "$desc" --arg a "$OWNER" \
     '{name:$n, description:$d, author:{name:$a}}' > "$pdir/.claude-plugin/plugin.json"
   PLUGIN_JSON_ENTRIES+=("$(jq -n --arg n "$key" --arg s "./marketplace/plugins/$key" --arg d "$desc" \
     '{name:$n, source:$s, description:$d, strict:false}')")
-  ok "$key — $count skills"
+  TOTAL_SKILLS=$((TOTAL_SKILLS+1))
+  ok "$key"
 done
+
+NUM_PLUGINS=${#PLUGIN_JSON_ENTRIES[@]}
 
 # ── Root marketplace.json ───────────────────────────────────
 printf '%s\n' "${PLUGIN_JSON_ENTRIES[@]}" | jq -s \
   --arg n "$MARKET_NAME" --arg o "$OWNER" --arg d "$MARKET_DESC" \
   '{name:$n, owner:{name:$o}, metadata:{description:$d}, plugins:.}' \
   > "$BUILD_DIR/.claude-plugin/marketplace.json"
-ok "marketplace.json (${#PLUGINS[@]} plugins, $TOTAL_SKILLS skills)"
+ok "marketplace.json ($NUM_PLUGINS plugins, one per pack)"
 
-# ── Report unassigned packs (no silent drops) ───────────────
+# ── Report excluded packs (no silent drops) ─────────────────
 echo ""
-info "Unassigned packs (not in any plugin — add to PLUGIN_PACKS to include):"
-for pack in $(ls -1 "$PACKS_DIR"); do
-  [ -d "$PACKS_DIR/$pack/src" ] || continue
-  case " $ASSIGNED " in *" $pack "*) : ;; *) echo "     · $pack" ;; esac
-done
+if [ -n "$EXCLUDED" ]; then
+  info "Excluded (private — edit EXCLUDE_PACKS to change):"
+  for p in $EXCLUDED; do echo "     · $p"; done
+fi
 
 # ── README for the marketplace repo ─────────────────────────
 cat > "$BUILD_DIR/README.md" <<EOF
@@ -129,12 +119,12 @@ A Claude Code plugin marketplace generated from [larsboes/PAI](https://github.co
 
 \`\`\`
 /plugin marketplace add larsboes/pai-marketplace
-/plugin install coding@${MARKET_NAME}
+/plugin install typescript@${MARKET_NAME}
 \`\`\`
 
-**Plugins:** $(printf '%s, ' "${PLUGINS[@]%%|*}" | sed 's/, $//')
+**Plugins:** one per PAI pack ($NUM_PLUGINS total).
 
-> Generated by \`marketplace-sync.sh\` in the PAI repo — do not hand-edit; edit the mapping there and re-run.
+> Generated by \`marketplace-sync.sh\` in the PAI repo — do not hand-edit; edit the source packs there and re-run.
 EOF
 
 # ── Push ────────────────────────────────────────────────────
