@@ -193,8 +193,8 @@ export const PREDEFINED_THEME_NAMES: ThemeName[] = [
 ];
 
 // Color validation regex
-export const COLOR_SVCEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-export const RGBA_SVCEX = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d?(?:\.\d+)?))?\)$/;
+export const COLOR_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+export const RGBA_REGEX = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d?(?:\.\d+)?))?\)$/;
 
 // Theme metadata
 export const THEME_METADATA = {

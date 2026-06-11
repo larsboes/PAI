@@ -120,7 +120,7 @@ curl -X POST "https://api.brightdata.com/datasets/v3/trigger?dataset_id=CRAWL_DA
   -d '[{
     "url": "[STARTING_URL]",
     "crawl_depth": [DEPTH],
-    "url_filter": "[SVCEX_PATTERN]",
+    "url_filter": "[REGEX_PATTERN]",
     "format": "markdown"
   }]'
 ```

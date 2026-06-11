@@ -133,7 +133,7 @@ bun run ~/.claude/skills/Art/Tools/Generate.ts \
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⚠️  FACE ONLY: Forehead to chin, ear to ear                        ⚠️
 ⚠️  NO shoulders, NO neck, NO body visible                         ⚠️
-⚠️  If shoulders/body visible → SVCENERATE IMMEDIATELY             ⚠️
+⚠️  If shoulders/body visible → REGENERATE IMMEDIATELY             ⚠️
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

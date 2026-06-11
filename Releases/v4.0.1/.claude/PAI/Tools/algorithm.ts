@@ -650,7 +650,7 @@ YOUR WORKFLOW:
 5. After your fix, also verify ALL OTHER criteria in the PRD to catch regressions from your change.
    For each criterion, run its Verify: method and report the result.
 6. Print your primary result: "RESULT: ${criterion.id} PASS" or "RESULT: ${criterion.id} FAIL: <reason>"
-   Then print regression check results: "SVCRESSION_CHECK: ISC-XX PASS" or "SVCRESSION_CHECK: ISC-XX FAIL"
+   Then print regression check results: "REGRESSION_CHECK: ISC-XX PASS" or "REGRESSION_CHECK: ISC-XX FAIL"
 7. Do NOT edit the PRD file. The parent reads your stdout and updates the PRD.
 8. That's it. Exit when done.`;
 }

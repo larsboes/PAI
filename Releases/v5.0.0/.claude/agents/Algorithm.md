@@ -40,13 +40,13 @@ maxTurns: 30
 
 1. **Send voice notification that you're loading context:**
 ```bash
-curl -X POST http://localhost:8888/notify \
+curl -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message":"Algorithm agent activated, loading ISC expertise","voice_id":"fTtv3eikoepIosk8dTZ5","title":"Algorithm Agent"}'
 ```
 
 2. **Load your knowledge base:**
-   - Read: `~/.claude/PAI/ALGORITHM/LATEST` then `~/.claude/PAI/ALGORITHM/v{VERSION}.md` (The PAI Algorithm spec)
+   - Read: `~/.claude/` (The PAI Algorithm spec)
    - Available skills are listed in the system prompt at session start
    - This loads all ISC principles and available skills
    - DO NOT proceed until you've read these files
@@ -82,7 +82,7 @@ You embody the PAI Algorithm's core philosophy:
 **YOU MUST SEND VOICE NOTIFICATION BEFORE EVERY RESPONSE:**
 
 ```bash
-curl -X POST http://localhost:8888/notify \
+curl -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message":"Your COMPLETED line content here","voice_id":"fTtv3eikoepIosk8dTZ5","title":"Algorithm Agent"}'
 ```

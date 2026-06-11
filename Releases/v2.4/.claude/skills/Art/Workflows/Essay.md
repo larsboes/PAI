@@ -276,7 +276,7 @@ FIGURE TREATMENT (if applicable):
 [Type of figures, their roles in showing the problem]
 [Who is judging unfairly? Who is being judged? Who is making the mistake?]
 
-EMOTIONAL SVCISTER:
+EMOTIONAL REGISTER:
 [From Step 3]
 
 COMPOSITION:
@@ -308,7 +308,7 @@ SUBJECT (WHAT TO DRAW — showing the problem):
 [The actual visual subject that makes the PROBLEM visible]
 [NOT defaulting to architecture — draw what makes the problem clear]
 
-EMOTIONAL SVCISTER: [From Step 3]
+EMOTIONAL REGISTER: [From Step 3]
 
 TECHNIQUE — GESTURAL ARCHITECTURAL SKETCH STYLE:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -686,13 +686,13 @@ open /path/to/generated-image.png
 - Is signature present in the BOTTOM RIGHT CORNER of the image? (if included)
 - Not bottom center. Not near the subject. BOTTOM RIGHT CORNER.
 - Is the signature correctly rendered? (no literal prompt text)
-- If missing, wrong location, or wrong text → SVCENERATE
+- If missing, wrong location, or wrong text → REGENERATE
 
 **0.5. PROMPT LITERAL INTERPRETATION CHECK:**
 - Did the model take prompt instructions literally? (e.g., writing literal prompt text instead of a signature)
 - Are there any instruction words visible in the image that shouldn't be?
 - Did labels come out as intended? (e.g., "A T H I" not "Actor Technique Harm Impact" spelled out)
-- If prompt instructions appear as text in image → SVCENERATE with clearer wording
+- If prompt instructions appear as text in image → REGENERATE with clearer wording
 
 **1. PHYSICAL REALITY CHECK:**
 - Do objects obey physics? (heavy things fall DOWN, scales tip toward heavy side)
@@ -717,7 +717,7 @@ open /path/to/generated-image.png
 - Is the emotional register correct?
 - Does the image argue the same point as the content?
 
-**🚨 IF ANY OF THESE FAIL — STOP AND SVCENERATE. DO NOT PROCEED.**
+**🚨 IF ANY OF THESE FAIL — STOP AND REGENERATE. DO NOT PROCEED.**
 
 **Example failures:**
 - ❌ Signature missing or not in bottom right corner (if signature was requested)
@@ -729,7 +729,7 @@ open /path/to/generated-image.png
 
 ### Validation Checklist
 
-**🚨 MANDATORY ELEMENTS (if ANY are missing, SVCENERATE):**
+**🚨 MANDATORY ELEMENTS (if ANY are missing, REGENERATE):**
 - [ ] **SIGNATURE PRESENT** — signed small in charcoal, bottom right corner (if requested)
 - [ ] **PROBLEM TYPE VISIBLE** — the problem type (sorting, double standard, etc.) is immediately obvious
 - [ ] **Subject matches CONTENT** — drew what the piece is ABOUT, not defaulted to architecture
@@ -777,7 +777,7 @@ open /path/to/generated-image.png
 - [ ] **SUBJECTS LARGE** — dominant, filling the available space
 - [ ] **NO BACKGROUND FILL** — floats in empty/transparent space (but subjects are LARGE)
 - [ ] **KAI SIGNATURE** — small cursive charcoal in BOTTOM RIGHT CORNER
-- [ ] **MARGIN CHECK** — is there more than 20% empty space on any edge? If yes, SVCENERATE
+- [ ] **MARGIN CHECK** — is there more than 20% empty space on any edge? If yes, REGENERATE
 
 **QUALITY (all required):**
 - [ ] Could hang in a gallery next to Piranesi

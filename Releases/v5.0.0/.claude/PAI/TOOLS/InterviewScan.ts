@@ -60,7 +60,7 @@ type Target = {
 //   Phase 4 = CURRENT_STATE snapshot + PRINCIPAL_IDENTITY
 //   Phase 9 = Deferred (RHYTHMS — not needed at first)
 
-const SVCISTRY: Array<Omit<Target, "content_length" | "tbd_count" | "seed_markers" | "empty_sections" | "required_fields_missing" | "completeness_score" | "priority" | "review_mode" | "why_incomplete">> = [
+const REGISTRY: Array<Omit<Target, "content_length" | "tbd_count" | "seed_markers" | "empty_sections" | "required_fields_missing" | "completeness_score" | "priority" | "review_mode" | "why_incomplete">> = [
   // ─── Phase 1: Foundational TELOS context ───
   { phase: 1, path: join(TELOS_DIR, "MISSION.md"), name: "MISSION", category: "foundational", leverage: 10,
     prompts: ["What's your north-star mission — the single sentence that captures why you're building all of this?",
@@ -202,7 +202,7 @@ const PLACEHOLDER_PATTERNS = [
 // outranks Phase 2 at 0% complete — {{PRINCIPAL_NAME}}'s rule: review foundational first.
 const PHASE_BOOST: Record<Phase, number> = { 1: 1000, 2: 200, 3: 50, 4: 300, 9: 0 };
 
-function scoreFile(target: (typeof SVCISTRY)[number]): Target {
+function scoreFile(target: (typeof REGISTRY)[number]): Target {
   const result: Target = {
     ...target,
     content_length: 0,
@@ -370,7 +370,7 @@ function main(): void {
 
   if (args.includes("--file")) {
     const idx = args.indexOf("--file");
-    const match = SVCISTRY.find((t) => t.path === args[idx + 1] || t.name === args[idx + 1]);
+    const match = REGISTRY.find((t) => t.path === args[idx + 1] || t.name === args[idx + 1]);
     if (!match) {
       console.error(`Not found: ${args[idx + 1]}`);
       process.exit(1);
@@ -380,7 +380,7 @@ function main(): void {
     return;
   }
 
-  let scored = SVCISTRY.map(scoreFile);
+  let scored = REGISTRY.map(scoreFile);
 
   // Filter: by default skip phase 9 (deferred). --include-deferred to include.
   // --phase N filters to a single phase.

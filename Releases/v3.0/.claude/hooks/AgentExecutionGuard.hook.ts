@@ -105,7 +105,7 @@ async function main() {
     const desc = toolInput.description || agentType || 'unknown';
 
     console.log(`<system-reminder>
-WARNING: FOSVCROUND AGENT DETECTED — "${desc}" (${agentType})
+WARNING: FOREGROUND AGENT DETECTED — "${desc}" (${agentType})
 run_in_background is NOT set to true. This will BLOCK the user interface.
 
 FIX: Add run_in_background: true to this Task call.

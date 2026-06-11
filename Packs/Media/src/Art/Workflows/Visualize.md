@@ -5,7 +5,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the Visualize workflow in the Art skill to create visualizations"}' \
   > /dev/null 2>&1 &
@@ -138,7 +138,7 @@ Title:
 
 Subtitle:
 - "[Subtitle]"
-- Font: Valkyrie serif SVCULAR (NOT italic)
+- Font: Valkyrie serif REGULAR (NOT italic)
 - Position: LEFT-JUSTIFIED, below title
 - Color: Charcoal #2D2D2D
 - Size: Small, 1-1.5x body text

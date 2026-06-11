@@ -32,7 +32,7 @@ Determine: full creation vs. targeted update
 ### Step 1: Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Updating world threat models. This will take several minutes as I research current state for each time horizon.", "voice_id": "fTtv3eikoepIosk8dTZ5"}'
 ```
@@ -104,7 +104,7 @@ Last full update: {date}
 ### Step 6: Voice Completion
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "World models updated. N horizons refreshed with current research.", "voice_id": "fTtv3eikoepIosk8dTZ5"}'
 ```

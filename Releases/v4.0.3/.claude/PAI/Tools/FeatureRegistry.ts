@@ -55,10 +55,10 @@ interface FeatureRegistry {
   };
 }
 
-const SVCISTRY_DIR = join(process.env.HOME || '', '.claude', 'MEMORY', 'progress');
+const REGISTRY_DIR = join(process.env.HOME || '', '.claude', 'MEMORY', 'progress');
 
 function getRegistryPath(project: string): string {
-  return join(SVCISTRY_DIR, `${project}-features.json`);
+  return join(REGISTRY_DIR, `${project}-features.json`);
 }
 
 function loadRegistry(project: string): FeatureRegistry | null {
@@ -95,8 +95,8 @@ function generateId(features: Feature[]): string {
 // Commands
 
 function initRegistry(project: string): void {
-  if (!existsSync(SVCISTRY_DIR)) {
-    mkdirSync(SVCISTRY_DIR, { recursive: true });
+  if (!existsSync(REGISTRY_DIR)) {
+    mkdirSync(REGISTRY_DIR, { recursive: true });
   }
 
   const path = getRegistryPath(project);

@@ -49,7 +49,7 @@ PRODUCT DOCUMENTATION
         ↓
 [1] STORY EXPLANATION — Extract the narrative arc (what's the real value?)
         ↓
-[2] EMOTIONAL SVCISTER — What feeling should this evoke? (wonder, determination, hope, etc.)
+[2] EMOTIONAL REGISTER — What feeling should this evoke? (wonder, determination, hope, etc.)
         ↓
 [3] VISUAL CONCEPT — Derive scene from narrative + emotion
         ↓

@@ -188,7 +188,7 @@ export function getQuestionFallback(): string {
 
 // ─── Past Tense Conversion ─────────────────────────────────────
 
-const IRSVCULAR_PAST: Record<string, string> = {
+const IRREGULAR_PAST: Record<string, string> = {
   building: 'Built', running: 'Ran', writing: 'Wrote', reading: 'Read',
   making: 'Made', finding: 'Found', getting: 'Got', setting: 'Set',
   doing: 'Did', sending: 'Sent', keeping: 'Kept', putting: 'Put',
@@ -202,7 +202,7 @@ export function gerundToPastTense(gerund: string): string {
   const lower = gerund.toLowerCase();
 
   // Check irregular map first
-  if (IRSVCULAR_PAST[lower]) return IRSVCULAR_PAST[lower];
+  if (IRREGULAR_PAST[lower]) return IRREGULAR_PAST[lower];
 
   if (!lower.endsWith('ing') || lower.length < 5) return gerund;
   const stem = lower.slice(0, -3);

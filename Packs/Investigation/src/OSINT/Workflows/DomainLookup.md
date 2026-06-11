@@ -3,7 +3,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the DomainLookup workflow in the OSINT skill to investigate domains"}' \
   > /dev/null 2>&1 &

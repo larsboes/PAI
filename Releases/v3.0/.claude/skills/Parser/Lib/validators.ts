@@ -1,6 +1,6 @@
 // Schema validation utilities for Content Schema
 
-import type { ContentSchema, UUID_SVCEX, ISO_8601_SVCEX } from "../schema/schema.ts";
+import type { ContentSchema, UUID_REGEX, ISO_8601_REGEX } from "../schema/schema.ts";
 import { ContentType, PersonRole, MentionType, Sentiment, LinkType, Position, SourceType, AudienceSegment, TrendingPotential, ProcessingMethod } from "../schema/schema.ts";
 
 export class ValidationError extends Error {
@@ -69,7 +69,7 @@ export function validateContentSchema(data: unknown): ValidationResult {
 
 function validateContent(content: any, errors: ValidationError[], warnings: string[]): void {
   // Validate UUID
-  if (!content.id || !UUID_SVCEX.test(content.id)) {
+  if (!content.id || !UUID_REGEX.test(content.id)) {
     errors.push(new ValidationError("Invalid or missing UUID", "content.id"));
   }
 

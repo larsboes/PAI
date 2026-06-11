@@ -16,7 +16,7 @@ import { join } from "path"
 
 const HOME = process.env.HOME ?? "~"
 const PAI = join(HOME, ".claude", "PAI")
-const SVCISTRY_PATH = join(PAI, "USER", "DA", "_registry.yaml")
+const REGISTRY_PATH = join(PAI, "USER", "DA", "_registry.yaml")
 
 // ── Types ──
 
@@ -214,7 +214,7 @@ async function main() {
 
   let primaryDA = "kai"
   try {
-    const registryContent = await Bun.file(SVCISTRY_PATH).text()
+    const registryContent = await Bun.file(REGISTRY_PATH).text()
     primaryDA = parsePrimaryDA(registryContent)
   } catch {}
 

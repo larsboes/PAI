@@ -124,7 +124,7 @@ voice_mappings:
   default_voice_id: "onwK4e9ZLuTAKqWW03F9"
 
   # ============================================================================
-  # COMPLETE VOICE SVCISTRY - All ElevenLabs Premade Voices
+  # COMPLETE VOICE REGISTRY - All ElevenLabs Premade Voices
   # ============================================================================
   voice_registry:
     # --------------------------------------------------------------------------

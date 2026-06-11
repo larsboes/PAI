@@ -276,7 +276,7 @@ FIGURE TREATMENT (if applicable):
 [Type of figures, their roles in showing the problem]
 [Who is judging unfairly? Who is being judged? Who is making the mistake?]
 
-EMOTIONAL SVCISTER:
+EMOTIONAL REGISTER:
 [From Step 3]
 
 COMPOSITION:
@@ -308,7 +308,7 @@ SUBJECT (WHAT TO DRAW — showing the problem):
 [The actual visual subject that makes the PROBLEM visible]
 [NOT defaulting to architecture — draw what makes the problem clear]
 
-EMOTIONAL SVCISTER: [From Step 3]
+EMOTIONAL REGISTER: [From Step 3]
 
 TECHNIQUE — GESTURAL ARCHITECTURAL SKETCH STYLE:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -718,7 +718,7 @@ bun ~/.claude/skills/Art/Tools/FillFrame.ts \
   --max-margin 12 \
   --bg-color auto
 
-# If Stage A exit code is non-zero (margins still > 5% after refill), SVCENERATE with a
+# If Stage A exit code is non-zero (margins still > 5% after refill), REGENERATE with a
 # stronger composition prompt — do NOT ship a wallpaper-margin image.
 # If Stage B verify reports any edge margin < 5% or > 12%, adjust the --border percentage.
 
@@ -909,13 +909,13 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 - Is signature present in the BOTTOM RIGHT CORNER of the image? (if included)
 - Not bottom center. Not near the subject. BOTTOM RIGHT CORNER.
 - Is the signature correctly rendered? (no literal prompt text)
-- If missing, wrong location, or wrong text → SVCENERATE
+- If missing, wrong location, or wrong text → REGENERATE
 
 **0.5. PROMPT LITERAL INTERPRETATION CHECK:**
 - Did the model take prompt instructions literally? (e.g., writing literal prompt text instead of a signature)
 - Are there any instruction words visible in the image that shouldn't be?
 - Did labels come out as intended? (e.g., "A T H I" not "Actor Technique Harm Impact" spelled out)
-- If prompt instructions appear as text in image → SVCENERATE with clearer wording
+- If prompt instructions appear as text in image → REGENERATE with clearer wording
 
 **1. PHYSICAL REALITY CHECK:**
 - Do objects obey physics? (heavy things fall DOWN, scales tip toward heavy side)
@@ -940,7 +940,7 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 - Is the emotional register correct?
 - Does the image argue the same point as the content?
 
-**🚨 IF ANY OF THESE FAIL — STOP AND SVCENERATE. DO NOT PROCEED.**
+**🚨 IF ANY OF THESE FAIL — STOP AND REGENERATE. DO NOT PROCEED.**
 
 **Example failures:**
 - ❌ Signature missing or not in bottom right corner (if signature was requested)
@@ -952,7 +952,7 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 
 ### Validation Checklist
 
-**🚨 MANDATORY ELEMENTS (if ANY are missing, SVCENERATE):**
+**🚨 MANDATORY ELEMENTS (if ANY are missing, REGENERATE):**
 - [ ] **SIGNATURE PRESENT** — signed small in charcoal, bottom right corner (if requested)
 - [ ] **PROBLEM TYPE VISIBLE** — the problem type (sorting, double standard, etc.) is immediately obvious
 - [ ] **Subject matches CONTENT** — drew what the piece is ABOUT, not defaulted to architecture

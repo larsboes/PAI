@@ -1,6 +1,6 @@
 ---
 name: Security
-description: "Security assessment and intelligence — network recon, web app testing, prompt injection, security news, and annual reports. USE WHEN recon, reconnaissance, port scan, subdomain, DNS, WHOIS, ASN, netblock, mass scan, path discovery, endpoint discovery, bounty programs, web assessment, OWASP, pentest, threat model, vulnerability, ffuf, prompt injection, jailbreak, LLM security, guardrail bypass, security news, breaches, tldrsec, annual reports, threat landscape."
+description: Security assessment and intelligence — network reconnaissance, web app security testing, prompt injection testing, security news monitoring, and annual report analysis. USE WHEN recon, reconnaissance, port scan, subdomain, DNS, WHOIS, ASN, netblock, CIDR, mass scan, path discovery, endpoint discovery, corporate structure, bounty programs, IP recon, domain recon, passive recon, web assessment, OWASP, pentest, threat model, vulnerability analysis, ffuf, Playwright, Gemini analysis, prompt injection, jailbreak, LLM security, guardrail bypass, direct injection, indirect injection, multi-stage attack, security news, sec updates, breaches, tldrsec, security research, annual reports, threat landscape, security trends, vendor reports, fetch report, list sources.
 ---
 
 # Security

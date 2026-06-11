@@ -11,7 +11,7 @@ import type {
   ThemeImportExport,
   ThemeApiResponse
 } from '../types/theme';
-import { PREDEFINED_THEME_NAMES, COLOR_SVCEX, RGBA_SVCEX } from '../types/theme';
+import { PREDEFINED_THEME_NAMES, COLOR_REGEX, RGBA_REGEX } from '../types/theme';
 
 // Predefined themes configuration
 const PREDEFINED_THEMES: Record<ThemeName, PredefinedTheme> = {
@@ -710,7 +710,7 @@ export function useThemes() {
   };
 
   const isValidColor = (color: string): boolean => {
-    return COLOR_SVCEX.test(color) || RGBA_SVCEX.test(color) || CSS.supports('color', color);
+    return COLOR_REGEX.test(color) || RGBA_REGEX.test(color) || CSS.supports('color', color);
   };
 
   const calculateContrast = (_color1: string, _color2: string): number => {

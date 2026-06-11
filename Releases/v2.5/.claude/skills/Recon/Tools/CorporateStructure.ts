@@ -46,7 +46,7 @@ interface CorporateStructureResult {
 
 // Corporate ownership database
 // Format: company -> { parent, children with domains }
-const CORPORATE_SVCISTRY: Record<string, {
+const CORPORATE_REGISTRY: Record<string, {
   parent?: string;
   children: CorporateEntity[];
 }> = {
@@ -317,7 +317,7 @@ function getCorporateHierarchy(companyName: string): CorporateHierarchy {
   };
 
   // Look up the company
-  const companyData = CORPORATE_SVCISTRY[normalized];
+  const companyData = CORPORATE_REGISTRY[normalized];
 
   if (!companyData) {
     return hierarchy;
@@ -329,7 +329,7 @@ function getCorporateHierarchy(companyName: string): CorporateHierarchy {
   // Get parent
   if (companyData.parent) {
     const parentNormalized = normalizeCompanyName(companyData.parent);
-    const parentData = CORPORATE_SVCISTRY[parentNormalized];
+    const parentData = CORPORATE_REGISTRY[parentNormalized];
 
     hierarchy.parent = {
       name: companyData.parent,

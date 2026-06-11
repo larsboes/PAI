@@ -39,7 +39,7 @@ Canonical reference on the methods and theorists behind this skill. Load on dema
 
 ## 4. Fault Tree Analysis (FTA)
 
-**Origin.** Developed at Bell Laboratories in 1961 by H.A. Watson for the U.S. Air Force Minuteman missile program. Standardized in IEC 61025, NRC NUSVC-0492 (nuclear), SAE ARP4761 (aerospace). Widely used in aerospace, nuclear, chemical, and pharmaceutical industries.
+**Origin.** Developed at Bell Laboratories in 1961 by H.A. Watson for the U.S. Air Force Minuteman missile program. Standardized in IEC 61025, NRC NUREG-0492 (nuclear), SAE ARP4761 (aerospace). Widely used in aerospace, nuclear, chemical, and pharmaceutical industries.
 
 **Structure.** Top-down, deductive. Start with undesired top event; decompose into contributing events using logical gates (AND/OR/Priority AND/Inhibit); terminate at basic events with known or estimable probabilities.
 

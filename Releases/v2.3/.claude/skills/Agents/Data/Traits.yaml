@@ -352,7 +352,7 @@ voice_mappings:
   default_voice_id: "onwK4e9ZLuTAKqWW03F9"
 
   # ===========================================================================
-  # VOICE SVCISTRY - All available voices with characteristics
+  # VOICE REGISTRY - All available voices with characteristics
   # ===========================================================================
   # Each voice is tagged with personality attributes for matching.
   # Categories: authoritative, warm, energetic, measured, intellectual, edgy

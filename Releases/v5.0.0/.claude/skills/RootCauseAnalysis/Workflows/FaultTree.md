@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Construct a **Fault Tree Analysis (FTA)** — a top-down, deductive, Boolean-logic diagram that decomposes an undesired top event into its contributing events using logic gates. Developed at Bell Laboratories in 1961 for the Minuteman missile program; standardized in IEC 61025, NRC NUSVC-0492 (nuclear), SAE ARP4761 (aerospace).
+Construct a **Fault Tree Analysis (FTA)** — a top-down, deductive, Boolean-logic diagram that decomposes an undesired top event into its contributing events using logic gates. Developed at Bell Laboratories in 1961 for the Minuteman missile program; standardized in IEC 61025, NRC NUREG-0492 (nuclear), SAE ARP4761 (aerospace).
 
 Unlike 5 Whys (linear) or Fishbone (categorical), FTA captures **Boolean structure**: which combinations of events *must* occur for the top event to happen. The key insight: incidents rarely have one cause; they have **minimal cut sets** — the smallest sets of basic events whose joint occurrence produces the top event.
 
@@ -293,4 +293,4 @@ For simple trees (< 20 basic events), manual analysis is feasible.
 
 ## Attribution
 
-H.A. Watson, Bell Telephone Laboratories (1961), original FTA development for U.S. Air Force Minuteman program. Formalized in IEC 61025 (*Fault tree analysis*), NRC NUSVC-0492, SAE ARP4761 (aerospace safety). Canonical modern reference: W.E. Vesely et al., *Fault Tree Handbook* (NUSVC-0492, NRC, 1981).
+H.A. Watson, Bell Telephone Laboratories (1961), original FTA development for U.S. Air Force Minuteman program. Formalized in IEC 61025 (*Fault tree analysis*), NRC NUREG-0492, SAE ARP4761 (aerospace safety). Canonical modern reference: W.E. Vesely et al., *Fault Tree Handbook* (NUREG-0492, NRC, 1981).

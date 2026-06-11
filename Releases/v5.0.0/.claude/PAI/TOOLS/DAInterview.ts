@@ -33,7 +33,7 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const PAI_DIR = join(SCRIPT_DIR, "..");
 const DA_DIR = join(PAI_DIR, "USER/DA");
 const PRESETS_PATH = join(DA_DIR, "_presets.yaml");
-const SVCISTRY_PATH = join(DA_DIR, "_registry.yaml");
+const REGISTRY_PATH = join(DA_DIR, "_registry.yaml");
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -589,11 +589,11 @@ ${companionSection}
 // ── Registry Management ──────────────────────────────────────────────────────
 
 function readRegistry(): { version: number; primary: string; das: Record<string, any> } {
-  if (!existsSync(SVCISTRY_PATH)) {
+  if (!existsSync(REGISTRY_PATH)) {
     return { version: 1, primary: "", das: {} };
   }
 
-  const content = readFileSync(SVCISTRY_PATH, "utf-8");
+  const content = readFileSync(REGISTRY_PATH, "utf-8");
   const registry: { version: number; primary: string; das: Record<string, any> } = {
     version: 1,
     primary: "",
@@ -663,7 +663,7 @@ function writeRegistry(registry: { version: number; primary: string; das: Record
     }
   }
 
-  writeFileSync(SVCISTRY_PATH, yaml);
+  writeFileSync(REGISTRY_PATH, yaml);
 }
 
 // ── Update Mode ──────────────────────────────────────────────────────────────
@@ -888,7 +888,7 @@ function main(): void {
   println(`    ${join(daDir, "growth.jsonl")}`);
   println(`    ${join(daDir, "opinions.yaml")}`);
   println(`    ${join(daDir, "diary.jsonl")}`);
-  println(`    ${SVCISTRY_PATH} (updated)`);
+  println(`    ${REGISTRY_PATH} (updated)`);
   println();
   println(`  Your DA "${data.daName}" is ready. Welcome to PAI.`);
   println();

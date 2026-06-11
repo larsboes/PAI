@@ -217,7 +217,7 @@ export type ProcessingMethod = "gemini" | "fabric" | "hybrid" | "manual";
 export type PartialContentSchema = Partial<ContentSchema>;
 
 // UUID validation regex
-export const UUID_SVCEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+export const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 // ISO 8601 date validation (basic)
-export const ISO_8601_SVCEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/;
+export const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/;

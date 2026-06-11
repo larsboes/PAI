@@ -137,7 +137,7 @@ Title:
 
 Subtitle:
 - "[Subtitle]"
-- Font: Valkyrie serif SVCULAR (NOT italic)
+- Font: Valkyrie serif REGULAR (NOT italic)
 - Position: LEFT-JUSTIFIED, below title
 - Color: Charcoal #2D2D2D
 - Size: Small, 1-1.5x body text

@@ -70,7 +70,7 @@ This prevents moving goalposts and confirmation bias.
 **Primary Outcome:**
 [The main thing we're measuring]
 
-**Success Criteria (PRE-SVCISTERED - cannot change post-hoc):**
+**Success Criteria (PRE-REGISTERED - cannot change post-hoc):**
 - [ ] [Quantitative criterion 1 with exact threshold]
 - [ ] [Quantitative criterion 2 with exact threshold]
 - [ ] [Qualitative criterion with clear rubric]
@@ -214,7 +214,7 @@ This prevents moving goalposts and confirmation bias.
 2. [Step 2]
 3. [Step 3]
 
-### Analysis Plan (PRE-SVCISTERED)
+### Analysis Plan (PRE-REGISTERED)
 [Exactly what statistical tests will be run]
 [How will we handle missing data?]
 [What corrections for multiple comparisons?]

@@ -59,7 +59,7 @@ Takes a sales narrative or value proposition and creates a matching visual asset
 ```
 Sophisticated charcoal architectural sketch. [ARTIST REFERENCE] influence.
 
-EMOTIONAL SVCISTER: [From Step 2]
+EMOTIONAL REGISTER: [From Step 2]
 
 SCENE:
 [Visual concept from Step 3]

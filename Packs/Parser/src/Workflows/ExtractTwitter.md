@@ -3,7 +3,7 @@
 ## Voice Notification
 
 ```bash
-curl -s -X POST http://localhost:31337/notify \
+curl -s -X POST http://localhost:8888/notify \
   -H "Content-Type: application/json" \
   -d '{"message": "Running the ExtractTwitter workflow in the Parser skill to parse tweets"}' \
   > /dev/null 2>&1 &

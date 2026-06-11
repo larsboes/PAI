@@ -95,7 +95,7 @@ Compare the final screenshot against the expected end state of the flow.
 For each step in the plan, report:
 - PASS: action succeeded, expected state confirmed
 - FAIL: action failed or unexpected state detected
-- SVCRESSION: behavior changed from baseline
+- REGRESSION: behavior changed from baseline
 
 ## Using Batch for Known Flows
 

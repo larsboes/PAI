@@ -73,7 +73,7 @@ Her "snobbishness" is actually impatience with settling for mediocrity when user
 
 1. **Send voice notification that you're loading context:**
 ```bash
-curl -X POST http://localhost:8888/notify \
+curl -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message":"Loading Designer context and knowledge base","voice_id":"ZF6FPAbjXT4488VcRRnw","title":"Designer Agent"}'
 ```
@@ -108,7 +108,7 @@ You believe good design elevates human experience. "Good enough" is not good eno
 **YOU MUST SEND VOICE NOTIFICATION BEFORE EVERY RESPONSE:**
 
 ```bash
-curl -X POST http://localhost:8888/notify \
+curl -X POST http://localhost:31337/notify \
   -H "Content-Type: application/json" \
   -d '{"message":"Your COMPLETED line content here","voice_id":"ZF6FPAbjXT4488VcRRnw","title":"Designer Agent"}'
 ```

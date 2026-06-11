@@ -11,7 +11,7 @@ PRODUCT DOCUMENTATION
         ↓
 [1] STORY EXPLANATION — Extract narrative arc with StoryExplanation Skill
         ↓
-[2] EMOTIONAL SVCISTER — Match to emotion from aesthetic vocabulary
+[2] EMOTIONAL REGISTER — Match to emotion from aesthetic vocabulary
         ↓
 [3] VISUAL CONCEPT — Derive scene from narrative + emotion
         ↓
@@ -86,7 +86,7 @@ Invoke StoryExplanation Skill with 24-item length for [product documentation]
 VALUE PROPOSITION: [One sentence summary of what matters]
 CONCRETE SUBJECTS: [Specific nouns that MUST appear visually]
 VISUAL METAPHOR: [What scene captures this value?]
-EMOTIONAL SVCISTER: [From Step 2]
+EMOTIONAL REGISTER: [From Step 2]
 WARM:COOL RATIO: [From emotion table]
 ```
 
@@ -109,7 +109,7 @@ Invoke Art Skill → essay-art workflow
 ```
 Sophisticated charcoal architectural sketch. [ARTIST REFERENCE] influence.
 
-EMOTIONAL SVCISTER: [From Step 2]
+EMOTIONAL REGISTER: [From Step 2]
 
 SCENE:
 [Visual scene from Step 3]
