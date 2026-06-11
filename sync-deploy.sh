@@ -21,7 +21,7 @@ SKILLS_YAML="$SCRIPT_DIR/skills.yaml"
 # Target directories for each agent
 CLAUDE_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 PI_DIR="${PI_SKILLS_DIR:-$HOME/.pi/agent/skills}"
-GEMINI_DIR="${GEMINI_SKILLS_DIR:-$HOME/.gemini/skills}"
+GEMINI_DIR="${GEMINI_SKILLS_DIR:-$HOME/.gemini/antigravity-cli/skills}"
 TARGETS=("$CLAUDE_DIR" "$PI_DIR" "$GEMINI_DIR")
 
 # Colors
@@ -54,12 +54,12 @@ done
 
 # Parse skills.yaml
 parse_active_skills() {
-  sed -n '/^active:/,/^[a-z]/{/^  - /p}' "$SKILLS_YAML" | sed 's/^  - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
+  sed -n '/^active:/,/^[a-z]/{/^  - /p;}' "$SKILLS_YAML" | sed 's/^  - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
 }
 
 parse_profile_skills() {
   local profile="$1"
-  sed -n "/^  $profile:/,/^  [a-z]/{/^    - /p}" "$SKILLS_YAML" | sed 's/^    - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
+  sed -n "/^  $profile:/,/^  [a-z]/{/^    - /p;}" "$SKILLS_YAML" | sed 's/^    - //' | sed 's/[[:space:]]*#.*//' | sed 's/[[:space:]]*$//'
 }
 
 # Gather active skills

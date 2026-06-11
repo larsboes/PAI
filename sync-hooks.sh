@@ -123,7 +123,8 @@ best_source() {
 
 # Source release name from path
 release_of() {
-  echo "$1" | grep -oP "(?<=Releases/)v[^/]+"
+  local p="${1#*Releases/}"
+  echo "${p%%/*}"
 }
 
 # ── Banner ──────────────────────────────────────────────────
