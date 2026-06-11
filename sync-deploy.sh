@@ -18,11 +18,12 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PACKS_DIR="$SCRIPT_DIR/Packs"
 SKILLS_YAML="$SCRIPT_DIR/skills.yaml"
 
-# Target directories for each agent
+# Target directories for each agent.
+# NOTE: Claude only. Symlinking other agents (Gemini/pi) back into PAI/Packs re-couples
+# them to ~/.claude (the skills' source refs point at ~/.claude/PAI). Those agents get
+# DECOUPLED copies via sync-agents.sh instead — do not add them here.
 CLAUDE_DIR="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
-PI_DIR="${PI_SKILLS_DIR:-$HOME/.pi/agent/skills}"
-GEMINI_DIR="${GEMINI_SKILLS_DIR:-$HOME/.gemini/antigravity-cli/skills}"
-TARGETS=("$CLAUDE_DIR" "$PI_DIR" "$GEMINI_DIR")
+TARGETS=("$CLAUDE_DIR")
 
 # Colors
 GREEN='\033[0;32m'; YELLOW='\033[0;33m'; RED='\033[0;31m'; BLUE='\033[0;34m'; DIM='\033[2m'; RESET='\033[0m'; BOLD='\033[1m'
