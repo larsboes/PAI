@@ -99,7 +99,7 @@ for entry in "${PLUGINS[@]}"; do
     count=$((count+1)); TOTAL_SKILLS=$((TOTAL_SKILLS+1)); ASSIGNED="$ASSIGNED $pack"
   done
   jq -n --arg n "$key" --arg d "$desc" --arg a "$OWNER" \
-    '{name:$n, description:$d, version:"1.0.0", author:{name:$a}}' > "$pdir/.claude-plugin/plugin.json"
+    '{name:$n, description:$d, author:{name:$a}}' > "$pdir/.claude-plugin/plugin.json"
   PLUGIN_JSON_ENTRIES+=("$(jq -n --arg n "$key" --arg s "./marketplace/plugins/$key" --arg d "$desc" \
     '{name:$n, source:$s, description:$d, strict:false}')")
   ok "$key — $count skills"
@@ -108,7 +108,7 @@ done
 # ── Root marketplace.json ───────────────────────────────────
 printf '%s\n' "${PLUGIN_JSON_ENTRIES[@]}" | jq -s \
   --arg n "$MARKET_NAME" --arg o "$OWNER" --arg d "$MARKET_DESC" \
-  '{name:$n, owner:{name:$o}, metadata:{description:$d, pluginRoot:"./marketplace/plugins"}, plugins:.}' \
+  '{name:$n, owner:{name:$o}, metadata:{description:$d}, plugins:.}' \
   > "$BUILD_DIR/.claude-plugin/marketplace.json"
 ok "marketplace.json (${#PLUGINS[@]} plugins, $TOTAL_SKILLS skills)"
 
