@@ -32,9 +32,12 @@ The fork diverged structurally from upstream (different distribution shape) — 
 | **Private vault** | `~/Developer/knowledge-base` (`$VAULT_PATH`) | separate/private | All personal content (TELOS). Never in this repo. |
 
 Deploy paths:
-- **Skills:** `sync-deploy.sh` symlinks `Packs/<X>/src` → `~/.claude/skills/<X>` (+ `~/.pi`, `~/.gemini`). Edits write through to the repo. Active set = `skills.yaml`.
-- **Hooks:** canonical copies live under `Releases/v*/.claude/hooks/`; `sync-hooks.sh --fix` deploys the newest into `~/.claude/hooks/`.
-- **Algorithm / PAI core:** canonical under `Releases/v5.0.0/.claude/PAI/`; deployed to `~/.claude/PAI/` by the installer. ⚠️ casing wrinkle: repo uses `ALGORITHM/`, runtime uses `Algorithm/` — keep references internally consistent per side.
+The repo is the **single source of truth**; `sync.sh` deploys to Claude/Gemini/pi (all deploy targets). Claude gets **symlinks** (edits write through to the repo); Gemini/pi get **decoupled copies** (`~/.claude` refs rewritten to their own home).
+- **Engine:** `PAI/` → each agent's `PAI/` (Claude overlay preserves live USER/MEMORY/PULSE).
+- **Skills:** `Packs/<X>/src` → `<agent>/skills/<X>`. Active set = `skills.yaml`. `@sync: private` → pi only.
+- **Agent configs:** `PAI/TEMPLATES/AgentConfig/{CLAUDE,GEMINI}.md` → `~/<agent>/`, with vault identity injected at the `PAI:IDENTITY` marker.
+- **Agents / hooks:** `agents/`, `hooks/` → Claude only (Claude-Code-specific). **Commands:** `commands/` → all agents.
+- **Unified data:** MEMORY, TELOS, and identity (`USER/{ABOUTME,DAIDENTITY,AISTEERINGRULES}.md`) are single-sourced in the Obsidian vault and symlinked into every agent.
 
 ## 3. Live-only files (NOT in this repo — reproduce manually)
 

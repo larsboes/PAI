@@ -10,14 +10,14 @@ skills:
     - ~/.pi/agent/skills
 ```
 
-Then run `sync-deploy.sh` from the PAI repo to symlink active skills.
+Then run `sync.sh` from the PAI repo to symlink active skills.
 
 ## For Claude Code
 
-Skills are synced via `sync-deploy.sh`:
+Skills are synced via `sync.sh`:
 
 ```bash
-cd ~/Developer/PAI && ./sync-deploy.sh
+cd ~/Developer/PAI && ./sync.sh --confirm
 ```
 
 ## Manual Install

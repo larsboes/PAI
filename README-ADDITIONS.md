@@ -75,7 +75,7 @@ Enrichments to Daniel's packs — new reference docs and utility scripts inside 
 | Path | Purpose |
 |------|---------|
 | `skills.yaml` | Active pack selection — comment/uncomment to toggle, profiles for security/devops/etc |
-| `sync-deploy.sh` | Symlink active packs to `~/.claude/skills/`, `~/.pi/agent/skills/`, `~/.gemini/skills/` |
+| `sync.sh` | Symlink active packs to `~/.claude/skills/`, `~/.pi/agent/skills/`, `~/.gemini/skills/` |
 | `sync-capture.sh` | Pull agent improvements back into PAI source |
 | `sync-hooks.sh` | Hooks version migration between PAI releases |
 | `.pai-fork/manifest.yaml` | Tracks intentionally customized upstream files |
@@ -84,7 +84,7 @@ Enrichments to Daniel's packs — new reference docs and utility scripts inside 
 | `.github/workflows/upstream-drift.yml` | Weekly CI check for upstream divergence |
 | `install.sh` | Fresh machine setup (Bun, Git, PAI clone) |
 
-Deploy: `task pai:sync` (root Taskfile) or `./sync-deploy.sh` directly.
+Deploy: `task pai:sync` (root Taskfile) or `./sync.sh --confirm` directly.
 
 ---
 

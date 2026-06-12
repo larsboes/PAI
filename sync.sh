@@ -185,6 +185,30 @@ for spec in "${AGENTS[@]}"; do
     info "would deploy engine → $engine_dst ($mode)"
   fi
 
+  real_home="${tilde/#\~/$HOME}"
+
+  # ── commands/ (cross-agent — skills invoke them) ──────────────────────────
+  if $CONFIRM && [ -d "$SCRIPT_DIR/commands" ]; then
+    cmd_dst="$real_home/commands"; mkdir -p "$cmd_dst"
+    if [ "$mode" = "symlink" ]; then
+      rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/commands/" "$cmd_dst/"
+    else
+      rsync -a --delete "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/commands/" "$cmd_dst/"
+      rewrite_refs "$cmd_dst" "$tilde"
+    fi
+    ok "commands → $cmd_dst"
+  fi
+
+  # ── agents/ + hooks/ (Claude-Code-specific — Claude only, overlay no-delete) ─
+  if $CONFIRM && [ "$name" = "claude" ]; then
+    for sub in agents hooks; do
+      [ -d "$SCRIPT_DIR/$sub" ] || continue
+      mkdir -p "$real_home/$sub"
+      rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$real_home/$sub/"
+      ok "$sub → $real_home/$sub"
+    done
+  fi
+
   # ── Skills (tag-routed) ───────────────────────────────────────────────────
   mkdir -p "$skills_dir" 2>/dev/null || true
   count=0; skipped=0

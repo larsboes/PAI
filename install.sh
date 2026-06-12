@@ -96,6 +96,20 @@ else
   info "VAULT_PATH unset / no Atlas/TELOS — skipping identity symlinks (LoadTelos guards this)"
 fi
 
+# ── Identity files single-source (vault PAI/Identity/ → USER/) ─
+# Identity (ABOUTME/DAIDENTITY/AISTEERINGRULES) lives once in the vault and is
+# symlinked into every agent's USER/. Derive the vault from the MEMORY symlink.
+VAULT_PAI="$(dirname "$(readlink "$CLAUDE_DIR/PAI/MEMORY" 2>/dev/null)" 2>/dev/null)"
+if [ -n "$VAULT_PAI" ] && [ -d "$VAULT_PAI/Identity" ]; then
+  mkdir -p "$CLAUDE_DIR/PAI/USER"
+  for f in ABOUTME.md DAIDENTITY.md AISTEERINGRULES.md; do
+    [ -f "$VAULT_PAI/Identity/$f" ] && ln -sfn "$VAULT_PAI/Identity/$f" "$CLAUDE_DIR/PAI/USER/$f"
+  done
+  ok "Identity vault symlinks (USER/ → vault PAI/Identity)"
+else
+  info "No vault PAI/Identity — skipping identity-file symlinks"
+fi
+
 # ── Deploy engine + skills to all agents ───────────────────
 info "Deploying PAI engine + skill Packs (repo = source of truth)..."
 if [ -x "$SCRIPT_DIR/sync.sh" ]; then

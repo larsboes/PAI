@@ -45,7 +45,7 @@ Ideas for PRs to `danielmiessler/PAI`. Not yet submitted — staging area.
 - **Risk:** Breaking change for users who reference `GitWorkflow` by name
 - **Notes:** Needs Daniel's buy-in on naming and scope
 
-### Validation gate in `sync-deploy.sh`
+### Validation gate in `sync.sh`
 - **What:** Check `name:` + `description:` exist before symlinking; case-insensitive dedup
 - **Impact:** Prevents broken skills from deploying silently
 - **Risk:** Could reject some of Daniel's stubs that are deliberately minimal
