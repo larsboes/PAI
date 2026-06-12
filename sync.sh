@@ -187,21 +187,24 @@ for spec in "${AGENTS[@]}"; do
 
   real_home="${tilde/#\~/$HOME}"
 
-  # ── commands/ (cross-agent — skills invoke them) ──────────────────────────
-  if $CONFIRM && [ -d "$SCRIPT_DIR/commands" ]; then
-    cmd_dst="$real_home/commands"; mkdir -p "$cmd_dst"
-    if [ "$mode" = "symlink" ]; then
-      rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/commands/" "$cmd_dst/"
-    else
-      rsync -a --delete "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/commands/" "$cmd_dst/"
-      rewrite_refs "$cmd_dst" "$tilde"
-    fi
-    ok "commands → $cmd_dst"
+  # ── commands/ + lib/ (cross-agent — skills invoke them) ───────────────────
+  if $CONFIRM; then
+    for sub in commands lib; do
+      [ -d "$SCRIPT_DIR/$sub" ] || continue
+      sub_dst="$real_home/$sub"; mkdir -p "$sub_dst"
+      if [ "$mode" = "symlink" ]; then
+        rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$sub_dst/"
+      else
+        rsync -a --delete "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$sub_dst/"
+        rewrite_refs "$sub_dst" "$tilde"
+      fi
+      ok "$sub → $sub_dst"
+    done
   fi
 
-  # ── agents/ + hooks/ (Claude-Code-specific — Claude only, overlay no-delete) ─
+  # ── agents/ + hooks/ + VoiceServer/ (Claude-specific — Claude only, overlay) ─
   if $CONFIRM && [ "$name" = "claude" ]; then
-    for sub in agents hooks; do
+    for sub in agents hooks VoiceServer; do
       [ -d "$SCRIPT_DIR/$sub" ] || continue
       mkdir -p "$real_home/$sub"
       rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$real_home/$sub/"
