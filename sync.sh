@@ -236,11 +236,26 @@ for spec in "${AGENTS[@]}"; do
       ok "$sub → $real_home/$sub"
     done
     # settings.json: structural config (hooks, statusLine, permissions.ask, …).
-    # Machine-local keys (env, permissions.allow, daidentity, principal, mcpServers)
-    # live in settings.local.json, which the harness merges and we never touch.
+    # Machine-local keys (permissions.allow, daidentity, principal, mcpServers) live
+    # in settings.local.json, which the harness merges. EXCEPTION: `env` must live in
+    # settings.json — the harness only injects env from there into hook/tool
+    # subprocesses (settings.local.json env does NOT reach ${PAI_DIR} expansion in
+    # hook commands). So after deploying the template, re-inject `env` from local.
     if [ -f "$TEMPLATES_DIR/settings.json" ]; then
       cp "$TEMPLATES_DIR/settings.json" "$real_home/settings.json"
-      ok "settings.json → $real_home/settings.json (local keys preserved in settings.local.json)"
+      if [ -f "$real_home/settings.local.json" ] && command -v python3 >/dev/null 2>&1; then
+        python3 - "$real_home/settings.json" "$real_home/settings.local.json" <<'PYMERGE'
+import json, sys
+sj, lj = sys.argv[1], sys.argv[2]
+s = json.load(open(sj)); l = json.load(open(lj))
+if "env" in l:
+    s = {"env": l["env"], **{k: v for k, v in s.items() if k != "env"}}
+    json.dump(s, open(sj, "w"), indent=2)
+PYMERGE
+        ok "settings.json → $real_home/settings.json (env re-injected from settings.local.json)"
+      else
+        ok "settings.json → $real_home/settings.json (no settings.local.json env to inject)"
+      fi
     fi
   fi
 
