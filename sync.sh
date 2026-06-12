@@ -126,6 +126,22 @@ identity_block() {
   done
 }
 
+# resolve_config_vars <file> <real-home> <ident-dir>  — substitute template vars
+# decoupling-safe: reads from the agent's OWN deployed engine + the vault, never ~/.claude.
+resolve_config_vars() {
+  local f="$1" real="$2" ident="$3" ver algo daname
+  ver="$(cat "$real/PAI/VERSION" 2>/dev/null | tr -d '[:space:]')"; [ -z "$ver" ] && ver="—"
+  algo="$(cat "$real/PAI/Algorithm/LATEST" 2>/dev/null | tr -d '[:space:]')"
+  daname="$(grep -m1 '^\*\*Name:\*\*' "$ident/DAIDENTITY.md" 2>/dev/null | sed 's/^\*\*Name:\*\* *//')"
+  [ -z "$daname" ] && daname="Assistant"
+  sed -i '' \
+    -e "s#{{PAI_VERSION}}#${ver}#g" \
+    -e "s#{{ALGO_VERSION}}#${algo}#g" \
+    -e "s#{{ALGO_PATH}}#PAI/Algorithm/${algo}.md#g" \
+    -e "s#{DAIDENTITY.NAME}#${daname}#g" \
+    "$f"
+}
+
 # deploy_config <agent> <tilde-home>  — render the agent's CLAUDE.md/GEMINI.md
 # from the repo template, injecting the vaulted identity at the PAI:IDENTITY marker.
 deploy_config() {
@@ -148,7 +164,8 @@ deploy_config() {
         skip!=1                      { print }
       ' BF="$blk" "$tmpl" > "$dst"
       rm -f "$blk"
-      ok "config → $dst (identity injected from vault)"
+      resolve_config_vars "$dst" "$real" "$ident"
+      ok "config → $dst (identity injected + vars resolved)"
     else
       warn "vault identity dir not found for $agent — deploying template verbatim"; cp "$tmpl" "$dst"
     fi

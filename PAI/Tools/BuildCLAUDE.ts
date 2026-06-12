@@ -39,6 +39,13 @@ function getAlgorithmVersion(): string {
   return readFileSync(LATEST_PATH, "utf-8").trim();
 }
 
+// PAI version: single-source in the engine (PAI/VERSION), settings.json as fallback.
+function getPaiVersion(settings: any): string {
+  const versionFile = join(PAI_DIR, "PAI/VERSION");
+  if (existsSync(versionFile)) return readFileSync(versionFile, "utf-8").trim();
+  return settings.pai?.version || "4.0.3";
+}
+
 // ─── Load variables from settings.json ───
 
 function loadVariables(): Record<string, string> {
@@ -54,7 +61,7 @@ function loadVariables(): Record<string, string> {
     "{DAIDENTITY.DISPLAYNAME}": settings.daidentity?.displayName || "Assistant",
     "{PRINCIPAL.NAME}": settings.principal?.name || "User",
     "{PRINCIPAL.TIMEZONE}": settings.principal?.timezone || "UTC",
-    "{{PAI_VERSION}}": settings.pai?.version || "4.0.3",
+    "{{PAI_VERSION}}": getPaiVersion(settings),
     "{{ALGO_VERSION}}": algoVersion,
     "{{ALGO_PATH}}": `PAI/Algorithm/${algoVersion}.md`,
   };
