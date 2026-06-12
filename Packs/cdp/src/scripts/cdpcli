@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""Chrome DevTools Protocol CLI."""
+
+import argparse
+import asyncio
+import base64
+import json
+import sys
+import urllib.request
+from pathlib import Path
+
+CDP_HOST = "localhost"
+CDP_PORT = int(__import__("os").environ.get("CDP_PORT", "9222"))
+BASE = f"http://{CDP_HOST}:{CDP_PORT}"
+
+
+def http_get(path):
+    try:
+        resp = urllib.request.urlopen(f"{BASE}{path}", timeout=5)
+        return json.loads(resp.read())
+    except Exception as e:
+        print(f"Error: cannot reach Chrome at {BASE} — {e}", file=sys.stderr)
+        print("Launch Chrome with: --remote-debugging-port=9222", file=sys.stderr)
+        sys.exit(1)
+
+
+def get_tabs():
+    targets = http_get("/json")
+    return [t for t in targets if t.get("type") == "page"]
+
+
+def pick_tab(index):
+    tabs = get_tabs()
+    if not tabs:
+        print("Error: no page tabs found", file=sys.stderr)
+        sys.exit(1)
+    if index >= len(tabs):
+        print(f"Error: tab {index} not found ({len(tabs)} tabs available)", file=sys.stderr)
+        sys.exit(1)
+    return tabs[index]
+
+
+async def ws_command(ws_url, method, params=None):
+    try:
+        import websockets
+    except ImportError:
+        print("Error: websockets not installed — run: pip install websockets", file=sys.stderr)
+        sys.exit(1)
+    msg = {"id": 1, "method": method, "params": params or {}}
+    async with websockets.connect(ws_url, ping_interval=None) as ws:
+        await ws.send(json.dumps(msg))
+        while True:
+            raw = json.loads(await asyncio.wait_for(ws.recv(), timeout=15))
+            if raw.get("id") == 1:
+                return raw
+
+
+def run(ws_url, method, params=None):
+    return asyncio.run(ws_command(ws_url, method, params))
+
+
+# --- Commands ---
+
+def cmd_list(_):
+    tabs = get_tabs()
+    if not tabs:
+        print("No page tabs open.")
+        return
+    for i, t in enumerate(tabs):
+        print(f"[{i}] {t.get('title', '(no title)')}")
+        print(f"     {t.get('url', '')}")
+
+
+def cmd_version(_):
+    v = http_get("/json/version")
+    for k, val in v.items():
+        print(f"{k}: {val}")
+
+
+def cmd_navigate(args):
+    tab = pick_tab(args.tab)
+    ws = tab["webSocketDebuggerUrl"]
+    result = run(ws, "Page.navigate", {"url": args.url})
+    if "error" in result:
+        print(f"Error: {result['error']}", file=sys.stderr)
+    else:
+        print(f"Navigated to: {args.url}")
+
+
+def cmd_eval(args):
+    tab = pick_tab(args.tab)
+    ws = tab["webSocketDebuggerUrl"]
+    result = run(ws, "Runtime.evaluate", {
+        "expression": args.expression,
+        "returnByValue": True,
+        "awaitPromise": True,
+    })
+    if "error" in result:
+        print(f"Error: {result['error']}", file=sys.stderr)
+        sys.exit(1)
+    r = result.get("result", {}).get("result", {})
+    if r.get("type") == "string":
+        print(r.get("value", ""))
+    else:
+        print(json.dumps(r.get("value", r), indent=2))
+
+
+def cmd_screenshot(args):
+    tab = pick_tab(args.tab)
+    ws = tab["webSocketDebuggerUrl"]
+    result = run(ws, "Page.captureScreenshot", {"format": "png", "quality": 90})
+    if "error" in result:
+        print(f"Error: {result['error']}", file=sys.stderr)
+        sys.exit(1)
+    data = result.get("result", {}).get("data", "")
+    out = Path(args.out)
+    out.write_bytes(base64.b64decode(data))
+    print(f"Screenshot saved: {out} ({out.stat().st_size // 1024} KB)")
+
+
+def cmd_raw(args):
+    tab = pick_tab(args.tab)
+    ws = tab["webSocketDebuggerUrl"]
+    try:
+        params = json.loads(args.params) if args.params else {}
+    except json.JSONDecodeError as e:
+        print(f"Error: invalid JSON params — {e}", file=sys.stderr)
+        sys.exit(1)
+    result = run(ws, args.method, params)
+    print(json.dumps(result, indent=2))
+
+
+# --- CLI ---
+
+def main():
+    parser = argparse.ArgumentParser(description="Chrome DevTools Protocol CLI")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    sub.add_parser("list", help="List open page tabs")
+    sub.add_parser("version", help="Browser version info")
+
+    p_nav = sub.add_parser("navigate", help="Navigate tab to URL")
+    p_nav.add_argument("url")
+    p_nav.add_argument("--tab", type=int, default=0)
+
+    p_eval = sub.add_parser("eval", help="Evaluate JavaScript")
+    p_eval.add_argument("expression")
+    p_eval.add_argument("--tab", type=int, default=0)
+
+    p_ss = sub.add_parser("screenshot", help="Capture screenshot")
+    p_ss.add_argument("--out", default="screenshot.png")
+    p_ss.add_argument("--tab", type=int, default=0)
+
+    p_raw = sub.add_parser("raw", help="Send raw CDP command")
+    p_raw.add_argument("method", help="e.g. Page.reload")
+    p_raw.add_argument("params", nargs="?", default="{}", help="JSON params")
+    p_raw.add_argument("--tab", type=int, default=0)
+
+    args = parser.parse_args()
+    {
+        "list": cmd_list,
+        "version": cmd_version,
+        "navigate": cmd_navigate,
+        "eval": cmd_eval,
+        "screenshot": cmd_screenshot,
+        "raw": cmd_raw,
+    }[args.command](args)
+
+
+if __name__ == "__main__":
+    main()
