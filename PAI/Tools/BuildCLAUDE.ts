@@ -46,12 +46,20 @@ function getPaiVersion(settings: any): string {
   return settings.pai?.version || "4.0.3";
 }
 
-// ─── Load variables from settings.json ───
+// ─── Load settings (settings.json + settings.local.json, local wins) ───
+// daidentity/principal now live in settings.local.json (PII out of the repo
+// template), so the renderer must merge both files to resolve {DAIDENTITY.NAME}.
+function loadSettings(): any {
+  const base = existsSync(SETTINGS_PATH) ? JSON.parse(readFileSync(SETTINGS_PATH, "utf-8")) : {};
+  const localPath = join(PAI_DIR, "settings.local.json");
+  const local = existsSync(localPath) ? JSON.parse(readFileSync(localPath, "utf-8")) : {};
+  return { ...base, ...local };
+}
+
+// ─── Load variables from settings ───
 
 function loadVariables(): Record<string, string> {
-  const settings = existsSync(SETTINGS_PATH)
-    ? JSON.parse(readFileSync(SETTINGS_PATH, "utf-8"))
-    : {};
+  const settings = loadSettings();
 
   const algoVersion = getAlgorithmVersion();
 
@@ -88,9 +96,7 @@ export function needsRebuild(): boolean {
   if (match && match[1] !== algoVersion) return true;
 
   // Check if DA name matches settings
-  const settings = existsSync(SETTINGS_PATH)
-    ? JSON.parse(readFileSync(SETTINGS_PATH, "utf-8"))
-    : {};
+  const settings = loadSettings();
   const daName = settings.daidentity?.name || "Assistant";
   if (!outputContent.includes(`🗣️ ${daName}:`)) return true;
 

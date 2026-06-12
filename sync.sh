@@ -235,6 +235,13 @@ for spec in "${AGENTS[@]}"; do
       rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$real_home/$sub/"
       ok "$sub → $real_home/$sub"
     done
+    # settings.json: structural config (hooks, statusLine, permissions.ask, …).
+    # Machine-local keys (env, permissions.allow, daidentity, principal, mcpServers)
+    # live in settings.local.json, which the harness merges and we never touch.
+    if [ -f "$TEMPLATES_DIR/settings.json" ]; then
+      cp "$TEMPLATES_DIR/settings.json" "$real_home/settings.json"
+      ok "settings.json → $real_home/settings.json (local keys preserved in settings.local.json)"
+    fi
   fi
 
   # ── Skills (tag-routed) ───────────────────────────────────────────────────
