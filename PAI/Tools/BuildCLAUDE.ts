@@ -3,12 +3,14 @@
 /**
  * BuildCLAUDE.ts — Generate CLAUDE.md from template + settings
  *
- * Reads CLAUDE.md.template, resolves variables from settings.json
- * and PAI/Algorithm/LATEST, writes CLAUDE.md.
+ * Reads the canonical agent-config template (repo source of truth, deployed
+ * to PAI/TEMPLATES/AgentConfig/CLAUDE.md), resolves variables from
+ * settings.json and PAI/Algorithm/LATEST, writes CLAUDE.md.
  *
  * Called by:
  *   - PAI installer (first install)
  *   - SessionStart hook (keeps fresh automatically)
+ *   - sync.sh deploy_config (Claude)
  *   - Manual: bun PAI/Tools/BuildCLAUDE.ts
  */
 
@@ -16,7 +18,12 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join } from "path";
 
 const PAI_DIR = join(process.env.HOME!, ".claude");
-const TEMPLATE_PATH = join(PAI_DIR, "CLAUDE.md.template");
+// Canonical template now lives with the engine (repo SOT), not loose in ~/.claude.
+// Fall back to the legacy ~/.claude/CLAUDE.md.template if the deployed one is absent.
+const TEMPLATE_PATH = (() => {
+  const repoTmpl = join(PAI_DIR, "PAI/TEMPLATES/AgentConfig/CLAUDE.md");
+  return existsSync(repoTmpl) ? repoTmpl : join(PAI_DIR, "CLAUDE.md.template");
+})();
 const OUTPUT_PATH = join(PAI_DIR, "CLAUDE.md");
 const SETTINGS_PATH = join(PAI_DIR, "settings.json");
 const ALGORITHM_DIR = join(PAI_DIR, "PAI/Algorithm");

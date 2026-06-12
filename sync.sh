@@ -153,8 +153,16 @@ deploy_config() {
       warn "vault identity dir not found for $agent — deploying template verbatim"; cp "$tmpl" "$dst"
     fi
   else
-    cp "$tmpl" "$dst"
-    ok "config → $dst"
+    # Claude: render via BuildCLAUDE.ts — resolves {{PAI_VERSION}}, {{ALGO_PATH}},
+    # {DAIDENTITY.NAME} from settings.json + Algorithm/LATEST (the canonical renderer,
+    # also run by the SessionStart hook). Reads the deployed repo template.
+    local builder="$real/PAI/Tools/BuildCLAUDE.ts"
+    if [ -f "$builder" ] && command -v bun >/dev/null 2>&1; then
+      ( bun "$builder" >/dev/null 2>&1 ) && ok "config → $dst (rendered via BuildCLAUDE.ts)" \
+        || { warn "BuildCLAUDE.ts failed — copying template raw"; cp "$tmpl" "$dst"; }
+    else
+      warn "bun/BuildCLAUDE unavailable — copying template raw (may contain placeholders)"; cp "$tmpl" "$dst"
+    fi
   fi
 }
 
