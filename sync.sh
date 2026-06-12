@@ -91,18 +91,23 @@ agent_gets_tag() {
   esac
 }
 
-# rewrite_refs <dir> <tilde-home>  — decouple copies from ~/.claude (copy agents only)
+# rewrite_refs <dir> <tilde-home>  — fully decouple copies from ~/.claude (copy agents only)
+# Blanket-rewrites EVERY ~/.claude reference (hooks, Bin, settings.json, agents,
+# commands, PAI, skills, …) to the agent's own home, so no deployed file ever
+# reaches back into Claude's home. MEMORY is special-cased: it lives under PAI/.
 rewrite_refs() {
-  local dir="$1" tilde="$2" files
-  files=$(grep -rIl -e '~/.claude/PAI' -e '~/.claude/skills' -e '~/.claude/MEMORY' "$dir" 2>/dev/null || true)
+  local dir="$1" tilde="$2" real files
+  real="${tilde/#\~/$HOME}"
+  files=$(grep -rIl -e '~/.claude' -e "$HOME/.claude" "$dir" 2>/dev/null || true)
   [ -z "$files" ] && return 0
   while IFS= read -r f; do
     [ -z "$f" ] && continue
     [ -L "$f" ] && continue
     sed -i '' \
-      -e "s#~/.claude/PAI#${tilde}/PAI#g" \
-      -e "s#~/.claude/skills#${tilde}/skills#g" \
       -e "s#~/.claude/MEMORY#${tilde}/PAI/MEMORY#g" \
+      -e "s#${HOME}/.claude/MEMORY#${real}/PAI/MEMORY#g" \
+      -e "s#~/.claude#${tilde}#g" \
+      -e "s#${HOME}/.claude#${real}#g" \
       "$f"
   done <<< "$files"
 }
@@ -163,9 +168,23 @@ for spec in "${AGENTS[@]}"; do
   if $CONFIRM; then ok "$count skills → $skills_dir (${skipped} skipped by @sync tag)"
   else info "would deploy ~$count skills (${skipped} private-skipped) → $skills_dir ($mode)"; fi
 
-  # ── Verify (copy agents: zero residual ~/.claude refs) ────────────────────
+  # ── Orphan sweep (copy agents only) ───────────────────────────────────────
+  # Remove any top-level skill dir not backed by a deployed Pack. Symlink-mode
+  # (Claude) is swept separately at cutover; we never auto-delete real dirs there.
+  if $CONFIRM && [ "$mode" = "copy" ] && [ -d "$skills_dir" ]; then
+    swept=0
+    for d in "$skills_dir"/*/; do
+      [ -d "$d" ] || continue
+      dn=$(basename "${d%/}")
+      [ -f "$PACKS_DIR/$dn/src/SKILL.md" ] && continue
+      rm -rf "$d"; swept=$((swept+1))
+    done
+    [ "$swept" -gt 0 ] && ok "swept $swept orphan skill dirs (no source Pack)"
+  fi
+
+  # ── Verify (copy agents: zero residual ~/.claude refs anywhere) ───────────
   if $CONFIRM && [ "$mode" = "copy" ]; then
-    leak=$( { grep -rIl -e '~/.claude/PAI' -e '~/.claude/skills' -e '~/.claude/MEMORY' "$engine_dst" "$skills_dir" 2>/dev/null || true; } | wc -l | tr -d ' ')
+    leak=$( { grep -rIl -e '~/.claude' -e "$HOME/.claude" "$engine_dst" "$skills_dir" 2>/dev/null || true; } | wc -l | tr -d ' ')
     [ "$leak" -eq 0 ] && ok "0 residual ~/.claude refs" || warn "$leak files still reference ~/.claude"
   fi
   echo ""

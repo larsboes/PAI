@@ -96,12 +96,12 @@ else
   info "VAULT_PATH unset / no Atlas/TELOS — skipping identity symlinks (LoadTelos guards this)"
 fi
 
-# ── Deploy skill Packs ─────────────────────────────────────
-info "Deploying skill Packs..."
-if [ -x "$SCRIPT_DIR/sync-deploy.sh" ]; then
-  "$SCRIPT_DIR/sync-deploy.sh" --clean && ok "Skills deployed"
+# ── Deploy engine + skills to all agents ───────────────────
+info "Deploying PAI engine + skill Packs (repo = source of truth)..."
+if [ -x "$SCRIPT_DIR/sync.sh" ]; then
+  "$SCRIPT_DIR/sync.sh" --confirm && ok "Engine + skills deployed to claude/gemini/pi"
 else
-  warn "sync-deploy.sh not found — run manually"
+  warn "sync.sh not found — run ./sync.sh --confirm manually"
 fi
 
 # ── Summary ────────────────────────────────────────────────
