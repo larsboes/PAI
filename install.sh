@@ -83,31 +83,19 @@ cp "$RELEASE_DIR/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
 cp "$RELEASE_DIR/commands/"* "$CLAUDE_DIR/commands/" 2>/dev/null || true
 ok "Agents + Commands"
 
-# ── Identity symlinks (private vault → standard USER/ paths) ─
-# Bridges upstream's USER/ convention to the private Obsidian vault so identity
-# stays out of the repo. LoadTelos.hook.ts also guards a missing vault.
-if [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Atlas/TELOS" ]; then
-  mkdir -p "$CLAUDE_DIR/PAI/USER"
-  ln -sfn "$VAULT_PATH/Atlas/TELOS"                        "$CLAUDE_DIR/PAI/USER/TELOS"
-  ln -sfn "$VAULT_PATH/Atlas/TELOS/IDENTITY.md"            "$CLAUDE_DIR/PAI/USER/DA_IDENTITY.md"
-  ln -sfn "$VAULT_PATH/Atlas/Personal/PERSONAL_CONTEXT.md" "$CLAUDE_DIR/PAI/USER/PRINCIPAL_IDENTITY.md"
-  ok "TELOS vault symlinks (USER/ → \$VAULT_PATH)"
+# ── Unified data layer bridge (private vault → USER/ + MEMORY) ─
+# The whole USER data layer (TELOS, identity, MEMORY, SECURITY) lives once in the
+# private Obsidian vault at $VAULT_PATH/Resources/PAI (upstream USER convention) and
+# is bridged into the engine via two whole-folder symlinks:
+#   PAI/USER   → vault/Resources/PAI         (identity, Telos/, Beliefs.md, …)
+#   PAI/MEMORY → vault/Resources/PAI/MEMORY  (so engine MEMORY/* refs resolve into vault)
+# Identity/TELOS edited once in the vault → every agent sees it. LoadTelos guards absence.
+if [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Resources/PAI" ]; then
+  ln -sfn "$VAULT_PATH/Resources/PAI"        "$CLAUDE_DIR/PAI/USER"
+  ln -sfn "$VAULT_PATH/Resources/PAI/MEMORY" "$CLAUDE_DIR/PAI/MEMORY"
+  ok "Data-layer vault bridge (USER + MEMORY → \$VAULT_PATH/Resources/PAI)"
 else
-  info "VAULT_PATH unset / no Atlas/TELOS — skipping identity symlinks (LoadTelos guards this)"
-fi
-
-# ── Identity files single-source (vault PAI/Identity/ → USER/) ─
-# Identity (ABOUTME/DAIDENTITY/AISTEERINGRULES) lives once in the vault and is
-# symlinked into every agent's USER/. Derive the vault from the MEMORY symlink.
-VAULT_PAI="$(dirname "$(readlink "$CLAUDE_DIR/PAI/MEMORY" 2>/dev/null)" 2>/dev/null)"
-if [ -n "$VAULT_PAI" ] && [ -d "$VAULT_PAI/Identity" ]; then
-  mkdir -p "$CLAUDE_DIR/PAI/USER"
-  for f in ABOUTME.md DAIDENTITY.md AISTEERINGRULES.md; do
-    [ -f "$VAULT_PAI/Identity/$f" ] && ln -sfn "$VAULT_PAI/Identity/$f" "$CLAUDE_DIR/PAI/USER/$f"
-  done
-  ok "Identity vault symlinks (USER/ → vault PAI/Identity)"
-else
-  info "No vault PAI/Identity — skipping identity-file symlinks"
+  info "VAULT_PATH unset / no Resources/PAI — skipping vault bridge (LoadTelos guards this)"
 fi
 
 # ── Deploy engine + skills to all agents ───────────────────
@@ -124,5 +112,5 @@ SKILL_COUNT=$(find "$SCRIPT_DIR/Packs" -name "SKILL.md" 2>/dev/null | wc -l)
 ok "PAI installed: Algorithm v${ALGO_VERSION}, ${SKILL_COUNT} packs, Pulse, ISA"
 echo ""
 echo -e "  ${BOLD}Configure:${RESET} Edit ${BLUE}~/.env${RESET} for service URLs + credentials"
-echo -e "  ${BOLD}Identity:${RESET}  Edit ${BLUE}\${VAULT_PATH}/Atlas/TELOS/${RESET} for personal context"
+echo -e "  ${BOLD}Identity:${RESET}  Edit ${BLUE}\${VAULT_PATH}/Resources/PAI/${RESET} for personal context"
 echo ""

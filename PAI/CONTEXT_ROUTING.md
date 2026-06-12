@@ -28,4 +28,6 @@ Load context on-demand by reading the file at the path listed. Only load what th
 | All USER context index | `PAI/USER/README.md` |
 | Projects | `PAI/USER/PROJECTS/README.md` |
 | Business context | `PAI/USER/BUSINESS/README.md` |
-| Telos (life goals) | `PAI/USER/TELOS/README.md` |
+| Telos (life goals) | `PAI/USER/Telos/README.md` |
+| Identity (DA + principal) | `PAI/USER/DaIdentity.md`, `PAI/USER/PrincipalIdentity.md` |
+| Beliefs / Wisdom / Models | `PAI/USER/Beliefs.md`, `PAI/USER/Wisdom.md`, `PAI/USER/Models.md` |

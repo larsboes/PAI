@@ -4,7 +4,7 @@
  *
  * WHY THIS EXISTS (vs CLAUDE.md @imports):
  * Claude Code's CLAUDE.md `@import` syntax does NOT expand environment variables,
- * so `@${VAULT_PATH}/Atlas/TELOS/IDENTITY.md` silently fails to load. This hook
+ * so `@${VAULT_PATH}/Resources/PAI/DaIdentity.md` silently fails to load. This hook
  * reads `process.env.VAULT_PATH` (which works) and injects the TELOS files at
  * runtime. Benefits:
  *   - No personal/machine-specific paths baked into CLAUDE.md.
@@ -15,7 +15,7 @@
  *
  * INPUT:
  * - Environment: VAULT_PATH (e.g. ~/Developer/knowledge-base)
- * - Files: $VAULT_PATH/Atlas/TELOS/*.md, $VAULT_PATH/Atlas/Personal/PERSONAL_CONTEXT.md
+ * - Files: markdown under $VAULT_PATH/Resources/PAI/ (the unified USER data layer)
  *
  * OUTPUT:
  * - stdout: <system-reminder> containing TELOS identity + goals/challenges
@@ -62,16 +62,16 @@ function loadSettings(): Settings {
 // Identity first (who you are), then the planning frame (what you serve).
 // Routing-only files (WISDOM/PREDICTIONS/PROJECTS/BOOKS) stay on-demand via CLAUDE.md.
 const TELOS_FILES: Array<{ rel: string; label: string }> = [
-  { rel: 'Atlas/TELOS/IDENTITY.md',          label: 'Identity' },
-  { rel: 'Atlas/TELOS/SOUL.md',              label: 'Soul / Operating Protocol' },
-  { rel: 'Atlas/Personal/PERSONAL_CONTEXT.md', label: 'Personal Context' },
-  { rel: 'Atlas/TELOS/TELOS.md',             label: 'TELOS Index' },
-  { rel: 'Atlas/TELOS/MISSION.md',           label: 'Mission' },
-  { rel: 'Atlas/TELOS/GOALS.md',             label: 'Goals' },
-  { rel: 'Atlas/TELOS/BELIEFS.md',           label: 'Beliefs' },
-  { rel: 'Atlas/TELOS/CHALLENGES.md',        label: 'Challenges' },
-  { rel: 'Atlas/TELOS/STRATEGIES.md',        label: 'Strategies' },
-  { rel: 'Atlas/TELOS/STATUS.md',            label: 'Status' },
+  { rel: 'Resources/PAI/DaIdentity.md',        label: 'Identity' },
+  { rel: 'Resources/PAI/Soul.md',              label: 'Soul / Operating Protocol' },
+  { rel: 'Resources/PAI/PrincipalIdentity.md', label: 'Personal Context' },
+  { rel: 'Resources/PAI/Telos/README.md',      label: 'TELOS Index' },
+  { rel: 'Resources/PAI/Telos/Mission.md',     label: 'Mission' },
+  { rel: 'Resources/PAI/Telos/Goals.md',       label: 'Goals' },
+  { rel: 'Resources/PAI/Beliefs.md',           label: 'Beliefs' },
+  { rel: 'Resources/PAI/Telos/Challenges.md',  label: 'Challenges' },
+  { rel: 'Resources/PAI/Telos/Strategies.md',  label: 'Strategies' },
+  { rel: 'Resources/PAI/Telos/Status.md',      label: 'Status' },
 ];
 
 // Per-file safety cap so an unexpectedly huge vault file can't flood context.

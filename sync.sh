@@ -118,8 +118,8 @@ identity_block() {
   local ident="$1" f
   echo "## Identity & Operating Profile"
   echo ""
-  echo "> Single-source: Obsidian vault \`PAI/Identity/\` (symlinked into \`PAI/USER/\`). Edit there, not here."
-  for f in DAIDENTITY.md ABOUTME.md AISTEERINGRULES.md; do
+  echo "> Single-source: Obsidian vault \`Resources/PAI/\` (symlinked into \`PAI/USER/\`). Edit there, not here."
+  for f in DaIdentity.md PrincipalIdentity.md Soul.md; do
     [ -f "$ident/$f" ] || continue
     echo ""; echo "---"; echo ""
     cat "$ident/$f"
@@ -132,7 +132,7 @@ resolve_config_vars() {
   local f="$1" real="$2" ident="$3" ver algo daname
   ver="$(cat "$real/PAI/VERSION" 2>/dev/null | tr -d '[:space:]')"; [ -z "$ver" ] && ver="—"
   algo="$(cat "$real/PAI/Algorithm/LATEST" 2>/dev/null | tr -d '[:space:]')"
-  daname="$(grep -m1 '^\*\*Name:\*\*' "$ident/DAIDENTITY.md" 2>/dev/null | sed 's/^\*\*Name:\*\* *//')"
+  daname="$(grep -m1 '^\*\*Name:\*\*' "$ident/DaIdentity.md" 2>/dev/null | sed 's/^\*\*Name:\*\* *//')"
   [ -z "$daname" ] && daname="Assistant"
   sed -i '' \
     -e "s#{{PAI_VERSION}}#${ver}#g" \
@@ -154,8 +154,8 @@ deploy_config() {
   esac
   [ -f "$tmpl" ] || { warn "no config template for $agent"; return 0; }
   if $inject; then
-    # derive the canonical vault identity dir from this agent's USER symlink
-    ident="$(dirname "$(readlink "$real/PAI/USER/ABOUTME.md" 2>/dev/null)" 2>/dev/null)"
+    # USER is a whole-folder symlink → the vault data layer; identity files live at its root
+    ident="$real/PAI/USER"
     if [ -n "$ident" ] && [ -d "$ident" ]; then
       local blk; blk="$(mktemp)"; identity_block "$ident" > "$blk"
       awk '
@@ -211,6 +211,17 @@ for spec in "${AGENTS[@]}"; do
   fi
 
   real_home="${tilde/#\~/$HOME}"
+
+  # ── Vault data-layer bridge (USER + MEMORY → vault, single-source) ────────
+  # The whole USER layer (TELOS, identity, MEMORY, SECURITY) lives once in the
+  # vault at $VAULT_PATH/Resources/PAI and is shared by every agent via symlinks.
+  # RSYNC_EXCLUDES already skips USER/MEMORY so the engine deploy never clobbers them.
+  if $CONFIRM && [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Resources/PAI" ]; then
+    mkdir -p "$real_home/PAI"
+    ln -sfn "$VAULT_PATH/Resources/PAI"        "$real_home/PAI/USER"
+    ln -sfn "$VAULT_PATH/Resources/PAI/MEMORY" "$real_home/PAI/MEMORY"
+    ok "vault bridge (USER + MEMORY) → $real_home/PAI"
+  fi
 
   # ── commands/ + lib/ (cross-agent — skills invoke them) ───────────────────
   if $CONFIRM; then
