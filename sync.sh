@@ -41,6 +41,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACKS_DIR="$SCRIPT_DIR/Packs"
 ENGINE_SRC="$SCRIPT_DIR/PAI"          # repo IS the source now (was ~/.claude/PAI)
 SKILLS_YAML="$SCRIPT_DIR/skills.yaml"
+TEMPLATES_DIR="$ENGINE_SRC/TEMPLATES/AgentConfig"  # CLAUDE.md / GEMINI.md templates
 
 # agent spec:  name | tilde-home | skills-dir | engine-dir | mode(symlink|copy)
 AGENTS=(
@@ -110,6 +111,51 @@ rewrite_refs() {
       -e "s#${HOME}/.claude#${real}#g" \
       "$f"
   done <<< "$files"
+}
+
+# identity_block <ident-dir>  — concatenate the vault identity files into one block
+identity_block() {
+  local ident="$1" f
+  echo "## Identity & Operating Profile"
+  echo ""
+  echo "> Single-source: Obsidian vault \`PAI/Identity/\` (symlinked into \`PAI/USER/\`). Edit there, not here."
+  for f in DAIDENTITY.md ABOUTME.md AISTEERINGRULES.md; do
+    [ -f "$ident/$f" ] || continue
+    echo ""; echo "---"; echo ""
+    cat "$ident/$f"
+  done
+}
+
+# deploy_config <agent> <tilde-home>  — render the agent's CLAUDE.md/GEMINI.md
+# from the repo template, injecting the vaulted identity at the PAI:IDENTITY marker.
+deploy_config() {
+  local agent="$1" tilde="$2" real tmpl dst inject ident
+  real="${tilde/#\~/$HOME}"
+  case "$agent" in
+    claude) tmpl="$TEMPLATES_DIR/CLAUDE.md";  dst="$real/CLAUDE.md";  inject=false ;;
+    gemini) tmpl="$TEMPLATES_DIR/GEMINI.md";  dst="$real/GEMINI.md";  inject=true  ;;
+    *)      return 0 ;;
+  esac
+  [ -f "$tmpl" ] || { warn "no config template for $agent"; return 0; }
+  if $inject; then
+    # derive the canonical vault identity dir from this agent's USER symlink
+    ident="$(dirname "$(readlink "$real/PAI/USER/ABOUTME.md" 2>/dev/null)" 2>/dev/null)"
+    if [ -n "$ident" ] && [ -d "$ident" ]; then
+      local blk; blk="$(mktemp)"; identity_block "$ident" > "$blk"
+      awk '
+        /<!-- PAI:IDENTITY -->/      { while ((getline l < BF) > 0) print l; close(BF); skip=1; next }
+        /<!-- \/PAI:IDENTITY -->/    { skip=0; next }
+        skip!=1                      { print }
+      ' BF="$blk" "$tmpl" > "$dst"
+      rm -f "$blk"
+      ok "config → $dst (identity injected from vault)"
+    else
+      warn "vault identity dir not found for $agent — deploying template verbatim"; cp "$tmpl" "$dst"
+    fi
+  else
+    cp "$tmpl" "$dst"
+    ok "config → $dst"
+  fi
 }
 
 echo ""
@@ -187,6 +233,10 @@ for spec in "${AGENTS[@]}"; do
     leak=$( { grep -rIl -e '~/.claude' -e "$HOME/.claude" "$engine_dst" "$skills_dir" 2>/dev/null || true; } | wc -l | tr -d ' ')
     [ "$leak" -eq 0 ] && ok "0 residual ~/.claude refs" || warn "$leak files still reference ~/.claude"
   fi
+
+  # ── Agent config (CLAUDE.md / GEMINI.md from repo template + vault identity) ─
+  if $CONFIRM; then deploy_config "$name" "$tilde"
+  else info "would deploy config from $TEMPLATES_DIR ($name)"; fi
   echo ""
 done
 
