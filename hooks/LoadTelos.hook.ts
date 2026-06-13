@@ -3,19 +3,18 @@
  * LoadTelos.hook.ts — Inject the principal's private TELOS into context (SessionStart)
  *
  * WHY THIS EXISTS (vs CLAUDE.md @imports):
- * Claude Code's CLAUDE.md `@import` syntax does NOT expand environment variables,
- * so `@${VAULT_PATH}/Resources/PAI/DaIdentity.md` silently fails to load. This hook
- * reads `process.env.VAULT_PATH` (which works) and injects the TELOS files at
- * runtime. Benefits:
+ * Claude Code's CLAUDE.md `@import` syntax does NOT expand environment variables
+ * or resolve runtime paths, so identity files can't be reliably @imported. This hook
+ * reads the local PAI USER layer and injects the TELOS files at runtime. Benefits:
  *   - No personal/machine-specific paths baked into CLAUDE.md.
- *   - The LOADER is public + repo-tracked; the CONTENT stays private in the vault.
+ *   - The LOADER is public + repo-tracked; the CONTENT lives in PAI/USER (preserved via dotfiles).
  *   - Portable: any harness with a SessionStart hook can run an equivalent loader.
  *
  * TRIGGER: SessionStart
  *
  * INPUT:
- * - Environment: VAULT_PATH (e.g. ~/Developer/knowledge-base)
- * - Files: markdown under $VAULT_PATH/Resources/PAI/ (the unified USER data layer)
+ * - Path: ~/.claude/PAI/USER (override with PAI_USER_DIR)
+ * - Files: markdown under PAI/USER/ (the unified USER data layer)
  *
  * OUTPUT:
  * - stdout: <system-reminder> containing TELOS identity + goals/challenges
@@ -28,6 +27,7 @@
 
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import { homedir } from 'os';
 import { getSettingsPath } from './lib/paths';
 
 interface DynamicContextConfig {
@@ -58,20 +58,20 @@ function loadSettings(): Settings {
   return {};
 }
 
-// TELOS files to inject, in reading order. Relative to $VAULT_PATH.
+// TELOS files to inject, in reading order. Relative to the PAI USER dir.
 // Identity first (who you are), then the planning frame (what you serve).
 // Routing-only files (WISDOM/PREDICTIONS/PROJECTS/BOOKS) stay on-demand via CLAUDE.md.
 const TELOS_FILES: Array<{ rel: string; label: string }> = [
-  { rel: 'Resources/PAI/DaIdentity.md',        label: 'Identity' },
-  { rel: 'Resources/PAI/Soul.md',              label: 'Soul / Operating Protocol' },
-  { rel: 'Resources/PAI/PrincipalIdentity.md', label: 'Personal Context' },
-  { rel: 'Resources/PAI/Telos/README.md',      label: 'TELOS Index' },
-  { rel: 'Resources/PAI/Telos/Mission.md',     label: 'Mission' },
-  { rel: 'Resources/PAI/Telos/Goals.md',       label: 'Goals' },
-  { rel: 'Resources/PAI/Beliefs.md',           label: 'Beliefs' },
-  { rel: 'Resources/PAI/Telos/Challenges.md',  label: 'Challenges' },
-  { rel: 'Resources/PAI/Telos/Strategies.md',  label: 'Strategies' },
-  { rel: 'Resources/PAI/Telos/Status.md',      label: 'Status' },
+  { rel: 'DaIdentity.md',        label: 'Identity' },
+  { rel: 'Soul.md',              label: 'Soul / Operating Protocol' },
+  { rel: 'PrincipalIdentity.md', label: 'Personal Context' },
+  { rel: 'Telos/README.md',      label: 'TELOS Index' },
+  { rel: 'Telos/Mission.md',     label: 'Mission' },
+  { rel: 'Telos/Goals.md',       label: 'Goals' },
+  { rel: 'Beliefs.md',           label: 'Beliefs' },
+  { rel: 'Telos/Challenges.md',  label: 'Challenges' },
+  { rel: 'Telos/Strategies.md',  label: 'Strategies' },
+  { rel: 'Telos/Status.md',      label: 'Status' },
 ];
 
 // Per-file safety cap so an unexpectedly huge vault file can't flood context.
@@ -81,13 +81,13 @@ const MAX_CHARS_PER_FILE = 8000;
  * Read the TELOS files that exist and assemble a single markdown block.
  * Returns null if the vault or all files are missing.
  */
-function loadTelosContext(vaultPath: string): string | null {
+function loadTelosContext(userDir: string): string | null {
   const sections: string[] = [];
   const loaded: string[] = [];
   const missing: string[] = [];
 
   for (const { rel, label } of TELOS_FILES) {
-    const full = join(vaultPath, rel);
+    const full = join(userDir, rel);
     if (!existsSync(full)) { missing.push(label); continue; }
     try {
       let content = readFileSync(full, 'utf-8').trim();
@@ -108,13 +108,13 @@ function loadTelosContext(vaultPath: string): string | null {
   console.error(`🧭 TELOS loaded: ${loaded.join(', ')}${missing.length ? ` | missing: ${missing.join(', ')}` : ''}`);
 
   return `
-## TELOS — Who You Serve (auto-loaded from the private vault)
+## TELOS — Who You Serve (auto-loaded from the PAI USER layer)
 
 This is the principal's identity, mission, goals, beliefs, and current challenges.
 Let it shape your judgment: align work to these goals, respect these beliefs, and
-account for these challenges. Source of truth is the private Obsidian vault — never
-copy this content into the repo. Deeper files (Wisdom, Predictions, Projects, Books)
-are available on demand via the CLAUDE.md routing table.
+account for these challenges. Source of truth is the local PAI USER layer
+(~/.claude/PAI/USER, preserved via dotfiles). Deeper files (Wisdom, Predictions,
+Projects, Books) are available on demand via the CLAUDE.md routing table.
 
 ${sections.join('\n\n')}
 `;
@@ -137,21 +137,18 @@ function main(): void {
       process.exit(0);
     }
 
-    const vaultPath = process.env.VAULT_PATH;
-    if (!vaultPath) {
-      console.error('⏭️ VAULT_PATH unset — TELOS not loaded (set VAULT_PATH to your vault root)');
-      process.exit(0);
-    }
-    if (!existsSync(vaultPath)) {
-      console.error(`⏭️ VAULT_PATH does not exist: ${vaultPath} — TELOS not loaded`);
+    // USER data layer: local PAI/USER (symlinked into dotfiles). Override with PAI_USER_DIR.
+    const userDir = process.env.PAI_USER_DIR || join(homedir(), '.claude', 'PAI', 'USER');
+    if (!existsSync(userDir)) {
+      console.error(`⏭️ PAI USER dir does not exist: ${userDir} — TELOS not loaded`);
       process.exit(0);
     }
 
-    const telos = loadTelosContext(vaultPath);
+    const telos = loadTelosContext(userDir);
     if (telos) {
       console.log(`<system-reminder>\nPAI TELOS Context (Auto-loaded at Session Start)\n${telos}\n</system-reminder>`);
     } else {
-      console.error(`⏭️ No TELOS files found under ${vaultPath}/Atlas — nothing injected`);
+      console.error(`⏭️ No TELOS files found under ${userDir} — nothing injected`);
     }
     process.exit(0);
   } catch (error) {

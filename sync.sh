@@ -22,8 +22,8 @@
 #      pi      (~/.pi)      skills = COPY + ref-rewrite
 #                           engine = COPY + ref-rewrite
 #
-#  Unified mutable data (MEMORY, TELOS) stays single-source in the Obsidian
-#  vault via symlinks under each agent's PAI/ — this script never touches it.
+#  Unified mutable data (MEMORY, TELOS) stays single-source in dotfiles
+#  (PAI_DATA_DIR) via symlinks under each agent's PAI/ — this script never overwrites it.
 #
 #  @sync ROUTING  (frontmatter line in each Pack's src/SKILL.md)
 #      # @sync: private          → pi only
@@ -118,7 +118,7 @@ identity_block() {
   local ident="$1" f
   echo "## Identity & Operating Profile"
   echo ""
-  echo "> Single-source: Obsidian vault \`Resources/PAI/\` (symlinked into \`PAI/USER/\`). Edit there, not here."
+  echo "> Single-source: dotfiles \`PAI/USER/\` (symlinked into the engine). Edit there, not here."
   for f in DaIdentity.md PrincipalIdentity.md Soul.md; do
     [ -f "$ident/$f" ] || continue
     echo ""; echo "---"; echo ""
@@ -154,7 +154,7 @@ deploy_config() {
   esac
   [ -f "$tmpl" ] || { warn "no config template for $agent"; return 0; }
   if $inject; then
-    # USER is a whole-folder symlink → the vault data layer; identity files live at its root
+    # USER is a whole-folder symlink → the dotfiles data layer; identity files live at its root
     ident="$real/PAI/USER"
     if [ -n "$ident" ] && [ -d "$ident" ]; then
       local blk; blk="$(mktemp)"; identity_block "$ident" > "$blk"
@@ -212,15 +212,17 @@ for spec in "${AGENTS[@]}"; do
 
   real_home="${tilde/#\~/$HOME}"
 
-  # ── Vault data-layer bridge (USER + MEMORY → vault, single-source) ────────
-  # The whole USER layer (TELOS, identity, MEMORY, SECURITY) lives once in the
-  # vault at $VAULT_PATH/Resources/PAI and is shared by every agent via symlinks.
-  # RSYNC_EXCLUDES already skips USER/MEMORY so the engine deploy never clobbers them.
-  if $CONFIRM && [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Resources/PAI" ]; then
+  # ── Data-layer link (USER + MEMORY → dotfiles, single-source) ─────────────
+  # USER (identity, TELOS) and operational MEMORY live locally under dotfiles as
+  # upstream-canonical PAI/USER + PAI/MEMORY siblings, preserved via git and shared
+  # by every agent via symlinks. RSYNC_EXCLUDES skips USER/MEMORY so the engine
+  # deploy never clobbers them. Override the data root with PAI_DATA_DIR.
+  PAI_DATA_DIR="${PAI_DATA_DIR:-$HOME/Developer/dotfiles/claude/.claude/PAI}"
+  if $CONFIRM && { [ -d "$PAI_DATA_DIR/USER" ] || [ -d "$PAI_DATA_DIR/MEMORY" ]; }; then
     mkdir -p "$real_home/PAI"
-    ln -sfn "$VAULT_PATH/Resources/PAI"        "$real_home/PAI/USER"
-    ln -sfn "$VAULT_PATH/Resources/PAI/MEMORY" "$real_home/PAI/MEMORY"
-    ok "vault bridge (USER + MEMORY) → $real_home/PAI"
+    [ -d "$PAI_DATA_DIR/USER" ]   && ln -sfn "$PAI_DATA_DIR/USER"   "$real_home/PAI/USER"
+    [ -d "$PAI_DATA_DIR/MEMORY" ] && ln -sfn "$PAI_DATA_DIR/MEMORY" "$real_home/PAI/MEMORY"
+    ok "data layer (USER + MEMORY → $PAI_DATA_DIR)"
   fi
 
   # ── commands/ + lib/ (cross-agent — skills invoke them) ───────────────────
@@ -244,6 +246,9 @@ for spec in "${AGENTS[@]}"; do
       [ -d "$SCRIPT_DIR/$sub" ] || continue
       mkdir -p "$real_home/$sub"
       rsync -a "${RSYNC_EXCLUDES[@]}" "$SCRIPT_DIR/$sub/" "$real_home/$sub/"
+      # Hooks are invoked as bare paths (${PAI_DIR}/hooks/X.hook.ts), so the exec
+      # bit must survive deploy even if an editor/Write dropped it in the repo.
+      [ "$sub" = "hooks" ] && chmod +x "$real_home/hooks/"*.hook.ts 2>/dev/null || true
       ok "$sub → $real_home/$sub"
     done
     # settings.json: structural config (hooks, statusLine, permissions.ask, …).
@@ -326,5 +331,5 @@ PYMERGE
 done
 
 echo -e "${BOLD}── done ──────────────────────────────────${RESET}"
-info "Repo = source of truth. claude/gemini/pi are deploy targets. MEMORY+TELOS shared via vault."
+info "Repo = source of truth. claude/gemini/pi are deploy targets. MEMORY+TELOS shared via dotfiles."
 echo ""

@@ -57,7 +57,7 @@ cp -r "$RELEASE_DIR/PAI/PULSE/"* "$CLAUDE_DIR/PAI/PULSE/"
 ok "Pulse"
 
 mkdir -p "$CLAUDE_DIR/PAI/Tools" "$CLAUDE_DIR/PAI/TEMPLATES" "$CLAUDE_DIR/PAI/bin"
-cp -r "$RELEASE_DIR/PAI/TOOLS/"* "$CLAUDE_DIR/PAI/Tools/" 2>/dev/null || true
+cp -r "$RELEASE_DIR/PAI/Tools/"* "$CLAUDE_DIR/PAI/Tools/" 2>/dev/null || true
 cp -r "$RELEASE_DIR/PAI/TEMPLATES/"* "$CLAUDE_DIR/PAI/TEMPLATES/" 2>/dev/null || true
 cp -r "$RELEASE_DIR/PAI/bin/"* "$CLAUDE_DIR/PAI/bin/" 2>/dev/null || true
 cp "$RELEASE_DIR/PAI/PAI_SYSTEM_PROMPT.md" "$CLAUDE_DIR/PAI/" 2>/dev/null || true
@@ -83,19 +83,20 @@ cp "$RELEASE_DIR/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
 cp "$RELEASE_DIR/commands/"* "$CLAUDE_DIR/commands/" 2>/dev/null || true
 ok "Agents + Commands"
 
-# ── Unified data layer bridge (private vault → USER/ + MEMORY) ─
-# The whole USER data layer (TELOS, identity, MEMORY, SECURITY) lives once in the
-# private Obsidian vault at $VAULT_PATH/Resources/PAI (upstream USER convention) and
-# is bridged into the engine via two whole-folder symlinks:
-#   PAI/USER   → vault/Resources/PAI         (identity, Telos/, Beliefs.md, …)
-#   PAI/MEMORY → vault/Resources/PAI/MEMORY  (so engine MEMORY/* refs resolve into vault)
-# Identity/TELOS edited once in the vault → every agent sees it. LoadTelos guards absence.
-if [ -n "${VAULT_PATH:-}" ] && [ -d "$VAULT_PATH/Resources/PAI" ]; then
-  ln -sfn "$VAULT_PATH/Resources/PAI"        "$CLAUDE_DIR/PAI/USER"
-  ln -sfn "$VAULT_PATH/Resources/PAI/MEMORY" "$CLAUDE_DIR/PAI/MEMORY"
-  ok "Data-layer vault bridge (USER + MEMORY → \$VAULT_PATH/Resources/PAI)"
+# ── Data layer (USER + MEMORY) → dotfiles, symlinked into the engine ─
+# USER (identity, TELOS, Beliefs, …) and operational MEMORY live locally under the
+# dotfiles repo as upstream-canonical PAI/USER + PAI/MEMORY siblings — preserved via
+# git and symlinked into the engine so every agent resolves them:
+#   PAI/USER   → dotfiles/claude/.claude/PAI/USER
+#   PAI/MEMORY → dotfiles/claude/.claude/PAI/MEMORY
+# Override the data root with PAI_DATA_DIR. LoadTelos reads PAI/USER directly.
+PAI_DATA_DIR="${PAI_DATA_DIR:-$HOME/Developer/dotfiles/claude/.claude/PAI}"
+if [ -d "$PAI_DATA_DIR/USER" ] || [ -d "$PAI_DATA_DIR/MEMORY" ]; then
+  [ -d "$PAI_DATA_DIR/USER" ]   && ln -sfn "$PAI_DATA_DIR/USER"   "$CLAUDE_DIR/PAI/USER"
+  [ -d "$PAI_DATA_DIR/MEMORY" ] && ln -sfn "$PAI_DATA_DIR/MEMORY" "$CLAUDE_DIR/PAI/MEMORY"
+  ok "Data layer (USER + MEMORY → $PAI_DATA_DIR)"
 else
-  info "VAULT_PATH unset / no Resources/PAI — skipping vault bridge (LoadTelos guards this)"
+  info "No PAI_DATA_DIR/{USER,MEMORY} at $PAI_DATA_DIR — skipping data-layer link (LoadTelos guards this)"
 fi
 
 # ── Deploy engine + skills to all agents ───────────────────
@@ -112,5 +113,5 @@ SKILL_COUNT=$(find "$SCRIPT_DIR/Packs" -name "SKILL.md" 2>/dev/null | wc -l)
 ok "PAI installed: Algorithm v${ALGO_VERSION}, ${SKILL_COUNT} packs, Pulse, ISA"
 echo ""
 echo -e "  ${BOLD}Configure:${RESET} Edit ${BLUE}~/.env${RESET} for service URLs + credentials"
-echo -e "  ${BOLD}Identity:${RESET}  Edit ${BLUE}\${VAULT_PATH}/Resources/PAI/${RESET} for personal context"
+echo -e "  ${BOLD}Identity:${RESET}  Edit ${BLUE}~/.claude/PAI/USER/${RESET} for personal context"
 echo ""
