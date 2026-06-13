@@ -16,7 +16,6 @@ active:
   - Architecture
   - BlindSpot
   - Brainstorm
-  - Deep
   - FirstPrinciples
   - IterativeDepth
   - RootCauseAnalysis
@@ -46,6 +45,10 @@ active:
   - Documents
   - FluentBit
   - Git
+  - graphify
+  - drawio
+  - ParallelPlan
+  - VerifyClaims
   #- HtmlDocs
   #- Learn
   - Logstash
@@ -67,8 +70,6 @@ active:
   #- PPTX
 
   # ── Personal (vault-based, config via ~/.env) ─────────────
-  #- HomeInfra        # fritz, synology, whatsapp, apartment-scout
-  #- Personal         # daily, review-workflow, focus-alignment, inbox, application-writer, pai-memory
 
   # ── Media & creative ──────────────────────────────────────
   - Art

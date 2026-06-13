@@ -1,6 +1,6 @@
 ---
 name: Google
-description: "Gmail, Google Calendar, and Google Drive CLI — search/send emails, manage calendar events, list/upload/download Drive files. USE WHEN gmail, google calendar, google drive, send email gmail, search email, calendar event, create event, drive file, upload file, download file, gdrive, gcalendar, google workspace."
+description: "Gmail, Google Calendar, and Google Drive from the command line (gmcli/gccli/gdcli wrappers) — search/send email, manage calendar events, check availability, list/upload/download Drive files. USE WHEN gmail, google calendar, google drive, send email gmail, search email, calendar event, create event, freebusy, availability, drive file, upload file, download file, gdrive, gcalendar, gmcli, gccli, gdcli, google workspace."
 user-invocable: true
 ---
 

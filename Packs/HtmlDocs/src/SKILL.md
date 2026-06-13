@@ -1,6 +1,6 @@
 ---
 name: HtmlDocs
-description: "Use when creating standalone HTML documentation sites for projects — architecture overviews, feature catalogs, component references, or configuration docs. Zero-build, no framework, just HTML/CSS/JS."
+description: "Create standalone, zero-build HTML documentation sites — architecture overviews, feature catalogs, component references, configuration docs. Plain HTML/CSS/JS, no framework. USE WHEN html documentation site, static docs site, architecture overview page, component reference site, zero-build docs, project docs site. NOT FOR slide decks/presentations (use revealjs); NOT FOR office documents like PDF/DOCX/XLSX (use Documents)."
 ---
 
 # HTML Documentation Site

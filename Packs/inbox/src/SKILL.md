@@ -1,6 +1,6 @@
 ---
 name: inbox
-description: "Process accumulated items in Inbox - smart categorization and routing with vault awareness."
+description: "Process accumulated items in the Inbox — smart categorization and routing with vault awareness. USE WHEN process inbox, clear inbox, inbox zero, triage inbox, sort my notes, route inbox items, organize captured notes, process captures."
 allowed-tools: Read, Write, Glob
 ---
 

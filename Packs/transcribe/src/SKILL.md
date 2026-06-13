@@ -1,6 +1,6 @@
 ---
 name: transcribe
-description: Speech-to-text transcription using Groq Whisper API. Supports multiple formats, batch processing, and subtitle output.
+description: "Speech-to-text transcription via Groq Whisper API — multiple formats, batch processing, subtitle (SRT/VTT) output. USE WHEN transcribe, transcription, speech to text, audio to text, transcribe audio, transcribe video, generate subtitles, srt, vtt, whisper. NOT FOR audio cleanup/editing (use AudioEditor)."
 ---
 
 <!--

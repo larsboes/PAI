@@ -1,6 +1,6 @@
 ---
 name: pptx
-description: "Use when working with PowerPoint files (.pptx) — creating, editing, analyzing presentations. Includes slide templates, KPI dashboards, Gantt charts, charts, tables, and batch editing via python-pptx. USE WHEN pptx, PowerPoint, presentation, slides, create slides, edit presentation, Gantt chart, KPI dashboard, add slide, python-pptx, slide deck."
+description: "Create, edit, and analyze native PowerPoint (.pptx) files via python-pptx — slide templates, KPI dashboards, Gantt charts, charts, tables, and batch editing. USE WHEN pptx, .pptx file, python-pptx, native PowerPoint, edit existing pptx, add slide to pptx, KPI dashboard slide, Gantt chart slide, programmatic PowerPoint. NOT FOR web/HTML slide decks (use revealjs); NOT FOR PDF/DOCX/XLSX or general office-doc creation (use Documents)."
 ---
 
 # PPTX Skill

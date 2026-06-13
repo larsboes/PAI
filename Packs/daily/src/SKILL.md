@@ -1,6 +1,6 @@
 ---
 name: daily
-description: "Open today's daily note with rich context - priorities, calendar, patterns to watch, and unfinished business from yesterday."
+description: "Open today's daily note with rich context — priorities, calendar, patterns to watch, and unfinished business from yesterday. USE WHEN daily note, daily briefing, today's note, start my day, morning briefing, what's on today, daily review, open today."
 allowed-tools: Read, Write, Glob, Bash(gccli *)
 ---
 

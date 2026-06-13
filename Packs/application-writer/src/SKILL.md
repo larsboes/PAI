@@ -1,6 +1,6 @@
 ---
 name: application-writer
-description: Draft applications for CFPs, fellowships, scholarships. Pulls context from vault to personalize.
+description: "Draft applications for CFPs, fellowships, scholarships, grants — pulls context from the vault to personalize. USE WHEN write application, draft application, CFP, call for papers, fellowship application, scholarship, grant application, apply for, personal statement, motivation letter."
 allowed-tools: Read, Write, Glob, WebFetch
 ---
 

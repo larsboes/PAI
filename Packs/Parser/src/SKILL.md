@@ -1,6 +1,6 @@
 ---
 name: Parser
-description: "Extract structured JSON from any content source — URLs, articles, newsletters, YouTube videos, PDFs, browser extensions, Twitter/X posts — with entity extraction, schema validation, collision detection, and deduplication. USE WHEN parse, extract, extract from URL, extract article, extract newsletter, extract YouTube, extract PDF, entity extraction, parse content, detect content type, structured data from URL, JSON from article, batch extract, browser extension parse."
+description: "Turn any content source into structured JSON OR clean Markdown — URLs, articles, newsletters, YouTube, PDFs, DOCX/PPTX, browser extensions, Twitter/X — with entity extraction, schema validation, collision detection, and dedup; plus raw URL→Markdown (Jina Reader) and local-file→Markdown (markitdown). USE WHEN parse, extract, extract from URL, extract article, extract newsletter, extract YouTube, extract PDF, entity extraction, parse content, detect content type, structured data from URL, JSON from article, batch extract, browser extension parse, fetch url to markdown, url to markdown, convert pdf to markdown, convert docx to markdown, markitdown, jina reader, clean markdown from url."
 ---
 
 # Parser
@@ -33,6 +33,23 @@ Parse any content into structured JSON with entity extraction and collision dete
 | Workflow | Trigger | File |
 |----------|---------|------|
 | **ExtractBrowserExtension** | "analyze extension", "browser extension security" | `Workflows/ExtractBrowserExtension.md` |
+
+---
+
+## Raw Markdown (not JSON)
+
+When you want clean Markdown rather than structured JSON — reading docs/articles, or converting a local office file — skip the entity pipeline:
+
+```bash
+# URL -> Markdown via Jina AI Reader (free, no API key; handles JS/SPAs)
+curl -s "https://r.jina.ai/https://example.com/article" -H "X-Return-Format: markdown"
+
+# Local file -> Markdown (PDF, DOCX, PPTX, XLSX, HTML, images/OCR, audio, ZIP)
+uvx markitdown document.pdf
+uvx markitdown document.pdf > output.md
+```
+
+Use this for "fetch this URL to markdown" / "convert this PDF to markdown". For keyword discovery use the built-in WebSearch tool; for structured entity JSON use the workflows above. (Absorbed the former `webfetch` skill — Jina + markitdown.)
 
 ---
 

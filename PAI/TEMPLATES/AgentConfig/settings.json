@@ -31,6 +31,21 @@
       "Edit(~/.claude/settings.json)",
       "Write(~/.ssh/*)",
       "Edit(~/.ssh/*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.env)",
+      "Bash(cat .env:*)",
+      "Bash(cat ./.env:*)",
+      "Bash(source .env:*)",
+      "Bash(. .env:*)",
+      "Bash(head .env:*)",
+      "Bash(tail .env:*)",
+      "Bash(less .env:*)",
+      "Bash(more .env:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

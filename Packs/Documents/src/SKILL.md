@@ -1,6 +1,6 @@
 ---
 name: Documents
-description: "Read, write, convert, and analyze office documents — PDF, DOCX, XLSX, PPTX creation, editing, extraction, tracked changes, redlining, and format conversion. USE WHEN PDF, Word document, DOCX, Excel, XLSX, PowerPoint, PPTX, create document, extract text from PDF, convert document, tracked changes, redline, document analysis, large PDF, merge PDF, fill form, office document."
+description: "Read, write, convert, and analyze office documents — PDF, DOCX, XLSX, PPTX creation, editing, extraction, tracked changes, redlining, and format conversion. USE WHEN PDF, Word document, DOCX, Excel, XLSX, PowerPoint, PPTX, create document, extract text from PDF, convert document, tracked changes, redline, document analysis, large PDF, merge PDF, fill form, office document. NOT FOR web/HTML slide decks (use revealjs); NOT FOR Mermaid diagrams (use Mermaid). For heavy programmatic .pptx authoring, the PPTX worker handles the python-pptx specifics."
 ---
 
 # Documents Skill

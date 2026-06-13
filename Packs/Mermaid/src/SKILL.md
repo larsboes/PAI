@@ -1,6 +1,6 @@
 ---
 name: Mermaid
-description: "Create, validate, and export Mermaid diagrams — flowcharts, sequence diagrams, ER diagrams, Gantt charts, class diagrams, state diagrams, pie charts. Extract from Markdown, batch validate, export to PNG/SVG, and lint for best practices. USE WHEN mermaid diagram, flowchart, sequence diagram, ER diagram, Gantt, class diagram, state machine, architecture diagram in markdown, validate mermaid, export diagram, diagram syntax error."
+description: "Create, validate, and export Mermaid diagrams — flowcharts, sequence diagrams, ER diagrams, Gantt charts, class diagrams, state diagrams, pie charts. Extract from Markdown, batch validate, export to PNG/SVG, and lint for best practices. USE WHEN mermaid diagram, flowchart, sequence diagram, ER diagram, Gantt, class diagram, state machine, architecture diagram in markdown, validate mermaid, export diagram, diagram syntax error. NOT FOR generating illustrations or styled/rendered diagram images from a text prompt (use Art) — Mermaid owns Mermaid-syntax authoring, validation, linting, and PNG/SVG export of .mmd."
 ---
 
 <!--

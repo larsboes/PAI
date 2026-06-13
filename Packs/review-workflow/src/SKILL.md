@@ -1,6 +1,6 @@
 ---
 name: review-workflow
-description: Structured process for weekly, monthly, and yearly reviews. Guides reflection and planning.
+description: "Structured weekly / monthly / yearly review process — guides reflection and planning. USE WHEN weekly review, monthly review, yearly review, annual review, retrospective, reflect on the week, plan next week, review and plan, periodic review. NOT FOR code review (use /code-review) or PR review (use Git)."
 allowed-tools: Read, Write, Glob
 ---
 
@@ -71,5 +71,5 @@ After the review, update `${PROGRESSIVE_CURRENT}` with:
 
 - **progressive-context**: For focus area status, pattern index, current themes
 - **brain-dump**: Offer before review for pre-processing
-- **focus-alignment**: Run balance assessment as part of monthly/yearly reviews
+- **Telos** (FocusAlignment workflow): Run balance assessment as part of monthly/yearly reviews
 - **google-calendar MCP**: Pull past events for the review period

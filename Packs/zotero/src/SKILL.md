@@ -1,6 +1,6 @@
 ---
 name: zotero
-description: Zotero citation library — search items, get metadata, and retrieve full-text content from PDFs/documents via the Zotero Web API.
+description: "Zotero citation library — search items, get metadata, retrieve full-text from PDFs/documents via the Zotero Web API. USE WHEN zotero, citation, bibliography, reference manager, cite, find paper in zotero, zotero library, get citation, references for thesis. NOT FOR arXiv search (use ArXiv) or general web research (use Research)."
 ---
 
 # Zotero Skill

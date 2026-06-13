@@ -90,7 +90,6 @@ Your DA reads `INSTALL.md` and walks through a 5-phase wizard: system analysis, 
 | [OSINT](OSINT/) | Structured OSINT investigations — people, companies, domains, organizations from public sources |
 | [Parser](Parser/) | Extract structured JSON from URLs, files, videos, PDFs with entity extraction and batch |
 | [SystemAdmin](SystemAdmin/) | Linux administration — systemd, journalctl, networking, disk analysis, port checking |
-| [WorldThreatModelHarness](WorldThreatModelHarness/) | Stress-test ideas against 11 time horizons (6mo–50yr) with world model updates |
 | [revealjs](revealjs/) | Create reveal.js presentations — themes, multi-column, code highlighting, speaker notes |
 
 ---

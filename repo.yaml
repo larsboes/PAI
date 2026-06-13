@@ -20,7 +20,7 @@ meta:
   # Canonical sync source of truth: .pai-fork/{manifest,exclusions}.yaml (machine-actionable, drives sync.sh).
   # This file is the human-readable provenance overview — keep it consistent with .pai-fork.
   next:
-    - "Skill review pass over the 68 custom + 20 modified packs"
+    - "Skill review pass over the 58 custom + 20 modified packs"
     - "Move custom layer to an overlay so upstream/ stays pristine (see legend: upstream-modified)"
 
 legend:
@@ -61,7 +61,7 @@ tree:
   "VoiceServer/": { origin: custom }
   "Plans/":       { origin: custom, note: "fork working notes" }
 
-  "Packs/":     { origin: mixed, note: "see packs: section — 32 upstream / 20 modified / 68 custom" }
+  "Packs/":     { origin: mixed, note: "see packs: section — 32 upstream / 20 modified / 58 custom" }
   "Releases/":  { origin: upstream, note: "version snapshot mirror (v2.3 .. v5.0.0)" }
   "Tools/":     { origin: upstream-modified, note: "repo-root tools (BackupRestore, validate-protected)" }
   "images/":    { origin: upstream }
@@ -153,7 +153,7 @@ packs:
   Webdesign: upstream-modified
   WriteStory: upstream-modified
 
-  # ── custom additions (68) — Lars's own; review pending ──
+  # ── custom additions (58) — Lars's own; review pending ──
   # dev / platform
   ApiPatterns: custom
   Architecture: custom
@@ -169,6 +169,10 @@ packs:
   FluentBit: custom
   Git: custom
   Google: custom
+  graphify: custom
+  drawio: custom
+  ParallelPlan: custom
+  VerifyClaims: custom
   HtmlDocs: custom
   Logstash: custom
   Mermaid: custom
@@ -197,33 +201,19 @@ packs:
   PromptInjection: custom
   SECUpdates: custom
   AnnualReports: custom
-  WorldThreatModelHarness: custom
   BlindSpot: custom
   # thinking / meta
   Brainstorm: custom
-  Deep: custom
   Learn: custom
-  SkillForge: custom
-  find-skills: custom
   skill-sync: custom
   pai-memory: custom
   review-workflow: custom
-  focus-alignment: custom
   application-writer: custom
   performance: custom
   # home / personal / infra
-  HomeInfra: custom
-  Personal: custom
   SystemAdmin: custom
   Tmux: custom
   TripPlanning: custom
-  apartment-scout: custom
-  fritz: custom
-  synology: custom
   whatsapp: custom
   cdp: custom
   vscode: custom
-  gccli: custom
-  gdcli: custom
-  gmcli: custom
-  webfetch: custom

@@ -52,7 +52,7 @@ Period-specific prompts and data gathering instructions for each review type.
 - What projects moved forward? Which ones stalled?
 
 **Focus Balance:**
-Run a focus-alignment balance assessment:
+Run a Telos FocusAlignment balance assessment:
 - Rate each focus area (1-5) on investment this month
 - Which focuses are over-served? Under-served?
 - Are current priorities still right?

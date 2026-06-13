@@ -1,5 +1,6 @@
 ---
 name: Recon
+disable-model-invocation: true  # auto-routing handled by the upstream Security skill; reachable via /Recon
 description: Network reconnaissance — subdomain enumeration, port scanning, DNS/WHOIS/ASN lookups, endpoint discovery from JS, mass scanning, path discovery, CIDR/netblock analysis. Passive and active modes with corporate structure mapping and bounty program tracking. USE WHEN recon, reconnaissance, bug bounty, bounty programs, attack surface, subdomains, subdomain enumeration, port scan, mass scan, DNS, WHOIS, ASN, CIDR, netblock, IP recon, domain recon, passive recon, corporate structure, endpoint discovery, path discovery, scan results, analyze scan, update tools.
 ---
 

@@ -55,6 +55,8 @@ ok()   { echo -e "  ${GREEN}✓${RESET} $1"; }
 info() { echo -e "  ${BLUE}ℹ${RESET} $1"; }
 warn() { echo -e "  ${YELLOW}⚠${RESET} $1"; }
 fail() { echo -e "  ${RED}✗${RESET} $1"; exit 1; }
+# portable in-place sed: GNU (Linux/WSL) takes `-i`; BSD/macOS needs `-i ''`
+sed_i() { if sed --version >/dev/null 2>&1; then sed -i "$@"; else sed -i '' "$@"; fi; }
 
 CONFIRM=false
 STATUS_ONLY=false
@@ -109,7 +111,7 @@ rewrite_refs() {
   while IFS= read -r f; do
     [ -z "$f" ] && continue
     [ -L "$f" ] && continue
-    sed -i '' \
+    sed_i \
       -e "s#~/.claude/MEMORY#${tilde}/PAI/MEMORY#g" \
       -e "s#${HOME}/.claude/MEMORY#${real}/PAI/MEMORY#g" \
       -e "s#~/.claude#${tilde}#g" \
@@ -139,7 +141,7 @@ resolve_config_vars() {
   algo="$(cat "$real/PAI/ALGORITHM/LATEST" 2>/dev/null | tr -d '[:space:]')"
   daname="$(grep -m1 '^\*\*Name:\*\*' "$ident/DaIdentity.md" 2>/dev/null | sed 's/^\*\*Name:\*\* *//')"
   [ -z "$daname" ] && daname="Assistant"
-  sed -i '' \
+  sed_i \
     -e "s#{{PAI_VERSION}}#${ver}#g" \
     -e "s#{{ALGO_VERSION}}#${algo}#g" \
     -e "s#{{ALGO_PATH}}#PAI/ALGORITHM/${algo}.md#g" \

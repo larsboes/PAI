@@ -1,5 +1,6 @@
 ---
 name: SECUpdates
+disable-model-invocation: true  # auto-routing handled by the upstream Security skill; reachable via /SECUpdates
 description: Security news from tldrsec, no.security, Krebs, Schneier, and other sources. USE WHEN security news, security updates, what's new in security, breaches, security research, sec updates, tldrsec, Krebs, Schneier.
 ---
 
