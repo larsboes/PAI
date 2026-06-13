@@ -15,8 +15,10 @@ meta:
   upstream: danielmiessler/Personal_AI_Infrastructure
   upstream_tracked: v5.0.0          # content level we've synced to
   upstream_algorithm: v6.3.0        # fork is ahead at v6.4.0
-  fork_merge_base: 2025-09-20       # git lineage branched here (~8 months / 600 commits behind)
+  fork_merge_base: 2025-09-20       # git LINEAGE only; content is CURRENT via .pai-fork (last-synced == upstream tip)
   generated: 2026-06-13
+  # Canonical sync source of truth: .pai-fork/{manifest,exclusions}.yaml (machine-actionable, drives sync.sh).
+  # This file is the human-readable provenance overview — keep it consistent with .pai-fork.
   next:
     - "Skill review pass over the 68 custom + 20 modified packs"
     - "Move custom layer to an overlay so upstream/ stays pristine (see legend: upstream-modified)"

@@ -56,6 +56,35 @@
 - Packs/WorldThreatModelHarness/**
 - Packs/revealjs/**
 
+# ── Added 2026-06-13: fork-only packs created since the 2026-06-09 reconcile (68 total now) ──
+- Packs/AnnualReports/**
+- Packs/OSINT/**
+- Packs/PromptInjection/**
+- Packs/Recon/**
+- Packs/SECUpdates/**
+- Packs/WebAssessment/**
+- Packs/apartment-scout/**
+- Packs/application-writer/**
+- Packs/cdp/**
+- Packs/daily/**
+- Packs/find-skills/**
+- Packs/focus-alignment/**
+- Packs/fritz/**
+- Packs/gccli/**
+- Packs/gdcli/**
+- Packs/gmcli/**
+- Packs/inbox/**
+- Packs/pai-memory/**
+- Packs/performance/**
+- Packs/review-workflow/**
+- Packs/skill-sync/**
+- Packs/synology/**
+- Packs/transcribe/**
+- Packs/vscode/**
+- Packs/webfetch/**
+- Packs/whatsapp/**
+- Packs/zotero/**
+
 # Fork-only documentation
 - ADDITIONS.md
 - PLAN.md
