@@ -7,42 +7,88 @@
 #  TitleCase ref (PAI/Algorithm) silently fails to resolve on Linux. This asserts
 #  every `PAI/<DIR>` reference matches the on-disk dir case-EXACTLY.
 #
-#  Exits non-zero on drift so it can gate sync.sh / pre-commit.
+#  Modes:
+#    (no args)  CHECK — print drift and exit non-zero, so it can gate sync.sh /
+#                       pre-commit. Behavior unchanged from the original.
+#    --fix      FIX   — rewrite every drifted `PAI/<wrong>` ref to the canonical
+#                       on-disk casing, idempotently. Used as the post-pull step of
+#                       .pai-fork/tools/sync.sh apply so upstream's macOS-safe
+#                       TitleCase refs are normalized on every sync with ZERO manual
+#                       reconciliation. Cross-platform: ALL-CAPS refs resolve on both
+#                       case-sensitive (Linux) and case-insensitive (macOS) FS. Exits 0.
+#
+#  Exits non-zero on drift (check mode) so it can gate sync.sh / pre-commit.
 #  Exception: PAI/Tools/{validate-protected,BackupRestore} are ROOT tools (the repo
-#  itself is named PAI), not the engine — whitelisted.
+#  itself is named PAI), not the engine — whitelisted in BOTH modes.
 # ═══════════════════════════════════════════════════════════════════════════
 set -uo pipefail
+
+MODE="check"
+case "${1:-}" in
+  --fix)        MODE="fix" ;;
+  ""|--check)   MODE="check" ;;
+  *) echo "usage: casing-check.sh [--fix]" >&2; exit 2 ;;
+esac
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENGINE="$ROOT/PAI"
 
 # canonical on-disk engine dir names (dirs + the MEMORY/USER symlinks)
 mapfile -t DIRS < <(find "$ENGINE" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) -printf '%f\n')
 
+# shared grep excludes + the root-tool whitelist (never rewrite / never flag these refs)
+EXCLUDES=(--exclude=casing-check.sh --exclude-dir=Releases --exclude-dir=.git --exclude-dir=.marketplace-build --exclude-dir=.pai-fork)
+WHITELIST='PAI/Tools/(validate-protected|BackupRestore)'
+
 fail=0
-# collect distinct PAI/<DIR> top segments referenced anywhere (excl frozen/vcs/build),
-# dropping the whitelisted root-tool refs first.
+fixes=0
+
 while IFS= read -r ref; do
   name="${ref#PAI/}"
   for d in "${DIRS[@]}"; do
     if [ "${name,,}" = "${d,,}" ] && [ "$name" != "$d" ]; then
-      echo "  ✗ CASING DRIFT: ref 'PAI/$name' but on-disk dir is 'PAI/$d'"
-      # show where
-      grep -rIn --exclude=casing-check.sh --exclude-dir=Releases --exclude-dir=.git --exclude-dir=.marketplace-build --exclude-dir=.pai-fork "PAI/$name" "$ROOT" \
-        | grep -vE 'PAI/Tools/(validate-protected|BackupRestore)' | head -5 | sed 's/^/      /'
-      fail=1
+      if [ "$MODE" = "fix" ]; then
+        # Rewrite PAI/<name> → PAI/<d> across the same file set. The perl lookaheads:
+        #   (?![A-Za-z0-9_])  whole dir-segment only (won't touch PAI/Toolsmith)
+        #   (?!/(validate-protected|BackupRestore))  preserve the root-tool whitelist
+        while IFS= read -r f; do
+          pre="$(md5sum "$f" | cut -d' ' -f1)"
+          perl -i -pe "s{PAI/\\Q$name\\E(?![A-Za-z0-9_])(?!/(?:validate-protected|BackupRestore))}{PAI/$d}g" "$f"
+          post="$(md5sum "$f" | cut -d' ' -f1)"
+          if [ "$pre" != "$post" ]; then
+            echo "  ✓ fixed: PAI/$name → PAI/$d  in ${f#"$ROOT"/}"
+            fixes=$((fixes + 1))
+          fi
+        done < <(grep -rIlE "PAI/$name" "${EXCLUDES[@]}" "$ROOT")
+      else
+        echo "  ✗ CASING DRIFT: ref 'PAI/$name' but on-disk dir is 'PAI/$d'"
+        # show where
+        grep -rIn "${EXCLUDES[@]}" "PAI/$name" "$ROOT" \
+          | grep -vE "$WHITELIST" | head -5 | sed 's/^/      /'
+        fail=1
+      fi
     fi
   done
 done < <(
   grep -rhoE 'PAI/[A-Za-z]+(/[A-Za-z0-9_.-]+)?' \
-    --exclude=casing-check.sh --exclude-dir=Releases --exclude-dir=.git --exclude-dir=.marketplace-build --exclude-dir=.pai-fork "$ROOT" \
-    | grep -vE 'PAI/Tools/(validate-protected|BackupRestore)' \
+    "${EXCLUDES[@]}" "$ROOT" \
+    | grep -vE "$WHITELIST" \
     | sed -E 's#^(PAI/[A-Za-z]+).*#\1#' | sort -u
 )
+
+if [ "$MODE" = "fix" ]; then
+  if [ "$fixes" -eq 0 ]; then
+    echo "  ✓ casing already canonical — nothing to fix"
+  else
+    echo "  ✓ normalized engine-dir casing in $fixes file(s)"
+  fi
+  exit 0
+fi
 
 if [ "$fail" -eq 0 ]; then
   echo "  ✓ casing OK — every engine PAI/<DIR> ref matches on-disk casing"
   exit 0
 else
-  echo "  ✗ casing drift detected — fix the refs above to match on-disk ALL-CAPS dirs"
+  echo "  ✗ casing drift detected — run ./casing-check.sh --fix (or fix refs to match on-disk ALL-CAPS dirs)"
   exit 1
 fi

@@ -385,6 +385,15 @@ EOF
   # Update last-synced
   echo "$to" > "$LAST_SYNCED"
 
+  # ── Normalize engine-dir casing (cross-platform) ─────────────────────────
+  # Upstream uses macOS-safe TitleCase refs (PAI/Tools, PAI/Algorithm) that break on
+  # case-sensitive Linux. Rewrite them to canonical ALL-CAPS on every sync so the tree
+  # is correct on both platforms with zero manual reconciliation. Idempotent.
+  if [[ -x "$REPO_DIR/casing-check.sh" ]]; then
+    header "Casing normalization"
+    "$REPO_DIR/casing-check.sh" --fix || warn "casing --fix returned non-zero (continuing)"
+  fi
+
   header "Sync complete"
   ok "Synced to upstream@${sha7}"
   ok "Files added:        $n_new"
