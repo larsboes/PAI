@@ -100,7 +100,6 @@
 | Telos | upstream | 🟡 yes | ✅ 1 | 2 | 0 | 2026-06-13 | 2026-03-15 |
 | Thinking | upstream | 🟡 yes | ✅ 1 | 9 | 0 | 2026-06-11 | 2026-03-15 |
 | Tmux | **fork-only** | — | — | 1 | 0 | 2026-05-13 | — |
-| TripPlanning | **fork-only** | — | — | 1 | 0 | 2026-05-13 | — |
 | TypeScript | **fork-only** | — | — | 1 | 0 | 2026-05-13 | — |
 | USMetrics | upstream | ✅ clean | — | 1 | 0 | 2026-06-11 | 2026-03-15 |
 | Utilities | upstream | 🟡 yes | — | 18 | 0 | 2026-06-13 | 2026-03-15 |

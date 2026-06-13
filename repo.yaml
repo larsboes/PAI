@@ -213,7 +213,6 @@ packs:
   # home / personal / infra
   SystemAdmin: custom
   Tmux: custom
-  TripPlanning: custom
   whatsapp: custom
   cdp: custom
   vscode: custom

@@ -112,7 +112,6 @@ active:
   #- Swift                 # Swift/macOS development
   #- SystemAdmin           # sysadmin patterns
   - Thinking              # Daniel's router (active: Daniel's upstream)
-  #- TripPlanning          # travel planning
   #- Tmux                  # tmux remote control
   #- USMetrics             # US-specific metrics
   #- Webdesign             # frontend/UI design
