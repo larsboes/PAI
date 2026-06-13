@@ -1,0 +1,227 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#  repo.yaml — provenance map of larsboes/PAI vs danielmiessler upstream
+#
+#  WHY: this fork is a strict superset of upstream's skills and has diverged
+#  structurally (engine hoisted to root, custom distribution layer). This file
+#  tracks WHERE every folder came from so we can (a) sync upstream cleanly,
+#  (b) re-apply only the custom layer on top, and (c) review skills later.
+#
+#  Regenerate the classification with: diff -rq against the upstream clone at
+#  ~/Developer/Personal_AI_Infrastructure (see Tools/ for a future generator).
+# ═══════════════════════════════════════════════════════════════════════════
+
+meta:
+  fork: larsboes/PAI
+  upstream: danielmiessler/Personal_AI_Infrastructure
+  upstream_tracked: v5.0.0          # content level we've synced to
+  upstream_algorithm: v6.3.0        # fork is ahead at v6.4.0
+  fork_merge_base: 2025-09-20       # git lineage branched here (~8 months / 600 commits behind)
+  generated: 2026-06-13
+  next:
+    - "Skill review pass over the 68 custom + 20 modified packs"
+    - "Move custom layer to an overlay so upstream/ stays pristine (see legend: upstream-modified)"
+
+legend:
+  upstream:          "Daniel's, pristine — track upstream; safe to overwrite on sync"
+  upstream-modified: "Daniel's base, Lars changed it — re-apply/merge on upstream sync"
+  custom:            "Lars's addition — not in upstream"
+  fork-infra:        "Lars's distribution/tooling layer (sync, install, build, marketplace)"
+  data:              "runtime/personal data — not real repo content (now in dotfiles via symlink)"
+  mixed:             "container of multiple origins — see detail"
+
+# ── Top-level + engine tree (folders, as deep as reasonable) ────────────────
+tree:
+  # Engine — hoisted to repo root as the live source-of-truth.
+  # Upstream keeps the same content inside Releases/*/.claude/PAI instead.
+  "PAI/":
+    origin: upstream-modified
+    note: "hoisted from upstream Releases/*/.claude/PAI to repo root (SOT model)"
+    children:
+      "ALGORITHM/":     { origin: upstream-modified, note: "canonical upstream ALL-CAPS casing; fork adds v6.4.0; keeps legacy v3.5/v3.7" }
+      "TOOLS/":         { origin: upstream-modified, note: "canonical upstream ALL-CAPS casing (engine tools)" }
+      "DOCUMENTATION/": { origin: upstream-modified }
+      "TEMPLATES/":     { origin: upstream-modified, note: "adds AgentConfig/ (CLAUDE.md + GEMINI.md templates)" }
+      "bin/":           { origin: upstream }
+      "ACTIONS/":       { origin: custom, note: "not in upstream v5.0.0 (legacy or fork)" }
+      "FLOWS/":         { origin: custom, note: "not in upstream v5.0.0" }
+      "PIPELINES/":     { origin: custom, note: "not in upstream v5.0.0" }
+      "MEMORY/":        { origin: data, note: "symlink -> dotfiles/claude/.claude/PAI/MEMORY (not in repo)" }
+      "USER/":          { origin: data, note: "symlink -> dotfiles/claude/.claude/PAI/USER (not in repo)" }
+      "PULSE/":         { origin: upstream, note: "shipped via Releases/, installed into ~/.claude" }
+
+  "agents/":   { origin: upstream-modified, note: "hoisted from .claude/agents; custom agents added" }
+  "commands/": { origin: upstream-modified, note: "hoisted from .claude/commands" }
+  "hooks/":
+    origin: upstream-modified
+    note: "hoisted from .claude/hooks; 8 custom hooks added"
+    custom_hooks: [AgentExecutionGuard, LoadTelos, PRDSync, RatingCapture, SecurityValidator, SessionAutoName, SkillGuard, UpdateTabTitle]
+  "lib/":         { origin: custom }
+  "VoiceServer/": { origin: custom }
+  "Plans/":       { origin: custom, note: "fork working notes" }
+
+  "Packs/":     { origin: mixed, note: "see packs: section — 32 upstream / 20 modified / 68 custom" }
+  "Releases/":  { origin: upstream, note: "version snapshot mirror (v2.3 .. v5.0.0)" }
+  "Tools/":     { origin: upstream-modified, note: "repo-root tools (BackupRestore, validate-protected)" }
+  "images/":    { origin: upstream }
+  ".github/":   { origin: upstream-modified }
+
+  # Fork distribution / tooling layer (none of this exists upstream)
+  "install.sh":            { origin: fork-infra }
+  "sync.sh":               { origin: fork-infra }
+  "sync-hooks.sh":         { origin: fork-infra }
+  "sync-capture.sh":       { origin: fork-infra }
+  "marketplace-sync.sh":   { origin: fork-infra }
+  "skills.yaml":           { origin: fork-infra }
+  "short-descriptions.yaml": { origin: fork-infra }
+  ".pai-fork/":            { origin: fork-infra }
+  ".marketplace-build/":   { origin: fork-infra, note: "gitignored build checkout (pai-marketplace)" }
+
+  # Fork docs
+  "ADDITIONS.md":          { origin: custom }
+  "README-ADDITIONS.md":   { origin: custom }
+  "PR-IDEAS.md":           { origin: custom }
+
+  # Upstream root files
+  "README.md":             { origin: upstream-modified }
+  "PLATFORM.md":           { origin: upstream-modified }
+  ".gitignore":            { origin: upstream-modified }
+  ".gitattributes":        { origin: upstream-modified }
+  "SECURITY.md":           { origin: upstream }
+  ".pai-protected.json":   { origin: upstream }
+  ".env.example":          { origin: upstream }
+  "LICENSE":               { origin: upstream }
+
+# ── Packs / Skills (the meat — every pack classified) ───────────────────────
+# review: pending → set to "ok" / "drop" / "rework" during the skill review pass.
+packs:
+
+  # ── upstream, pristine (32) — safe to overwrite on sync ──
+  Agents: upstream
+  ApertureOscillation: upstream
+  Aphorisms: upstream
+  ArXiv: upstream
+  BeCreative: upstream
+  BitterPillEngineering: upstream
+  BrightData: upstream
+  ContentAnalysis: upstream
+  ContextSearch: upstream
+  CreateSkill: upstream
+  Daemon: upstream
+  Delegation: upstream
+  ExtractWisdom: upstream
+  Fabric: upstream
+  ISA: upstream
+  Ideate: upstream
+  Interceptor: upstream
+  Interview: upstream
+  Investigation: upstream
+  IterativeDepth: upstream
+  Knowledge: upstream
+  Loop: upstream
+  Migrate: upstream
+  Prompting: upstream
+  Remotion: upstream
+  Research: upstream
+  Sales: upstream
+  Scraping: upstream
+  Security: upstream
+  USMetrics: upstream
+  Utilities: upstream
+  WorldThreatModel: upstream
+
+  # ── upstream, modified by Lars (20) — re-apply/merge on sync ──
+  Apify: upstream-modified
+  Art: upstream-modified
+  AudioEditor: upstream-modified
+  Browser: upstream-modified
+  Council: upstream-modified
+  CreateCLI: upstream-modified
+  Evals: upstream-modified
+  FirstPrinciples: upstream-modified
+  Media: upstream-modified
+  Optimize: upstream-modified
+  PAIUpgrade: upstream-modified
+  PrivateInvestigator: upstream-modified
+  RedTeam: upstream-modified
+  RootCauseAnalysis: upstream-modified
+  Science: upstream-modified
+  SystemsThinking: upstream-modified
+  Telos: upstream-modified
+  Thinking: upstream-modified
+  Webdesign: upstream-modified
+  WriteStory: upstream-modified
+
+  # ── custom additions (68) — Lars's own; review pending ──
+  # dev / platform
+  ApiPatterns: custom
+  Architecture: custom
+  Azure: custom
+  Bazel: custom
+  Cloudflare: custom
+  Cmux: custom
+  Context7: custom
+  DataEngineer: custom
+  DevOps: custom
+  DevWorkflow: custom
+  Docker: custom
+  FluentBit: custom
+  Git: custom
+  Google: custom
+  HtmlDocs: custom
+  Logstash: custom
+  Mermaid: custom
+  PPTX: custom
+  Parser: custom
+  Swift: custom
+  TypeScript: custom
+  Uv: custom
+  Documents: custom
+  # integrations / productivity
+  Confluence: custom
+  Jira: custom
+  Notion: custom
+  Obsidian: custom
+  Outlook: custom
+  MailCraft: custom
+  inbox: custom
+  daily: custom
+  zotero: custom
+  transcribe: custom
+  revealjs: custom
+  # security / recon
+  OSINT: custom
+  Recon: custom
+  WebAssessment: custom
+  PromptInjection: custom
+  SECUpdates: custom
+  AnnualReports: custom
+  WorldThreatModelHarness: custom
+  BlindSpot: custom
+  # thinking / meta
+  Brainstorm: custom
+  Deep: custom
+  Learn: custom
+  SkillForge: custom
+  find-skills: custom
+  skill-sync: custom
+  pai-memory: custom
+  review-workflow: custom
+  focus-alignment: custom
+  application-writer: custom
+  performance: custom
+  # home / personal / infra
+  HomeInfra: custom
+  Personal: custom
+  SystemAdmin: custom
+  Tmux: custom
+  TripPlanning: custom
+  apartment-scout: custom
+  fritz: custom
+  synology: custom
+  whatsapp: custom
+  cdp: custom
+  vscode: custom
+  gccli: custom
+  gdcli: custom
+  gmcli: custom
+  webfetch: custom
