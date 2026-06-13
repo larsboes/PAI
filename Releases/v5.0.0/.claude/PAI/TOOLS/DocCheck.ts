@@ -55,7 +55,7 @@ interface PathRef {
 // Parse `## ... (paths under `X`)` headings and build a sorted list of
 // `[startCharPos, sectionRoot]` pairs. The default root applies before any
 // heading is seen. Mirrors the section-awareness logic in
-// PAI/Tools/ArchitectureSummaryGenerator.ts and PAI/Tools/ReferenceCheck.ts
+// PAI/TOOLS/ArchitectureSummaryGenerator.ts and PAI/TOOLS/ReferenceCheck.ts
 // so all three tools agree on what a relative path under a routing section
 // means.
 function extractSectionRoots(content: string): Array<{ pos: number; root: string }> {

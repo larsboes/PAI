@@ -93,14 +93,14 @@ curl -s -X POST "$TOKEN_URL" \
 | SendGrid | Header | `Authorization: Bearer SG...` |
 | GitHub | Header | `Authorization: Bearer ghp_...` |
 | Cloudflare | Header | `Authorization: Bearer ...` |
-| AWS | SigV4 | `--aws-sigv4 "aws:amz:SVCION:SERVICE"` |
+| AWS | SigV4 | `--aws-sigv4 "aws:amz:REGION:SERVICE"` |
 | GCP | Header | `Authorization: Bearer $(gcloud auth print-access-token)` |
 
 ## AWS SigV4 (via curl)
 
 ```bash
 # curl built-in SigV4 (requires curl 7.75+)
-curl -s "https://SERVICE.SVCION.amazonaws.com/path" \
+curl -s "https://SERVICE.REGION.amazonaws.com/path" \
   --aws-sigv4 "aws:amz:us-east-1:execute-api" \
   --user "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
   -H "x-amz-security-token: $AWS_SESSION_TOKEN"

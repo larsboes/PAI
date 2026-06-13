@@ -188,9 +188,9 @@ function cmdRollback(slug: string, iscId: string) {
 
 function usage() {
   console.log(`Usage:
-  bun ~/.claude/PAI/Tools/Checkpoint.ts list <slug>
-  bun ~/.claude/PAI/Tools/Checkpoint.ts show <slug> <isc-id>
-  bun ~/.claude/PAI/Tools/Checkpoint.ts rollback <slug> <isc-id>
+  bun ~/.claude/PAI/TOOLS/Checkpoint.ts list <slug>
+  bun ~/.claude/PAI/TOOLS/Checkpoint.ts show <slug> <isc-id>
+  bun ~/.claude/PAI/TOOLS/Checkpoint.ts rollback <slug> <isc-id>
 
 Allowlist: ${ALLOWLIST_PATH}
 Work dir:  ${WORK_DIR}

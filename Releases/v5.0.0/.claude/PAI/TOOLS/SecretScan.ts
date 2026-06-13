@@ -7,9 +7,9 @@
  * Part of PAI CORE Tools.
  *
  * Usage:
- *   bun ~/.claude/PAI/Tools/SecretScan.ts <directory>
- *   bun ~/.claude/PAI/Tools/SecretScan.ts . --verbose
- *   bun ~/.claude/PAI/Tools/SecretScan.ts . --verify
+ *   bun ~/.claude/PAI/TOOLS/SecretScan.ts <directory>
+ *   bun ~/.claude/PAI/TOOLS/SecretScan.ts . --verbose
+ *   bun ~/.claude/PAI/TOOLS/SecretScan.ts . --verify
  *
  * @see ~/.claude/skills/_PAI/Workflows/SecretScanning.md
  */

@@ -267,7 +267,7 @@ The `PAI_CONFIG.yaml` DA section becomes a thin pointer:
 
 ```yaml
 DA:
-  SVCISTRY: PAI/USER/DA/_registry.yaml
+  REGISTRY: PAI/USER/DA/_registry.yaml
   PRIMARY: your-da              # Which DA drives CLAUDE.md generation
 ```
 
@@ -1113,7 +1113,7 @@ Step 2: Run migration script
 Step 3: Update PAI_CONFIG.yaml
   DA section becomes pointer:
     DA:
-      SVCISTRY: PAI/USER/DA/_registry.yaml
+      REGISTRY: PAI/USER/DA/_registry.yaml
       PRIMARY: your-da
 
 Step 4: Update ConfigRenderer
