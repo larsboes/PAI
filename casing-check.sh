@@ -37,7 +37,7 @@ ENGINE="$ROOT/PAI"
 mapfile -t DIRS < <(find "$ENGINE" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) -printf '%f\n')
 
 # shared grep excludes + the root-tool whitelist (never rewrite / never flag these refs)
-EXCLUDES=(--exclude=casing-check.sh --exclude-dir=Releases --exclude-dir=.git --exclude-dir=.marketplace-build --exclude-dir=.pai-fork)
+EXCLUDES=(--exclude=casing-check.sh --exclude-dir=Releases --exclude-dir=.git --exclude-dir=.pai-fork)
 WHITELIST='PAI/Tools/(validate-protected|BackupRestore)'
 
 fail=0

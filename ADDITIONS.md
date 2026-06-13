@@ -102,7 +102,6 @@ Tracked here so `sync.sh` can 3-way-merge rather than clobber. These are **upstr
 
 ## 8. Sibling repos & parked work
 
-- **Plugin marketplace → separate repo `larsboes/pai-marketplace`.** A Claude Code marketplace must be its own repo root with `.claude-plugin/marketplace.json` at the top (so `claude plugin marketplace add larsboes/pai-marketplace` works). It is **generated from the current `Packs/`** by `marketplace-sync.sh` (in this repo) — not hand-maintained, not committed here. Plugin→pack grouping (7 plugins: coding, content, devtools, terminal, skillsmeta, integrations, obsidian) lives in that script's mapping block. Re-run after adding/regrouping packs.
 - **PAI-on-Pi → parked on `feat/migrate-generic-skills`** (not on `main`). `Releases/Pi/` is a self-contained v1.0.0 port to the `pi` runtime (`@mariozechner/pi-coding-agent`): a `pai-core` extension (voice/security/session/PRD/learning), config, memory scaffold, and 9 simplified skills. **Based on PAI v4.0.3 — stale vs current Algorithm 6.4.0.** Revisit (modernize + cherry-pick) when actually running `pi`. The same branch also carries an alternate Packs taxonomy (Coding/Utilities/SkillsMeta mega-packs) — **do not** merge that wholesale; it conflicts with main's per-skill `Packs/`.
 
 ---

@@ -73,5 +73,5 @@ customizations:
     added: 2026-06-10
 
   - path: .gitignore
-    reason: Fork-specific ignores (.marketplace-build build checkout for marketplace-sync.sh)
+    reason: Fork-specific ignores (PAI Update System sideload dirs)
     added: 2026-06-11

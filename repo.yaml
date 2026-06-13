@@ -27,7 +27,7 @@ legend:
   upstream:          "Daniel's, pristine — track upstream; safe to overwrite on sync"
   upstream-modified: "Daniel's base, Lars changed it — re-apply/merge on upstream sync"
   custom:            "Lars's addition — not in upstream"
-  fork-infra:        "Lars's distribution/tooling layer (sync, install, build, marketplace)"
+  fork-infra:        "Lars's distribution/tooling layer (sync, install, build)"
   data:              "runtime/personal data — not real repo content (now in dotfiles via symlink)"
   mixed:             "container of multiple origins — see detail"
 
@@ -72,11 +72,9 @@ tree:
   "sync.sh":               { origin: fork-infra }
   "sync-hooks.sh":         { origin: fork-infra }
   "sync-capture.sh":       { origin: fork-infra }
-  "marketplace-sync.sh":   { origin: fork-infra }
   "skills.yaml":           { origin: fork-infra }
   "short-descriptions.yaml": { origin: fork-infra }
   ".pai-fork/":            { origin: fork-infra }
-  ".marketplace-build/":   { origin: fork-infra, note: "gitignored build checkout (pai-marketplace)" }
 
   # Fork docs
   "ADDITIONS.md":          { origin: custom }
