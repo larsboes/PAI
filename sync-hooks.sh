@@ -331,27 +331,27 @@ sync_support_dir "handlers"
 
 # ── Check PAI Tools symlink ──────────────────────────────────
 echo ""
-echo -e "  ${BOLD}PAI Tools path (../skills/PAI/Tools → ../PAI/Tools):${RESET}"
+echo -e "  ${BOLD}PAI Tools path (../skills/PAI/TOOLS → ../PAI/TOOLS):${RESET}"
 echo ""
 
-SKILLS_TOOLS_DIR="$CLAUDE_DIR/skills/PAI/Tools"
-PAI_TOOLS_DIR="$CLAUDE_DIR/PAI/Tools"
+SKILLS_TOOLS_DIR="$CLAUDE_DIR/skills/PAI/TOOLS"
+PAI_TOOLS_DIR="$CLAUDE_DIR/PAI/TOOLS"
 
 if [[ -d "$PAI_TOOLS_DIR" ]]; then
   if [[ -L "$SKILLS_TOOLS_DIR" ]]; then
-    ok "skills/PAI/Tools → PAI/Tools  ${DIM}(symlink ok)${RESET}"
+    ok "skills/PAI/TOOLS → PAI/TOOLS  ${DIM}(symlink ok)${RESET}"
   elif [[ -d "$SKILLS_TOOLS_DIR" ]]; then
-    ok "skills/PAI/Tools  ${DIM}(directory exists)${RESET}"
+    ok "skills/PAI/TOOLS  ${DIM}(directory exists)${RESET}"
   else
-    missing "skills/PAI/Tools  ${DIM}(hooks importing ../skills/PAI/Tools/* will fail)${RESET}"
+    missing "skills/PAI/TOOLS  ${DIM}(hooks importing ../skills/PAI/TOOLS/* will fail)${RESET}"
     if $FIX; then
       mkdir -p "$CLAUDE_DIR/skills/PAI"
       ln -s "$PAI_TOOLS_DIR" "$SKILLS_TOOLS_DIR"
-      ok "Created symlink skills/PAI/Tools → PAI/Tools"
+      ok "Created symlink skills/PAI/TOOLS → PAI/TOOLS"
     fi
   fi
 else
-  warn "PAI/Tools dir not found at $PAI_TOOLS_DIR — cannot create symlink"
+  warn "PAI/TOOLS dir not found at $PAI_TOOLS_DIR — cannot create symlink"
 fi
 
 echo ""

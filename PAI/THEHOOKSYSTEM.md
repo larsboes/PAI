@@ -154,20 +154,20 @@ Claude Code supports the following hook events:
 - Low ratings (<6) auto-capture as learning opportunities
 - Writes to `~/.claude/MEMORY/SIGNALS/ratings.jsonl`
 - Uses shared libraries: `hooks/lib/learning-utils.ts`, `hooks/lib/time.ts`
-- **Inference:** `import { inference } from '../PAI/Tools/Inference'` → `inference({ level: 'fast', expectJson: true })`
+- **Inference:** `import { inference } from '../PAI/TOOLS/Inference'` → `inference({ level: 'fast', expectJson: true })`
 
 **UpdateTabTitle.hook.ts** - Tab Title + Working State
 - Updates Kitty terminal tab title with task summary + `…` suffix
 - Sets tab to **orange background** (working state)
 - Announces via voice server with context-appropriate gerund
 - See `TERMINALTABS.md` for full state system documentation
-- **Inference:** `import { inference } from '../PAI/Tools/Inference'` → `inference({ level: 'fast' })`
+- **Inference:** `import { inference } from '../PAI/TOOLS/Inference'` → `inference({ level: 'fast' })`
 
 **SessionAutoName.hook.ts** - Automatic Session Naming
 - Infers a short descriptive name for the session from the first substantive prompt
 - Updates `MEMORY/STATE/session-names.json` with the session ID → name mapping
 - Used by the startup banner and session management tools
-- **Inference:** `import { inference } from '../PAI/Tools/Inference'` → `inference({ level: 'fast' })`
+- **Inference:** `import { inference } from '../PAI/TOOLS/Inference'` → `inference({ level: 'fast' })`
 
 ---
 
@@ -1135,8 +1135,8 @@ KEY FILES:
 ~/.claude/MEMORY/STATE/events.jsonl  Unified event log (append-only)
 
 INFERENCE TOOL (for hooks needing AI):
-Path: ~/.claude/PAI/Tools/Inference.ts
-Import: import { inference } from '../PAI/Tools/Inference'
+Path: ~/.claude/PAI/TOOLS/Inference.ts
+Import: import { inference } from '../PAI/TOOLS/Inference'
 Levels: fast (haiku/15s) | standard (sonnet/30s) | smart (opus/90s)
 
 TAB STATE SYSTEM:
@@ -1205,11 +1205,11 @@ const principal = getPrincipal();  // { name, pronunciation, timezone }
 
 **Used by:** handlers/VoiceNotification.ts, RatingCapture, handlers/TabState.ts
 
-### `PAI/Tools/Inference.ts`
+### `PAI/TOOLS/Inference.ts`
 Unified AI inference with three run levels.
 
 ```typescript
-import { inference } from '../PAI/Tools/Inference';
+import { inference } from '../PAI/TOOLS/Inference';
 
 // Fast (Haiku) - quick tasks, 15s timeout
 const result = await inference({

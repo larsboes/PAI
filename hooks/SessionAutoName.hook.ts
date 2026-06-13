@@ -38,7 +38,7 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync, rmdirSync, renameSy
 import { dirname } from 'path';
 import { spawn as nodeSpawn } from 'child_process';
 import { paiPath } from './lib/paths';
-import { inference } from '../PAI/Tools/Inference';
+import { inference } from '../PAI/TOOLS/Inference';
 import { updateSessionNameInWorkJson, upsertSession } from './lib/prd-utils';
 
 interface HookInput {

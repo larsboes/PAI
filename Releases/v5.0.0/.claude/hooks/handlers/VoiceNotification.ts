@@ -16,7 +16,7 @@ import { getIdentity, type VoicePersonality } from '../lib/identity';
 import { getISOTimestamp } from '../lib/time';
 import { isValidVoiceCompletion, getVoiceFallback } from '../lib/output-validators';
 
-import type { ParsedTranscript } from '../../PAI/TOOLS/TranscriptParser';
+import type { ParsedTranscript } from '../../PAI/Tools/TranscriptParser';
 
 const DA_IDENTITY = getIdentity();
 

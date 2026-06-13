@@ -3,11 +3,11 @@
  * DASchedule — CLI for managing DA scheduled tasks
  *
  * Usage:
- *   bun PAI/TOOLS/DASchedule.ts list              # Active tasks
- *   bun PAI/TOOLS/DASchedule.ts add --desc "..." --at "2026-04-07T09:00:00" --channel voice
- *   bun PAI/TOOLS/DASchedule.ts add --desc "..." --cron "0 15 * * 5" --channel telegram
- *   bun PAI/TOOLS/DASchedule.ts cancel <id>
- *   bun PAI/TOOLS/DASchedule.ts history            # Completed/cancelled
+ *   bun PAI/Tools/DASchedule.ts list              # Active tasks
+ *   bun PAI/Tools/DASchedule.ts add --desc "..." --at "2026-04-07T09:00:00" --channel voice
+ *   bun PAI/Tools/DASchedule.ts add --desc "..." --cron "0 15 * * 5" --channel telegram
+ *   bun PAI/Tools/DASchedule.ts cancel <id>
+ *   bun PAI/Tools/DASchedule.ts history            # Completed/cancelled
  */
 
 import { join } from "path"
@@ -234,11 +234,11 @@ switch (command) {
     console.log(`DASchedule — DA Scheduled Task Manager
 
 Usage:
-  bun PAI/TOOLS/DASchedule.ts list                           Active tasks
-  bun PAI/TOOLS/DASchedule.ts add --desc "..." --at "ISO"    One-time task
-  bun PAI/TOOLS/DASchedule.ts add --desc "..." --cron "..."  Recurring task
-  bun PAI/TOOLS/DASchedule.ts cancel <id>                    Cancel task
-  bun PAI/TOOLS/DASchedule.ts history                        Completed/cancelled
+  bun PAI/Tools/DASchedule.ts list                           Active tasks
+  bun PAI/Tools/DASchedule.ts add --desc "..." --at "ISO"    One-time task
+  bun PAI/Tools/DASchedule.ts add --desc "..." --cron "..."  Recurring task
+  bun PAI/Tools/DASchedule.ts cancel <id>                    Cancel task
+  bun PAI/Tools/DASchedule.ts history                        Completed/cancelled
 
 Options:
   --desc      Task description (required)

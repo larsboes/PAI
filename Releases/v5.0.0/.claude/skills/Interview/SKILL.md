@@ -44,7 +44,7 @@ The scanner marks each target's mode based on completeness. The DA respects that
 Run the scanner to see phase breakdown and current state:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/InterviewScan.ts
+bun ~/.claude/PAI/Tools/InterviewScan.ts
 ```
 
 The scanner orders items phase-first (Phase 1 always before Phase 2). Present the per-phase summary to the principal:
@@ -61,7 +61,7 @@ For each file:
 
 1. Get the per-file detail:
    ```bash
-   bun ~/.claude/PAI/TOOLS/InterviewScan.ts --file <NAME>
+   bun ~/.claude/PAI/Tools/InterviewScan.ts --file <NAME>
    ```
 2. Check the mode:
    - `REVIEW mode` (≥80% complete) → read the file contents to the principal first, then ask review questions
@@ -111,7 +111,7 @@ Same pattern Phase 2 → Phase 3 → Phase 4.
 After foundational changes, regenerate the startup summary so future sessions pick up the updates:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/TelosRenderer.ts 2>/dev/null || true
+bun ~/.claude/PAI/Tools/TelosRenderer.ts 2>/dev/null || true
 ```
 
 ## Rules

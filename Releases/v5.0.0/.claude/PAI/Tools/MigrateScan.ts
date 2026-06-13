@@ -301,7 +301,7 @@ function main(): void {
     console.log(`⚠️  ${lowConf.length} chunks classified at <40% confidence — review recommended.`);
   }
   console.log(``);
-  console.log(`Next: bun ~/.claude/PAI/TOOLS/MigrateApprove.ts --review`);
+  console.log(`Next: bun ~/.claude/PAI/Tools/MigrateApprove.ts --review`);
 }
 
 main();

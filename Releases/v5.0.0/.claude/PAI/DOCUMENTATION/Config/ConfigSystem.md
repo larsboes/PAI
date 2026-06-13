@@ -19,7 +19,7 @@ Changes to `settings.json` and `CLAUDE.md` take effect at the next session start
 
 ## Public Releases
 
-The Shadow Release system (`skills/_PAI/TOOLS/ShadowRelease.ts`) handles sanitization for public releases via **containment**, not filter-based reverse-templating. Pipeline: rsync clone with hard cache exclusions → delete sensitive zones (USER, MEMORY, private underscore-prefixed skills) → overlay fixed public templates from `skills/_PAI/TEMPLATES/` → scaffold empty USER/MEMORY → run five security gates (zone deletion check, identity regex grep, Cloudflare ID grep, trufflehog scan, `.env` stray check) → write `.shadow-state.json` report.
+The Shadow Release system (`skills/_PAI/Tools/ShadowRelease.ts`) handles sanitization for public releases via **containment**, not filter-based reverse-templating. Pipeline: rsync clone with hard cache exclusions → delete sensitive zones (USER, MEMORY, private underscore-prefixed skills) → overlay fixed public templates from `skills/_PAI/TEMPLATES/` → scaffold empty USER/MEMORY → run five security gates (zone deletion check, identity regex grep, Cloudflare ID grep, trufflehog scan, `.env` stray check) → write `.shadow-state.json` report.
 
 See the _PAI skill workflows:
 

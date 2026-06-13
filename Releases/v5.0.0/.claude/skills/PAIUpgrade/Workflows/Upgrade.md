@@ -59,7 +59,7 @@ Extract: recent decisions affecting upgrades (rejected/deferred/completed), rele
 Return: inventory with paths; flag anything that would DENY a future recommendation.
 
 **Agent 0e — Skill Surface**
-Scan: `~/.claude/skills/*/SKILL.md` (description fields), `~/.claude/skills/_PAI/TOOLS/*.ts`, `~/.claude/skills/CreateSkill/Tools/*.ts` (validators).
+Scan: `~/.claude/skills/*/SKILL.md` (description fields), `~/.claude/skills/_PAI/Tools/*.ts`, `~/.claude/skills/CreateSkill/Tools/*.ts` (validators).
 Extract: skill counts/categories, existence of Monitor/Advisor/PreCompact wrappers, CreateSkill description-length cap, ToolActivityTracker capture scope (diffs? stdout? git state?).
 Return: inventory with file:line evidence.
 
@@ -86,10 +86,10 @@ Run: `bun ${CLAUDE_SKILL_DIR}/Tools/Anthropic.ts`.
 For each finding (release notes, GitHub commits, doc updates), extract specific techniques: exact syntax/API/configuration, quoted documentation showing usage, which PAI component this improves, before/after code where applicable. Skip findings with no concrete technique. Do NOT return vague "new release available" entries.
 
 **Agent 2 — YouTube Channels**
-1. Load channel config: `bun ~/.claude/PAI/TOOLS/LoadSkillConfig.ts ../youtube-channels.json`.
+1. Load channel config: `bun ~/.claude/PAI/Tools/LoadSkillConfig.ts ../youtube-channels.json`.
 2. For each channel: `yt-dlp --flat-playlist --dump-json 'https://www.youtube.com/@channelhandle/videos' 2>/dev/null | head -5`.
 3. Compare against `../State/youtube-videos.json`.
-4. For new videos: `bun ~/.claude/PAI/TOOLS/GetTranscript.ts '<video-url>'`.
+4. For new videos: `bun ~/.claude/PAI/Tools/GetTranscript.ts '<video-url>'`.
 5. From each transcript, extract specific techniques: code patterns, configurations, command examples, with timestamps and exact quotes. Skip videos with no extractable techniques.
 
 **Agent 3 — Custom Sources**

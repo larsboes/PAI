@@ -1084,4 +1084,4 @@ This system ensures:
 ## Related Systems
 
 - **Master Architecture:** `~/.claude/PAI/DOCUMENTATION/PAISystemArchitecture.md` — authoritative system-of-systems reference
-- **Knowledge Archive:** `~/.claude/PAI/MEMORY/KNOWLEDGE/` — entity-based archive with 4 types (People, Companies, Ideas, Research), managed by Algorithm LEARN phase (direct writes), `PAI/TOOLS/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Topic is a tag, not a domain. Skills that perform research or analysis can query the archive for accumulated knowledge.
+- **Knowledge Archive:** `~/.claude/PAI/MEMORY/KNOWLEDGE/` — entity-based archive with 4 types (People, Companies, Ideas, Research), managed by Algorithm LEARN phase (direct writes), `PAI/Tools/KnowledgeHarvester.ts` (validation/maintenance), and the `/knowledge` skill. Topic is a tag, not a domain. Skills that perform research or analysis can query the archive for accumulated knowledge.

@@ -7,11 +7,11 @@
  * base config with user customizations from SKILLCUSTOMIZATIONS directory.
  *
  * Usage:
- *   import { loadSkillConfig } from '~/.claude/PAI/TOOLS/LoadSkillConfig';
+ *   import { loadSkillConfig } from '~/.claude/PAI/Tools/LoadSkillConfig';
  *   const config = loadSkillConfig<MyConfigType>(__dirname, 'config.json');
  *
  * Or CLI:
- *   bun ~/.claude/PAI/TOOLS/LoadSkillConfig.ts <skill-dir> <filename>
+ *   bun ~/.claude/PAI/Tools/LoadSkillConfig.ts <skill-dir> <filename>
  */
 
 import { readFileSync, existsSync, readdirSync } from 'fs';

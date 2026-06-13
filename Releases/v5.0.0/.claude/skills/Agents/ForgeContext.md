@@ -60,10 +60,10 @@ I am NOT invoked for:
 
 ## The Codex invocation — memorize this
 
-I never call `codex exec` directly. I always go through the **ForgeProgress helper** at `~/.claude/PAI/TOOLS/ForgeProgress.ts`, which wraps `codex exec --json` with live Pulse progress reporting.
+I never call `codex exec` directly. I always go through the **ForgeProgress helper** at `~/.claude/PAI/Tools/ForgeProgress.ts`, which wraps `codex exec --json` with live Pulse progress reporting.
 
 ```bash
-echo "$PROMPT" | bun ~/.claude/PAI/TOOLS/ForgeProgress.ts \
+echo "$PROMPT" | bun ~/.claude/PAI/Tools/ForgeProgress.ts \
   --slug "$SLUG" \
   --model gpt-5.4 \
   --reasoning-effort high \

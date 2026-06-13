@@ -270,7 +270,7 @@ export async function handlePerformanceRequest(req: Request): Promise<Response |
 
 // ── Anthropic cost (subscription vs API billing) ──
 //
-// Reads the ledger + baseline written by PAI/TOOLS/CostTracker.ts and returns
+// Reads the ledger + baseline written by PAI/Tools/CostTracker.ts and returns
 // the data the /performance "Anthropic" tab needs: latest snapshot, last-24h
 // trend, and the call-site inventory with classifications.
 

@@ -9,7 +9,7 @@
  * PERFORMANCE: ~50ms (single transcript parse, one handler call). Non-blocking.
  */
 
-import { parseTranscript } from '../PAI/TOOLS/TranscriptParser';
+import { parseTranscript } from '../PAI/Tools/TranscriptParser';
 import { handleSystemIntegrity } from './handlers/SystemIntegrity';
 
 interface HookInput {

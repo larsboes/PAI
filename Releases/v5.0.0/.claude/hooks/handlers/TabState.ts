@@ -14,7 +14,7 @@ import { setTabState, readTabState, stripPrefix, setPhaseTab } from '../lib/tab-
 import { isValidCompletionTitle, gerundToPastTense, getWorkingFallback, trimToValidTitle } from '../lib/output-validators';
 import { getDAName } from '../lib/identity';
 
-import type { ParsedTranscript } from '../../PAI/TOOLS/TranscriptParser';
+import type { ParsedTranscript } from '../../PAI/Tools/TranscriptParser';
 
 /**
  * Extract tab title from voice line. Takes first sentence, caps at 4 words.

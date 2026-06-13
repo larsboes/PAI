@@ -1,7 +1,7 @@
 # PAI Containment Policy
 
 **Status:** Authoritative. Contributors and future Kai sessions read this before adding a new file.
-**Enforcement:** `hooks/ContainmentGuard.hook.ts` (prospective, PreToolUse). `skills/_PAI/TOOLS/ShadowRelease.ts` G1-G5 gates (retrospective, pre-release).
+**Enforcement:** `hooks/ContainmentGuard.hook.ts` (prospective, PreToolUse). `skills/_PAI/Tools/ShadowRelease.ts` G1-G5 gates (retrospective, pre-release).
 **Zone inventory (authoritative):** `hooks/lib/containment-zones.ts` — the runtime source of truth both enforcers import.
 **Last updated:** 2026-04-29
 
@@ -61,7 +61,7 @@ A file outside every configured zone is a policy violation if it contains any of
 
 The `hooks/ContainmentGuard.hook.ts` enforces the identity and CF-ID list prospectively on every Edit/Write/MultiEdit. The `ShadowRelease --check` gates enforce all three categories retrospectively before release.
 
-The concrete patterns live in `hooks/ContainmentGuard.hook.ts` (`IDENTITY_PATTERNS` constant) and `skills/_PAI/TOOLS/ShadowRelease.ts` (`IDENTITY_PATTERNS` + `CF_ID_PATTERNS`). When a new principal-specific string enters the threat model, add it to both places.
+The concrete patterns live in `hooks/ContainmentGuard.hook.ts` (`IDENTITY_PATTERNS` constant) and `skills/_PAI/Tools/ShadowRelease.ts` (`IDENTITY_PATTERNS` + `CF_ID_PATTERNS`). When a new principal-specific string enters the threat model, add it to both places.
 
 ---
 
@@ -112,7 +112,7 @@ Record them in `PATTERN_ALLOWLIST_FILES` in `hooks/lib/containment-zones.ts` (si
 
 1. **Zone review** — per the mandatory step above. Happens before anything else.
 2. **Source audit** — grep the live tree against the identity plus CF-ID pattern list. Every hit outside the configured zones is a policy violation; fix at source (sanitize, relocate, or allowlist with justification).
-3. **Staging build** — `bun run skills/_PAI/TOOLS/ShadowRelease.ts --create <version>` clones the live tree with hard rsync exclusions, deletes zone contents (preserving only top-level READMEs as scaffold), overlays the public `settings.json`, `CLAUDE.md`, and `PAI_CONFIG.yaml` templates.
+3. **Staging build** — `bun run skills/_PAI/Tools/ShadowRelease.ts --create <version>` clones the live tree with hard rsync exclusions, deletes zone contents (preserving only top-level READMEs as scaffold), overlays the public `settings.json`, `CLAUDE.md`, and `PAI_CONFIG.yaml` templates.
 4. **Five gates run against the staging tree:**
     - **G1 — Zone deletion:** required public READMEs survive; forbidden personal files and persona dirs do not.
     - **G2 — Identity grep:** no identity patterns in the staging tree (except allowlisted files).
@@ -141,13 +141,13 @@ Populated by the audit. Updated as files are sanitized or relocated.
 | `hooks/ContainmentGuard.hook.ts` | Must embed every pattern to detect it | **KEEP** — legitimate exception |
 | `hooks/lib/containment-zones.ts` | Single source of truth module both enforcers import from | **KEEP** — legitimate exception |
 | `hooks/security/inspectors/PatternInspector.ts` | Pattern detector embeds patterns | **KEEP** — legitimate exception |
-| `skills/_PAI/TOOLS/ShadowRelease.ts` | Release tool must embed patterns for G2/G3 gates | **KEEP** — legitimate exception |
+| `skills/_PAI/Tools/ShadowRelease.ts` | Release tool must embed patterns for G2/G3 gates | **KEEP** — legitimate exception |
 | `PAI/DOCUMENTATION/Tools/Containment.md` | Policy doc describes zones and references patterns categorically | **KEEP** — legitimate exception |
 | `skills/Daemon/Docs/SecurityClassification.md` | Documents the exact path patterns the Daemon filter should scrub | **KEEP** — legitimate exception |
 | `skills/Daemon/Tools/SecurityFilter.ts` | Pattern inspector test cases embed the patterns they filter | **KEEP** — legitimate exception |
 | `skills/CreateSkill/Workflows/ValidateSkill.md` | Lists example patterns a skill author should NOT hardcode | **KEEP** — legitimate exception |
-| `PAI/TOOLS/SessionHarvester.ts` | Comment references derivation, not literal path | **KEEP** — uses `CLAUDE_DIR.replace(...)` dynamically |
-| `PAI/TOOLS/gmail.ts` | Uses `homedir()` at runtime, not a literal path | **KEEP** — dynamic resolution |
+| `PAI/Tools/SessionHarvester.ts` | Comment references derivation, not literal path | **KEEP** — uses `CLAUDE_DIR.replace(...)` dynamically |
+| `PAI/Tools/gmail.ts` | Uses `homedir()` at runtime, not a literal path | **KEEP** — dynamic resolution |
 | `PAI/PULSE/checks/health.ts` | Hardcoded site list for health monitoring | **TODO-REFACTOR** — move site list to `PAI_CONFIG.yaml`, read at startup |
 | `agents/<agent>.md` | Write-permission path literals in agent definitions | **TODO-REFACTOR** — verify env-expansion support in Claude Code agent spec, then replace with `${HOME}/.claude/...` |
 

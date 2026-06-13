@@ -163,7 +163,7 @@ Layer 4: DYNAMIC CONTEXT (session-specific, ephemeral, does NOT survive compacti
 | `PAI/PAI_SYSTEM_PROMPT.md` | Constitutional rules (system prompt layer) |
 | `~/.claude/CLAUDE.md` | Operational procedures (directly edited) |
 | `~/.claude/settings.json` | Runtime settings (directly edited) |
-| `PAI/TOOLS/pai.ts` | Launcher -- wires `--append-system-prompt-file` |
+| `PAI/Tools/pai.ts` | Launcher -- wires `--append-system-prompt-file` |
 | `hooks/LoadContext.hook.ts` | Injects startup files + dynamic context |
 | `hooks/RestoreContext.hook.ts` | Re-injects critical files after compaction |
 
@@ -181,7 +181,7 @@ Transitions from CURRENT STATE to IDEAL STATE via verifiable Ideal State Criteri
 
 - **Version:** v6.3.0
 - **Location:** `PAI/ALGORITHM/` (canonical pointer: `LATEST` → `v6.3.0.md`)
-- **CLI:** `bun PAI/TOOLS/algorithm.ts`
+- **CLI:** `bun PAI/Tools/algorithm.ts`
 - **Full doc:** `PAI/DOCUMENTATION/Algorithm/AlgorithmSystem.md`
 - **Doctrine highlights (v6.3.0):** twelve-section ISA in fixed order; closed enumeration of thinking capabilities (IterativeDepth, ApertureOscillation, FeedbackMemoryConsult, Advisor, ReReadCheck, FirstPrinciples, SystemsThinking, RootCauseAnalysis, Council, RedTeam, Science, BeCreative, Ideate, BitterPillEngineering, Evals, WorldThreatModel, Fabric patterns, ContextSearch, ISA); Capability-Name Audit Gate (phantom names = CRITICAL FAILURE); ID-stability rule (ISC IDs never re-number on edit); Cato cross-vendor audit MANDATORY at E4/E5 in VERIFY (Rule 2a)
 
@@ -243,7 +243,7 @@ Agents default to inheriting the parent model (often Opus). Use the model parame
 Configuration files (`settings.json`, `CLAUDE.md`, `PAI_SYSTEM_PROMPT.md`) are directly edited. `PAI_CONFIG.yaml` remains as a credentials store for private skills. The Shadow Release system (`ShadowRelease.ts`) produces public staging via **containment**: rsync clone with hard exclusions → delete sensitive zones (USER, MEMORY, skills/_*) → overlay fixed public templates → scaffold → run five gates (zone deletion, identity grep, CF ID grep, trufflehog, .env strays).
 
 - **Status:** Active (containment-based since v5; retired filter-walker/reverse-templating)
-- **Location:** `skills/_PAI/TOOLS/ShadowRelease.ts`, `skills/_PAI/TEMPLATES/` (settings.public.json, CLAUDE.public.md, USER/)
+- **Location:** `skills/_PAI/Tools/ShadowRelease.ts`, `skills/_PAI/TEMPLATES/` (settings.public.json, CLAUDE.public.md, USER/)
 - **CLI:** `--create <version>`, `--update`, `--full`, `--check [--version <v>]`
 - **Full doc:** `PAI/DOCUMENTATION/Config/ConfigSystem.md`
 

@@ -292,7 +292,7 @@ interface RefHit {
 // Parse `## ... (paths under `X`)` headings out of a markdown file and
 // build a sorted list of `[startCharPos, sectionRoot]` pairs. The default root
 // applies before any heading is seen. Mirrors the section-awareness logic in
-// PAI/TOOLS/ArchitectureSummaryGenerator.ts so both tools agree on what a
+// PAI/Tools/ArchitectureSummaryGenerator.ts so both tools agree on what a
 // relative path under a routing section means.
 function extractSectionRoots(content: string): Array<{ pos: number; root: string }> {
   const out: Array<{ pos: number; root: string }> = [{ pos: 0, root: '' }];

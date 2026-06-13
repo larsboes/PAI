@@ -44,8 +44,8 @@ fi
 # ── Install system from release ────────────────────────────
 info "Installing PAI system from Releases/${RELEASE_VER}..."
 
-mkdir -p "$CLAUDE_DIR/PAI/Algorithm"
-cp -r "$RELEASE_DIR/PAI/ALGORITHM/"* "$CLAUDE_DIR/PAI/Algorithm/"
+mkdir -p "$CLAUDE_DIR/PAI/ALGORITHM"
+cp -r "$RELEASE_DIR/PAI/ALGORITHM/"* "$CLAUDE_DIR/PAI/ALGORITHM/"
 ok "Algorithm v${ALGO_VERSION}"
 
 mkdir -p "$CLAUDE_DIR/PAI/DOCUMENTATION"
@@ -56,8 +56,8 @@ mkdir -p "$CLAUDE_DIR/PAI/PULSE"
 cp -r "$RELEASE_DIR/PAI/PULSE/"* "$CLAUDE_DIR/PAI/PULSE/"
 ok "Pulse"
 
-mkdir -p "$CLAUDE_DIR/PAI/Tools" "$CLAUDE_DIR/PAI/TEMPLATES" "$CLAUDE_DIR/PAI/bin"
-cp -r "$RELEASE_DIR/PAI/Tools/"* "$CLAUDE_DIR/PAI/Tools/" 2>/dev/null || true
+mkdir -p "$CLAUDE_DIR/PAI/TOOLS" "$CLAUDE_DIR/PAI/TEMPLATES" "$CLAUDE_DIR/PAI/bin"
+cp -r "$RELEASE_DIR/PAI/TOOLS/"* "$CLAUDE_DIR/PAI/TOOLS/" 2>/dev/null || true
 cp -r "$RELEASE_DIR/PAI/TEMPLATES/"* "$CLAUDE_DIR/PAI/TEMPLATES/" 2>/dev/null || true
 cp -r "$RELEASE_DIR/PAI/bin/"* "$CLAUDE_DIR/PAI/bin/" 2>/dev/null || true
 cp "$RELEASE_DIR/PAI/PAI_SYSTEM_PROMPT.md" "$CLAUDE_DIR/PAI/" 2>/dev/null || true

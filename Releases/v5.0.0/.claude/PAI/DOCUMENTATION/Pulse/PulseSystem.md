@@ -182,7 +182,7 @@ Script jobs are the default and should be preferred. Most checks follow a patter
 
 ### Claude Jobs (`type = "claude"`)
 
-Spawn `claude` headless via the `PAI/TOOLS/Inference.ts` flag pattern (`--print --model X --tools '' --output-format text --setting-sources '' --system-prompt ''`) with `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` deleted from the subprocess env so OAuth/keychain billing applies. The prompt is piped via stdin. Output format is plain text. The process has a 5-minute timeout. **NEVER use `claude --bare`** — the `--bare` flag forces `ANTHROPIC_API_KEY` auth and bypasses OAuth/keychain (per the constitutional rule in `PAI_SYSTEM_PROMPT.md` "Operational Rules" — a real billing incident drove this rule).
+Spawn `claude` headless via the `PAI/Tools/Inference.ts` flag pattern (`--print --model X --tools '' --output-format text --setting-sources '' --system-prompt ''`) with `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` deleted from the subprocess env so OAuth/keychain billing applies. The prompt is piped via stdin. Output format is plain text. The process has a 5-minute timeout. **NEVER use `claude --bare`** — the `--bare` flag forces `ANTHROPIC_API_KEY` auth and bypasses OAuth/keychain (per the constitutional rule in `PAI_SYSTEM_PROMPT.md` "Operational Rules" — a real billing incident drove this rule).
 
 Cost: Token-dependent. A Haiku job costs fractions of a cent. A Sonnet job processing a morning brief costs roughly $0.01-0.03.
 
@@ -809,9 +809,9 @@ Three mechanisms:
 
 New PAI installations create DA identity via guided CLI interview:
 ```bash
-bun PAI/TOOLS/DAInterview.ts                    # Quick (under 2 min)
-bun PAI/TOOLS/DAInterview.ts --depth standard   # + personality refinement
-bun PAI/TOOLS/DAInterview.ts --depth deep       # + companion, beliefs
+bun PAI/Tools/DAInterview.ts                    # Quick (under 2 min)
+bun PAI/Tools/DAInterview.ts --depth standard   # + personality refinement
+bun PAI/Tools/DAInterview.ts --depth deep       # + companion, beliefs
 ```
 
 ### Multi-DA Support
@@ -834,10 +834,10 @@ Registry tracks primary + worker DAs. Primary owns interactive channels (termina
 
 | Tool | Usage | Purpose |
 |------|-------|---------|
-| `DAInterview.ts` | `bun PAI/TOOLS/DAInterview.ts` | Create/update DA identity |
-| `DASchedule.ts` | `bun PAI/TOOLS/DASchedule.ts list` | Manage scheduled tasks |
-| `DAGrowth.ts` | `bun PAI/TOOLS/DAGrowth.ts summary` | View growth data |
-| `DAIdentityGenerator.ts` | `bun PAI/TOOLS/DAIdentityGenerator.ts` | Regenerate DA_IDENTITY.md from YAML |
+| `DAInterview.ts` | `bun PAI/Tools/DAInterview.ts` | Create/update DA identity |
+| `DASchedule.ts` | `bun PAI/Tools/DASchedule.ts list` | Manage scheduled tasks |
+| `DAGrowth.ts` | `bun PAI/Tools/DAGrowth.ts summary` | View growth data |
+| `DAIdentityGenerator.ts` | `bun PAI/Tools/DAIdentityGenerator.ts` | Regenerate DA_IDENTITY.md from YAML |
 
 ### Competitive Context
 

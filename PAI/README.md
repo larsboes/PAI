@@ -24,7 +24,7 @@ PAI is a general problem-solving system that magnifies human capabilities. It ru
 
 ## Core Subsystems
 
-### The Algorithm (`PAI/Algorithm/`)
+### The Algorithm (`PAI/ALGORITHM/`)
 The 7-phase execution engine: Observe, Think, Plan, Build, Execute, Verify, Learn. Transitions from CURRENT STATE to IDEAL STATE via verifiable criteria (ISC). Current version: v3.7.0.
 
 ### Skills (`SKILLSYSTEM.md`)
@@ -42,7 +42,7 @@ Persistent storage across sessions:
 - **WISDOM/** — Domain knowledge frames that compound over time
 
 ### Tools (`Tools/`)
-TypeScript utilities in `PAI/Tools/`: `BuildCLAUDE.ts` (generate CLAUDE.md from template), `Inference.ts` (AI calls), `GenerateSkillIndex.ts`, `SessionProgress.ts`, `Banner.ts`, and more.
+TypeScript utilities in `PAI/TOOLS/`: `BuildCLAUDE.ts` (generate CLAUDE.md from template), `Inference.ts` (AI calls), `GenerateSkillIndex.ts`, `SessionProgress.ts`, `Banner.ts`, and more.
 
 ### Agents (`PAIAGENTSYSTEM.md`)
 14 specialized agent types (Algorithm, Engineer, Architect, Designer, Researcher variants). Custom agents via the Agents skill. Agent teams for coordinated multi-agent work.
@@ -79,7 +79,7 @@ All other documentation loads on-demand based on the routing table in CLAUDE.md.
 
 | Target | Source | Builder | Trigger |
 |--------|--------|---------|---------|
-| `CLAUDE.md` | `CLAUDE.md.template` + `settings.json` + `PAI/Algorithm/LATEST` | `bun PAI/Tools/BuildCLAUDE.ts` | SessionStart hook + manual |
+| `CLAUDE.md` | `CLAUDE.md.template` + `settings.json` + `PAI/ALGORITHM/LATEST` | `bun PAI/TOOLS/BuildCLAUDE.ts` | SessionStart hook + manual |
 
 ## Extending PAI
 

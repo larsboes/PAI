@@ -2,7 +2,7 @@
 /**
  * DAIdentityGenerator — Reads DA_IDENTITY.yaml and produces DA_IDENTITY.md
  *
- * Usage: bun PAI/TOOLS/DAIdentityGenerator.ts [da-name]
+ * Usage: bun PAI/Tools/DAIdentityGenerator.ts [da-name]
  *        Defaults to the primary DA from _registry.yaml.
  *
  * Output: writes DA_IDENTITY.md next to DA_IDENTITY.yaml

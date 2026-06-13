@@ -38,7 +38,7 @@ If `$ARGUMENTS` doesn't match a subcommand, treat it as a search query.
 Run the harvester status command and display results:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeHarvester.ts status
+bun ~/.claude/PAI/Tools/KnowledgeHarvester.ts status
 ```
 
 Also show:
@@ -94,7 +94,7 @@ Create a new note manually in the specified entity type.
 7. Verify every slug in `related:` exists in the archive before saving
 8. Regenerate the type's MOC:
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeHarvester.ts index
+bun ~/.claude/PAI/Tools/KnowledgeHarvester.ts index
 ```
 
 **Topic is a tag, not a type.** A security insight is an Idea with a `security` tag. A security company is a Company with a `security` tag. The entity type determines the schema; the tag determines the topic.
@@ -155,7 +155,7 @@ rg -l "Person Name" ~/.claude/PAI/MEMORY/KNOWLEDGE/
 Run the KnowledgeHarvester to pull new knowledge from all PAI sources:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeHarvester.ts harvest
+bun ~/.claude/PAI/Tools/KnowledgeHarvester.ts harvest
 ```
 
 Display results. If nothing was harvested, explain that sources are already up to date.
@@ -267,7 +267,7 @@ Append to `KNOWLEDGE/_log.md`:
 
 Regenerate MOCs:
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeHarvester.ts index
+bun ~/.claude/PAI/Tools/KnowledgeHarvester.ts index
 ```
 
 Present in NATIVE mode.
@@ -282,7 +282,7 @@ Find and review conflicting claims across Knowledge notes.
 
 Run the KnowledgeHarvester contradiction finder:
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeHarvester.ts contradictions
+bun ~/.claude/PAI/Tools/KnowledgeHarvester.ts contradictions
 ```
 
 This outputs pairs of notes with high tag overlap (2+ shared tags), ranked by overlap count.
@@ -335,21 +335,21 @@ Navigate the Knowledge Archive as a graph.
 
 **No argument — stats overview:**
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeGraph.ts stats
+bun ~/.claude/PAI/Tools/KnowledgeGraph.ts stats
 ```
 
 Show node count, edge count, top clusters, most connected hubs, and isolated nodes.
 
 **With slug — traverse from a note:**
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeGraph.ts traverse <slug> --hops 2
+bun ~/.claude/PAI/Tools/KnowledgeGraph.ts traverse <slug> --hops 2
 ```
 
 Show all notes connected within 2 hops via tags, wikilinks, and typed relationships. Useful for exploring how knowledge connects across domains.
 
 **Related notes only:**
 ```bash
-bun ~/.claude/PAI/TOOLS/KnowledgeGraph.ts related <slug>
+bun ~/.claude/PAI/Tools/KnowledgeGraph.ts related <slug>
 ```
 
 Present in NATIVE mode.
@@ -361,14 +361,14 @@ Present in NATIVE mode.
 Compressed context retrieval over the Knowledge Archive using BM25-lite scoring.
 
 ```bash
-bun ~/.claude/PAI/TOOLS/MemoryRetriever.ts "<query>" --top 5
+bun ~/.claude/PAI/Tools/MemoryRetriever.ts "<query>" --top 5
 ```
 
 Returns the top matching notes with compressed summaries, ranked by title match, tag overlap, and content frequency. Useful for loading relevant knowledge context without reading full files.
 
 For raw excerpts without LLM compression:
 ```bash
-bun ~/.claude/PAI/TOOLS/MemoryRetriever.ts "<query>" --raw
+bun ~/.claude/PAI/Tools/MemoryRetriever.ts "<query>" --raw
 ```
 
 Present in NATIVE mode.
@@ -380,14 +380,14 @@ Present in NATIVE mode.
 Mine recent conversations for memory candidates (decisions, preferences, milestones, problems).
 
 ```bash
-bun ~/.claude/PAI/TOOLS/SessionHarvester.ts --mine --recent 10
+bun ~/.claude/PAI/Tools/SessionHarvester.ts --mine --recent 10
 ```
 
 Candidates are written to `KNOWLEDGE/_harvest-queue/` for review — never directly to KNOWLEDGE/. Use `/knowledge harvest` to process the queue.
 
 For dry run (preview only):
 ```bash
-bun ~/.claude/PAI/TOOLS/SessionHarvester.ts --mine --recent 10 --dry-run
+bun ~/.claude/PAI/Tools/SessionHarvester.ts --mine --recent 10 --dry-run
 ```
 
 Present in NATIVE mode.

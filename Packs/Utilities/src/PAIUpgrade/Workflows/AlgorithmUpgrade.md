@@ -68,8 +68,8 @@ Reflections map to Algorithm sections. This is the routing table for where fixes
 ```
 Read the current Algorithm version and spec:
 
-1. Read PAI/Algorithm/LATEST to get current version
-2. Read PAI/Algorithm/v{VERSION}.md (the full spec)
+1. Read PAI/ALGORITHM/LATEST to get current version
+2. Read PAI/ALGORITHM/v{VERSION}.md (the full spec)
 3. Extract section headers and key rules into a structured map
 
 Report: "Current Algorithm: v{VERSION} — {N} sections, {M} rules"
@@ -225,7 +225,7 @@ Ideas that require fundamental changes, not just spec edits:
 - [ ] Review proposals
 - [ ] Apply approved changes to Algorithm spec
 - [ ] Bump version if warranted
-- [ ] Run `bun PAI/Tools/RebuildPAI.ts` to rebuild
+- [ ] Run `bun PAI/TOOLS/RebuildPAI.ts` to rebuild
 ```
 
 ---

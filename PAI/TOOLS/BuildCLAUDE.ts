@@ -5,13 +5,13 @@
  *
  * Reads the canonical agent-config template (repo source of truth, deployed
  * to PAI/TEMPLATES/AgentConfig/CLAUDE.md), resolves variables from
- * settings.json and PAI/Algorithm/LATEST, writes CLAUDE.md.
+ * settings.json and PAI/ALGORITHM/LATEST, writes CLAUDE.md.
  *
  * Called by:
  *   - PAI installer (first install)
  *   - SessionStart hook (keeps fresh automatically)
  *   - sync.sh deploy_config (Claude)
- *   - Manual: bun PAI/Tools/BuildCLAUDE.ts
+ *   - Manual: bun PAI/TOOLS/BuildCLAUDE.ts
  */
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
@@ -26,14 +26,14 @@ const TEMPLATE_PATH = (() => {
 })();
 const OUTPUT_PATH = join(PAI_DIR, "CLAUDE.md");
 const SETTINGS_PATH = join(PAI_DIR, "settings.json");
-const ALGORITHM_DIR = join(PAI_DIR, "PAI/Algorithm");
+const ALGORITHM_DIR = join(PAI_DIR, "PAI/ALGORITHM");
 const LATEST_PATH = join(ALGORITHM_DIR, "LATEST");
 
 // ─── Load current algorithm version ───
 
 function getAlgorithmVersion(): string {
   if (!existsSync(LATEST_PATH)) {
-    console.error("⚠ PAI/Algorithm/LATEST not found, defaulting to v3.7.0");
+    console.error("⚠ PAI/ALGORITHM/LATEST not found, defaulting to v3.7.0");
     return "v3.7.0";
   }
   return readFileSync(LATEST_PATH, "utf-8").trim();
@@ -71,7 +71,7 @@ function loadVariables(): Record<string, string> {
     "{PRINCIPAL.TIMEZONE}": settings.principal?.timezone || "UTC",
     "{{PAI_VERSION}}": getPaiVersion(settings),
     "{{ALGO_VERSION}}": algoVersion,
-    "{{ALGO_PATH}}": `PAI/Algorithm/${algoVersion}.md`,
+    "{{ALGO_PATH}}": `PAI/ALGORITHM/${algoVersion}.md`,
   };
 }
 

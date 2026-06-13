@@ -4,11 +4,11 @@
  * DAInterview.ts -- Interactive CLI wizard for creating DA identities
  *
  * Usage:
- *   bun PAI/TOOLS/DAInterview.ts                    # Quick mode (default)
- *   bun PAI/TOOLS/DAInterview.ts --depth standard   # Quick + Standard
- *   bun PAI/TOOLS/DAInterview.ts --depth deep       # All phases
- *   bun PAI/TOOLS/DAInterview.ts --update           # Update existing primary DA
- *   bun PAI/TOOLS/DAInterview.ts --update --da devi # Update specific DA
+ *   bun PAI/Tools/DAInterview.ts                    # Quick mode (default)
+ *   bun PAI/Tools/DAInterview.ts --depth standard   # Quick + Standard
+ *   bun PAI/Tools/DAInterview.ts --depth deep       # All phases
+ *   bun PAI/Tools/DAInterview.ts --update           # Update existing primary DA
+ *   bun PAI/Tools/DAInterview.ts --update --da devi # Update specific DA
  *
  * Creates:
  *   PAI/USER/DA/{name}/DA_IDENTITY.yaml
@@ -25,7 +25,7 @@ import { fileURLToPath } from "url";
 
 // ── Paths ────────────────────────────────────────────────────────────────────
 // Resolve relative to this script's own location. The script ships at
-// PAI/TOOLS/DAInterview.ts, so PAI/USER/DA/_presets.yaml is two levels up.
+// PAI/Tools/DAInterview.ts, so PAI/USER/DA/_presets.yaml is two levels up.
 // This works whether the script runs from a fresh clone (~/PAI-fresh/...) or
 // from an installed location (~/.claude/PAI/...) — no $HOME assumption.
 

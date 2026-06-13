@@ -192,7 +192,7 @@
           },
           {
             "type": "command",
-            "command": "${PAI_DIR}/PAI/Tools/SynthesizeWisdom.ts"
+            "command": "${PAI_DIR}/PAI/TOOLS/SynthesizeWisdom.ts"
           }
         ]
       }
@@ -822,7 +822,7 @@
       "Test-first: write or run verification alongside artifacts, not after.",
       "No silent stalls. Every command completes quickly or runs in background.",
       "5-second timeout on infrastructure commands. If hung, kill and retry.",
-      "Use PAI Tools (bun PAI/Tools/*.ts) and CLI tools. Don't improvise Bash chains.",
+      "Use PAI Tools (bun PAI/TOOLS/*.ts) and CLI tools. Don't improvise Bash chains.",
       "Phase discipline: 7 separate phases. BUILD is not EXECUTE. Never merge or skip.",
       "spinnerVerbs in settings.json customizes the animated verb shown while working.",
       "The meaning of PAI: magnifying human capabilities through general problem-solving.",

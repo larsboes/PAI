@@ -7,7 +7,7 @@
  * (scenario's UserSimulatorAgent + JudgeAgent still use ai-sdk directly).
  */
 
-import { inference, type InferenceLevel } from '../../../PAI/TOOLS/Inference.ts';
+import { inference, type InferenceLevel } from '../../../PAI/Tools/Inference.ts';
 import { AgentAdapter, AgentRole, type AgentInput, type AgentReturnTypes } from '@langwatch/scenario';
 
 export interface PAIAgentAdapterOptions {

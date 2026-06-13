@@ -13,7 +13,7 @@ Both tools use `bun` as their runtime.
 
 ## The Algorithm CLI
 
-**Location:** `~/.claude/PAI/Tools/algorithm.ts`
+**Location:** `~/.claude/PAI/TOOLS/algorithm.ts`
 
 The Algorithm CLI executes the PAI Algorithm (Observe → Think → Plan → Build → Execute → Verify → Learn) against PRD files. It supports two modes: autonomous loop execution (no human needed) and interactive sessions (human-in-the-loop).
 
@@ -21,13 +21,13 @@ The Algorithm CLI executes the PAI Algorithm (Observe → Think → Plan → Bui
 
 ```bash
 # Run the Algorithm in autonomous loop mode
-bun ~/.claude/PAI/Tools/algorithm.ts -m loop -p <PRD-path> -n 20
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m loop -p <PRD-path> -n 20
 
 # Run in interactive mode (launches a claude session with PRD context)
-bun ~/.claude/PAI/Tools/algorithm.ts -m interactive -p <PRD-path>
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m interactive -p <PRD-path>
 
 # Check status of all PRDs
-bun ~/.claude/PAI/Tools/algorithm.ts status
+bun ~/.claude/PAI/TOOLS/algorithm.ts status
 ```
 
 ### Usage
@@ -64,13 +64,13 @@ Loop mode runs the Algorithm iteratively without human interaction. Each iterati
 
 ```bash
 # Basic loop — single agent, up to 128 iterations
-bun ~/.claude/PAI/Tools/algorithm.ts -m loop -p PRD-20260213-auth.md
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m loop -p PRD-20260213-auth.md
 
 # Fast loop — 20 max iterations
-bun ~/.claude/PAI/Tools/algorithm.ts -m loop -p PRD-20260213-auth.md -n 20
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m loop -p PRD-20260213-auth.md -n 20
 
 # Parallel loop — 4 agents working on different criteria simultaneously
-bun ~/.claude/PAI/Tools/algorithm.ts -m loop -p PRD-20260213-auth.md -n 20 -a 4
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m loop -p PRD-20260213-auth.md -n 20 -a 4
 ```
 
 **Parallel agents (`-a N`):** When N > 1, the CLI partitions failing criteria across N agents. Each agent receives exactly one criterion and operates as a focused worker. The CLI uses domain-aware partitioning — criteria from the same domain (e.g., `ISC-AUTH-1`, `ISC-AUTH-2`) are assigned to the same agent to avoid conflicts. After all agents complete, the parent process reconciles results into the PRD.
@@ -91,7 +91,7 @@ bun ~/.claude/PAI/Tools/algorithm.ts -m loop -p PRD-20260213-auth.md -n 20 -a 4
 Interactive mode launches a full `claude` session with the PRD context pre-loaded. You work with Claude directly to make progress on criteria.
 
 ```bash
-bun ~/.claude/PAI/Tools/algorithm.ts -m interactive -p PRD-20260213-feature.md
+bun ~/.claude/PAI/TOOLS/algorithm.ts -m interactive -p PRD-20260213-feature.md
 ```
 
 This opens an interactive Claude session with:
@@ -104,19 +104,19 @@ This opens an interactive Claude session with:
 
 ```bash
 # Show all PRDs and their status
-bun ~/.claude/PAI/Tools/algorithm.ts status
+bun ~/.claude/PAI/TOOLS/algorithm.ts status
 
 # Show status of a specific PRD
-bun ~/.claude/PAI/Tools/algorithm.ts status -p PRD-20260213-auth
+bun ~/.claude/PAI/TOOLS/algorithm.ts status -p PRD-20260213-auth
 
 # Pause a running loop (loop checks between iterations)
-bun ~/.claude/PAI/Tools/algorithm.ts pause -p PRD-20260213-auth
+bun ~/.claude/PAI/TOOLS/algorithm.ts pause -p PRD-20260213-auth
 
 # Resume a paused loop
-bun ~/.claude/PAI/Tools/algorithm.ts resume -p PRD-20260213-auth
+bun ~/.claude/PAI/TOOLS/algorithm.ts resume -p PRD-20260213-auth
 
 # Stop a loop permanently
-bun ~/.claude/PAI/Tools/algorithm.ts stop -p PRD-20260213-auth
+bun ~/.claude/PAI/TOOLS/algorithm.ts stop -p PRD-20260213-auth
 ```
 
 ### PRD Resolution
@@ -351,7 +351,7 @@ For convenience, add aliases to your shell configuration (`.zshrc`, `.bashrc`):
 
 ```bash
 # The Algorithm CLI
-alias algorithm="bun ~/.claude/PAI/Tools/algorithm.ts"
+alias algorithm="bun ~/.claude/PAI/TOOLS/algorithm.ts"
 
 # The Arbol CLI
 alias pai="bun ~/.claude/PAI/ACTIONS/pai.ts"

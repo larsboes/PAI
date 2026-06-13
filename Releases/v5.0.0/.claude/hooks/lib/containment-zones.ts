@@ -5,7 +5,7 @@
 // zone must stay clean per PAI/DOCUMENTATION/Tools/Containment.md.
 //
 // Both the prospective guard (hooks/ContainmentGuard.hook.ts) and the
-// retrospective release gates (skills/_PAI/TOOLS/ShadowRelease.ts) import
+// retrospective release gates (skills/_PAI/Tools/ShadowRelease.ts) import
 // from here. Add, remove, or rename zones in one place.
 //
 // Path patterns are matched relative to CLAUDE_ROOT (the .claude directory
@@ -80,13 +80,13 @@ export const PATTERN_ALLOWLIST_FILES: readonly string[] = [
   "hooks/ContainmentGuard.hook.ts",
   "hooks/lib/containment-zones.ts",
   "hooks/security/inspectors/PatternInspector.ts",
-  "skills/_PAI/TOOLS/ShadowRelease.ts",
+  "skills/_PAI/Tools/ShadowRelease.ts",
   "PAI/DOCUMENTATION/Tools/Containment.md",
   "skills/Daemon/Docs/SecurityClassification.md",
   "skills/Daemon/Tools/SecurityFilter.ts",
   "skills/CreateSkill/Workflows/ValidateSkill.md",
-  "PAI/TOOLS/SessionHarvester.ts",
-  "PAI/TOOLS/gmail.ts",
+  "PAI/Tools/SessionHarvester.ts",
+  "PAI/Tools/gmail.ts",
   // Fabric quiz/answer patterns that legitimately use "unsupervised learning"
   // as ML terminology (not as a brand name). Allowed past G2.
   "skills/Fabric/Patterns/create_quiz/README.md",

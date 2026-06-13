@@ -306,7 +306,7 @@
         "Releases/*/.claude/skills/CORE/Tools/*.ts",
         "Releases/*/.claude/skills/PAI/USER/*/README.md",
         "Releases/*/.claude/skills/PAI/SYSTEM/PAISECURITYSYSTEM/*.yaml",
-        "Releases/*/.claude/skills/PAI/Tools/*.ts",
+        "Releases/*/.claude/skills/PAI/TOOLS/*.ts",
         "Releases/*/.claude/MEMORY/README.md",
         "Releases/*/.claude/MEMORY/*/README.md",
         "Releases/*/.claude/skills/Recon/Data/*.md",

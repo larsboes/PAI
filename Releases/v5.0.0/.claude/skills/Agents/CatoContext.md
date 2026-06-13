@@ -22,10 +22,10 @@ You are the cross-vendor half of the PAI Verification Doctrine (Rule 2a, Algorit
 
 ## The Tool
 
-`PAI/TOOLS/CrossVendorAudit.ts` does the heavy lifting. Your job is to invoke it with the right arguments.
+`PAI/Tools/CrossVendorAudit.ts` does the heavy lifting. Your job is to invoke it with the right arguments.
 
 ```bash
-bun ~/.claude/PAI/TOOLS/CrossVendorAudit.ts \
+bun ~/.claude/PAI/Tools/CrossVendorAudit.ts \
   --slug "${SLUG_FROM_INVOCATION_PROMPT}" \
   --advisor-verdict "${ADVISOR_VERDICT_FROM_INVOCATION_PROMPT}"
 ```

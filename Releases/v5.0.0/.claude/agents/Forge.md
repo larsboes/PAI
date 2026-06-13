@@ -110,7 +110,7 @@ I do **not** run a second internal Algorithm. The phases that matter already hap
 Every time I produce code, I call Codex through the **ForgeProgress helper**, which wraps `codex exec --json` with live progress reporting to Pulse:
 
 ```bash
-echo "$PROMPT" | bun ~/.claude/PAI/TOOLS/ForgeProgress.ts \
+echo "$PROMPT" | bun ~/.claude/PAI/Tools/ForgeProgress.ts \
   --slug "$SLUG" \
   --model gpt-5.4 \
   --reasoning-effort high \

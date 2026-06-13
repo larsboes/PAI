@@ -73,6 +73,11 @@ done
 [ -d "$ENGINE_SRC" ] || fail "engine source not found: $ENGINE_SRC (run the engine capture first)"
 [ -d "$PACKS_DIR" ]  || fail "Packs/ not found: $PACKS_DIR"
 
+# ── Casing guard (Linux is case-sensitive): block deploy on engine-dir casing drift ──
+if [ -x "$SCRIPT_DIR/casing-check.sh" ]; then
+  "$SCRIPT_DIR/casing-check.sh" || fail "engine-dir casing drift — fix before deploying (see above)"
+fi
+
 RSYNC_EXCLUDES=(--exclude 'USER' --exclude 'MEMORY' --exclude 'PULSE' --exclude 'node_modules'
                 --exclude '.git' --exclude 'dist' --exclude '*.log' --exclude '.cursor'
                 --exclude '.DS_Store' --exclude '.env' --exclude '*.env' --exclude '*.key' --exclude '*.pem')
@@ -131,13 +136,13 @@ identity_block() {
 resolve_config_vars() {
   local f="$1" real="$2" ident="$3" ver algo daname
   ver="$(cat "$real/PAI/VERSION" 2>/dev/null | tr -d '[:space:]')"; [ -z "$ver" ] && ver="—"
-  algo="$(cat "$real/PAI/Algorithm/LATEST" 2>/dev/null | tr -d '[:space:]')"
+  algo="$(cat "$real/PAI/ALGORITHM/LATEST" 2>/dev/null | tr -d '[:space:]')"
   daname="$(grep -m1 '^\*\*Name:\*\*' "$ident/DaIdentity.md" 2>/dev/null | sed 's/^\*\*Name:\*\* *//')"
   [ -z "$daname" ] && daname="Assistant"
   sed -i '' \
     -e "s#{{PAI_VERSION}}#${ver}#g" \
     -e "s#{{ALGO_VERSION}}#${algo}#g" \
-    -e "s#{{ALGO_PATH}}#PAI/Algorithm/${algo}.md#g" \
+    -e "s#{{ALGO_PATH}}#PAI/ALGORITHM/${algo}.md#g" \
     -e "s#{DAIDENTITY.NAME}#${daname}#g" \
     "$f"
 }
@@ -173,7 +178,7 @@ deploy_config() {
     # Claude: render via BuildCLAUDE.ts — resolves {{PAI_VERSION}}, {{ALGO_PATH}},
     # {DAIDENTITY.NAME} from settings.json + Algorithm/LATEST (the canonical renderer,
     # also run by the SessionStart hook). Reads the deployed repo template.
-    local builder="$real/PAI/Tools/BuildCLAUDE.ts"
+    local builder="$real/PAI/TOOLS/BuildCLAUDE.ts"
     if [ -f "$builder" ] && command -v bun >/dev/null 2>&1; then
       ( bun "$builder" >/dev/null 2>&1 ) && ok "config → $dst (rendered via BuildCLAUDE.ts)" \
         || { warn "BuildCLAUDE.ts failed — copying template raw"; cp "$tmpl" "$dst"; }

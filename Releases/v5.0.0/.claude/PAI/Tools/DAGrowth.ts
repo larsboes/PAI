@@ -5,11 +5,11 @@
  * View diary entries, opinions, growth events, and summary for the primary DA.
  *
  * Usage:
- *   bun PAI/TOOLS/DAGrowth.ts diary           # Last 7 diary entries
- *   bun PAI/TOOLS/DAGrowth.ts diary --days 30 # Last 30 days
- *   bun PAI/TOOLS/DAGrowth.ts opinions        # Current opinions
- *   bun PAI/TOOLS/DAGrowth.ts growth          # Growth event log
- *   bun PAI/TOOLS/DAGrowth.ts summary         # Overview
+ *   bun PAI/Tools/DAGrowth.ts diary           # Last 7 diary entries
+ *   bun PAI/Tools/DAGrowth.ts diary --days 30 # Last 30 days
+ *   bun PAI/Tools/DAGrowth.ts opinions        # Current opinions
+ *   bun PAI/Tools/DAGrowth.ts growth          # Growth event log
+ *   bun PAI/Tools/DAGrowth.ts summary         # Overview
  */
 
 import { join } from "path"

@@ -28,7 +28,7 @@
  * 2026-01-15-205500_LEARNING_voice-on-prompt-submit-architecture.md
  */
 
-import { inference } from '../PAI/Tools/Inference';
+import { inference } from '../PAI/TOOLS/Inference';
 import { isValidWorkingTitle, getWorkingFallback, trimToValidTitle } from './lib/output-validators';
 import { setTabState, getSessionOneWord } from './lib/tab-setter';
 import { getIdentity } from './lib/identity';

@@ -11,7 +11,7 @@
  * Dimensions: health, money, freedom are metric (computable gaps).
  * Relationships, creative, rhythms are narrative (surfaced as reminders, not gaps).
  *
- * Uses Haiku via PAI/TOOLS/Inference.ts for the metric-extraction step. ~$0.01/run.
+ * Uses Haiku via PAI/Tools/Inference.ts for the metric-extraction step. ~$0.01/run.
  *
  * Usage:
  *   bun ComputeGap.ts                       All metric dimensions

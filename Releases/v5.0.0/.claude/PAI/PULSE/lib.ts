@@ -271,7 +271,7 @@ export async function spawnClaude(prompt: string, opts: { model: string; timeout
   //      consolidation all used --bare, all billed API).
   //   2. Strip ANTHROPIC_API_KEY from env — bun auto-loads ~/.claude/.env, and if the
   //      key is present `claude` CLI prefers it over subscription even without
-  //      --bare. Mirrors PAI/TOOLS/Inference.ts:114.
+  //      --bare. Mirrors PAI/Tools/Inference.ts:114.
   // Flag set mirrors Inference.ts: --tools '' and --setting-sources '' keep the
   // subprocess lightweight (no hooks, no CLAUDE.md auto-discovery), so we still
   // get the cost-reduction benefit --bare was intended to provide.

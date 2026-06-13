@@ -69,7 +69,7 @@ Authoritative list lives in `.pai-fork/exclusions.yaml` (reconciled 2026-06-09).
 
 ## 5. Custom Algorithm system (upstream has none)
 
-The fork runs a versioned **Algorithm** (`~/.claude/PAI/Algorithm/` + `Releases/v5.0.0/.claude/PAI/ALGORITHM/`), single-sourced by the `LATEST` file. Upstream ships no equivalent — this is **fork-only doctrine; never overwrite from upstream**.
+The fork runs a versioned **Algorithm** (`~/.claude/PAI/ALGORITHM/` + `Releases/v5.0.0/.claude/PAI/ALGORITHM/`), single-sourced by the `LATEST` file. Upstream ships no equivalent — this is **fork-only doctrine; never overwrite from upstream**.
 
 - Current: **v6.4.0** (TELOS-aware — see §6).
 - Bump = author `v<X>.md`, `echo <X> > LATEST`, add `changelog.md` entry. Rollback = `echo <prev> > LATEST`.

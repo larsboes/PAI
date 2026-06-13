@@ -288,7 +288,7 @@ A conversational CLI wizard that runs as a Bun script, progressively building `D
 ### File
 
 ```
-PAI/TOOLS/DAInterview.ts
+PAI/Tools/DAInterview.ts
 ```
 
 ### Interview Flow
@@ -345,7 +345,7 @@ presets:
 ### Interface
 
 ```typescript
-// PAI/TOOLS/DAInterview.ts
+// PAI/Tools/DAInterview.ts
 
 interface InterviewOptions {
   depth: "quick" | "standard" | "deep"  // Which phases to run
@@ -354,11 +354,11 @@ interface InterviewOptions {
 }
 
 // CLI usage:
-// bun PAI/TOOLS/DAInterview.ts                     # Quick setup
-// bun PAI/TOOLS/DAInterview.ts --depth standard    # Quick + Deep
-// bun PAI/TOOLS/DAInterview.ts --depth deep        # All phases
-// bun PAI/TOOLS/DAInterview.ts --update            # Update existing DA
-// bun PAI/TOOLS/DAInterview.ts --update --da devi  # Update specific DA
+// bun PAI/Tools/DAInterview.ts                     # Quick setup
+// bun PAI/Tools/DAInterview.ts --depth standard    # Quick + Deep
+// bun PAI/Tools/DAInterview.ts --depth deep        # All phases
+// bun PAI/Tools/DAInterview.ts --update            # Update existing DA
+// bun PAI/Tools/DAInterview.ts --update --da devi  # Update specific DA
 ```
 
 ### Startup Integration
@@ -366,7 +366,7 @@ interface InterviewOptions {
 Pulse checks for DA identity on boot. If missing, it logs a message:
 
 ```
-[warn] No DA identity found. Run: bun PAI/TOOLS/DAInterview.ts
+[warn] No DA identity found. Run: bun PAI/Tools/DAInterview.ts
 ```
 
 The DA module starts in degraded mode (no heartbeat, no proactive behavior) until identity exists. It does NOT block Pulse startup -- all other modules continue normally.
@@ -596,16 +596,16 @@ The check script:
 
 ```bash
 # List active tasks
-bun PAI/TOOLS/DASchedule.ts list
+bun PAI/Tools/DASchedule.ts list
 
 # Cancel a task
-bun PAI/TOOLS/DASchedule.ts cancel <task-id>
+bun PAI/Tools/DASchedule.ts cancel <task-id>
 
 # List completed tasks
-bun PAI/TOOLS/DASchedule.ts history
+bun PAI/Tools/DASchedule.ts history
 
 # Purge old completed tasks
-bun PAI/TOOLS/DASchedule.ts purge --older-than 30d
+bun PAI/Tools/DASchedule.ts purge --older-than 30d
 ```
 
 During a Claude Code session, the DA can also manage tasks conversationally:
@@ -846,7 +846,7 @@ loadModules(config)
     |       |       yes → Load primary DA identity
     |       |       |
     |       |       no → Log warning, start in degraded mode
-    |       |            "No DA identity found. Run: bun PAI/TOOLS/DAInterview.ts"
+    |       |            "No DA identity found. Run: bun PAI/Tools/DAInterview.ts"
     |       |
     |       v
     |   Register DA cron jobs with Pulse heartbeat loop:
@@ -1024,7 +1024,7 @@ Tasks:
 - [ ] Test: update mode modifies existing DA
 
 **Acceptance criteria:**
-- `bun PAI/TOOLS/DAInterview.ts` creates a valid `DA_IDENTITY.yaml` in under 2 minutes (quick mode)
+- `bun PAI/Tools/DAInterview.ts` creates a valid `DA_IDENTITY.yaml` in under 2 minutes (quick mode)
 - Generated identity works with ConfigRenderer
 - Re-runnable without data loss
 
@@ -1103,7 +1103,7 @@ Step 1: Create directory structure
   mkdir -p PAI/USER/DA/your-da
 
 Step 2: Run migration script
-  bun PAI/TOOLS/MigrateDAIdentity.ts
+  bun PAI/Tools/MigrateDAIdentity.ts
   → Reads DA_IDENTITY.md, DA_WRITING_STYLE.md, PAI_CONFIG.yaml
   → Writes your-da/DA_IDENTITY.yaml (structured)
   → Writes _registry.yaml (your-da as primary)

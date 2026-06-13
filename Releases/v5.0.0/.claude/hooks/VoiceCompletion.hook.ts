@@ -18,7 +18,7 @@
 
 import { readHookInput, parseTranscriptFromInput } from './lib/hook-io';
 import { handleVoice } from './handlers/VoiceNotification';
-import { extractVoiceCompletion } from '../PAI/TOOLS/TranscriptParser';
+import { extractVoiceCompletion } from '../PAI/Tools/TranscriptParser';
 
 /**
  * Extract a speakable summary from response text when no 🗣️ line exists.

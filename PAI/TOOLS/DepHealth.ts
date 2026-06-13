@@ -2,7 +2,7 @@
 /**
  * DepHealth.ts — CLI to show current dependency health states
  *
- * Usage: bun run ~/.claude/PAI/Tools/DepHealth.ts
+ * Usage: bun run ~/.claude/PAI/TOOLS/DepHealth.ts
  */
 
 import { getAllStates } from '../../hooks/lib/dep-health';

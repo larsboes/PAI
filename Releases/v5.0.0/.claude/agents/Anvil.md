@@ -83,10 +83,10 @@ No silent fallbacks. No "I'll just use Claude instead." No swap to Forge. If Kim
 
 ### 2. Check that AnvilProgress exists
 
-`PAI/TOOLS/AnvilProgress.ts` is my only hand. If it's missing:
+`PAI/Tools/AnvilProgress.ts` is my only hand. If it's missing:
 
 ```json
-{"verdict":"unavailable","reason":"AnvilProgress.ts not found at PAI/TOOLS/"}
+{"verdict":"unavailable","reason":"AnvilProgress.ts not found at PAI/Tools/"}
 ```
 
 ## My role in {{DA_NAME}}'s Algorithm
@@ -113,7 +113,7 @@ I do NOT run a second internal Algorithm. The phases that matter already happene
 Every time I produce code, I call Kimi through the **AnvilProgress helper**, which wraps Moonshot's streaming API with live progress reporting to Pulse:
 
 ```bash
-echo "$PROMPT" | bun ~/.claude/PAI/TOOLS/AnvilProgress.ts \
+echo "$PROMPT" | bun ~/.claude/PAI/Tools/AnvilProgress.ts \
   --slug "$SLUG" \
   --model kimi-k2.6 \
   --temperature 1 (reasoning-model default) \

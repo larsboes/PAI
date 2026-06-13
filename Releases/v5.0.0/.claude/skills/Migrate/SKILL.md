@@ -57,9 +57,9 @@ Collect the source path. If content is pasted, write it to a temp file first.
 Run the scanner:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/MigrateScan.ts --source <path>
+bun ~/.claude/PAI/Tools/MigrateScan.ts --source <path>
 # or
-echo "$CONTENT" | bun ~/.claude/PAI/TOOLS/MigrateScan.ts --stdin
+echo "$CONTENT" | bun ~/.claude/PAI/Tools/MigrateScan.ts --stdin
 ```
 
 Scanner output includes:
@@ -96,19 +96,19 @@ Based on the user's preference:
 
 **Fast path** (he says "approve all trusted"):
 ```bash
-bun ~/.claude/PAI/TOOLS/MigrateApprove.ts --approve-all
+bun ~/.claude/PAI/Tools/MigrateApprove.ts --approve-all
 ```
 Commits everything non-UNCLEAR. Then walk through UNCLEAR chunks conversationally.
 
 **Category path** (he says "approve goals and wisdom, skip knowledge"):
 ```bash
-bun ~/.claude/PAI/TOOLS/MigrateApprove.ts --approve-target TELOS/GOALS.md
-bun ~/.claude/PAI/TOOLS/MigrateApprove.ts --approve-target TELOS/WISDOM.md
+bun ~/.claude/PAI/Tools/MigrateApprove.ts --approve-target TELOS/GOALS.md
+bun ~/.claude/PAI/Tools/MigrateApprove.ts --approve-target TELOS/WISDOM.md
 ```
 
 **Walk-through path** (he wants careful review):
 ```bash
-bun ~/.claude/PAI/TOOLS/MigrateApprove.ts --review
+bun ~/.claude/PAI/Tools/MigrateApprove.ts --review
 ```
 Show each pending chunk. For each:
 - Show preview + proposed target + confidence + alternatives

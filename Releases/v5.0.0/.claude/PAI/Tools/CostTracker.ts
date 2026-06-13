@@ -166,7 +166,7 @@ const LEGIT_HINTS: Record<string, string> = {
   "hooks/handlers/UpdateCounts.ts": "OAuth usage cache (not billing inference)",
   "Daemon/Tools/SecurityFilter.ts": "content redaction filter — regex only, no API call",
   "skills/Evals/": "opt-in API billing, gated by EVALS_ALLOW_API_BILLING=1",
-  "PAI/TOOLS/Inference.ts": "canonical inference tool — deletes ANTHROPIC_API_KEY before spawn",
+  "PAI/Tools/Inference.ts": "canonical inference tool — deletes ANTHROPIC_API_KEY before spawn",
   "PAI/PULSE/setup.ts": "provisioning script — placeholder comment only",
 };
 

@@ -6,7 +6,7 @@
  * WISDOM/FRAMES/*.md files that loadWisdomFrames() reads at session start.
  *
  * USAGE:
- *   bun run ~/.claude/PAI/Tools/SynthesizeWisdom.ts
+ *   bun run ~/.claude/PAI/TOOLS/SynthesizeWisdom.ts
  *
  * Can be run manually, via cron, or from a SessionEnd hook.
  * Idempotent — overwrites existing frames with latest synthesis.

@@ -10,7 +10,7 @@
  * Rebuild ensures the NEXT session gets the fresh version.
  */
 
-import { needsRebuild, build } from "../../PAI/Tools/BuildCLAUDE.ts";
+import { needsRebuild, build } from "../../PAI/TOOLS/BuildCLAUDE.ts";
 
 const needs = needsRebuild();
 if (needs) {

@@ -21,7 +21,7 @@
 import { existsSync, readFileSync, statSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import type { ParsedTranscript } from '../../skills/PAI/Tools/TranscriptParser';
+import type { ParsedTranscript } from '../../skills/PAI/TOOLS/TranscriptParser';
 
 interface CurrentWork {
   session_id: string;

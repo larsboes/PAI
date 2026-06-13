@@ -3,7 +3,7 @@
  * GenerateTelosSummary.ts — Reads TELOS source files and generates a compressed
  * ~60-line summary for boot context loading.
  *
- * Usage: bun run ~/.claude/PAI/TOOLS/GenerateTelosSummary.ts
+ * Usage: bun run ~/.claude/PAI/Tools/GenerateTelosSummary.ts
  *
  * Reads from: ~/.claude/PAI/USER/TELOS/*.md (source files)
  * Writes to:  ~/.claude/PAI/USER/TELOS/PRINCIPAL_TELOS.md

@@ -29,11 +29,11 @@
  *     assertBillingPath(result, "oauth");  // throws on mismatch
  *
  *   CLI:
- *     bun PAI/TOOLS/BillingPathAssertion.ts oauth /path/to/events.ndjson
- *     bun PAI/TOOLS/BillingPathAssertion.ts api  /path/to/events.ndjson
+ *     bun PAI/Tools/BillingPathAssertion.ts oauth /path/to/events.ndjson
+ *     bun PAI/Tools/BillingPathAssertion.ts api  /path/to/events.ndjson
  *     # Or pipe stdout from a `claude -p ... --output-format stream-json --verbose` run:
  *     claude -p "ping" --verbose --output-format stream-json | \
- *       bun PAI/TOOLS/BillingPathAssertion.ts oauth -
+ *       bun PAI/Tools/BillingPathAssertion.ts oauth -
  *
  *   Exit codes:
  *     0 — actual path matches expected
@@ -142,7 +142,7 @@ function printUsage(): void {
   process.stderr.write(
     [
       "Usage:",
-      "  bun PAI/TOOLS/BillingPathAssertion.ts <oauth|api> <path-to-events.ndjson | ->",
+      "  bun PAI/Tools/BillingPathAssertion.ts <oauth|api> <path-to-events.ndjson | ->",
       "",
       "  Pass `-` to read stream-json from stdin.",
       "",

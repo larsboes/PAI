@@ -5,7 +5,7 @@
  * Reads all PAI data sources (reflections, ratings, PRDs, hook health,
  * wisdom frames) and generates a single static HTML dashboard.
  *
- * Usage: bun run ~/.claude/PAI/Tools/PaiAnalytics.ts
+ * Usage: bun run ~/.claude/PAI/TOOLS/PaiAnalytics.ts
  *        Opens the report in browser automatically.
  */
 
@@ -279,7 +279,7 @@ function generateHTML(): GenerateResult {
       const lastGen = new Date(meta.generated_at);
       const daysOld = Math.floor((now.getTime() - lastGen.getTime()) / 86400000);
       if (daysOld > 7) {
-        stalenessBanner = `<div class="banner warn">This report was last generated ${daysOld} days ago. Run <code>bun run ~/.claude/PAI/Tools/PaiAnalytics.ts</code> to refresh.</div>`;
+        stalenessBanner = `<div class="banner warn">This report was last generated ${daysOld} days ago. Run <code>bun run ~/.claude/PAI/TOOLS/PaiAnalytics.ts</code> to refresh.</div>`;
       }
     } catch { /* skip */ }
   }

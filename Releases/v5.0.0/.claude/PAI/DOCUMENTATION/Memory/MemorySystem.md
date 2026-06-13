@@ -375,7 +375,7 @@ ls -lt ~/.claude/PAI/MEMORY/LEARNING/FAILURES/$(date +%Y-%m)/ 2>/dev/null | head
 cat ~/.claude/PAI/MEMORY/LEARNING/FAILURES/2026-01/*/CONTEXT.md | head -100
 
 # Migrate historical low ratings to FAILURES
-bun run ~/.claude/PAI/TOOLS/FailureCapture.ts --migrate
+bun run ~/.claude/PAI/Tools/FailureCapture.ts --migrate
 ```
 
 ### Check multi-session progress
@@ -386,37 +386,37 @@ ls ~/.claude/PAI/MEMORY/STATE/progress/
 ### Run harvesting tools
 ```bash
 # Harvest learnings from recent sessions
-bun run ~/.claude/PAI/TOOLS/SessionHarvester.ts --recent 10
+bun run ~/.claude/PAI/Tools/SessionHarvester.ts --recent 10
 
 # Mine conversations for decisions, preferences, milestones, problems
-bun run ~/.claude/PAI/TOOLS/SessionHarvester.ts --mine --recent 10
+bun run ~/.claude/PAI/Tools/SessionHarvester.ts --mine --recent 10
 
 # Generate pattern synthesis
-bun run ~/.claude/PAI/TOOLS/LearningPatternSynthesis.ts --week
+bun run ~/.claude/PAI/Tools/LearningPatternSynthesis.ts --week
 ```
 
 ### Retrieve knowledge (compressed context)
 ```bash
 # Search knowledge archive with BM25 ranking
-bun run ~/.claude/PAI/TOOLS/MemoryRetriever.ts "query terms"
+bun run ~/.claude/PAI/Tools/MemoryRetriever.ts "query terms"
 
 # Raw excerpts without LLM compression
-bun run ~/.claude/PAI/TOOLS/MemoryRetriever.ts "query terms" --raw --top 5
+bun run ~/.claude/PAI/Tools/MemoryRetriever.ts "query terms" --raw --top 5
 ```
 
 ### Navigate knowledge graph
 ```bash
 # Graph stats: nodes, edges, clusters
-bun run ~/.claude/PAI/TOOLS/KnowledgeGraph.ts stats
+bun run ~/.claude/PAI/Tools/KnowledgeGraph.ts stats
 
 # BFS traversal from a note
-bun run ~/.claude/PAI/TOOLS/KnowledgeGraph.ts traverse <slug> --hops 2
+bun run ~/.claude/PAI/Tools/KnowledgeGraph.ts traverse <slug> --hops 2
 
 # Directly connected notes
-bun run ~/.claude/PAI/TOOLS/KnowledgeGraph.ts related <slug>
+bun run ~/.claude/PAI/Tools/KnowledgeGraph.ts related <slug>
 
 # Find notes by tag
-bun run ~/.claude/PAI/TOOLS/KnowledgeGraph.ts find <tag>
+bun run ~/.claude/PAI/Tools/KnowledgeGraph.ts find <tag>
 ```
 
 ---

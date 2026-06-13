@@ -48,7 +48,7 @@ Only by the primary DA, at the end of the VERIFY phase, on ISAs with `effort: de
 2. Shell out to the audit tool:
 
 ```bash
-bun ~/.claude/PAI/TOOLS/CrossVendorAudit.ts \
+bun ~/.claude/PAI/Tools/CrossVendorAudit.ts \
   --slug "${SLUG}" \
   --advisor-verdict "${ADVISOR_VERDICT}"
 ```
