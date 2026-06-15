@@ -1,242 +1,166 @@
 # CreateSkill Workflow
 
-Create a new skill following the canonical structure with proper TitleCase naming.
+Create a new PAI skill following the canonical structure, naming conventions, and progressive disclosure guidelines. This workflow uses a TypeScript scaffolding script (`Tools/ScaffoldSkill.ts`) to automate directory and file generation.
 
-## Voice Notification
+## Supporting Files
 
-```bash
-curl -s -X POST http://localhost:31337/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the CreateSkill workflow in the CreateSkill skill to create new skill"}' \
-  > /dev/null 2>&1 &
-```
+- **References**: Guidelines and best practices for creating skills
+  - [References/GoodSkillGuide.md](../References/GoodSkillGuide.md) — **READ THIS** for context engineering principles, advanced frontmatter configuration, progressive disclosure, and dynamic context injection.
+  - [SkillSystem.md](../../PAI/DOCUMENTATION/Skills/SkillSystem.md) — The authoritative system documentation for all PAI skills.
+- **Scripts**: Run this tool to scaffold folders and files automatically
+  - `Tools/ScaffoldSkill.ts` — The scaffolding CLI script. Supports command-line arguments and has an interactive fallback wizard.
 
-Running the **CreateSkill** workflow in the **CreateSkill** skill to create new skill...
+---
 
 ## Step 1: Read the Authoritative Sources
 
 **REQUIRED FIRST:**
 
-1. Read the skill system documentation: `~/.claude/PAI/DOCUMENTATION/Skills/SkillSystem.md`
-2. Read a canonical example skill — pick any existing public skill in `~/.claude/skills/` (e.g. `Research/SKILL.md`, `Daemon/SKILL.md`) and study its frontmatter, voice notification, workflow routing, and examples sections.
+1. Read the Skill System Documentation: `~/.claude/PAI/DOCUMENTATION/Skills/SkillSystem.md`
+2. Read the Good Skill Reference Guide: `References/GoodSkillGuide.md` (Explaining Context Engineering, Progressive Disclosure, and Advanced Frontmatter).
+3. Read a canonical example skill in `~/.claude/skills/` (e.g. `Research/SKILL.md`, `Daemon/SKILL.md`).
 
-## Step 2: Understand the Request
+---
 
-Ask the user:
-1. What does this skill do?
-2. What should trigger it?
-3. What workflows does it need?
+## Step 2: Gather Context & SME Interviews
+
+Ask the user these questions interactively. Wait for answers before proceeding:
+
+1. **Name and Purpose**: "What is the name of the skill, and what does it do at a high level?"
+2. **Triggers**: "What are the trigger phrases or keywords that should invoke this skill? (USE WHEN triggers)"
+3. **Location**: "Should this skill be **global** (`~/.claude/skills/` - available across all projects) or **project-level** (`.claude/skills/` - local to this repository)?"
+4. **Depth**: Select the depth of scaffolding. **You MUST recommend a depth to the user based on their description:**
+   - **skill**: Simple reference cards or static checklists (creates `SKILL.md` only).
+   - **skill+workflows**: Standard multi-step playbooks (creates `SKILL.md` + `Workflows/`).
+   - **skill+scripts**: Script-based tools and CLI automations (creates `SKILL.md` + `Tools/`).
+   - **skill+references**: Complex, reference-heavy domain knowledge (creates `SKILL.md` + `References/`).
+   - **skill+workflows+scripts**: Complete package with CLI utilities and workflows.
+   - **all**: Full layout containing Workflows, Tools, and References.
+
+*Recommendation Rule:*
+- If the skill performs scripts, compilations, or CLI executions → Recommend **skill+workflows+scripts**.
+- If the skill contains style guides, API definitions, or documentation references → Recommend **skill+references**.
+- If the skill outlines execution sequences or manual playbooks → Recommend **skill+workflows**.
+
+---
 
 ## Step 2a: Identify Skill Type
 
-Classify the skill using the 9 Anthropic skill types (see Skill Types table in SKILL.md):
+Classify the skill using the 9 Anthropic skill types (see details in `References/GoodSkillGuide.md`):
 
-| # | Type | Key Structural Pattern |
-|---|------|----------------------|
-| 1 | Library/API Reference | Gotchas-heavy, reference snippets |
-| 2 | Product Validation | Browser/tmux, state assertions |
-| 3 | Data Fetching | Credentials, query patterns |
-| 4 | Business Process | Execution logs, consistency |
-| 5 | Code Scaffolding | Templates, project-aware scripts |
-| 6 | Code Quality | Deterministic scripts, hook integration |
-| 7 | CI/CD & Deployment | Safety gates, rollback, smoke tests |
-| 8 | Operations Runbook | Phenomenon → diagnosis → report |
-| 9 | Infrastructure Ops | Safety guardrails, audit logging |
+| # | Type | Focus | Key Structural Pattern |
+|---|------|-------|------------------------|
+| 1 | Library/API Reference | gotchas, edge cases | gotchas-heavy, reference snippets |
+| 2 | Product Validation | test/verify code | state assertions, test execution |
+| 3 | Data Fetching | connect to data systems | credential refs, query patterns |
+| 4 | Business Process | automate business SOPs | execution logs, consistency tracking |
+| 5 | Code Scaffolding | generate boilerplate | template files, project-aware scripts |
+| 6 | Code Quality | enforce standards, reviews | deterministic scripts, hook integration |
+| 7 | CI/CD & Deployment | deploy with safety checks | pre-deploy checks, smoke tests, rollbacks |
+| 8 | Operations Runbook | map problems to diagnostics | phenomenon → diagnosis → report |
+| 9 | Infrastructure Ops | maintenance with guardrails | safety gates, audit logging |
 
-The type informs structure decisions — e.g., Type 1 skills are mostly gotchas, Type 7 needs safety gates.
+The type informs structure decisions — e.g. Type 1 skills are mostly gotchas, Type 7 needs safety gates.
 
-## Step 2b: BPE Check
+---
+
+## Step 2b: BPE (Bitter-Pill Engineering) Check
 
 Before building, apply the bitter lesson test: **"Would a smarter model make this skill unnecessary?"**
 
-- If the skill provides knowledge Claude can't derive (API quirks, org decisions) → **proceed**
-- If the skill provides tools Claude can't replicate (API calls, automation) → **proceed**
-- If the skill just orchestrates Claude's reasoning → **question whether it's needed**
+- **Anti-fragile (proceed)**: Verification harnesses, data pipelines, CLI tool wrappers, accumulated gotchas, and deterministic scripts.
+- **Fragile (reconsider)**: Complex chain-of-thought prompt orchestrators, format parsers, and elaborate reasoning scaffolds.
 
-## Step 3: Determine TitleCase Names
-
-**All names must use TitleCase (PascalCase).**
-
-| Component | Format | Example |
-|-----------|--------|---------|
-| Skill directory | TitleCase | `Blogging`, `Daemon`, `CreateSkill` |
-| Workflow files | TitleCase.md | `Create.md`, `UpdateDaemonInfo.md` |
-| Reference docs | TitleCase.md | `ProsodyGuide.md`, `ApiReference.md` |
-| Tool files | TitleCase.ts | `ManageServer.ts` |
-| Help files | TitleCase.help.md | `ManageServer.help.md` |
-
-**Wrong naming (NEVER use):**
-- `create-skill`, `create_skill`, `CREATESKILL` → Use `CreateSkill`
-- `create.md`, `CREATE.md`, `create-info.md` → Use `Create.md`, `CreateInfo.md`
-
-## Step 4: Create the Skill Directory
-
-```bash
-mkdir -p ~/.claude/skills/[SkillName]/Workflows
-mkdir -p ~/.claude/skills/[SkillName]/Tools
-```
-
-**Example:**
-```bash
-mkdir -p ~/.claude/skills/_DAEMON/Workflows
-mkdir -p ~/.claude/skills/_DAEMON/Tools
-```
-
-## Step 5: Create SKILL.md
-
-Follow this exact structure:
-
-```yaml
----
-name: SkillName
-description: [What it does]. USE WHEN [intent triggers using OR]. NOT FOR [confusable alternatives]. [Additional capabilities].
 ---
 
-# SkillName
+## Step 3: Naming Convention Enforcement (MANDATORY)
 
-[Brief description]
+Enforce naming conventions strictly before scaffolding. **There are exactly two valid forms:**
 
-## Voice Notification
+| Skill type | Directory format | Example | Allowed content |
+|------------|------------------|---------|-----------------|
+| **Public** | `TitleCase` | `Blogging`, `Daemon`, `CreateSkill` | Templated, safe, generic, ready for public release |
+| **Private** | `_ALLCAPS` (underscore prefix, all uppercase) | `<your-release-skill>`, `_INBOX`, `_BROADCAST` | Anything personal, sensitive, or environment-specific |
 
-**When executing a workflow, do BOTH:**
+### Sub-File Casing Rules:
+- **Workflow files**: `TitleCase.md` (e.g. `Create.md`, `UpdateInfo.md`).
+- **Reference docs**: `TitleCase.md` (e.g. `ApiReference.md`, `GoodSkillGuide.md`).
+- **Tool files**: `TitleCase.ts` (e.g. `ScaffoldSkill.ts`, `ManageServer.ts`).
+- **Help files**: `TitleCase.help.md` (e.g. `ManageServer.help.md`).
 
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:31337/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running WORKFLOWNAME in SKILLNAME"}' \
-     > /dev/null 2>&1 &
-   ```
+*Wrong naming (NEVER use)*: `create-skill`, `create_skill`, `CREATESKILL` (no underscore for public; no snake/kebab for private).
 
-2. **Output text notification**:
-   ```
-   Running **WorkflowName** in **SkillName**...
-   ```
+---
 
-**Full documentation:** `~/.claude/PAI/DOCUMENTATION/Notifications/NotificationSystem.md`
+## Step 4: Run the Scaffolding Tool
 
-## Workflow Routing
-
-| Workflow | Trigger | File |
-|----------|---------|------|
-| **WorkflowOne** | "trigger phrase" | `Workflows/WorkflowOne.md` |
-| **WorkflowTwo** | "another trigger" | `Workflows/WorkflowTwo.md` |
-
-## Examples
-
-**Example 1: [Common use case]**
-```
-User: "[Typical user request]"
-→ Invokes WorkflowOne workflow
-→ [What skill does]
-→ [What user gets back]
-```
-
-**Example 2: [Another use case]**
-```
-User: "[Different request]"
-→ [Process]
-→ [Output]
-```
-
-## Gotchas
-
-[Known failure modes, API quirks, common mistakes — accumulate over time]
-
-## [Additional Documentation]
-
-[Any other relevant info]
-```
-
-**For large skills (>500 lines):** Consider adding a `References/` subdirectory for detailed API docs, extensive examples, or troubleshooting guides. Keep SKILL.md as a routing guide.
-
-## Step 5b: Public Release Readiness (MANDATORY)
-
-**Every skill in `~/.claude/skills/` ships with the PAI public release.** Write generic from the start — do not rely on a scrub at release-time.
-
-### Required
-
-1. **No sensitive content** — no API keys, tokens, credentials, private URLs, auth secrets, private data
-2. **No personal references** — no author name, no specific project names, no personal domains, no first-person war stories, no user-specific absolute paths like `/Users/<name>/...`
-3. **Generic framing** — "someone reports a bug" over "<author-name> reports a bug"; "your web project" over "my UL site"; "a common root cause" over "the H3 root cause"
-
-### Where Personal Context Belongs
-
-User-specific preferences, project names, domain lists, and war stories go in `~/.claude/PAI/USER/SKILLCUSTOMIZATIONS/<SkillName>/` — the skill body loads these at runtime via the Customization block. This keeps the public skill generic while each PAI user layers their own context.
-
-### Pre-Flight Check
-
-Before finalizing, grep the skill for personal refs:
-```bash
-rg -i "danielmiessler|unsupervised|ULAdmin|thesurface|human3|ul\.live|/Users/[a-z]+/" ~/.claude/skills/[SkillName]/
-```
-
-Zero matches = ready. Any match = replace with generic language or move to `SKILLCUSTOMIZATIONS/`.
-
-## Step 6: Create Workflow Files
-
-For each workflow in the routing section:
+Execute the scaffolding command based on the parameters gathered in Step 2. The script will automatically format the casing, create the directory structure, and generate template files.
 
 ```bash
-touch ~/.claude/skills/[SkillName]/Workflows/[WorkflowName].md
+bun run ~/.claude/skills/CreateSkill/Tools/ScaffoldSkill.ts \
+  --name "[SkillName]" \
+  --location "[global|project]" \
+  --depth "[depth]" \
+  --description "[Description]" \
+  --triggers "[triggers]"
 ```
 
-### Workflow-to-Tool Integration (REQUIRED for workflows with CLI tools)
+*Note: If working in the local development repository, run `bun run Packs/CreateSkill/src/Tools/ScaffoldSkill.ts`.*
 
-**If a workflow calls a CLI tool, it MUST include intent-to-flag mapping tables.**
+---
 
-This pattern translates natural language user requests into appropriate CLI flags:
+## Step 5: Customize the Scaffolded Files
 
-```markdown
-## Intent-to-Flag Mapping
+Customize the generated template files to implement the specific playbooks and utilities:
+1. **Routing Table**: Open `SKILL.md` and define the trigger mapping table.
+2. **Customization Block**: Ensure the `## Customization` block exists to load `PREFERENCES.md` at runtime.
+3. **Examples**: Add 2-3 concrete examples showing user input, agent process, and output (increases selection accuracy from 72% to 90%).
+4. **Gotchas**: Populate the gotchas section with quirks, common errors, and constraints.
+5. **Workflows**: Write instructions inside the `Workflows/[WorkflowName].md` files.
 
-### Model/Mode Selection
+---
 
-| User Says | Flag | When to Use |
-|-----------|------|-------------|
-| "fast", "quick", "draft" | `--model haiku` | Speed priority |
-| (default), "best", "high quality" | `--model opus` | Quality priority |
+## Step 5b: Workflow-to-Tool Integration (CLI Flags)
 
-### Output Options
+**If a workflow calls a CLI tool, it MUST include intent-to-flag mapping tables.** This pattern translates natural language user requests into appropriate CLI flags:
 
+### Intent-to-Flag Mapping
 | User Says | Flag | Effect |
 |-----------|------|--------|
 | "JSON output" | `--format json` | Machine-readable |
-| "detailed" | `--verbose` | Extra information |
+| "detailed", "verbose" | `--verbose` | Extra information |
 
-## Execute Tool
-
+### Execute Tool
 Based on user request, construct the CLI command:
-
-\`\`\`bash
+```bash
 bun ToolName.ts \
   [FLAGS_FROM_INTENT_MAPPING] \
   --required-param "value"
-\`\`\`
 ```
 
-**Why this matters:**
-- Tools have rich configuration via flags
-- Workflows should expose this flexibility, not hardcode single patterns
-- Users speak naturally; workflows translate to precise CLI
+---
 
-**Reference:** `~/.claude/PAI/DOCUMENTATION/Tools/CliFirstArchitecture.md` (Workflow-to-Tool Integration section)
+## Step 6: Public Release Readiness (MANDATORY)
 
-**Examples (TitleCase):**
-```bash
-touch ~/.claude/skills/MyDaemon/Workflows/UpdateDaemonInfo.md
-touch ~/.claude/skills/MyDaemon/Workflows/UpdatePublicRepo.md
-touch ~/.claude/skills/MyBlog/Workflows/Create.md
-touch ~/.claude/skills/MyBlog/Workflows/Publish.md
-```
+If creating a public skill (`TitleCase`), verify:
+1. **No sensitive content** — no API keys, tokens, credentials, private URLs.
+2. **No personal references** — no author name, specific project names, personal domains, or absolute paths like `/Users/<name>/`.
+3. **Pre-Flight Grep**:
+   ```bash
+   rg -i "danielmiessler|unsupervised|ULAdmin|thesurface|human3|ul\.live|/Users/[a-z]+/" ~/.claude/skills/[SkillName]/
+   ```
 
-## Step 7: Verify TitleCase
+*Note: Private skills (`_ALLCAPS`) are exempt from release scrubbing.*
+
+---
+
+## Step 7: Verify Casing & Directory Layout
 
 Run this check:
 ```bash
-ls ~/.claude/skills/[SkillName]/
-ls ~/.claude/skills/[SkillName]/Workflows/
-ls ~/.claude/skills/[SkillName]/Tools/
+ls -la ~/.claude/skills/[SkillName]/
+ls -la ~/.claude/skills/[SkillName]/Workflows/
+ls -la ~/.claude/skills/[SkillName]/Tools/
 ```
 
 Verify ALL files use TitleCase:
@@ -245,62 +169,27 @@ Verify ALL files use TitleCase:
 - `ToolName.ts` ✓
 - `ToolName.help.md` ✓
 
+---
+
 ## Step 8: Final Checklist
 
-### Naming (TitleCase)
-- [ ] Skill directory uses TitleCase (e.g., `Blogging`, `Daemon`)
-- [ ] All workflow files use TitleCase (e.g., `Create.md`, `UpdateInfo.md`)
-- [ ] All reference docs use TitleCase (e.g., `ProsodyGuide.md`)
-- [ ] All tool files use TitleCase (e.g., `ManageServer.ts`)
-- [ ] Routing table workflow names match file names exactly
+### Naming & Structure
+- [ ] Skill directory uses correct casing (`TitleCase` or `_ALLCAPS`).
+- [ ] All workflows, references, and tools use TitleCase naming.
+- [ ] Flat directory structure matches PAI standards (max 2 levels deep). No nested folders like `Docs/` or `Context/`.
+- [ ] YAML frontmatter `name:` matches the directory name exactly.
+- [ ] `description:` is a single line, under 650 characters, and contains `USE WHEN`.
 
-### YAML Frontmatter
-- [ ] `name:` uses TitleCase
-- [ ] `description:` is single-line with embedded `USE WHEN` clause
-- [ ] Description includes `NOT FOR` clause if skill has confusable neighbors
-- [ ] No separate `triggers:` or `workflows:` arrays
-- [ ] Description uses intent-based language
-- [ ] Description is under 1024 characters
+### Body Contents
+- [ ] Gotchas section is populated with common error modes.
+- [ ] Examples section contains 2-3 concrete user interaction examples.
 
-### Markdown Body
-- [ ] `## Voice Notification` section present (for skills with workflows)
-- [ ] `## Workflow Routing` section with table format
-- [ ] All workflow files have routing entries
-- [ ] `## Gotchas` section present with known failure modes
-- [ ] `## Examples` section with 2-3 concrete usage patterns
-- [ ] SKILL.md under 500 lines (extract to References/ or root files if over)
-
-### Structure
-- [ ] `Tools/` directory exists (even if empty)
-- [ ] No `backups/` directory inside skill
-- [ ] `References/` used for large skills with extensive reference material
-
-### BPE Compliance
-- [ ] Skill provides knowledge Claude can't derive on its own
-- [ ] No instructions compensating for model limitations
-- [ ] Skill type identified (see Skill Types table in SKILL.md)
-
-### Public Release Readiness
-- [ ] No sensitive content (API keys, tokens, credentials, private URLs)
-- [ ] No personal references (author name, specific project names, personal domains, user-specific paths)
-- [ ] Generic framing throughout ("someone", "your project", not the author name, "my UL site")
-- [ ] Pre-flight grep returns zero matches for personal-ref pattern
-
-### CLI-First Integration (for skills with CLI tools)
-- [ ] CLI tools expose configuration via flags (see CliFirstArchitecture.md)
-- [ ] Workflows that call CLI tools have intent-to-flag mapping tables
-- [ ] Flag mappings cover: mode selection, output options, post-processing (where applicable)
+---
 
 ## Step 9: Suggest Effectiveness Testing
 
-After creating the skill, suggest to the user:
+Offer to run evaluations on the newly created skill:
+> "The skill is now scaffolded and customized. Would you like me to test its effectiveness against a no-skill baseline? I can run the TestSkill workflow."
 
-> "The skill structure is ready. Want me to **test it** to see if it actually improves outcomes? I can run it against real prompts and compare with a no-skill baseline using the TestSkill workflow."
-
-If the user agrees, invoke `Workflows/TestSkill.md`.
-
-If the description needs tuning, suggest `Workflows/OptimizeDescription.md`.
-
-## Done
-
-Skill created following canonical structure with proper TitleCase naming throughout.
+If they agree, execute `Workflows/TestSkill.md`.
+If triggers need tuning, execute `Workflows/OptimizeDescription.md`.

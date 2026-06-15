@@ -246,6 +246,7 @@ ${idealContent || 'Not specified'}
 - Was the approach straightforward or did it require iteration?
 - Were there any blockers or surprises?
 - What patterns from this work apply to future tasks?
+- **Skill Opportunity:** Could this task or parts of it (playbooks, checklists, CLI logic) be codified into a new PAI skill to enable future sessions? Run \`CreateSkill\` to build it.
 
 ---
 

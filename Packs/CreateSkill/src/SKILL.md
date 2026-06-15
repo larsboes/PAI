@@ -37,7 +37,9 @@ Complete skill development lifecycle: **structure** (create, validate, canonical
 
 ## Authoritative Source
 
-**Before creating ANY skill, READ:** `~/.claude/PAI/DOCUMENTATION/Skills/SkillSystem.md`
+**Before creating ANY skill, READ:**
+- The PAI Skill System Documentation: `~/.claude/PAI/DOCUMENTATION/Skills/SkillSystem.md`
+- The PAI Good Skill Reference Guide: `References/GoodSkillGuide.md` (Explaining Context Engineering, Progressive Disclosure, and Advanced Frontmatter).
 
 **Canonical example to follow:** any well-formed public skill in `~/.claude/skills/` (e.g. `Research/SKILL.md`, `Daemon/SKILL.md`, `CreateSkill/SKILL.md` itself).
 
