@@ -1,6 +1,6 @@
 # Obsidian CLI Reference
 
-This document provides a reference for the Obsidian CLI and its commands. This is useful for extending the `client.py` script or understanding what's possible via the native integration.
+This document provides a reference for the Obsidian CLI and its commands. This is useful for extending the `client.ts` script or understanding what's possible via the native integration.
 
 ## Overview
 

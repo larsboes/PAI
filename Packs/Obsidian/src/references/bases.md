@@ -128,6 +128,50 @@ Duration strings: `"1M"` (1 month), `"2h"` (2 hours), `"7d"` (7 days)
 filter: file.mtime > now() - "7d"
 ```
 
+## Gotchas & Patterns (hard-won)
+
+These cost real debugging time in this vault. Read before writing a `.base`.
+
+### ⚠️ The date-arithmetic trap — never divide date subtractions
+Subtracting two dates in a Bases formula does **not** yield a number of milliseconds you can divide. `(due - today()) / (1000*60*60*24)` returns NaN/null, and any view that filters on the resulting formula silently shows **zero rows**. This is the exact bug that broke the `Tasks.base` "This Week" view.
+
+```yaml
+# ✗ BROKEN — returns NaN, view shows 0 results
+days_until_due: "due ? Math.floor((due - today()) / (1000 * 60 * 60 * 24)) : null"
+filters: [ "formula.days_until_due <= 7", "formula.days_until_due >= 0" ]
+
+# ✓ CORRECT — compare dates directly with duration strings
+filters:
+  and:
+    - due != null
+    - due >= today()
+    - due <= today() + "7d"
+```
+Rule: **compare dates, don't compute day-counts.** `today() + "7d"`, `now() - "1M"`, `due <= scheduled + "3d"` all work. A `days_until_due`-style formula is fine for *display* but must never be the thing a filter or sort depends on.
+
+### ✅ Status-at-a-glance formula (done / overdue / to-do)
+A single string formula gives every row a visible status emoji — surface it as a column so done vs. open is obvious without reading the `done` checkbox:
+```yaml
+formulas:
+  status: 'done ? "✅ done" : (due && due < today()) ? "🔴 overdue" : "🔲 to do"'
+properties:
+  formula.status:
+    displayName: Status
+# then put `formula.status` first in the view's `order:` and sort `done ASC` first
+```
+
+### ✅ Self-reference filter — tasks on a project/entity page
+To show only the rows that link back to the note the base is embedded in, filter against `this.file`:
+```yaml
+filters:
+  and:
+    - projects.contains(this.file)   # tasks whose `projects:` links to THIS note
+```
+Use `this.file` (the embedding note), not a hard-coded path — the same base then works embedded on any project page.
+
+### 🚩 Known live offender
+`Resources/Bases/Knowledge.base` still ships the broken pattern in `days_since_reviewed: "reviewed ? ((today() - reviewed) / (1000*60*60*24)).floor() : null"`. It's display-only so it's harmless today, but any filter/sort built on it will read 0 rows — fix it to a duration comparison before relying on it.
+
 ## Built-in Summaries
 
 | Summary | Description |

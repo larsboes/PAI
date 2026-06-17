@@ -32,13 +32,19 @@ VAULT=$(grep "OBSIDIAN_VAULT_PATH" ~/.env | cut -d= -f2)
 
 # Check rg is available
 which rg >/dev/null 2>&1 && echo "OK ripgrep available" || echo "ERROR ripgrep not installed"
+
+# Check bun is available (TypeScript runtime)
+which bun >/dev/null 2>&1 && echo "OK bun available" || echo "ERROR bun not installed"
+
+# Check script deps are installed (yaml)
+[ -d ~/Developer/PAI/Packs/Obsidian/src/scripts/node_modules ] && echo "OK deps installed" || echo "ERROR run: (cd src/scripts && bun install)"
 ```
 
 ## Functional Check
 
 ```bash
 # Quick search test
-uv run ~/Developer/PAI/Packs/Obsidian/src/scripts/client.py search "test" 2>&1 | head -3 && echo "OK search works" || echo "ERROR search failed"
+bun run ~/Developer/PAI/Packs/Obsidian/src/scripts/client.ts search "test" 2>&1 | head -3 && echo "OK search works" || echo "ERROR search failed"
 ```
 
 ## Checklist
@@ -46,6 +52,7 @@ uv run ~/Developer/PAI/Packs/Obsidian/src/scripts/client.py search "test" 2>&1 |
 - [ ] SKILL.md present with valid frontmatter
 - [ ] OBSIDIAN_VAULT_PATH set in ~/.env and vault exists
 - [ ] ripgrep installed
-- [ ] uv installed
+- [ ] bun installed
+- [ ] script deps installed (`cd src/scripts && bun install`)
 - [ ] Pi config.yml references PAI/Packs directory
 - [ ] Skill responds to its trigger phrases in a new session

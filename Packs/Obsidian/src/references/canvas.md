@@ -136,7 +136,7 @@ Preset RGB values are intentionally undefined — apps choose their own.
     {
       "id": "note1",
       "type": "file",
-      "file": "Areas/Kubernetes.md",
+      "file": "Knowledge/Kubernetes.md",
       "x": -280, "y": -200,
       "width": 400, "height": 300,
       "color": "5"

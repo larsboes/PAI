@@ -19,8 +19,8 @@ Installing Obsidian — Full vault integration with search, canvas generation, b
 # ripgrep (used for vault search)
 which rg && echo "OK rg installed" || echo "MISSING: install ripgrep"
 
-# uv (Python script runner)
-which uv && echo "OK uv installed" || echo "MISSING: install uv (https://docs.astral.sh/uv/)"
+# bun (TypeScript runtime for the scripts)
+which bun && echo "OK bun installed" || echo "MISSING: install bun (https://bun.sh)"
 ```
 
 ### Configuration
@@ -62,8 +62,18 @@ Pi discovers skills automatically via `customDirectories` — no copy needed.
 For Claude Code:
 ```bash
 mkdir -p ~/.claude/skills
+# --no-target-directory keeps it tidy; node_modules is gitignored and re-created below
 cp -r "$(pwd)/src/." ~/.claude/skills/obsidian/
 echo "Installed to ~/.claude/skills/obsidian/"
+```
+
+### Install script dependencies (both Pi and Claude Code)
+The scripts are bun/TypeScript and need their one runtime dep (`yaml`) installed once:
+```bash
+# Pi (pack is the source of truth):
+( cd "$(pwd)/src/scripts" && bun install ) && echo "OK deps installed"
+# Claude Code (after the copy above):
+( cd ~/.claude/skills/obsidian/scripts && bun install ) && echo "OK deps installed"
 ```
 
 ---
